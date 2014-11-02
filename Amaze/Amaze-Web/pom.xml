@@ -18,5 +18,6 @@
   <modules>
     <module>Amaze-Rest</module>
     <module>Amaze-Services</module>
+    <module>Amaze-Rest-Modules</module>
   </modules>
 </project>

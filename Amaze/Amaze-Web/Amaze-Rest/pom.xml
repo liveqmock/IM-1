@@ -13,6 +13,12 @@
 	<name>Amaze-Rest</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+	<dependency>
+		<groupId>org.amaze</groupId>
+		<artifactId>Amaze-Rest-Modules</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<type>pom</type>
+	</dependency>
 	</dependencies>
 	<build>
 		<finalName>Amaze-Rest</finalName>
