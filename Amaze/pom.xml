@@ -26,5 +26,6 @@
     <module>Amaze-Server</module>
     <module>Amaze-Commons</module>
     <module>Amaze-DB</module>
+    <module>Amaze-Web</module>
   </modules>
 </project>
