@@ -5,15 +5,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.amaze</groupId>
-		<artifactId>Amaze-Server</artifactId>
+		<artifactId>Amaze-Web</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>Amaze-Server-Task</artifactId>
-	<name>Amaze-Server-Task</name>
+	<artifactId>Amaze-Services-Modules</artifactId>
+	<name>Amaze-Services-Modules</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 	</dependencies>
+	<packaging>pom</packaging>
 </project>
