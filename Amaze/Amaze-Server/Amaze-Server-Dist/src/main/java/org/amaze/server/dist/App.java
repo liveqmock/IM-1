@@ -1,4 +1,4 @@
-package org.amaze.db;
+package org.amaze.server.dist;
 
 /**
  * Hello world!

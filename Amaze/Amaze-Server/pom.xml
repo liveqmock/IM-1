@@ -15,7 +15,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<modules>
-		<module>Amaze-Server-Task</module>
+		<module>Amaze-Server-Dist</module>
+		<module>Amaze-Server-Modules</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -29,18 +30,4 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/resources/assembly.xml</descriptor>
-					</descriptors>		
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

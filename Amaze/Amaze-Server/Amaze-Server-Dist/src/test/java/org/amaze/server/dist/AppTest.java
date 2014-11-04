@@ -1,4 +1,4 @@
-package org.amaze.db;
+package org.amaze.server.dist;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
