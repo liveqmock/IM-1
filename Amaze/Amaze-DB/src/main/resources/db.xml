@@ -53,6 +53,7 @@
 				<prop key="hibernate.connection.release_mode">after_statement</prop>
  				<prop key="hibernate.cache.use_second_level_cache">true</prop>
  				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+ 				<prop key="net.sf.ehcache.configurationResourceName">/ehcache.xml</prop>
 				<prop key="hibernate.jdbc.fetch_size">10</prop>
 			</props>
 
