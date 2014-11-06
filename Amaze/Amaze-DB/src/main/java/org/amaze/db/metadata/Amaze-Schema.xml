@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+SchemaName="Amaze" ServerPackageName="org.amaze.db.hibernate.objects"
+MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName="" SystemSchema="true">
+	<Database DatabaseName="amaze">
+		<Tables>
+			<Table TableName="test" TablePrefix="tst" DisplayName="tst_name" >
+				<Columns>
+					<Column ColumnName="tst_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="tst_version_id" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+           			<Index IndexName="test_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_id" />
+           			<Index IndexName="test_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_id,tst_name" />
+           			<Index IndexName="test_ss2" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="tst_id,tst_created_dttm" />
+           			<Index IndexName="test_ss3" IsUnique="false" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_name,tst_created_dttm" />
+         		</Indexes>
+         		<NestedCollections>
+			        <NestedCollection PropertyName="others" ForeignObjectMappingName="Other" ForeignPropertyName="tstId" />
+     			</NestedCollections>
+			</Table>
+			<Table TableName="other" TablePrefix="oth" DisplayName="oth_name">
+				<Columns>
+					<Column ColumnName="oth_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="oth_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="oth_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_id" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Test"/>
+					<Column ColumnName="oth_delete_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="oth_version_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="other_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="oth_id" />
+					<Index IndexName="other_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="oth_id,oth_name" />
+         			</Indexes>
+         		<NestedCollections/>
+			</Table>
+		</Tables>
+	</Database>
+	<!-- <Extends>WorkBench_Schema_[Version].xml</Extends> -->
+	<!-- <Extends>Amaze-Schema.xml</Extends> -->
+</Schema>

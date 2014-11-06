@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+SchemaName="Amaze" ServerPackageName="org.amaze.database.hibernate.reference" 
+MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName="" SystemSchema="true">
+	<Database DatabaseName="amaze">
+		<Tables>
+			<Table TableName="table_dfn" TablePrefix="tbd" DisplayName="tbd_Name">
+          		<Columns>
+            		<Column ColumnName="tbd_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="sct_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="schemaType"/>
+            		<Column ColumnName="tbd_prefix" SequenceNumber="3" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_system_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_internal_fl" SequenceNumber="5" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_temp_fl" SequenceNumber="6" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_extra1" SequenceNumber="7" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_extra2" SequenceNumber="8" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_extra3" SequenceNumber="9" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_delete_fl" SequenceNumber="10" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="tbd_version_id" SequenceNumber="11" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="ptn_id" SequenceNumber="12" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+            		<Index IndexName="table_dfn_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="tbd_name" />
+            		<Index IndexName="table_dfn_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tbd_id" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="table_index" TablePrefix="tix" DisplayName="">
+          		<Columns>
+		            <Column ColumnName="tix_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tbd_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="tableDfn"/>
+		            <Column ColumnName="tix_suffix" SequenceNumber="2" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tix_unique_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tix_clustered_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tix_delete_fl" SequenceNumber="5" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tix_version_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="7" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+		            <Index IndexName="table_index_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="tbd_id,tix_suffix" />
+		            <Index IndexName="table_index_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tix_id" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="schema" TablePrefix="sch" DisplayName="sch_name">
+          		<Columns>
+		            <Column ColumnName="sch_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="sct_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="schemaType"/>
+		            <Column ColumnName="sch_name" SequenceNumber="2" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="sch_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="sch_version_id" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+		            <Index IndexName="schema_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="sch_name" />
+		            <Index IndexName="schema_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="sch_id" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="schema_type" TablePrefix="sct" DisplayName="sct_name">
+          		<Columns>
+            		<Column ColumnName="sct_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="sct_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="sct_delete_fl" SequenceNumber="2" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="sct_version_id" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="ptn_id" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+            		<Index IndexName="schema_type_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="sct_name" />
+            		<Index IndexName="schema_type_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="sct_id" />
+          		</Indexes>
+        	</Table>
+	        <Table TableName="table_index_column" TablePrefix="tic" DisplayName="">
+				<Columns>
+		            <Column ColumnName="tic_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tix_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="tableIndex"/>
+		            <Column ColumnName="tcl_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="tableColumn"/>
+		            <Column ColumnName="tic_order_no" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tic_delete_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tic_version_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+		            <Index IndexName="table_index_column_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tic_id" />
+		            <Index IndexName="table_index_column_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="false" ColumnList="tix_id,tic_order_no" />
+		            <Index IndexName="table_index_column_ss2" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tix_id,tcl_id" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="table_inst" TablePrefix="tin" DisplayName="tin_display_name">
+          		<Columns>
+		            <Column ColumnName="tin_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tbd_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="tableDfn"/>
+		            <Column ColumnName="sch_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="schema"/>
+		            <Column ColumnName="tin_partition_tcl_id" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_table_name" SequenceNumber="4" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_display_name" SequenceNumber="5" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_alias" SequenceNumber="6" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_row_count" SequenceNumber="7" DataType="Long" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_last_modified_dttm" SequenceNumber="8" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_extra1" SequenceNumber="9" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_extra2" SequenceNumber="10" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_extra3" SequenceNumber="11" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_delete_fl" SequenceNumber="12" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tin_version_id" SequenceNumber="13" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="14" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+		            <Index IndexName="table_inst_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="true" ColumnList="tin_display_name" />
+		            <Index IndexName="table_inst_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tin_id" />
+		            <Index IndexName="table_inst_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="false" ColumnList="tin_table_name" />
+          		</Indexes>
+        	</Table>	
+        	<Table TableName="table_column" TablePrefix="tcl" DisplayName="tcl_name">
+          		<Columns>
+		            <Column ColumnName="tcl_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tbd_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="tableDfn"/>
+		            <Column ColumnName="ent_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="entity"/>
+		            <Column ColumnName="tcl_name" SequenceNumber="3" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_display" SequenceNumber="4" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_order_no" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_primary_key_fl" SequenceNumber="6" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_type" SequenceNumber="7" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_length" SequenceNumber="8" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_mandatory_fl" SequenceNumber="9" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_extra1" SequenceNumber="10" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_extra2" SequenceNumber="11" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_extra3" SequenceNumber="12" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_delete_fl" SequenceNumber="13" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="tcl_version_id" SequenceNumber="14" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="15" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+		            <Index IndexName="table_column_ak" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="tbd_id,tcl_name" />
+		            <Index IndexName="table_column_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tcl_id" />
+		            <Index IndexName="table_column_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tbd_id,tcl_order_no" />
+		            <Index IndexName="table_column_ss2" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tbd_id,tcl_display" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="entity" TablePrefix="ent" DisplayName="ent_name">
+          		<Columns>
+		            <Column ColumnName="ent_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ent_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ent_component" SequenceNumber="2" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ent_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ent_version_id" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+		            <Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes>
+          			<Index IndexName="entity_tbl_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="ent_id" />
+            		<Index IndexName="entity_tbl_ss1" IsUnique="true" IsClustered="true" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="ent_entity" />
+          		</Indexes>
+        	</Table>
+        	<Table TableName="next_object_id" TablePrefix="noi" DisplayName="">
+          		<Columns>
+            		<Column ColumnName="noi_object_name" SequenceNumber="0" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+            		<Column ColumnName="noi_current_no" SequenceNumber="1" DataType="Long" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+          		</Columns>
+          		<Indexes />
+        	</Table>
+			<!-- <Table TableName="test" TablePrefix="tst" DisplayName="tst_name" >
+				<Columns>
+					<Column ColumnName="tst_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="tst_version_id" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+           			<Index IndexName="test_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_id" />
+           			<Index IndexName="test_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_id,tst_name" />
+           			<Index IndexName="test_ss2" IsUnique="true" IsClustered="false" IsBusinessConstraint="true" IsDisplayName="true" ColumnList="tst_id,tst_created_dttm" />
+           			<Index IndexName="test_ss3" IsUnique="false" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="tst_name,tst_created_dttm" />
+         		</Indexes>
+         		<NestedCollections>
+			        <NestedCollection PropertyName="others" ForeignObjectMappingName="Other" ForeignPropertyName="tstId" />
+     			</NestedCollections>
+			</Table>
+			<Table TableName="other" TablePrefix="oth" DisplayName="oth_name">
+				<Columns>
+					<Column ColumnName="oth_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="oth_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="oth_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+					<Column ColumnName="tst_id" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Test"/>
+					<Column ColumnName="oth_delete_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="oth_version_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="other_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="oth_id" />
+					<Index IndexName="other_ss1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="oth_id,oth_name" />
+         			</Indexes>
+         		<NestedCollections/>
+			</Table> -->
+		</Tables>
+	</Database>
+	<!-- <Extends>WorkBench_Schema_[Version].xml</Extends> -->
+<!-- 	<Extends>Amaze-Schema.xml</Extends> -->
+</Schema>

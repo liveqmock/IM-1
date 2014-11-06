@@ -1,0 +1,2093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SeedData>  
+	<PartitionTbls>
+		<PartitionTbl PtnName="Common"/>
+	</PartitionTbls>
+  
+	<RefTables>
+		<RefTable EntEntity="AlertSeverity" RftName="Alert Severity" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Order" RfcType="int" RfcDataProperty="AsvOrderNo" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="AsvName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Image" RfcType="buttonSearch" RfcDataProperty="ImageTbl" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="Image Search" RfcExtra2="ImageTbl" RfcExtra3="ImgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="AssemblyTbl" RftName="Assembly" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="AsmName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Assembly" RfcType="string" RfcDataProperty="AsmAssembly" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="BandType" RftName="Band Type" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="BdtName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Class Code" RfcType="string" RfcDataProperty="BdtClassCd" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="BusinessObjectsServer" RftName="Business Objects Server" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="BosName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="CMS Name" RfcType="string" RfcDataProperty="BosCmsName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Address" RfcType="string" RfcDataProperty="BosAddress" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Port" RfcType="int" RfcDataProperty="BosPort" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Username" RfcType="string" RfcDataProperty="BosUsername" RfcOrderNo="4" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Password" RfcType="string" RfcDataProperty="BosPassword" RfcOrderNo="5" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Authentication" RfcType="list" RfcDataProperty="BosAuthentication" RfcOrderNo="6" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="Enterprise;LDAP;Windows AD" RfcExtra2="Enterprise;LDAP;Windows AD"/>
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="BusinessObjectsUniverse" RftName="Business Objects Universe" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Business Objects Server" RfcType="comboBox" RfcDataProperty="BusinessObjectsServer" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="BusinessObjectsServer" RfcExtra2="BosName" />
+				<RefTableColumn RfcLabel="Universe Name" RfcType="string" RfcDataProperty="BovUniverseName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Universe Folder" RfcType="string" RfcDataProperty="BovUniverseFolder" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Default Connection" RfcType="string" RfcDataProperty="BovDefaultConnection" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Dashboard" RfcType="bool" RfcDataProperty="BovDashboardFl" RfcOrderNo="4" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="CaseItemPriority" RftName="Case Item Priority" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Order" RfcType="int" RfcDataProperty="CipOrderNo" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="CipName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Image" RfcType="buttonSearch" RfcDataProperty="ImageTbl" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="Image Search" RfcExtra2="ImageTbl" RfcExtra3="ImgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="Component" RftName="Component" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Component Type" RfcType="comboBox" RfcDataProperty="ComponentType" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="ComponentType" RfcExtra2="CptName" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="CmpName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Client Assembly" RfcType="comboBox" RfcDataProperty="ClientAssemblyTbl" RfcOrderNo="2" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="AssemblyTbl" RfcExtra2="AsmName"/>
+				<RefTableColumn RfcLabel="Client Component" RfcType="string" RfcDataProperty="CmpClientComponent" RfcOrderNo="3" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Server Package" RfcType="string" RfcDataProperty="CmpServerPackage" RfcOrderNo="4" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Server Component" RfcType="string" RfcDataProperty="CmpServerComponent" RfcOrderNo="5" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Property Group" RfcType="comboBox" RfcDataProperty="PropertyDfnGroup" RfcOrderNo="6" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="PropertyDfnGroup" RfcExtra2="PdgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ComponentType" RftName="Component Type" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="CptName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Type" RfcType="string" RfcDataProperty="CptTypeCd" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="Country" RftName="Country" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="ISO Code" RfcType="string" RfcDataProperty="CtrIsoCd" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="CtrName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Dial Code" RfcType="string" RfcDataProperty="CtrDialCode" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="Currency" RftName="Currency" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="ISO Code" RfcType="string" RfcDataProperty="CurIsoCd" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="CurName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Culture" RfcType="string" RfcDataProperty="CurCulture" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>  
+		<RefTable EntEntity="DataSourceConnection" RftName="Data Source Connection" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Data Source Location" RfcType="comboBox" RfcDataProperty="DataSourceLocation" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="DataSourceLocation" RfcExtra2="DslName" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="DscName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Properties" RfcType="propertyGroup" RfcDataProperty="PropertyInstGroup" RfcOrderNo="2" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="DataSourceConnectionProperties"/>
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="DataSourceLocation" RftName="Data Source Location" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Data Source Type" RfcType="comboBox" RfcDataProperty="DataSourceType" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="DataSourceType" RfcExtra2="DsyName" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="DslName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Properties" RfcType="propertyGroup" RfcDataProperty="PropertyInstGroup" RfcOrderNo="1" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="DataSourceLocationProperties"/>
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="DataSourceType" RftName="Data Source Type" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="DsyName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Properties" RfcType="propertyGroup" RfcDataProperty="PropertyInstGroup" RfcOrderNo="1" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="DataSourceTypeProperties"/>
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ElementReportGroup" RftName="Element Report Group" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="EgpName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ElementSet" RftName="Element Set" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Element Set Name" RfcType="string" RfcDataProperty="EstName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="FrequencyGroup" RftName="Frequency Group" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="FrgName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="FrequencyGroupComponent" RftName="Frequency Group Component" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Frequency Group" RfcType="comboBox" RfcDataProperty="FrequencyGroup" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="FrequencyGroup" RfcExtra2="FrgName" />
+				<RefTableColumn RfcLabel="Component" RfcType="component" RfcDataProperty="Component" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="FrequencyType" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ImageGroup" RftName="Image Group" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="IgpName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Component" RfcType="component" RfcDataProperty="Component" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="ImageGroup" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ImageViewer" RftName="Image Viewer" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="ImaName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Component" RfcType="component" RfcDataProperty="Component" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="ImageViewer" />
+				<RefTableColumn RfcLabel="Extension" RfcType="string" RfcDataProperty="ImaExtension" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Image" RfcType="buttonSearch" RfcDataProperty="ImageTbl" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="Image Search" RfcExtra2="ImageTbl" RfcExtra3="ImgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="InterfaceGroup" RftName="Interface Group" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="IfgName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Image" RfcType="buttonSearch" RfcDataProperty="ImageTbl" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="Image Search" RfcExtra2="ImageTbl" RfcExtra3="ImgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="InterfaceType" RftName="Interface Type" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="IfyName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Code" RfcType="string" RfcDataProperty="IfyCode" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Component" RfcType="component" RfcDataProperty="Component" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="InterfaceType" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="ParameterDfn" RftName="Parameter Definition" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="PmdName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Search Screen" RfcType="comboBox" RfcDataProperty="ScreenTbl" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="ScreenTbl" RfcExtra2="ScrName" />
+				<RefTableColumn RfcLabel="Entity" RfcType="comboBox" RfcDataProperty="EntityTbl" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="EntityTbl" RfcExtra2="EntEntity" />
+				<RefTableColumn RfcLabel="Display Property" RfcType="string" RfcDataProperty="PmdDisplayProperty" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Extra 1" RfcType="string" RfcDataProperty="PmdExtra1" RfcOrderNo="4" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 2" RfcType="string" RfcDataProperty="PmdExtra2" RfcOrderNo="5" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 3" RfcType="string" RfcDataProperty="PmdExtra3" RfcOrderNo="6" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 4" RfcType="string" RfcDataProperty="PmdExtra4" RfcOrderNo="7" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 5" RfcType="string" RfcDataProperty="PmdExtra5" RfcOrderNo="8" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+			</RefTableColumns>
+		</RefTable>				
+		<RefTable EntEntity="RefTable" RftName="Ref Table" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="RftName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Site Specific" RfcType="bool" RfcDataProperty="RftSiteSpecificFl" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Entity" RfcType="buttonSearch" RfcDataProperty="EntityTbl" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="Entity Search" RfcExtra2="EntityTbl" RfcExtra3="EntEntity" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="RefTableColumn" RftName="Ref Table Column" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Ref Table" RfcType="comboBox" RfcDataProperty="RefTable" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="RefTable" RfcExtra2="RftName" />
+				<RefTableColumn RfcLabel="Label" RfcType="string" RfcDataProperty="RfcLabel" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Order" RfcType="int" RfcDataProperty="RfcOrderNo" RfcOrderNo="2" RfcVisibleFl="N" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Type" RfcType="list" RfcDataProperty="RfcType" RfcOrderNo="3" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="bool;date;datetime;decimal;int;long;string;component;list;comboBox;buttonSearch;propertyGroup" RfcExtra2="* Boolean;* Date;* Datetime;* Decimal;* Int;* Long;* String;Component;List;Lookup List;Lookup Search;Property Group"/>
+				<RefTableColumn RfcLabel="Visible" RfcType="bool" RfcDataProperty="RfcVisibleFl" RfcOrderNo="4" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Sort" RfcType="bool" RfcDataProperty="RfcSortFl" RfcOrderNo="5" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Mandatory" RfcType="bool" RfcDataProperty="RfcMandatoryFl" RfcOrderNo="6" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Data Property" RfcType="string" RfcDataProperty="RfcDataProperty" RfcOrderNo="7" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />						
+				<RefTableColumn RfcLabel="Extra 1" RfcType="string" RfcDataProperty="RfcExtra1" RfcOrderNo="8" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 2" RfcType="string" RfcDataProperty="RfcExtra2" RfcOrderNo="9" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 3" RfcType="string" RfcDataProperty="RfcExtra3" RfcOrderNo="10" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 4" RfcType="string" RfcDataProperty="RfcExtra4" RfcOrderNo="11" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Extra 5" RfcType="string" RfcDataProperty="RfcExtra5" RfcOrderNo="12" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="N" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="RouteClass" RftName="Route Class" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="RtcName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Code" RfcType="string" RfcDataProperty="RtcCode" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="RouteType" RftName="Route Type" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="RttName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Code" RfcType="string" RfcDataProperty="RttCode" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="SchemaTbl" RftName="Schema" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Schema Type" RfcType="comboBox" RfcDataProperty="SchemaType" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" RfcExtra1="SchemaType" RfcExtra2="SctName" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="SchName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Usage Group" RfcType="comboBox" RfcDataProperty="UsageGroup" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="UsageGroup" RfcExtra2="UsgName" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="SchemaType" RftName="SchemaType" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="SctName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Component" RfcType="component" RfcDataProperty="Component" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="SchemaType" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="StreamStageType" RftName="Stream Stage Type" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Code" RfcType="string" RfcDataProperty="SstCode" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="SstName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Property Group" RfcType="comboBox" RfcDataProperty="PropertyDfnGroup" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="PropertyDfnGroup" RfcExtra2="PdgName" />
+				<RefTableColumn RfcLabel="Task Factory Component" RfcType="component" RfcDataProperty="TaskFactoryComponent" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="StreamStageTaskFactory" />
+				<RefTableColumn RfcLabel="Config Component" RfcType="component" RfcDataProperty="ConfigComponent" RfcOrderNo="4" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="StreamStageConfig" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="Switch" RftName="Switch" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="SwtName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Match String" RfcType="string" RfcDataProperty="SwtMatchStr" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Element" RfcType="buttonSearch" RfcDataProperty="Element" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="Element Search" RfcExtra2="Element" RfcExtra3="EltName" RfcExtra4=" Select elt.EltId from Element elt where elt.EltMatchableFl = 'Y' " />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="TariffMetricType" RftName="Tariff Metric Type" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="TfmName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Usage Name" RfcType="string" RfcDataProperty="TfmUsageName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Usage Divisor Name" RfcType="string" RfcDataProperty="TfmUsageDivisorName" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Usage Divisor" RfcType="int" RfcDataProperty="TfmUsageDivisor" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="TariffRateName" RftName="Tariff Rate Name" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="TrnName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="TariffType" RftName="Tariff Type" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Code" RfcType="string" RfcDataProperty="TftCode" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="TftName" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="TaskArchive" RftName="Task Archive" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Name" RfcType="string" RfcDataProperty="TarName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Archive Properties" RfcType="propertyGroup" RfcDataProperty="PropertyInstGroup" RfcOrderNo="1" RfcVisibleFl="N" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="TaskArchiveProperties"/>
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="TokenTbl" RftName="Token" RftSiteSpecificFl="N">
+   	  <RefTableColumns>
+				<RefTableColumn RfcLabel="Machine Flag" RfcType="bool" RfcDataProperty="TokMachineFl" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Token Name" RfcType="string" RfcDataProperty="TokToken" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+			</RefTableColumns>
+		</RefTable>
+		<RefTable EntEntity="UsageServer" RftName="Usage Server" RftSiteSpecificFl="N">
+			<RefTableColumns>
+				<RefTableColumn RfcLabel="Usage Server Name" RfcType="string" RfcDataProperty="UsvName" RfcOrderNo="0" RfcVisibleFl="Y" RfcSortFl="Y" RfcMandatoryFl="Y" />
+				<RefTableColumn RfcLabel="Machine" RfcType="comboBox" RfcDataProperty="MachineTbl" RfcOrderNo="1" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="MachineTbl" RfcExtra2="MacName" />
+				<RefTableColumn RfcLabel="Data Source Location" RfcType="comboBox" RfcDataProperty="DataSourceLocation" RfcOrderNo="2" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="Y" RfcExtra1="DataSourceLocation" RfcExtra2="DslName" />
+				<RefTableColumn RfcLabel="Data Source Connection" RfcType="comboBox" RfcDataProperty="DataSourceConnection" RfcOrderNo="3" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" RfcExtra1="DataSourceConnection" RfcExtra2="DscName" />
+				<RefTableColumn RfcLabel="Data Location" RfcType="string" RfcDataProperty="UsvDataLocation" RfcOrderNo="4" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" />
+				<RefTableColumn RfcLabel="Index Location" RfcType="string" RfcDataProperty="UsvIndexLocation" RfcOrderNo="5" RfcVisibleFl="Y" RfcSortFl="N" RfcMandatoryFl="N" />
+			</RefTableColumns>
+		</RefTable>
+  </RefTables>
+  <ScreenTbls>
+  	<ScreenTbl CmpName="Alert Dfn Search" CptTypeCd="ScreenType" ScrName="Alert Definition Search" ImgName="Alarmclock"/>
+	<ScreenTbl CmpName="Alert Group Search" CptTypeCd="ScreenType" ScrName="Alert Group Search" ImgName="Alarmclock"/>
+  	<ScreenTbl CmpName="Alert Inst Search" CptTypeCd="ScreenType" ScrName="Alert Instance Search" ImgName="Warning">
+  	  <ScreenActionGroups>
+				<ScreenActionGroup SagName="Alert Actions" SagTooltip="" SagOrderNo="0" ImgName="Target" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Jump To Alert Entity" CptTypeCd="ScreenActionType" SacName="Jump To Alert Entity" SacTooltip="Click to view the details of the entity that cause the selected alert" SacDefaultFl="N" SacOrderNo="0" ImgName="Warning" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Cases" SagTooltip="" SagOrderNo="1" ImgName="Briefcase" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Alert View Case Item" CptTypeCd="ScreenActionType" SacName="View Case Item" SacTooltip="Click to open this case item" SacDefaultFl="N" SacOrderNo="0" ImgName="Briefcase" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator1" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Alert Create Case" CptTypeCd="ScreenActionType" SacName="Create Case" SacTooltip="Click to create a new case for the selected alerts" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Application Search" CptTypeCd="ScreenType" ScrName="Application Search" ImgName="BoxSoftware"/>
+		<ScreenTbl CmpName="Band Search" CptTypeCd="ScreenType" ScrName="Band Search" ImgName="CubeMolecule">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Elements" SagTooltip="Lists the elements associated with the selected band" SagOrderNo="0" ImgName="ElementView" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="View Elements" CptTypeCd="ScreenActionType" SacName="View Elements" SacTooltip="Click to open this element" SacDefaultFl="N" SacOrderNo="0" ImgName="Element" SacMaxPaneCount="8" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Tariffs" SagTooltip="Lists the tariffs associated with the selected band" SagOrderNo="1" ImgName="PieChart" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="View Tariffs" CptTypeCd="ScreenActionType" SacName="View Tariffs" SacTooltip="Click to open this tariff" SacDefaultFl="N" SacOrderNo="0" ImgName="ColumnChart" SacMaxPaneCount="8" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Business Objects Group Search" CptTypeCd="ScreenType" ScrName="Business Objects Group Search" ImgName="Flash">
+			<ScreenActionGroups>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Business Objects Search" CptTypeCd="ScreenType" ScrName="Business Objects Search" ImgName="Flash">
+			<ScreenActionGroups>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Cache Strategy Search" CptTypeCd="ScreenType" ScrName="Cache Strategy Search" ImgName="Node">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Update Strategy" SagTooltip="Update the selected cache strategies" SagOrderNo="0" ImgName="Node" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Cache Strategy Update" CptTypeCd="ScreenActionType" SacName="Cache Strategy Update" SacTooltip="Click to update the selected items to this cache strategy" SacDefaultFl="N" SacOrderNo="0" ImgName="Element" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Case Definition Search" CptTypeCd="ScreenType" ScrName="Case Definition Search" ImgName="Briefcase2">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Ageing" SagTooltip="" SagOrderNo="0" ImgName="FolderNew" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Add To Ageing" CptTypeCd="ScreenActionType" SacName="Add To Ageing" SacTooltip="Add To Ageing Group" SacDefaultFl="N" SacOrderNo="0" ImgName="Folder" SacMaxPaneCount="" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Case Actions" SagTooltip="" SagOrderNo="0" ImgName="" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Copy Case" CptTypeCd="ScreenActionType" SacName="Copy Case" SacTooltip="Clone the Case" SacDefaultFl="N" SacOrderNo="1" ImgName="Copy" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Case Instance Search" CptTypeCd="ScreenType" ScrName="Case Search" ImgName="Briefcase">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="New Item" SagTooltip="" SagOrderNo="0" ImgName="FolderNew" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Item New" CptTypeCd="ScreenActionType" SacName="Case Item New" SacTooltip="Click to add a new item to the selected case" SacDefaultFl="N" SacOrderNo="0" ImgName="Folder" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Case Actions" SagTooltip="" SagOrderNo="1" ImgName="BriefcaseView" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Item Open" CptTypeCd="ScreenActionType" SacName="Open Case Item" SacTooltip="Click here to open the selected case items" SacDefaultFl="N" SacOrderNo="0" ImgName="DocumentPreferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Item Complete" CptTypeCd="ScreenActionType" SacName="Complete Case Item" SacTooltip="Click here to update the selected case items" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Item Re-Open" CptTypeCd="ScreenActionType" SacName="Re-Open Case Item" SacTooltip="Click here to re-open the selected case items" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Open" CptTypeCd="ScreenActionType" SacName="Open Case" SacTooltip="Click here to open the selected cases" SacDefaultFl="N" SacOrderNo="3" ImgName="DocumentPreferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Close" CptTypeCd="ScreenActionType" SacName="Close Case" SacTooltip="" SacDefaultFl="N" SacOrderNo="4" ImgName="DocumentStop" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Re-Open" CptTypeCd="ScreenActionType" SacName="Re-Open Case" SacTooltip="Click here to re-open the selected cases" SacDefaultFl="N" SacOrderNo="5" ImgName="DocumentRefresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Assign Team" SagTooltip="" SagOrderNo="2" ImgName="Users2" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Item Assign Team" CptTypeCd="ScreenActionType" SacName="Assign Team" SacTooltip="Click to assign the selected case items to this team" SacDefaultFl="N" SacOrderNo="0" ImgName="UsersInto" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator1" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Item Un-Assign Team" CptTypeCd="ScreenActionType" SacName="Un-Assign" SacTooltip="Click to un-assign the selected case items from the current teams" SacDefaultFl="N" SacOrderNo="2" ImgName="UsersBack" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Assign User" SagTooltip="" SagOrderNo="3" ImgName="User1" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Item Assign User" CptTypeCd="ScreenActionType" SacName="Assign User" SacTooltip="Click to assign the selected case items to this user" SacDefaultFl="N" SacOrderNo="0" ImgName="User1Into" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator1" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Item Un-Assign User" CptTypeCd="ScreenActionType" SacName="Un-Assign" SacTooltip="Click to un-assign the selected case items from the current users" SacDefaultFl="N" SacOrderNo="2" ImgName="User1Back" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Jump To" SagTooltip="" SagOrderNo="4" ImgName="Redo" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Item Jump To Case" CptTypeCd="ScreenActionType" SacName="Open Parent Case" SacTooltip="Click to open the parent case detail for the selected case item" SacDefaultFl="N" SacOrderNo="0" ImgName="Briefcase" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Jump To Alert" CptTypeCd="ScreenActionType" SacName="Open Alert" SacTooltip="Click to open the source alert for the selected case item" SacDefaultFl="N" SacOrderNo="1" ImgName="Warning" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Case Jump To Dfn" CptTypeCd="ScreenActionType" SacName="Open Definition" SacTooltip="Click to open the case definition for the selected item" SacDefaultFl="N" SacOrderNo="2" ImgName="Briefcase2" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Export" SagTooltip="" SagOrderNo="5" ImgName="" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Case Instance Export" CptTypeCd="ScreenActionType" SacName="Export" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Export1" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>			
+			<ScreenLabels>
+				<ScreenLabel SlaName="Case Administrator" SlaLabel="CaseAdministrator"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Case Item Definition Search" CptTypeCd="ScreenType" ScrName="Case Item Definition Search" ImgName="Folder">
+			<ScreenActionGroups/>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Collected File Search" CptTypeCd="ScreenType" ScrName="Collected File Search" ImgName="FolderDocument" >
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="File Actions" SagTooltip="" SagOrderNo="0" ImgName="FolderDocument" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Collected File Actions" CptTypeCd="ScreenActionType" SacName="Collected File Actions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator1" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Show File Parse Statistics" CptTypeCd="ScreenActionType" SacName="Open Parse Statistics" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Gauge" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Jump To" SagTooltip="" SagOrderNo="1" ImgName="Redo" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Collected File Open File Source" CptTypeCd="ScreenActionType" SacName="Open File Source" SacTooltip="Click to open the file source for the selected file" SacDefaultFl="N" SacOrderNo="0" ImgName="FolderOut" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Collected File Open File Collection" CptTypeCd="ScreenActionType" SacName="Open File Collection" SacTooltip="Click to open the file collection for the selected file" SacDefaultFl="N" SacOrderNo="1" ImgName="Folders" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Alerts" SagTooltip="" SagOrderNo="2" ImgName="Alarmclock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Jump To AlertInstSearch" CptTypeCd="ScreenActionType" SacName="Jump To Alert Search" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Redo" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Day Group Search" CptTypeCd="ScreenType" ScrName="Day Group Search" ImgName="Calendar"/>
+		<ScreenTbl CmpName="Duplicate Config Search" CptTypeCd="ScreenType" ScrName="Duplicate Config Search" ImgName="Checks"/>
+		<ScreenTbl CmpName="Element Search" CptTypeCd="ScreenType" ScrName="Element Search" ImgName="Elements1">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Bands" SagTooltip="Lists the bands associated with the selected element" SagOrderNo="0" ImgName="CubeMoleculeView" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="View Bands" CptTypeCd="ScreenActionType" SacName="View Bands" SacTooltip="Click to open this band" SacDefaultFl="N" SacOrderNo="0" ImgName="CubeMolecule" SacMaxPaneCount="8" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Extra" SagTooltip="" SagOrderNo="1" ImgName="Elements1" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Copy Element" CptTypeCd="ScreenActionType" SacName="Copy Element" SacTooltip="Copy the selected element and create a new item" SacDefaultFl="N" SacOrderNo="0" ImgName="ElementCopy" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Entity Search" CptTypeCd="ScreenType" ScrName="Entity Search" ImgName="StarGreen">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Table Instance" SagTooltip="" SagOrderNo="0" ImgName="TableSql" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Entity Table Instance" CptTypeCd="ScreenActionType" SacName="Entity Table Instance" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="TableSql" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Entity Export Search" CptTypeCd="ScreenType" ScrName="Entity Export Search" ImgName="DataNext">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Export Actions" SagTooltip="" SagOrderNo="0" ImgName="DataNext" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Run Entity Export" CptTypeCd="ScreenActionType" SacName="Run Export" SacTooltip="Click to execute the selected export" SacDefaultFl="N" SacOrderNo="0" ImgName="MediaPlayGreen" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Entity Import Search" CptTypeCd="ScreenType" ScrName="Entity Import Search" ImgName="DataInto"/>
+		<ScreenTbl CmpName="Entity Group Search" CptTypeCd="ScreenType" ScrName="Entity Group Search" ImgName="TextTree"/>
+		<ScreenTbl CmpName="Event Statistics Stage Search" CptTypeCd="ScreenType" ScrName="Event Statistics Search" ImgName="Gauge">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="File Statistics" SagTooltip="" SagOrderNo="0" ImgName="DocumentChart" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Event Statistics Stream File" CptTypeCd="ScreenActionType" SacName="File Statistics" SacTooltip="Click to view the statistics for this file" SacDefaultFl="Y" SacOrderNo="0" ImgName="DocumentChart" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="File Collection Search" CptTypeCd="ScreenType" ScrName="File Collection Search" ImgName="Folders">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Alerts" SagTooltip="" SagOrderNo="0" ImgName="Alarmclock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Jump To AlertInstSearch" CptTypeCd="ScreenActionType" SacName="Jump To Alert Search" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Redo" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Collection Actions" SagTooltip="" SagOrderNo="1" ImgName="Folders" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="File Collection Actions" CptTypeCd="ScreenActionType" SacName="File Collection Actions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Open File Source" CptTypeCd="ScreenActionType" SacName="Open File Source" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="FolderOut" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="File Source Search" CptTypeCd="ScreenType" ScrName="File Source Search" ImgName="FolderOut">
+		 <ScreenActionGroups>
+				<ScreenActionGroup SagName="File Collections" SagTooltip="" SagOrderNo="0" ImgName="Folders" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="File Collections" CptTypeCd="ScreenActionType" SacName="File Collections" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator1" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="New File Collection" CptTypeCd="ScreenActionType" SacName="New File Collection" SacTooltip="Create a new file collection" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Alerts" SagTooltip="" SagOrderNo="1" ImgName="Alarmclock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Jump To AlertInstSearch" CptTypeCd="ScreenActionType" SacName="Jump To Alert Search" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Redo" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Source Actions" SagTooltip="" SagOrderNo="2" ImgName="FolderOut" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="File Source Actions" CptTypeCd="ScreenActionType" SacName="File Source Actions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Reinitialise File Source" CptTypeCd="ScreenActionType" SacName="Reinitialise Source" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+    <ScreenTbl CmpName="Image Search" CptTypeCd="ScreenType" ScrName="Image Search" ImgName="Palette"/>
+		<ScreenTbl CmpName="Interface Definition Search" CptTypeCd="ScreenType" ScrName="Interface Definition Search" ImgName="ComponentGreen"/>
+		<ScreenTbl CmpName="Interface Dynamic Details" CptTypeCd="ScreenType" ScrName="Interface Dynamic Details" ImgName="ComponentGreen"/>
+		<ScreenTbl CmpName="LDC Correlator Search" CptTypeCd="ScreenType" ScrName="LDC Correlator Search" ImgName="Colors"/>
+		<ScreenTbl CmpName="Machine Search" CptTypeCd="ScreenType" ScrName="Machine Search" ImgName="Cpu"/>
+		<ScreenTbl CmpName="Note History Search" CptTypeCd="ScreenType" ScrName="Note History Search" ImgName="DocumentTime"/>
+		<ScreenTbl CmpName="Process Chain Dfn Search" CptTypeCd="ScreenType" ScrName="Process Chain Definition Search" ImgName="Link">
+		<ScreenActionGroups>
+			<ScreenActionGroup SagName="Process Chain Schedules" SagTooltip="" SagOrderNo="1" ImgName="Calendar" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+				<ScreenActions>
+						 <ScreenAction CmpName="Process Chain Open Schedule" CptTypeCd="ScreenActionType" SacName="Open Schedule" SacTooltip="Click here to open this process chain schedule" SacDefaultFl="N" SacOrderNo="0" ImgName="CalendarPreferences" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount="" /> 
+						<ScreenAction CmpName="Process Chain New Schedule" CptTypeCd="ScreenActionType" SacName="New Schedule" SacTooltip="Click here to create a new schedule for the selected process chain" SacDefaultFl="N" SacOrderNo="2" ImgName="Calendar" SacMaxPaneCount="" SacMaxMenuCount="" /> 
+				</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Process Chain Request Search" CptTypeCd="ScreenType" ScrName="Process Chain Request Search" ImgName="LinkNew">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Process Chain Request Actions" SagTooltip="" SagOrderNo="1" ImgName="ServerDocument" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Process Chain Request Action" CptTypeCd="ScreenActionType" SacName="Process Chain Request Action" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						 <ScreenAction CmpName="Process Chain Request Open Process Chain" CptTypeCd="ScreenActionType" SacName="Open Process Chain" SacTooltip="Click here to open the Process Chain definition for this request" SacDefaultFl="N" SacOrderNo="2" ImgName="DataCertificate" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						 <ScreenAction CmpName="Process Chain Request Open Process Chain Schedule" CptTypeCd="ScreenActionType" SacName="Open Schedule" SacTooltip="Click here to open the Process Chain schedule for this request" SacDefaultFl="N" SacOrderNo="3" ImgName="DataReplace" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Process Chain Stage Results Search" CptTypeCd="ScreenType" ScrName="Process Chain Stage Results Search" ImgName="GearView"/>
+		<ScreenTbl CmpName="Note Search" CptTypeCd="ScreenType" ScrName="Note Search" ImgName="DocumentAttachment">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Note Actions" SagTooltip="" SagOrderNo="0" ImgName="DocumentAttachment" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="View Note History" CptTypeCd="ScreenActionType" SacName="View Note History" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="DocumentTime" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Property Dfn Group Search" CptTypeCd="ScreenType" ScrName="Property Dfn Group Search" ImgName="NotebookPreferences"/>
+		<ScreenTbl CmpName="Query Filter Search" CptTypeCd="ScreenType" ScrName="Query Filter Search" ImgName="Funnel">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Query Filter Actions" SagTooltip="" SagOrderNo="0" ImgName="Lock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Acquire Object Lock" CptTypeCd="ScreenActionType" SacName="Acquire Object Lock" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+			<ScreenLabels>
+        <ScreenLabel SlaName="Allow Object Lock Override" SlaLabel="AllowObjectLockOverride"/>
+      </ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Recurring Task Search" CptTypeCd="ScreenType" ScrName="Recurring Task Search" ImgName="Refresh">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Warning" SagTooltip="" SagOrderNo="0" ImgName="Warning" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Recurring Task Warning" CptTypeCd="ScreenActionType" SacName="Recurring Task Warning" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Reference Tables" CptTypeCd="ScreenType" ScrName="Reference Tables" ImgName="Tables"/>
+		<ScreenTbl CmpName="Role Search" CptTypeCd="ScreenType" ScrName="Role Search" ImgName="Masks"/>
+		<ScreenTbl CmpName="Screen Search" CptTypeCd="ScreenType" ScrName="Screen Search" ImgName="Windows">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Screen Actions" SagTooltip="" SagOrderNo="0" ImgName="Windows" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Open Default Grid" CptTypeCd="ScreenActionType" SacName="Open Default Grid" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="ColumnPreferences" SacMaxPaneCount="" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Stream Search" CptTypeCd="ScreenType" ScrName="Stream Search" ImgName="Gears">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Triggers" SagTooltip="List of triggers associated with this stream" SagOrderNo="0" ImgName="Alarmclock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Stream Triggers" CptTypeCd="ScreenActionType" SacName="Stream Triggers" SacTooltip="Click to view/edit the properties for this trigger" SacDefaultFl="N" SacOrderNo="0" ImgName="Alarmclock" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Controllers" SagTooltip="Actions for editing and creating controllers" SagOrderNo="1" ImgName="GearConnection" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Stream Controller" CptTypeCd="ScreenActionType" SacName="Stream Controller" SacTooltip="Click to view/edit the properties for the stream controller" SacDefaultFl="N" SacOrderNo="0" ImgName="Server" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Task Controllers" CptTypeCd="ScreenActionType" SacName="Task Controller" SacTooltip="Click to view/edit the properties for this task controller" SacDefaultFl="N" SacOrderNo="1" ImgName="GearConnection" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator2" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="New Stream Controller" CptTypeCd="ScreenActionType" SacName="New Stream Controller" SacTooltip="Create a stream controller" SacDefaultFl="N" SacOrderNo="3" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="New Task Controller" CptTypeCd="ScreenActionType" SacName="New Task Controller" SacTooltip="Create a new task controller" SacDefaultFl="N" SacOrderNo="4" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Stream Stage Search" CptTypeCd="ScreenType" ScrName="Stream Stage Search" ImgName="Gears"/>
+		<ScreenTbl CmpName="Sql Table Search" CptTypeCd="ScreenType" ScrName="SQL Table Search" ImgName="TableSql">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="File Details" SagTooltip="" SagOrderNo="0" ImgName="Information" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Stream File Information" CptTypeCd="ScreenActionType" SacName="Stream File Information" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="String Rule Set Search" CptTypeCd="ScreenType" ScrName="String Rule Set Search" ImgName="TextMarked"/>
+		<ScreenTbl CmpName="Route Search" CptTypeCd="ScreenType" ScrName="Route Search" ImgName="Signpost"/>
+		<ScreenTbl CmpName="Table Definition Search" CptTypeCd="ScreenType" ScrName="Table Definition Search" ImgName="Table">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Table Actions" SagTooltip="" SagOrderNo="0" ImgName="Table" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Sync Table Dfn Schema" CptTypeCd="ScreenActionType" SacName="Sync Table Schema" SacTooltip="Click to synchronize the database's table schema" SacDefaultFl="N" SacOrderNo="0" ImgName="DataRefresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Dfn Export To Diamond" CptTypeCd="ScreenActionType" SacName="Export To Diamond" SacTooltip="Generate the output record type XML for the selected table(s) ready for copying to a Diamond definition" SacDefaultFl="N" SacOrderNo="1" ImgName="Atom" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Dfn Import From Diamond" CptTypeCd="ScreenActionType" SacName="Import From Diamond" SacTooltip="Select a Diamond definition and generate a table based on one of the output record types" SacDefaultFl="N" SacOrderNo="2" ImgName="Atom" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Dfn Affected Objects" CptTypeCd="ScreenActionType" SacName="Dependent Entities" SacTooltip="Shows dependent entities for the selected Table Definition" SacDefaultFl="N" SacOrderNo="3" ImgName="DocumentGear" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Dfn Import From Database" CptTypeCd="ScreenActionType" SacName="Import From Database" SacTooltip="Select a table and generate a spark table" SacDefaultFl="N" SacOrderNo="4" ImgName="Atom" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Table Instances" SagTooltip="" SagOrderNo="1" ImgName="TableSql" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Table Instances" CptTypeCd="ScreenActionType" SacName="Table Instances" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="TableSql" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="New Table Instance" CptTypeCd="ScreenActionType" SacName="New Table Instance" SacTooltip="Create a instance for this table definition" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+      </ScreenActionGroups>
+			<ScreenLabels>
+				<ScreenLabel SlaName="Allow Schema Update" SlaLabel="AllowSchemaUpdate"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Table Instance Search" CptTypeCd="ScreenType" ScrName="Table Instance Search" ImgName="TableSql">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Table Actions" SagTooltip="" SagOrderNo="0" ImgName="TableSql" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="View Table Dfn" CptTypeCd="ScreenActionType" SacName="Open Table Definition" SacTooltip="Click to view/edit the selected instance's table definition" SacDefaultFl="N" SacOrderNo="0" ImgName="Table" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Jump To Table Search" CptTypeCd="ScreenActionType" SacName="Jump To Search" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Redo" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Inst Truncate Table" CptTypeCd="ScreenActionType" SacName="Truncate Table" SacTooltip="Click to delete all rows from the selected tables" SacDefaultFl="N" SacOrderNo="3" ImgName="TableSqlSelect" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Table Inst Drop Table" CptTypeCd="ScreenActionType" SacName="Drop Table" SacTooltip="Click to physically drop the selected tables and permanently delete the table instance rows" SacDefaultFl="N" SacOrderNo="4" ImgName="TableSqlDelete" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+      </ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Tariff Class Search" CptTypeCd="ScreenType" ScrName="Tariff Class Search" ImgName="Registry">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Extra" SagTooltip="" SagOrderNo="0" ImgName="Registry" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Validate Bands" CptTypeCd="ScreenActionType" SacName="Validate Bands" SacTooltip="Validate all bands on this Tariff Class" SacDefaultFl="N" SacOrderNo="0" ImgName="Checks" SacMaxPaneCount="" SacMaxMenuCount=""/>
+                        			<ScreenAction CmpName="Copy TariffClass" CptTypeCd="ScreenActionType" SacName="Copy TariffClass" SacTooltip="Clone the TariffClass" SacDefaultFl="N" SacOrderNo="1" ImgName="Copy" SacMaxPaneCount="" SacMaxMenuCount=""/>
+                   			 </ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Tariff Rate History Search" CptTypeCd="ScreenType" ScrName="Tariff Rate History Search" ImgName="History2"/>
+		<ScreenTbl CmpName="Tariff Search" CptTypeCd="ScreenType" ScrName="Tariff Search" ImgName="Columnchart">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Tariff Actions" SagTooltip="Tariff actions" SagOrderNo="0" ImgName="ColumnChart" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="New Child Tariff" CptTypeCd="ScreenActionType" SacName="New Child Tariff" SacTooltip="Create a new child tariff for the selected parent" SacDefaultFl="N" SacOrderNo="0" ImgName="DocumentsNew" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Open Fast Entry" CptTypeCd="ScreenActionType" SacName="Open Fast Entry" SacTooltip="Open the fast entry screen for the selected tariff" SacDefaultFl="Y" SacOrderNo="1" ImgName="Cashier" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Open Rate History" CptTypeCd="ScreenActionType" SacName="View Rate History" SacTooltip="Open the rate history screen for the selected tariff" SacDefaultFl="N" SacOrderNo="2" ImgName="History2" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+			<ScreenLabels>
+				<ScreenLabel SlaName="Allow Forward Rate Update" SlaLabel="AllowForwardRateUpdate"/>
+				<ScreenLabel SlaName="Allow Rate Currency Changes" SlaLabel="AllowRateCurrencyChanges"/>
+				<ScreenLabel SlaName="Allow Zero Rates" SlaLabel="AllowZeroRates"/>
+				<ScreenLabel SlaName="Allow Update Retrospective Tariff Period" SlaLabel="UpdateRetrospectiveTariffPeriod"/>
+				<ScreenLabel SlaName="New Parent From Period" SlaLabel="NewParentFromPeriod"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Task Search" CptTypeCd="ScreenType" ScrName="Task Search" ImgName="GearView">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Task Warning" SagTooltip="" SagOrderNo="0" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Task View Warning" CptTypeCd="ScreenActionType" SacName="View Warning" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="GearWarning" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Task Clear Warning" CptTypeCd="ScreenActionType" SacName="Clear Warning" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="GearOk" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Task Actions" SagTooltip="" SagOrderNo="1" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Task Actions" CptTypeCd="ScreenActionType" SacName="Task Actions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Task Details" SagTooltip="" SagOrderNo="2" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Task View Log" CptTypeCd="ScreenActionType" SacName="View Log" SacTooltip="" SacDefaultFl="Y" SacOrderNo="0" ImgName="DocumentGear" SacMaxPaneCount="" SacMaxMenuCount=""/>						
+						<ScreenAction CmpName="Task View Rejected Record" CptTypeCd="ScreenActionType" SacName="View Rejected Record" SacTooltip="" SacDefaultFl="N" SacOrderNo="3" ImgName="DocumentGear" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Task View Hierarchy" CptTypeCd="ScreenActionType" SacName="View Hierarchy" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Branch" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Task Stream File" CptTypeCd="ScreenActionType" SacName="File Statistics" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="DocumentChart" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Task Priority" SagTooltip="" SagOrderNo="3" ImgName="NavUpRed" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Task Set Priority" CptTypeCd="ScreenActionType" SacName="Task Set Priority" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Recurring Task" SagTooltip="" SagOrderNo="4" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Task Recurring Task" CptTypeCd="ScreenActionType" SacName="Task Recurring Task" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Task Recurring Task Schedule Now" CptTypeCd="ScreenActionType" SacName="Schedule Now" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="DatetimePreferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Archive" SagTooltip="" SagOrderNo="5" ImgName="FolderGear" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Task Archive" CptTypeCd="ScreenActionType" SacName="Task Archive" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Folder" SacMaxPaneCount="" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Stream Controller Action" SagTooltip="" SagOrderNo="6" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Reinitialize Controller" CptTypeCd="ScreenActionType" SacName="Reinitialize Controller" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Shutdown Controller" CptTypeCd="ScreenActionType" SacName="Shutdown Controller" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Stop" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Properties" CptTypeCd="ScreenActionType" SacName="Properties" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Preferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+
+				<ScreenActionGroup SagName="Stream Actions" SagTooltip="" SagOrderNo="7" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Pause Stream" CptTypeCd="ScreenActionType" SacName="Pause Stream" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="MediaPause" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Reinitialize Stream" CptTypeCd="ScreenActionType" SacName="Reinitialize Stream" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+
+				<ScreenActionGroup SagName="Stream Stage Actions" SagTooltip="" SagOrderNo="8" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Pause Stage" CptTypeCd="ScreenActionType" SacName="Pause Stage" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="MediaPause" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Reinitialize Stage" CptTypeCd="ScreenActionType" SacName="Reinitialize Stage" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Properties" CptTypeCd="ScreenActionType" SacName="Properties" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Preferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+
+				<ScreenActionGroup SagName="Trigger Actions" SagTooltip="" SagOrderNo="9" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Pause Trigger" CptTypeCd="ScreenActionType" SacName="Pause Trigger" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="MediaPause" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Reinitialize Trigger" CptTypeCd="ScreenActionType" SacName="Reinitialize Trigger" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Properties" CptTypeCd="ScreenActionType" SacName="Properties" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Preferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+
+				<ScreenActionGroup SagName="Task Controller Actions" SagTooltip="" SagOrderNo="10" ImgName="" SagPaneVisibleFl="N" SagPaneExpandedFl="N" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Reinitialize Controller" CptTypeCd="ScreenActionType" SacName="Reinitialize Controller" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Shutdown Controller" CptTypeCd="ScreenActionType" SacName="Shutdown Controller" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="Stop" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Properties" CptTypeCd="ScreenActionType" SacName="Properties" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="Preferences" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Team Search" CptTypeCd="ScreenType" ScrName="Team Search" ImgName="Users3">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Team Members" SagTooltip="" SagOrderNo="0" ImgName="Users3" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Team Add Member" CptTypeCd="ScreenActionType" SacName="Add Member" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="User1Add" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Team Edit Member" CptTypeCd="ScreenActionType" SacName="Edit Member" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="User1View" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="Team Remove Member" CptTypeCd="ScreenActionType" SacName="Remove Member" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="User1Delete" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Trigger Search" CptTypeCd="ScreenType" ScrName="Trigger Search" ImgName="Alarmclock"/>
+		<ScreenTbl CmpName="Usage Sql Table Search" CptTypeCd="ScreenType" ScrName="Usage SQL Table Search" ImgName="DataTable">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Parse Statistics" SagTooltip="" SagOrderNo="0" ImgName="Gauge" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Show File Parse Statistics" CptTypeCd="ScreenActionType" SacName="View Parse Statistics" SacTooltip="Click here to view the parse statistics for the file this record originated from" SacDefaultFl="N" SacOrderNo="0" ImgName="Gauge" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Drill Down" SagTooltip="" SagOrderNo="1" ImgName="ArrowDownBlue" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Parse Record" CptTypeCd="ScreenActionType" SacName="View Raw Record" SacTooltip="Click here to attempt to re-parse this record from the original file" SacDefaultFl="N" SacOrderNo="0" ImgName="Atom" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Usage Group Search" CptTypeCd="ScreenType" ScrName="Usage Group Search" ImgName="DataCopy">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Usage Servers" SagTooltip="" SagOrderNo="0" ImgName="Data" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="Usage Group Servers" CptTypeCd="ScreenActionType" SacName="Usage Group Servers" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Data" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+						<ScreenAction CmpName="" CptTypeCd="" SacName="Separator" SacTooltip="" SacDefaultFl="N" SacOrderNo="1" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="New Usage Group Server" CptTypeCd="ScreenActionType" SacName="Attach Usage Server" SacTooltip="Attach a usage server to the selected usage group" SacDefaultFl="N" SacOrderNo="2" ImgName="DataAdd" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Usage Actions" SagTooltip="" SagOrderNo="1" ImgName="DataCopy" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Refresh Usage Partitions" CptTypeCd="ScreenActionType" SacName="Refresh Usage Partitions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Refresh" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="User Change Password Detail" CptTypeCd="ScreenType" ScrName="User Change Password Detail" ImgName="IdCardNew"/>
+        <ScreenTbl CmpName="Report Detail" CptTypeCd="ScreenType" ScrName="Report Detail" ImgName="TableView"/>
+        <ScreenTbl CmpName="Launch Report Designer Detail" CptTypeCd="ScreenType" ScrName="Launch Report Designer Detail" ImgName="TableAdd"/>
+        <ScreenTbl CmpName="Dashboard Detail" CptTypeCd="ScreenType" ScrName="Dashboard Detail" ImgName="Piechart"/>
+		<ScreenTbl CmpName="DICE Dashboard" CptTypeCd="ScreenActionType" ScrName="DICE Dashboard" ImgName="Piechart" DeleteFl="Y"/>
+		<ScreenTbl CmpName="User Config Detail" CptTypeCd="ScreenType" ScrName="User Config Detail" ImgName="Preferences">
+			<ScreenLabels>
+				<ScreenLabel SlaName="Client Properties" SlaLabel="ClientProperties"/>
+				<ScreenLabel SlaName="Server Properties" SlaLabel="ServerProperties"/>
+				<ScreenLabel SlaName="System Properties" SlaLabel="SystemProperties"/>
+				<ScreenLabel SlaName="Dashboard Properties" SlaLabel="DashboardProperties"/>
+                <ScreenLabel SlaName="Report Properties" SlaLabel="ReportProperties"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="User Connected Users Detail" CptTypeCd="ScreenType" ScrName="User Connected Users Detail" ImgName="User1Monitor">
+			<ScreenLabels>
+				<ScreenLabel SlaName="Allow Disconnect User" SlaLabel="AllowDisconnectUser"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="User Login Search" CptTypeCd="ScreenType" ScrName="User Login Search" ImgName="User1Information">
+		</ScreenTbl>
+		<ScreenTbl CmpName="User Search" CptTypeCd="ScreenType" ScrName="User Search" ImgName="User1">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="User Actions" SagTooltip="" SagOrderNo="0" ImgName="IdCard" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="User Change Password" CptTypeCd="ScreenActionType" SacName="Change Password" SacTooltip="Click to change the user password" SacDefaultFl="N" SacOrderNo="0" ImgName="IdCardNew" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="User Disable" CptTypeCd="ScreenActionType" SacName="Disable User" SacTooltip="Click to disable the selected users" SacDefaultFl="N" SacOrderNo="1" ImgName="IdCardError" SacMaxPaneCount="" SacMaxMenuCount=""/>
+						<ScreenAction CmpName="User Enable" CptTypeCd="ScreenActionType" SacName="Enable User" SacTooltip="Click to enable the selected users" SacDefaultFl="N" SacOrderNo="2" ImgName="IdCardOk" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Roles" SagTooltip="List of roles this user belongs to" SagOrderNo="1" ImgName="Masks" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="User Roles" CptTypeCd="ScreenActionType" SacName="User Roles" SacTooltip="Click to view/edit the properties for this role" SacDefaultFl="N" SacOrderNo="0" ImgName="Masks" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Teams" SagTooltip="List of team this user belongs to" SagOrderNo="2" ImgName="Users3" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="User Teams" CptTypeCd="ScreenActionType" SacName="User Teams" SacTooltip="Click to view/edit the properties for this team" SacDefaultFl="N" SacOrderNo="0" ImgName="Users3" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Partitions" SagTooltip="List of partitions this user has been granted access to" SagOrderNo="3" ImgName="DataCopy" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+					<ScreenActions>
+						<ScreenAction CmpName="User Partitions" CptTypeCd="ScreenActionType" SacName="User Partitions" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="DataOk" SacMaxPaneCount="5" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+				<ScreenActionGroup SagName="Special Actions" SagTooltip="" SagOrderNo="4" ImgName="Checks" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Set All Privileges" CptTypeCd="ScreenActionType" SacName="Set All Privileges" SacTooltip="Click to set privileges to all the properties for Root user/role" SacDefaultFl="N" SacOrderNo="3" ImgName="Checks" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+			<ScreenLabels>
+				<ScreenLabel SlaName="Edit Advanced User Properties" SlaLabel="AllowEditReadOnlyProperties"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="User Validation Detail" CptTypeCd="ScreenType" ScrName="User Validation Detail" ImgName="User1Lock"/>
+		<ScreenTbl CmpName="Ageing Search" CptTypeCd="ScreenType" ScrName="Ageing Search" ImgName="User1Lock">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Case Actions" SagTooltip="Add Local Settings" SagOrderNo="0" ImgName="FolderNew" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Add Group" CptTypeCd="ScreenActionType" SacName="Add Group" SacTooltip="Add Local Settings" SacDefaultFl="N" SacOrderNo="0" ImgName="Folder" SacMaxPaneCount="" SacMaxMenuCount="8"/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Ageing Group Search" CptTypeCd="ScreenType" ScrName="Ageing Group Search" ImgName="User1Lock">
+			<ScreenActionGroups>
+			</ScreenActionGroups>
+		</ScreenTbl>
+		<ScreenTbl CmpName="Standard Expressions Search" CptTypeCd="ScreenType" ScrName="Standard Expressions Search" ImgName="User1Lock">
+			<ScreenActionGroups>
+				<ScreenActionGroup SagName="Standard Expressions Actions" SagTooltip="" SagOrderNo="0" ImgName="User1Lock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+					<ScreenActions>
+						<ScreenAction CmpName="Acquire Object Lock" CptTypeCd="ScreenActionType" SacName="Acquire Object Lock" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+					</ScreenActions>
+				</ScreenActionGroup>
+			</ScreenActionGroups>
+			<ScreenLabels>
+				<ScreenLabel SlaName="Allow Object Lock Override" SlaLabel="AllowObjectLockOverride"/>
+			</ScreenLabels>
+		</ScreenTbl>
+		<ScreenTbl CmpName="View Search" CptTypeCd="ScreenType" ScrName="View Search" ImgName="View11" >
+		    <ScreenActionGroups>
+		      <ScreenActionGroup SagName="View Actions" SagTooltip="View Actions" SagOrderNo="0" ImgName="Bookmark" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+			<ScreenActions>
+			  <ScreenAction CmpName="Set as default" CptTypeCd="ScreenActionType" SacName="Set as default" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Bookmark" SacMaxPaneCount="" SacMaxMenuCount=""/>
+			</ScreenActions>
+		      </ScreenActionGroup>
+		    </ScreenActionGroups>
+		    </ScreenTbl>
+		<ScreenTbl CmpName="Spark Summary Search" CptTypeCd="ScreenType" ScrName="Spark Summary Search" ImgName="View11" />
+    <ScreenTbl CmpName="Trend Summary Table Search" CptTypeCd="ScreenType" ScrName="Trend Summary Table Search" ImgName="Chart">
+      <ScreenActionGroups>
+        <ScreenActionGroup SagName="Trend Summary Table Actions" SagTooltip="" SagOrderNo="0" ImgName="User1Lock" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+          <ScreenActions>
+            <ScreenAction CmpName="Acquire Object Lock" CptTypeCd="ScreenActionType" SacName="Acquire Object Lock" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+            <ScreenAction CmpName="Trend Request Actions" CptTypeCd="ScreenActionType" SacName="Trend Request Actions" SacTooltip="" SacDefaultFl="N" SacOrderNo="2" ImgName="DocumentGear" SacMaxPaneCount="" SacMaxMenuCount="" SacExtra1="TrendSummary" SacExtra2="Y"/>
+          </ScreenActions>
+        </ScreenActionGroup>
+        <ScreenActionGroup SagName="Trend Summary Results" SagTooltip="" SagOrderNo="1" ImgName="DataTable" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="N">
+          <ScreenActions>
+            <ScreenAction CmpName="Jump To Trend Summary Result Search" CptTypeCd="ScreenActionType" SacName="Jump To Results" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="Redo" SacMaxPaneCount="" SacMaxMenuCount=""/>
+          </ScreenActions>
+        </ScreenActionGroup>
+        </ScreenActionGroups>
+      <ScreenLabels>
+        <ScreenLabel SlaName="Allow Object Lock Override" SlaLabel="AllowObjectLockOverride"/>
+      </ScreenLabels>
+    </ScreenTbl>
+    <ScreenTbl CmpName="Trend Summary Results Search" CptTypeCd="ScreenType" ScrName="Trend Summary Results Search" ImgName="PiechartView">
+      <ScreenActionGroups>
+        <ScreenActionGroup SagName="Drill Down" SagTooltip="" SagOrderNo="0" ImgName="PiechartView" SagPaneVisibleFl="Y" SagPaneExpandedFl="Y" SagContextGroupFl="Y">
+          <ScreenActions>
+            <ScreenAction CmpName="Trend Summary Drill Down" CptTypeCd="ScreenActionType" SacName="Results" SacTooltip="" SacDefaultFl="N" SacOrderNo="0" ImgName="" SacMaxPaneCount="" SacMaxMenuCount=""/>
+          </ScreenActions>
+        </ScreenActionGroup>
+      </ScreenActionGroups>
+    </ScreenTbl>
+  </ScreenTbls>
+		
+  <ApplicationTbls>
+		<ApplicationTbl AppName="Spark Client" AppProductName="SubexClient" ImgName="Flash">
+			<Toolbars>
+				<Toolbar TlbName="Monitoring" TlbListFl="Y" TlbOrderNo="0" ImgName="ServerClient">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Task Search" TbiName="Task Search" TbiTypeCd="MainPanelSearch" TbiOrderNo="0" />
+						<ToolbarItem ScrName="Collected File Search" TbiName="Collected Files" TbiTypeCd="MainPanelSearch" TbiOrderNo="1" />
+						<ToolbarItem ScrName="Alert Instance Search" TbiName="Alerts" TbiTypeCd="MainPanelSearch" TbiOrderNo="3" />
+						<ToolbarItem ScrName="Process Chain Request Search" TbiName="Process Chain Request" TbiTypeCd="MainPanelSearch" TbiOrderNo="14" />
+					</ToolbarItems>
+			 	</Toolbar>
+				<Toolbar TlbName="Interfaces" TlbListFl="Y" TlbOrderNo="1" ImgName="Components">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Interface Dynamic Details" TbiName="Interface Instances" TbiTypeCd="DynamicToolbar" TbiOrderNo="0" />
+					</ToolbarItems>
+				</Toolbar>
+				<Toolbar TlbName="Tariffs" TlbListFl="Y" TlbOrderNo="2" ImgName="PiechartView">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Band Search" TbiName="Bands" TbiTypeCd="MainPanelSearch" TbiOrderNo="0"/>
+						<ToolbarItem ScrName="Element Search" TbiName="Elements" TbiTypeCd="MainPanelSearch" TbiOrderNo="2"/>
+						<ToolbarItem ScrName="Route Search" TbiName="Routes" TbiTypeCd="MainPanelSearch" TbiOrderNo="3"/>
+						<ToolbarItem ScrName="Tariff Class Search" TbiName="Tariff Classes" TbiTypeCd="MainPanelSearch" TbiOrderNo="6"/>
+						<ToolbarItem ScrName="Tariff Search" TbiName="Tariffs" TbiTypeCd="MainPanelSearch" TbiOrderNo="7"/>
+					</ToolbarItems>
+				</Toolbar>
+				<Toolbar TlbName="Case Management" TlbListFl="Y" TlbOrderNo="8" ImgName="Briefcase">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Case Search" TbiName="Cases" TbiTypeCd="MainPanelSearch" TbiOrderNo="0" />
+						<ToolbarItem ScrName="Case Definition Search" TbiName="Case Definitions" TbiTypeCd="MainPanelSearch" TbiOrderNo="1" />
+					</ToolbarItems>
+			 	</Toolbar>
+				<Toolbar TlbName="System" TlbListFl="Y" TlbOrderNo="9" ImgName="Clients">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Business Objects Group Search" TbiName="Business Objects Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="0" />
+						<ToolbarItem ScrName="Cache Strategy Search" TbiName="Cache Strategies" TbiTypeCd="MainPanelSearch" TbiOrderNo="2" />
+						<ToolbarItem ScrName="Duplicate Config Search" TbiName="Duplicates" TbiTypeCd="MainPanelSearch" TbiOrderNo="3" />
+						<ToolbarItem ScrName="File Collection Search" TbiName="File Collections" TbiTypeCd="MainPanelSearch" TbiOrderNo="5" />
+						<ToolbarItem ScrName="File Source Search" TbiName="File Sources" TbiTypeCd="MainPanelSearch" TbiOrderNo="6" />
+						<ToolbarItem ScrName="LDC Correlator Search" TbiName="LDC Correlator" TbiTypeCd="MainPanelSearch" TbiOrderNo="8" />
+						<ToolbarItem ScrName="Process Chain Definition Search" TbiName="Process Chains" TbiTypeCd="MainPanelSearch" TbiOrderNo="13" />
+						<ToolbarItem ScrName="Machine Search" TbiName="Machines" TbiTypeCd="MainPanelSearch" TbiOrderNo="7" />
+						<ToolbarItem ScrName="Recurring Task Search" TbiName="Recurring Tasks" TbiTypeCd="MainPanelSearch" TbiOrderNo="10" />
+						<ToolbarItem ScrName="Stream Search" TbiName="Streams" TbiTypeCd="MainPanelSearch" TbiOrderNo="11" />
+						<ToolbarItem ScrName="String Rule Set Search" TbiName="String Rule Sets" TbiTypeCd="MainPanelSearch" TbiOrderNo="12" />
+						<ToolbarItem ScrName="Trigger Search" TbiName="Triggers" TbiTypeCd="MainPanelSearch" TbiOrderNo="15" />
+						<ToolbarItem ScrName="Usage Group Search" TbiName="Usage Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="16" />
+					</ToolbarItems>
+			 	</Toolbar>			 	
+				<Toolbar TlbName="Options" TlbListFl="Y" TlbOrderNo="10" ImgName="User1Preferences">
+					<ToolbarItems>
+						<ToolbarItem ScrName="User Change Password Detail" TbiName="Change Password" TbiTypeCd="UserDetail" TbiOrderNo="0" />
+						<ToolbarItem ScrName="User Config Detail" TbiName="Settings" TbiTypeCd="UserDetail" TbiOrderNo="1" />
+					</ToolbarItems>
+				</Toolbar>
+				<Toolbar TlbName="Security" TlbListFl="Y" TlbOrderNo="11" ImgName="Lock">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Application Search" TbiName="Applications" TbiTypeCd="MainPanelSearch" TbiOrderNo="0" />
+						<ToolbarItem ScrName="Role Search" TbiName="Roles" TbiTypeCd="MainPanelSearch" TbiOrderNo="1" />
+						<ToolbarItem ScrName="Screen Search" TbiName="Screens" TbiTypeCd="MainPanelSearch" TbiOrderNo="2" />
+						<ToolbarItem ScrName="Team Search" TbiName="Teams" TbiTypeCd="MainPanelSearch" TbiOrderNo="3" />
+						<ToolbarItem ScrName="User Search" TbiName="Users" TbiTypeCd="MainPanelSearch" TbiOrderNo="4" />
+						<ToolbarItem ScrName="User Login Search" TbiName="User Logins" TbiTypeCd="MainPanelSearch" TbiOrderNo="5" />
+						<ToolbarItem ScrName="User Validation Detail" TbiName="User Validation" TbiTypeCd="UserDetail" TbiOrderNo="6" />
+						<ToolbarItem ScrName="User Connected Users Detail" TbiName="Connected Users" TbiTypeCd="UserDetail" TbiOrderNo="7" />
+					</ToolbarItems>
+				</Toolbar>
+				<Toolbar TlbName="Admin" TlbListFl="Y" TlbOrderNo="12" ImgName="Wrench">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Ageing Search" TbiName="Ageing" TbiTypeCd="MainPanelSearch" TbiOrderNo="0" />
+						<ToolbarItem ScrName="Alert Group Search" TbiName="Alert Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="1" />
+						<ToolbarItem ScrName="Day Group Search" TbiName="Day Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="2" />
+						<ToolbarItem ScrName="Entity Search" TbiName="Entities" TbiTypeCd="MainPanelSearch" TbiOrderNo="3" />
+						<ToolbarItem ScrName="Entity Export Search" TbiName="Entity Exports" TbiTypeCd="MainPanelSearch" TbiOrderNo="4" />
+						<ToolbarItem ScrName="Entity Import Search" TbiName="Entity Imports" TbiTypeCd="MainPanelSearch" TbiOrderNo="5" />
+						<ToolbarItem ScrName="Entity Group Search" TbiName="Entity Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="7" />
+						<ToolbarItem ScrName="Image Search" TbiName="Images" TbiTypeCd="MainPanelSearch" TbiOrderNo="8" />
+						<ToolbarItem ScrName="Interface Definition Search" TbiName="Interface Definitions" TbiTypeCd="MainPanelSearch" TbiOrderNo="9" />
+						<ToolbarItem ScrName="Note Search" TbiName="Notes" TbiTypeCd="MainPanelSearch" TbiOrderNo="10" />
+						<ToolbarItem ScrName="Property Dfn Group Search" TbiName="Property Groups" TbiTypeCd="MainPanelSearch" TbiOrderNo="14" />
+						<ToolbarItem ScrName="Query Filter Search" TbiName="Query Filters" TbiTypeCd="MainPanelSearch" TbiOrderNo="15" />
+						<ToolbarItem ScrName="Reference Tables" TbiName="Reference Tables" TbiTypeCd="MainPanelSearch" TbiOrderNo="16" />
+						<ToolbarItem ScrName="Standard Expressions Search" TbiName="Standard Expressions" TbiTypeCd="MainPanelSearch" TbiOrderNo="17" />
+						<ToolbarItem ScrName="Table Definition Search" TbiName="Table Definitions" TbiTypeCd="MainPanelSearch" TbiOrderNo="18" />
+						<ToolbarItem ScrName="Table Instance Search" TbiName="Table Instances" TbiTypeCd="MainPanelSearch" TbiOrderNo="20" />
+					</ToolbarItems>
+				</Toolbar>
+                <Toolbar TlbName="Dashboard" TlbListFl="Y" TlbOrderNo="13" ImgName="Chart">
+					<ToolbarItems>
+                        <ToolbarItem ScrName="Dashboard Detail" TbiName="Dashboard" TbiTypeCd="CreateInstance" TbiOrderNo="17" />
+					</ToolbarItems>
+				</Toolbar>
+                <Toolbar TlbName="Reports" TlbListFl="Y" TlbOrderNo="14" ImgName="ColumnPreferences">
+					<ToolbarItems>
+						<ToolbarItem ScrName="Report Detail" TbiName="Report Viewer" TbiTypeCd="CreateInstance" TbiOrderNo="0" />
+                        <ToolbarItem ScrName="Launch Report Designer Detail" TbiName="Report Designer" TbiTypeCd="CreateInstance" TbiOrderNo="1" />
+					</ToolbarItems>
+				</Toolbar>
+			</Toolbars>
+		</ApplicationTbl>
+  </ApplicationTbls>
+  <Contexts>
+  	<Context CxtName="Default"/>
+  	<Context CxtName="Case"/>
+  	<Context CxtName="View Summary"/>
+  </Contexts>
+  <DefaultGrids>
+  	<DefaultGrid EntEntity="AlertDfn">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Alert Group" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="AlertGroup.AlgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Severity" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AlertSeverity.AsvName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Alert No" DgcOrderNo="2" DgcType="int" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="right" DgcDataProperty="AldAlertNo" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Alert Text" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AldAlertText" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="AlertGroup">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="AlgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="System" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="AlgSystemFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Guide Entity" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="GuideEntityTbl.EntEntity" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Result Entity" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ResultEntityTbl.EntEntity" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Result Component" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ResultComponent.CmpName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+  	<DefaultGrid EntEntity="AlertInst">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Raised On" DgcOrderNo="0" DgcType="datetime" DgcVisible="Y" DgcSort="descending" DgcTextAlign="left" DgcDataProperty="AliRaisedDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Severity" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AlertDfn.AlertSeverity.AsvName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Alert No" DgcOrderNo="2" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="right" DgcDataProperty="AlertDfn.AldAlertNo" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Alert Source" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AliGuidePkId" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Alert Text" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AlertDfn.AldAlertText" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="ApplicationTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="AppName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Product Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AppProductName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Band">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Band Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="BndName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Band Type" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="BandType.BdtName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Element Set" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ElementSet.EstName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Point to Point" DgcOrderNo="3" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="BndPointToPointFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="External Reference" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="BndExternalReference" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="BusinessObjectsGroup">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="BogName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CacheStrategy">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Object Class" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="CstObjectClass" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cache Class" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CstCacheClass" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Strategy" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Component.CmpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Timeout (mins)" DgcOrderNo="3" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CstTimeoutMins" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cache Key" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CstCacheKey" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CaseDfn">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="CdnName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="External Reference" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CdnExternalReference" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CaseDfnItem">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="CdiName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="External Reference" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CdiExternalReference" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CaseInstItem">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Case No" DgcOrderNo="0" DgcType="long" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="right" DgcDataProperty="CaseInst.CitCaseNo" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Case Item No" DgcOrderNo="1" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="right" DgcDataProperty="CiiCaseItemNo" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Case Type" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CaseInst.CaseDfn.CdnName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Case Item Type" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CaseDfnItem.CdiName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Current Step" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CurrentCaseDfnItemStep.CdsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Priority" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CaseItemPriority.CipName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Expires" DgcOrderNo="6" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CiiDueDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Assigned Team" DgcOrderNo="7" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AssignedTeam.TeaName" DgcNullDisplay="(None)"/>
+				<DefaultGridColumn DgcLabel="Assigned User" DgcOrderNo="8" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="AssignedUserTbl.UsrName" DgcNullDisplay="(Nobody)"/>
+				<DefaultGridColumn DgcLabel="Description" DgcOrderNo="9" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CiiDesc" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cost" DgcOrderNo="10" DgcType="decimal" DgcVisible="Y" DgcSort="none" DgcTextAlign="right" DgcDataProperty="CiiCostField" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Recovered Cost" DgcOrderNo="11" DgcType="decimal" DgcVisible="Y" DgcSort="none" DgcTextAlign="right" DgcDataProperty="CiiRecoveredCost" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CollectedFile">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Collection Id" DgcOrderNo="0" DgcType="int" DgcVisible="N" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ClfId" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="File Collection" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileCollection.FcnName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Polled" DgcOrderNo="2" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ClfPolledDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ClfStatus" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Filename" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileTbl.FilFilename" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="File Size" DgcOrderNo="5" DgcType="long" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileTbl.FilLength" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Duplicate" DgcOrderNo="6" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileTbl.FilDuplicateFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Hash Value" DgcOrderNo="7" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileTbl.FilHashValue" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="DayGroup">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="DgpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Component" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Component.CmpName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="DuplicateConfig">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="DcfName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Table Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TableDfn.TbdName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Element">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="EltName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Digits" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EltDigits" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="From" DgcOrderNo="2" DgcType="date" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EltFromDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="To" DgcOrderNo="3" DgcType="date" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EltToDttm" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="EntityTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Entity" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="EntEntity" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cached" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EntCacheFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Allow Notes" DgcOrderNo="2" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EntAllowNotesFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Client Assembly" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ClientAssemblyTbl.AsmName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Client Component" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EntClientComponent" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="EntityExport">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ExpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Last Ran" DgcOrderNo="1" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ExpLastRanDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Filename" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileTbl.FilFilename" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="EventStatisticsStage">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Stream" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="StreamStage.Stream.StmName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Stream Stage" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="StreamStage.StsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Filename" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="EventStatistics.StreamFile.FileTbl.FilFilename" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Datetime" DgcOrderNo="3" DgcType="datetime" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="EventStatistics.EvtDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Records" DgcOrderNo="4" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EssRecords" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Usage" DgcOrderNo="5" DgcType="timespan" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EssUsage" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Statistics" DgcOrderNo="6" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="EventStatisticsType.EsyName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="ImageTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Image Group" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ImageGroup.IgpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ImgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Filename" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ImgFilename" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="InterfaceTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Interface Group" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="InterfaceGroup.IfgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="IfeName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="FileCollection">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="FcnName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="File Source" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FileSource.FlsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FcnStatus" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Relative Path" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FcnPath" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Filelist Mask" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FcnFilelistMask" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Next Scheduled" DgcOrderNo="5" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RecurringSchedule.RshNextDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Output Path" DgcOrderNo="6" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FcnOutputPath" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="FileSource">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="FlsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Type" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Component.CmpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="FlsStatus" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="MachineTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="MacName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Note">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Entity" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="EntityTbl.EntEntity" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Created Date" DgcOrderNo="1" DgcType="datetime" DgcVisible="Y" DgcSort="descending" DgcTextAlign="left" DgcDataProperty="NotCreatedDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="NotName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Created By" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="CreatedUserTbl.UsrName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="PropertyDfnGroup">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="System" DgcOrderNo="0" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="PdgSystemFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Key" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="PdgKey" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="PdgName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="QueryFilter">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="QfrName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Locked By" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="LockedUserTbl.UsrName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="RefTable"/>
+		<DefaultGrid EntEntity="RoleTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="RolName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="ScreenTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ScrName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Component" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Component.CmpName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Stream">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="StmName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="StreamStage">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="StsName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+
+		<DefaultGrid EntEntity="StreamStageRecurTask">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Stream" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="StreamStage.Stream.StmName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Stream Stage" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="StreamStage.StsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SrtName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Frequency" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RecurringSchedule.Component.CmpName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Next Scheduled" DgcOrderNo="4" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RecurringSchedule.RshNextDttm" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="LdcCorrelator">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SldcName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Record Table Instance" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="UsageTableInst.TinDisplayName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Partial Record Table" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ReferenceTableInst.TinDisplayName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+	    	<DefaultGrid EntEntity="ProcessChainDfn">
+      			<DefaultGridColumns>
+        			<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SpdnName" DgcNullDisplay=""/>
+       				<DefaultGridColumn DgcLabel="Description" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SpdnDesc" DgcNullDisplay="(None)"/>        			
+      			</DefaultGridColumns>
+    		</DefaultGrid>
+    		<DefaultGrid EntEntity="ProcessChainRequest">
+		      	<DefaultGridColumns>
+		        	<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ProcessChainDfn.SpdnName" DgcNullDisplay=""/>
+		       		<DefaultGridColumn DgcLabel="Description" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SprqDesc" DgcNullDisplay="(None)"/>        			
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SprqStatus" DgcNullDisplay=""/>				
+				<DefaultGridColumn DgcLabel="Created" DgcOrderNo="3" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SprqCreatedDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Started" DgcOrderNo="4" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SprqRunDttm" DgcNullDisplay=""/>		       			       		
+				<DefaultGridColumn DgcLabel="Completed" DgcOrderNo="5" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SprqCompletedDttm" DgcNullDisplay=""/>		       			       		
+		      	</DefaultGridColumns>
+    		</DefaultGrid>
+   		<DefaultGrid EntEntity="ProcessChainStgTskMap">
+	      	<DefaultGridColumns>
+	      	<DefaultGridColumn DgcLabel="Task Id" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="Task.TskId" DgcNullDisplay=""/>
+		    	<DefaultGridColumn DgcLabel="Stream Stage" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.StreamStage.StsName" DgcNullDisplay=""/>
+		      	<DefaultGridColumn DgcLabel="Status" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.TskStatus" DgcNullDisplay=""/>
+		      	<DefaultGridColumn DgcLabel="Parent Id" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.ParentTask.TskId" DgcNullDisplay=""/>
+		      	<DefaultGridColumn DgcLabel="Parent" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.ParentTask.StreamStage.StsName" DgcNullDisplay=""/>
+		      	<DefaultGridColumn DgcLabel="Created" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.TskCreatedDttm" DgcNullDisplay=""/>
+		      	<DefaultGridColumn DgcLabel="Started" DgcOrderNo="6" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.TskStartDttm" DgcNullDisplay=""/>		      	
+		      	<DefaultGridColumn DgcLabel="Task Controller" DgcOrderNo="7" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.TaskController.TcrName" DgcNullDisplay=""/>		      			      	
+		      	<DefaultGridColumn DgcLabel="Process Chain" DgcOrderNo="8" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.ProcessChainDfn.SpdnName" DgcNullDisplay=""/>		      			      	
+      		</DefaultGridColumns>
+   		</DefaultGrid>
+		<DefaultGrid EntEntity="StringRuleSet">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SrsName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="SqlQuery">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Schema" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SchemaTbl.SchName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Output Table" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="OutputTableDfn.TbdName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Route">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Switch" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="Switch.SwtName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="RutName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Match String" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RutMatchStr" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Route Type" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RouteType.RttName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Route Class" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RouteClass.RtcName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Direction" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="RutDirectionCd" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="From" DgcOrderNo="6" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RutFromDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="To" DgcOrderNo="7" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RutToDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Element" DgcOrderNo="8" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Element.EltName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="TableDfn">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="System" DgcOrderNo="0" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TbdSystemFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Internal" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TbdInternalFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Temporary" DgcOrderNo="2" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TbdTempFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TbdName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="TableInst">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Schema" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SchemaTbl.SchName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="System" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TableDfn.TbdSystemFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Temporary" DgcOrderNo="2" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TableDfn.TbdTempFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Display Name" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TinDisplayName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Table Name" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TinTableName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Definition Name" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TableDfn.TbdName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Tariff">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Tariff Class" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TariffClass.TcsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Tariff Type" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TariffType.TftName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Ccy" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="Currency.CurIsoCd" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Tariff Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TffName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cashflow" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TffCashflowCd" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="TariffClass">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TcsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Type" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TariffType.TftName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Metric" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TariffMetricType.TfmName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Element Set" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ElementSet.EstName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Task">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Task Id" DgcOrderNo="0" DgcType="int" DgcVisible="Y" DgcSort="descending" DgcTextAlign="centre" DgcDataProperty="TskId" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="TskWarnFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="" DgcOrderNo="2" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="TskPriority" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Stream Stage" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="StreamStage.StsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TskStatus" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Parent Id" DgcOrderNo="5" DgcType="int" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="ParentTask.TskId" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Parent" DgcOrderNo="6" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ParentTask.StreamStage.StsName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Created" DgcOrderNo="7" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TskCreatedDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Started" DgcOrderNo="8" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TskStartDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Task Controller" DgcOrderNo="9" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TaskController.TcrName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Process Chain" DgcOrderNo="10" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ProcessChainDfn.SpdnName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Team">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TeaName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="TreeDfn">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TreName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="TriggerTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Stream" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="Stream.StmName" DgcNullDisplay="(None)"/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="TrgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Type" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="TriggerType.TrtName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="UsageGroup">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UsgName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Type" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Component.CmpName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="UsagePartition">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="From" DgcOrderNo="0" DgcType="date" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="UspFromDt" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="To" DgcOrderNo="1" DgcType="date" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="UspToDt" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UspName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Indexes" DgcOrderNo="3" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="UspIndexFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Data Source Connection" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="DataSourceConnection.DscName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Table Suffix" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UspTableSuffix" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="UserLogin">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Datetime" DgcOrderNo="0" DgcType="datetime" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="UlgDttm" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Source Address" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UlgSourceAddress" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Source Hostname" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UlgSourceHostname" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="User" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UserTbl.UsrName" DgcNullDisplay="(None)"/>
+				<DefaultGridColumn DgcLabel="Success" DgcOrderNo="4" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="UlgSuccessFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Message" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UlgMessage" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="UserTbl">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="UsrName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Status" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="centre" DgcDataProperty="UsrDisabledFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Forename" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UsrForename" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Surname" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UsrSurname" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Email Address" DgcOrderNo="4" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UsrEmailAddress" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Cell Number" DgcOrderNo="5" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="UsrCellNo" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="Ageing">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Ageing Entity" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="AgeingEntity.SagnName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Delete After" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SageDueDttmPeriod" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="CaseAgeing">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="ScagName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="StandardExpression">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SsteName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Description" DgcOrderNo="1" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SsteDesc" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Locked By" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="LockedUserTbl.UsrName" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+		<DefaultGrid EntEntity="ViewConfiguration">
+			<DefaultGridColumns>
+				<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="SvcfName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Default" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SvcfDefaultFl" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Table Definition" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="ProfileSummaryCfg.TableDfn.TbdName" DgcNullDisplay=""/>
+				<DefaultGridColumn DgcLabel="Description" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="SvcfDesc" DgcNullDisplay=""/>
+			</DefaultGridColumns>
+		</DefaultGrid>
+    		<DefaultGrid EntEntity="TrendSummaryTableCfg">
+      			<DefaultGridColumns>
+    	  			<DefaultGridColumn DgcLabel="Name" DgcOrderNo="0" DgcType="string" DgcVisible="Y" DgcSort="ascending" DgcTextAlign="left" DgcDataProperty="StstName" DgcNullDisplay=""/>
+    	  			<DefaultGridColumn DgcLabel="Enable" DgcOrderNo="1" DgcType="bool" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="StstEnabledFl" DgcNullDisplay=""/>
+  	    			<DefaultGridColumn DgcLabel="Locked By" DgcOrderNo="2" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="LockedUserTbl.UsrName" DgcNullDisplay=""/>
+        			<DefaultGridColumn DgcLabel="Status" DgcOrderNo="3" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="Task.TskStatus" DgcNullDisplay=""/>
+        			<DefaultGridColumn DgcLabel="Next Scheduled" DgcOrderNo="5" DgcType="datetime" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="RecurringSchedule.RshNextDttm" DgcNullDisplay=""/>
+        			<DefaultGridColumn DgcLabel="Description" DgcOrderNo="6" DgcType="string" DgcVisible="Y" DgcSort="none" DgcTextAlign="left" DgcDataProperty="StstDesc" DgcNullDisplay=""/>        			
+      			</DefaultGridColumns>
+		</DefaultGrid>
+  </DefaultGrids>
+  
+  <BandTypes>
+		<BandType BdtName="International - Fixed" BdtClassCd="INT"/>
+		<BandType BdtName="International - Mobile" BdtClassCd="MOB"/>
+		<BandType BdtName="National - Fixed" BdtClassCd="NAT"/>
+		<BandType BdtName="National - Mobile" BdtClassCd="NMO"/>
+		<BandType BdtName="Non-Geographic" BdtClassCd="NGE"/>
+  </BandTypes>
+  <Currencys>
+		<Currency CurName="British Pound" CurIsoCd="GBP" CurCulture="en-GB"/>
+		<Currency CurName="Euro" CurIsoCd="EUR" CurCulture="fr-FR"/>
+		<Currency CurName="US Dollar" CurIsoCd="USD" CurCulture="en-US"/>
+  </Currencys>
+  <Countrys>
+		<Country CtrIsoCd="AF" CtrName="Afghanistan" CtrDialCode="93"/>
+		<Country CtrIsoCd="AL" CtrName="Albania" CtrDialCode="355"/>
+		<Country CtrIsoCd="DZ" CtrName="Algeria" CtrDialCode="213"/>
+		<Country CtrIsoCd="AS" CtrName="American Samoa" CtrDialCode="684"/>
+		<Country CtrIsoCd="AD" CtrName="Andorra" CtrDialCode="376"/>
+		<Country CtrIsoCd="AO" CtrName="Angola" CtrDialCode="244"/>
+		<Country CtrIsoCd="AI" CtrName="Anguilla" CtrDialCode="264"/>
+		<Country CtrIsoCd="AQ" CtrName="Antarctica" CtrDialCode="672"/>
+		<Country CtrIsoCd="AG" CtrName="Antigua and Barbuda" CtrDialCode="268"/>
+		<Country CtrIsoCd="AR" CtrName="Argentina" CtrDialCode="54"/>
+		<Country CtrIsoCd="AM" CtrName="Armenia" CtrDialCode="374"/>
+		<Country CtrIsoCd="AW" CtrName="Aruba" CtrDialCode="297"/>
+		<Country CtrIsoCd="AU" CtrName="Australia" CtrDialCode="61"/>
+		<Country CtrIsoCd="AT" CtrName="Austria" CtrDialCode="43"/>
+		<Country CtrIsoCd="AZ" CtrName="Azerbaidjan" CtrDialCode="994"/>
+		<Country CtrIsoCd="BS" CtrName="Bahamas" CtrDialCode="242"/>
+		<Country CtrIsoCd="BH" CtrName="Bahrain" CtrDialCode="973"/>
+		<Country CtrIsoCd="BD" CtrName="Bangladesh" CtrDialCode="880"/>
+		<Country CtrIsoCd="BB" CtrName="Barbados" CtrDialCode="246"/>
+		<Country CtrIsoCd="BY" CtrName="Belarus" CtrDialCode="375"/>
+		<Country CtrIsoCd="BE" CtrName="Belgium" CtrDialCode="32"/>
+		<Country CtrIsoCd="BZ" CtrName="Belize" CtrDialCode="501"/>
+		<Country CtrIsoCd="BJ" CtrName="Benin" CtrDialCode="229"/>
+		<Country CtrIsoCd="BM" CtrName="Bermuda" CtrDialCode="1441"/>
+		<Country CtrIsoCd="BT" CtrName="Bhutan" CtrDialCode="975"/>
+		<Country CtrIsoCd="BO" CtrName="Bolivia" CtrDialCode="591"/>
+		<Country CtrIsoCd="BA" CtrName="Bosnia-Herzegovina" CtrDialCode="387"/>
+		<Country CtrIsoCd="BW" CtrName="Botswana" CtrDialCode="267"/>
+		<Country CtrIsoCd="BR" CtrName="Brazil" CtrDialCode="55"/>
+		<Country CtrIsoCd="BN" CtrName="Brunei Darussalam" CtrDialCode="673"/>
+		<Country CtrIsoCd="BG" CtrName="Bulgaria" CtrDialCode="359"/>
+		<Country CtrIsoCd="BF" CtrName="Burkina Faso" CtrDialCode="226"/>
+		<Country CtrIsoCd="BI" CtrName="Burundi" CtrDialCode="257"/>
+		<Country CtrIsoCd="KH" CtrName="Cambodia" CtrDialCode="855"/>
+		<Country CtrIsoCd="CM" CtrName="Cameroon" CtrDialCode="237"/>
+		<Country CtrIsoCd="CA" CtrName="Canada" CtrDialCode="1"/>
+		<Country CtrIsoCd="CV" CtrName="Cape Verde" CtrDialCode="238"/>
+		<Country CtrIsoCd="KY" CtrName="Cayman Islands" CtrDialCode="345"/>
+		<Country CtrIsoCd="CF" CtrName="Central African Republic" CtrDialCode="236"/>
+		<Country CtrIsoCd="TD" CtrName="Chad" CtrDialCode="235"/>
+		<Country CtrIsoCd="CL" CtrName="Chile" CtrDialCode="56"/>
+		<Country CtrIsoCd="CN" CtrName="China" CtrDialCode="86"/>
+		<Country CtrIsoCd="CO" CtrName="Colombia" CtrDialCode="57"/>
+		<Country CtrIsoCd="KM" CtrName="Comoros" CtrDialCode="269"/>
+		<Country CtrIsoCd="CG" CtrName="Congo" CtrDialCode="242"/>
+		<Country CtrIsoCd="CK" CtrName="Cook Islands" CtrDialCode="682"/>
+		<Country CtrIsoCd="CR" CtrName="Costa Rica" CtrDialCode="506"/>
+		<Country CtrIsoCd="HR" CtrName="Croatia" CtrDialCode="385"/>
+		<Country CtrIsoCd="CU" CtrName="Cuba" CtrDialCode="53"/>
+		<Country CtrIsoCd="CY" CtrName="Cyprus" CtrDialCode="357"/>
+		<Country CtrIsoCd="CZ" CtrName="Czech Republic" CtrDialCode="420"/>
+		<Country CtrIsoCd="DK" CtrName="Denmark" CtrDialCode="45"/>
+		<Country CtrIsoCd="A1" CtrName="Diego Garcia Audiotext" CtrDialCode="246"/>
+		<Country CtrIsoCd="DJ" CtrName="Djibouti" CtrDialCode="253"/>
+		<Country CtrIsoCd="DM" CtrName="Dominica" CtrDialCode="767"/>
+		<Country CtrIsoCd="DO" CtrName="Dominican Republic" CtrDialCode="809"/>
+		<Country CtrIsoCd="EC" CtrName="Ecuador" CtrDialCode="593"/>
+		<Country CtrIsoCd="EG" CtrName="Egypt" CtrDialCode="20"/>
+		<Country CtrIsoCd="SV" CtrName="El Salvador" CtrDialCode="503"/>
+		<Country CtrIsoCd="GQ" CtrName="Equatorial Guinea" CtrDialCode="240"/>
+		<Country CtrIsoCd="EE" CtrName="Estonia" CtrDialCode="372"/>
+		<Country CtrIsoCd="ET" CtrName="Ethiopia" CtrDialCode="251"/>
+		<Country CtrIsoCd="FK" CtrName="Falkland Islands" CtrDialCode="500"/>
+		<Country CtrIsoCd="FO" CtrName="Faroe Islands" CtrDialCode="298"/>
+		<Country CtrIsoCd="FJ" CtrName="Fiji" CtrDialCode="679"/>
+		<Country CtrIsoCd="FI" CtrName="Finland" CtrDialCode="358"/>
+		<Country CtrIsoCd="CS" CtrName="Former Czechoslovakia" CtrDialCode="420"/>
+		<Country CtrIsoCd="SU" CtrName="Former USSR" CtrDialCode="7"/>
+		<Country CtrIsoCd="FR" CtrName="France" CtrDialCode="33"/>
+		<Country CtrIsoCd="GF" CtrName="French Guyana" CtrDialCode="594"/>
+		<Country CtrIsoCd="TF" CtrName="French Southern Territories" CtrDialCode="689"/>
+		<Country CtrIsoCd="GA" CtrName="Gabon" CtrDialCode="241"/>
+		<Country CtrIsoCd="GM" CtrName="Gambia" CtrDialCode="220"/>
+		<Country CtrIsoCd="GE" CtrName="Georgia" CtrDialCode="995"/>
+		<Country CtrIsoCd="DE" CtrName="Germany" CtrDialCode="49"/>
+		<Country CtrIsoCd="GH" CtrName="Ghana" CtrDialCode="233"/>
+		<Country CtrIsoCd="GI" CtrName="Gibraltar" CtrDialCode="350"/>
+		<Country CtrIsoCd="GB" CtrName="Great Britain" CtrDialCode="44"/>
+		<Country CtrIsoCd="GR" CtrName="Greece" CtrDialCode="30"/>
+		<Country CtrIsoCd="GL" CtrName="Greenland" CtrDialCode="299"/>
+		<Country CtrIsoCd="GD" CtrName="Grenada" CtrDialCode="473"/>
+		<Country CtrIsoCd="GP" CtrName="Guadeloupe (French)" CtrDialCode="590"/>
+		<Country CtrIsoCd="GU" CtrName="Guam (USA)" CtrDialCode="671"/>
+		<Country CtrIsoCd="GT" CtrName="Guatemala" CtrDialCode="502"/>
+		<Country CtrIsoCd="GN" CtrName="Guinea" CtrDialCode="224"/>
+		<Country CtrIsoCd="GW" CtrName="Guinea Bissau" CtrDialCode="245"/>
+		<Country CtrIsoCd="GY" CtrName="Guyana" CtrDialCode="592"/>
+		<Country CtrIsoCd="HT" CtrName="Haiti" CtrDialCode="509"/>
+		<Country CtrIsoCd="HN" CtrName="Honduras" CtrDialCode="504"/>
+		<Country CtrIsoCd="HK" CtrName="Hong Kong" CtrDialCode="852"/>
+		<Country CtrIsoCd="HU" CtrName="Hungary" CtrDialCode="36"/>
+		<Country CtrIsoCd="IS" CtrName="Iceland" CtrDialCode="354"/>
+		<Country CtrIsoCd="IN" CtrName="India" CtrDialCode="91"/>
+		<Country CtrIsoCd="ID" CtrName="Indonesia" CtrDialCode="62"/>
+		<Country CtrIsoCd="IR" CtrName="Iran" CtrDialCode="98"/>
+		<Country CtrIsoCd="IQ" CtrName="Iraq" CtrDialCode="964"/>
+		<Country CtrIsoCd="IE" CtrName="Ireland" CtrDialCode="353"/>
+		<Country CtrIsoCd="IL" CtrName="Israel" CtrDialCode="972"/>
+		<Country CtrIsoCd="IT" CtrName="Italy" CtrDialCode="39"/>
+		<Country CtrIsoCd="CI" CtrName="Ivory Coast (Cote D&apos;Ivoire)" CtrDialCode="225"/>
+		<Country CtrIsoCd="JM" CtrName="Jamaica" CtrDialCode="876"/>
+		<Country CtrIsoCd="JP" CtrName="Japan" CtrDialCode="81"/>
+		<Country CtrIsoCd="JO" CtrName="Jordan" CtrDialCode="962"/>
+		<Country CtrIsoCd="KZ" CtrName="Kazakhstan" CtrDialCode="7"/>
+		<Country CtrIsoCd="KE" CtrName="Kenya" CtrDialCode="254"/>
+		<Country CtrIsoCd="KI" CtrName="Kiribati" CtrDialCode="686"/>
+		<Country CtrIsoCd="KW" CtrName="Kuwait" CtrDialCode="965"/>
+		<Country CtrIsoCd="LA" CtrName="Laos" CtrDialCode="856"/>
+		<Country CtrIsoCd="LV" CtrName="Latvia" CtrDialCode="371"/>
+		<Country CtrIsoCd="LB" CtrName="Lebanon" CtrDialCode="961"/>
+		<Country CtrIsoCd="LS" CtrName="Lesotho" CtrDialCode="266"/>
+		<Country CtrIsoCd="LR" CtrName="Liberia" CtrDialCode="231"/>
+		<Country CtrIsoCd="LY" CtrName="Libya" CtrDialCode="218"/>
+		<Country CtrIsoCd="LI" CtrName="Liechtenstein" CtrDialCode="41"/>
+		<Country CtrIsoCd="LT" CtrName="Lithuania" CtrDialCode="370"/>
+		<Country CtrIsoCd="LU" CtrName="Luxembourg" CtrDialCode="351"/>
+		<Country CtrIsoCd="MO" CtrName="Macau" CtrDialCode="853"/>
+		<Country CtrIsoCd="MK" CtrName="Macedonia" CtrDialCode="389"/>
+		<Country CtrIsoCd="MG" CtrName="Madagascar" CtrDialCode="261"/>
+		<Country CtrIsoCd="MW" CtrName="Malawi" CtrDialCode="265"/>
+		<Country CtrIsoCd="MY" CtrName="Malaysia" CtrDialCode="60"/>
+		<Country CtrIsoCd="MV" CtrName="Maldives" CtrDialCode="960"/>
+		<Country CtrIsoCd="ML" CtrName="Mali" CtrDialCode="223"/>
+		<Country CtrIsoCd="MT" CtrName="Malta" CtrDialCode="356"/>
+		<Country CtrIsoCd="MH" CtrName="Marshall Islands" CtrDialCode="692"/>
+		<Country CtrIsoCd="MQ" CtrName="Martinique (French)" CtrDialCode="596"/>
+		<Country CtrIsoCd="MR" CtrName="Mauritania" CtrDialCode="222"/>
+		<Country CtrIsoCd="MU" CtrName="Mauritius" CtrDialCode="230"/>
+		<Country CtrIsoCd="YT" CtrName="Mayotte" CtrDialCode="269"/>
+		<Country CtrIsoCd="MX" CtrName="Mexico" CtrDialCode="52"/>
+		<Country CtrIsoCd="FM" CtrName="Micronesia" CtrDialCode="691"/>
+		<Country CtrIsoCd="MD" CtrName="Moldavia" CtrDialCode="976"/>
+		<Country CtrIsoCd="MN" CtrName="Mongolia" CtrDialCode="976"/>
+		<Country CtrIsoCd="MS" CtrName="Montserrat" CtrDialCode="664"/>
+		<Country CtrIsoCd="MA" CtrName="Morocco" CtrDialCode="212"/>
+		<Country CtrIsoCd="MZ" CtrName="Mozambique" CtrDialCode="258"/>
+		<Country CtrIsoCd="MM" CtrName="Myanmar" CtrDialCode="95"/>
+		<Country CtrIsoCd="NA" CtrName="Namibia" CtrDialCode="264"/>
+		<Country CtrIsoCd="NR" CtrName="Nauru" CtrDialCode="674"/>
+		<Country CtrIsoCd="NP" CtrName="Nepal" CtrDialCode="977"/>
+		<Country CtrIsoCd="NL" CtrName="Netherlands" CtrDialCode="31"/>
+		<Country CtrIsoCd="AN" CtrName="Netherlands Antilles" CtrDialCode="599"/>
+		<Country CtrIsoCd="NC" CtrName="New Caledonia (French)" CtrDialCode="687"/>
+		<Country CtrIsoCd="NZ" CtrName="New Zealand" CtrDialCode="64"/>
+		<Country CtrIsoCd="NI" CtrName="Nicaragua" CtrDialCode="505"/>
+		<Country CtrIsoCd="NE" CtrName="Niger" CtrDialCode="227"/>
+		<Country CtrIsoCd="NG" CtrName="Nigeria" CtrDialCode="234"/>
+		<Country CtrIsoCd="NU" CtrName="Niue" CtrDialCode="683"/>
+		<Country CtrIsoCd="NF" CtrName="Norfolk Island" CtrDialCode="72"/>
+		<Country CtrIsoCd="KP" CtrName="North Korea" CtrDialCode="850"/>
+		<Country CtrIsoCd="MP" CtrName="Northern Mariana Islands" CtrDialCode="670"/>
+		<Country CtrIsoCd="NO" CtrName="Norway" CtrDialCode="47"/>
+		<Country CtrIsoCd="OM" CtrName="Oman" CtrDialCode="968"/>
+		<Country CtrIsoCd="PK" CtrName="Pakistan" CtrDialCode="92"/>
+		<Country CtrIsoCd="PW" CtrName="Palau" CtrDialCode="680"/>
+		<Country CtrIsoCd="PA" CtrName="Panama" CtrDialCode="507"/>
+		<Country CtrIsoCd="PG" CtrName="Papua New Guinea" CtrDialCode="675"/>
+		<Country CtrIsoCd="PY" CtrName="Paraguay" CtrDialCode="595"/>
+		<Country CtrIsoCd="PE" CtrName="Peru" CtrDialCode="51"/>
+		<Country CtrIsoCd="PH" CtrName="Philippines" CtrDialCode="63"/>
+		<Country CtrIsoCd="PL" CtrName="Poland" CtrDialCode="48"/>
+		<Country CtrIsoCd="PF" CtrName="Polynesia (French)" CtrDialCode="689"/>
+		<Country CtrIsoCd="PT" CtrName="Portugal" CtrDialCode="351"/>
+		<Country CtrIsoCd="PR" CtrName="Puerto Rico" CtrDialCode="787"/>
+		<Country CtrIsoCd="QA" CtrName="Qatar" CtrDialCode="974"/>
+		<Country CtrIsoCd="RE" CtrName="Reunion (French)" CtrDialCode="262"/>
+		<Country CtrIsoCd="RO" CtrName="Romania" CtrDialCode="40"/>
+		<Country CtrIsoCd="RU" CtrName="Russian Federation" CtrDialCode="7"/>
+		<Country CtrIsoCd="RW" CtrName="Rwanda" CtrDialCode="250"/>
+		<Country CtrIsoCd="SH" CtrName="Saint Helena" CtrDialCode="290"/>
+		<Country CtrIsoCd="KN" CtrName="Saint Kitts &amp; Nevis Anguilla" CtrDialCode="869"/>
+		<Country CtrIsoCd="LC" CtrName="Saint Lucia" CtrDialCode="758"/>
+		<Country CtrIsoCd="PM" CtrName="Saint Pierre and Miquelon" CtrDialCode="508"/>
+		<Country CtrIsoCd="ST" CtrName="Saint Tome (Sao Tome) and Prin" CtrDialCode="239"/>
+		<Country CtrIsoCd="VC" CtrName="Saint Vincent &amp; Grenadines" CtrDialCode="784"/>
+		<Country CtrIsoCd="WS" CtrName="Samoa" CtrDialCode="685"/>
+		<Country CtrIsoCd="SM" CtrName="San Marino" CtrDialCode="378"/>
+		<Country CtrIsoCd="SA" CtrName="Saudi Arabia" CtrDialCode="966"/>
+		<Country CtrIsoCd="SN" CtrName="Senegal" CtrDialCode="221"/>
+		<Country CtrIsoCd="SC" CtrName="Seychelles" CtrDialCode="248"/>
+		<Country CtrIsoCd="SL" CtrName="Sierra Leone" CtrDialCode="232"/>
+		<Country CtrIsoCd="SG" CtrName="Singapore" CtrDialCode="65"/>
+		<Country CtrIsoCd="SK" CtrName="Slovak Republic" CtrDialCode="421"/>
+		<Country CtrIsoCd="SI" CtrName="Slovenia" CtrDialCode="386"/>
+		<Country CtrIsoCd="SB" CtrName="Solomon Islands" CtrDialCode="677"/>
+		<Country CtrIsoCd="SO" CtrName="Somalia" CtrDialCode="252"/>
+		<Country CtrIsoCd="ZA" CtrName="South Africa" CtrDialCode="27"/>
+		<Country CtrIsoCd="KR" CtrName="South Korea" CtrDialCode="82"/>
+		<Country CtrIsoCd="ES" CtrName="Spain" CtrDialCode="34"/>
+		<Country CtrIsoCd="LK" CtrName="Sri Lanka" CtrDialCode="94"/>
+		<Country CtrIsoCd="SD" CtrName="Sudan" CtrDialCode="249"/>
+		<Country CtrIsoCd="SR" CtrName="Suriname" CtrDialCode="597"/>
+		<Country CtrIsoCd="SZ" CtrName="Swaziland" CtrDialCode="268"/>
+		<Country CtrIsoCd="SE" CtrName="Sweden" CtrDialCode="46"/>
+		<Country CtrIsoCd="CH" CtrName="Switzerland" CtrDialCode="41"/>
+		<Country CtrIsoCd="SY" CtrName="Syria" CtrDialCode="963"/>
+		<Country CtrIsoCd="TJ" CtrName="Tadjikistan" CtrDialCode="992"/>
+		<Country CtrIsoCd="TW" CtrName="Taiwan" CtrDialCode="886"/>
+		<Country CtrIsoCd="TZ" CtrName="Tanzania" CtrDialCode="255"/>
+		<Country CtrIsoCd="TH" CtrName="Thailand" CtrDialCode="66"/>
+		<Country CtrIsoCd="TG" CtrName="Togo" CtrDialCode="228"/>
+		<Country CtrIsoCd="TO" CtrName="Tonga" CtrDialCode="676"/>
+		<Country CtrIsoCd="TT" CtrName="Trinidad and Tobago" CtrDialCode="868"/>
+		<Country CtrIsoCd="TN" CtrName="Tunisia" CtrDialCode="21"/>
+		<Country CtrIsoCd="TR" CtrName="Turkey" CtrDialCode="90"/>
+		<Country CtrIsoCd="TM" CtrName="Turkmenistan" CtrDialCode="993"/>
+		<Country CtrIsoCd="TC" CtrName="Turks and Caicos Islands" CtrDialCode="649"/>
+		<Country CtrIsoCd="TV" CtrName="Tuvalu" CtrDialCode="688"/>
+		<Country CtrIsoCd="UG" CtrName="Uganda" CtrDialCode="256"/>
+		<Country CtrIsoCd="UA" CtrName="Ukraine" CtrDialCode="380"/>
+		<Country CtrIsoCd="AE" CtrName="United Arab Emirates" CtrDialCode="971"/>
+		<Country CtrIsoCd="US" CtrName="United States" CtrDialCode="1"/>
+		<Country CtrIsoCd="ZZ" CtrName="Unknown" CtrDialCode="00"/>
+		<Country CtrIsoCd="UY" CtrName="Uruguay" CtrDialCode="598"/>
+		<Country CtrIsoCd="UZ" CtrName="Uzbekistan" CtrDialCode="998"/>
+		<Country CtrIsoCd="VU" CtrName="Vanuatu" CtrDialCode="678"/>
+		<Country CtrIsoCd="VA" CtrName="Vatican City State" CtrDialCode="379"/>
+		<Country CtrIsoCd="VE" CtrName="Venezuela" CtrDialCode="58"/>
+		<Country CtrIsoCd="VN" CtrName="Vietnam" CtrDialCode="84"/>
+		<Country CtrIsoCd="VG" CtrName="Virgin Islands (British)" CtrDialCode="284"/>
+		<Country CtrIsoCd="VI" CtrName="Virgin Islands (USA)" CtrDialCode="340"/>
+		<Country CtrIsoCd="WF" CtrName="Wallis and Futuna Islands" CtrDialCode="681"/>
+		<Country CtrIsoCd="YE" CtrName="Yemen" CtrDialCode="967"/>
+		<Country CtrIsoCd="YU" CtrName="Yugoslavia" CtrDialCode="381"/>
+		<Country CtrIsoCd="ZR" CtrName="Zaire" CtrDialCode="243"/>
+		<Country CtrIsoCd="ZM" CtrName="Zambia" CtrDialCode="260"/>
+		<Country CtrIsoCd="ZW" CtrName="Zimbabwe" CtrDialCode="263"/>
+  </Countrys>
+  <ElementSets>
+		<ElementSet EstName="Default"/>
+  </ElementSets>
+  <ElementReportGroups>
+		<ElementReportGroup EgpName="Default"/>
+  </ElementReportGroups>
+  <EventStatisticsTypes>
+  </EventStatisticsTypes>
+	<FrequencyGroups>
+		<FrequencyGroup FrgName="Recurring Task Frequencies">
+			<FrequencyGroupComponents>
+				<FrequencyGroupComponent CmpName="Minutely Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Hourly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Daily Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Weekly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Fortnightly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Twice Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="BiMonthly Frequency" CptTypeCd="FrequencyType" />
+			</FrequencyGroupComponents>
+		</FrequencyGroup>
+	    <FrequencyGroup FrgName="Views Frequencies">
+	      	<FrequencyGroupComponents>
+				<FrequencyGroupComponent CmpName="Minutely Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Hourly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Daily Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Weekly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Fortnightly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Twice Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="BiMonthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Quarterly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Six Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Yearly Frequency" CptTypeCd="FrequencyType" />
+	      </FrequencyGroupComponents>
+		</FrequencyGroup>
+		<FrequencyGroup FrgName="Trend Summary Table Cfg Frequencies">
+			<FrequencyGroupComponents>
+				<FrequencyGroupComponent CmpName="Minutely Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Hourly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Daily Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Weekly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Fortnightly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Twice Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="BiMonthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Quarterly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Six Monthly Frequency" CptTypeCd="FrequencyType" />
+				<FrequencyGroupComponent CmpName="Yearly Frequency" CptTypeCd="FrequencyType" />
+			</FrequencyGroupComponents>
+		</FrequencyGroup>
+	</FrequencyGroups>
+  <TariffTypes>
+  	<TariffType TftCode="Default" TftName="Default Type" />
+  </TariffTypes>
+  <TariffMetricTypes>
+		<TariffMetricType TfmName="Rate / Minute" TfmUsageName="sec" TfmUsageDivisorName="min" TfmUsageDivisor="60"/>
+  </TariffMetricTypes>
+  <TariffRateNames>
+		<TariffRateName TrnName="Economy"/>
+		<TariffRateName TrnName="Peak"/>
+		<TariffRateName TrnName="Weekend"/>
+  </TariffRateNames>
+  <UserPasswordValidations>
+		<UserPasswordValidation CmpName="Standard User Password Validation" CptTypeCd="UserPasswordValidationType" PigName="Standard User Password Validation Properties" PigPdgKey="StandardUserPasswordValidationProperties" UpvName="Standard Password Validation" />
+  </UserPasswordValidations>  
+  <UserTbls>
+  		<UserTbl UsrName="Root" UsrPassword="4F2F5B246A89D8EBD7FAA76D32CE63E5" UsrForename="System" UsrSurname="Root" PigName="Root User Properties" PigPdgKey="UserProperties" />
+		<UserTbl UsrName="Administrator" UsrPassword="4F2F5B246A89D8EBD7FAA76D32CE63E5" UsrForename="System" UsrSurname="Administrator" PigName="Administrator User Properties" PigPdgKey="UserProperties" />
+  </UserTbls>
+  <UserPasswords>
+		<UserPassword UpwChangingUsrName="Root" UpwEffectedUsrName="Root" UpwDttm="20000101 00:00:00" UpwPassword="4F2F5B246A89D8EBD7FAA76D32CE63E5"/>
+		<UserPassword UpwChangingUsrName="Administrator" UpwEffectedUsrName="Administrator" UpwDttm="20000101 00:00:00" UpwPassword="4F2F5B246A89D8EBD7FAA76D32CE63E5"/>
+  </UserPasswords>
+  <UserNameValidations>
+		<UserNameValidation CmpName="Standard User Name Validation" CptTypeCd="UserNameValidationType" PigName="Standard User Name Validation Properties" PigPdgKey="StandardUserNameValidationProperties" UnvName="Standard User Name Validation" />
+  </UserNameValidations>
+  <RoleTbls>
+  		<RoleTbl RolName="Root" PigName="Root Role Properties" PigPdgKey="RoleProperties"/>
+		<RoleTbl RolName="Administrator" PigName="Administrator Role Properties" PigPdgKey="RoleProperties"/>
+		<RoleTbl RolName="Guest" PigName="Guest Role Properties" PigPdgKey="RoleProperties"/>
+  </RoleTbls>
+  <ImageViewers>
+		<ImageViewer CmpName="Text Viewer" CptTypeCd="ImageViewer" ImgName="TextAlignLeft" ImaName="Text Viewer" ImaExtension="txt" />
+		<ImageViewer CmpName="PDF Viewer" CptTypeCd="ImageViewer" ImgName="Pdf" ImaName="PDF Viewer" ImaExtension="pdf" />
+  </ImageViewers>
+  <TokenTbls>
+  	<TokenTbl TokMachineFl="N" TokToken="DataDir" />
+  </TokenTbls>
+  <InterfaceTypes>
+		<InterfaceType IfyCode="C#ExcelReport" IfyName="C# Excel Report" CmpName="C# Excel Report" CptTypeCd="InterfaceType" />
+		<InterfaceType IfyCode="StoredProcExcelReport" IfyName="Stored Proc Excel Report" CmpName="Stored Proc Excel Report" CptTypeCd="InterfaceType" />
+  </InterfaceTypes>
+  <InterfaceGroups>
+		<InterfaceGroup IfgName="Core Reports" ImgName="TableSql" >
+			<InterfaceTbls>
+			</InterfaceTbls>
+		</InterfaceGroup>
+  </InterfaceGroups>
+  
+  <StreamStageTypes>  
+  	<StreamStageType SstCode="Ageing" PdgKey="AgeingProperties" SstName="Ageing" SstTaskFactoryCmpName="Ageing Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="AutomaticCorrection" PdgKey="CorrectionProperties" SstName="Automatic Correction" SstTaskFactoryCmpName="Correction Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+    <StreamStageType SstCode="CreateIndex" PdgKey="CreateIndexProperties" SstName="Create Index" SstTaskFactoryCmpName="Create Index Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+    <StreamStageType SstCode="CaseEscalation" PdgKey="CaseEscalationProperties" SstName="Case Escalation" SstTaskFactoryCmpName="Case Escalation Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="DataLoad" PdgKey="DataLoadProperties" SstName="Data Load" SstTaskFactoryCmpName="Data Load Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="Duplicate" PdgKey="DuplicateProperties" SstName="Tag Duplicates" SstTaskFactoryCmpName="Duplicate Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="FileSequenceCheck" PdgKey="FileSequenceCheckProperties" SstName="File Sequence Check" SstTaskFactoryCmpName="File Sequence Check Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="InterFileRecordSequenceCheck" PdgKey="InterFileRecordSequenceCheckProperties" SstName="Inter File Record Sequence Check" SstTaskFactoryCmpName="Inter File Record Sequence Check Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N" />
+	<StreamStageType SstCode="Parse" PdgKey="ParseProperties" SstName="Parse" SstTaskFactoryCmpName="Parse Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpName="Parse Task Config" SstConfigCptTypeCd="StreamStageConfig" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="DatabaseParse" PdgKey="DatabaseParseProperties" SstName="Database Parse" SstTaskFactoryCmpName="Database Parse Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpName="Parse Task Config" SstConfigCptTypeCd="StreamStageConfig" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="ParseSummary" PdgKey="ParseSummaryProperties" SstName="Parse Summary" SstTaskFactoryCmpName="Parse Summary Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" />
+	<StreamStageType SstCode="RunScript" PdgKey="RunScriptProperties" SstName="RunScript" SstTaskFactoryCmpName="Run Script Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="LDCCorrelator" PdgKey="LDCCorrelatorProperties" SstName="Ldc Correlator" SstTaskFactoryCmpName="LDC Correlator Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="RollOverPartition" PdgKey="RollOverPartitionProperties" SstName="Roll-Over Partition" SstTaskFactoryCmpName="Roll Over Partition Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="ParseTaskAllocator" PdgKey="ParseTaskAllocatorProperties" SstName="Parse Task Allocator" SstTaskFactoryCmpName="Parse Task Allocator Task Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "Y" SstProcessChainUsable = "Y"/>
+	<StreamStageType SstCode="DataLoadAllocator" PdgKey="DataLoadAllocatorProperties" SstName="Data Load Allocator" SstTaskFactoryCmpName="Data Load Allocator Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "Y" SstProcessChainUsable = "Y"/>
+	<StreamStageType SstCode="TrendSummary" PdgKey="TrendSummaryProperties" SstName="Trend Summary" SstTaskFactoryCmpName="Trend Summary Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="StreamStageRunner" PdgKey="StreamStageRunnerProperties" SstName="Stream Stage Runner" SstTaskFactoryCmpName="Stream Stage Runner Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "Y"/>
+	<StreamStageType SstCode="EntityExport" PdgKey="EntityExportProperties" SstName="Entity Export" SstTaskFactoryCmpName="Entity Export Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" SstProcessChainIsContainer = "N" SstProcessChainUsable = "N"/>
+	<StreamStageType SstCode="SequenceOutput" PdgKey="SequenceOutputProperties" SstName="Sequence Output" SstTaskFactoryCmpName="Sequence Output Factory" SstTaskFactoryCptTypeCd="StreamStageTaskFactory" SstConfigCmpId="" />
+  </StreamStageTypes>
+		
+  <UsageGroups>
+			<UsageGroup UsgName="Default Usage Group" CmpName="Date Based Partition Component" CptTypeCd="UsageGroupPartitionComponent"/>
+  </UsageGroups>
+
+  <SchemaTypes>
+			<SchemaType SctName="Standard" CmpName="Standard Schema Type" CptTypeCd="SchemaType"/>
+			<SchemaType SctName="Partitioned" CmpName="Partitioned Schema Type" CptTypeCd="SchemaType"/>
+  </SchemaTypes>
+
+  <SchemaTbls>
+		<SchemaTbl SctName="Standard" SchName="Reference" />
+		<SchemaTbl SctName="Partitioned" SchName="Usage" UsgName="Default Usage Group" />
+  </SchemaTbls>
+
+  <ActionTypes>
+		<ActionType CmpName="Copy File Action" CptTypeCd="ActionType" ActName="Copy File Action">
+			<ActionPins>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Source File" AnpInputFl="Y" AnpOrderNo="0"/>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Destination File" AnpInputFl="N" AnpOrderNo="0"/>
+			</ActionPins>
+		</ActionType>
+		<ActionType CmpName="Create File Task Action" CptTypeCd="ActionType" ActName="Create File Task Action">
+			<ActionPins>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Source File" AnpInputFl="Y" AnpOrderNo="0"/>
+				<ActionPin CmpName="Task Pin" CptTypeCd="PinType" AnpName="Created Task" AnpInputFl="N" AnpOrderNo="0"/>
+				<ActionPin CmpName="Stream File Pin" CptTypeCd="PinType" AnpName="Created Stream File" AnpInputFl="N" AnpOrderNo="1"/>
+			</ActionPins>
+		</ActionType>
+		<ActionType CmpName="Create Task Action" CptTypeCd="ActionType" ActName="Create Task Action">
+			<ActionPins>
+				<ActionPin CmpName="Task Pin" CptTypeCd="PinType" AnpName="Parent Task" AnpInputFl="Y" AnpOrderNo="0"/>
+				<ActionPin CmpName="Task Pin" CptTypeCd="PinType" AnpName="Created Task" AnpInputFl="N" AnpOrderNo="0"/>
+			</ActionPins>
+		</ActionType>
+		<ActionType CmpName="Delete File Action" CptTypeCd="ActionType" ActName="Delete File Action">
+			<ActionPins>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Source File" AnpInputFl="Y" AnpOrderNo="0"/>
+			</ActionPins>
+		</ActionType>
+		<ActionType CmpName="Move File Action" CptTypeCd="ActionType" ActName="Move File Action">
+			<ActionPins>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Source File" AnpInputFl="Y" AnpOrderNo="0"/>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Destination File" AnpInputFl="N" AnpOrderNo="0"/>
+			</ActionPins>
+		</ActionType>
+		<ActionType CmpName="Rename File Action" CptTypeCd="ActionType" ActName="Rename File Action">
+			<ActionPins>
+				<ActionPin CmpName="File Pin" CptTypeCd="PinType" AnpName="Source File" AnpInputFl="Y" AnpOrderNo="0"/>
+			</ActionPins>
+		</ActionType>
+  </ActionTypes>
+
+  <DataSourceTypes>
+		<DataSourceType DsyName="MS SQL-Server" PigName="MS SQL-Server Properties" CmpName="SQL Server Data Source" CptTypeCd="DataSourceType">
+			<PropertyInstGroups>
+				<PropertyInstGroup PigName="MS SQL-Server Properties" PdgKey="DataSourceTypeProperties">
+					<PropertyInsts>
+						<PropertyInst PrdKey="HibernateQuerySubstitutions" PriValue="false='N', true='Y'"/>
+						<PropertyInst PrdKey="HibernateDialect" PriValue="net.sf.hibernate.dialect.SQLServerDialect"/>
+						<PropertyInst PrdKey="HibernateConnectionDriver_class" PriValue="net.sourceforge.jtds.jdbc.Driver"/>	
+						<PropertyInst PrdKey="HibernateConnectionUrl" PriValue="jdbc:jtds:sqlserver://%MACHINE%/%DATABASE%;Instance=%INSTANCE%;PrepareSQL=0"/>	
+						<PropertyInst PrdKey="SparkDatasourceOnInstance" PriValue="%MACHINE%\%INSTANCE%"/>
+						<PropertyInst PrdKey="SparkDatasourceOnDefault" PriValue="%MACHINE%"/>	
+					</PropertyInsts>
+				</PropertyInstGroup>
+			</PropertyInstGroups>
+		</DataSourceType>
+		<DataSourceType DsyName="Oracle 9" PigName="Oracle 9 Properties" CmpName="Oracle Data Source" CptTypeCd="DataSourceType">
+			<PropertyInstGroups>
+				<PropertyInstGroup PigName="Oracle 9 Properties" PdgKey="DataSourceTypeProperties">
+					<PropertyInsts>
+						<PropertyInst PrdKey="HibernateQuerySubstitutions" PriValue="false='N', true='Y', substring=substr, isnull=nvl, len=length"/>
+						<PropertyInst PrdKey="HibernateDialect" PriValue="net.sf.hibernate.dialect.Oracle9Dialect"/>
+						<PropertyInst PrdKey="HibernateConnectionDriver_class" PriValue="oracle.jdbc.OracleDriver"/>	
+						<PropertyInst PrdKey="HibernateConnectionUrl" PriValue="jdbc:oracle:thin:@%MACHINE%:1521:%INSTANCE%"/>	
+						<PropertyInst PrdKey="SparkDatasourceOnInstance" PriValue="%INSTANCE%"/>	
+					</PropertyInsts>
+				</PropertyInstGroup>
+			</PropertyInstGroups>
+		</DataSourceType>
+		<DataSourceType DsyName="DB2" PigName="DB2 Properties" CmpName="DB2 Data Source" CptTypeCd="DataSourceType">
+			<PropertyInstGroups>
+				<PropertyInstGroup PigName="DB2 Properties" PdgKey="DataSourceTypeProperties">
+					<PropertyInsts>
+						<PropertyInst PrdKey="HibernateQuerySubstitutions" PriValue="false='N', true='Y', substring=substr, isnull=nvl, len=length"/>
+						<PropertyInst PrdKey="HibernateDialect" PriValue="net.sf.hibernate.dialect.DB2Dialect"/>
+						<PropertyInst PrdKey="HibernateConnectionDriver_class" PriValue="com.ibm.db2.jcc.DB2Driver"/>	
+						<PropertyInst PrdKey="HibernateConnectionUrl" PriValue="jdbc:db2://%MACHINE%:50000/%DATABASE%"/>	
+						<PropertyInst PrdKey="SparkDatasourceOnInstance" PriValue="%INSTANCE%"/>	
+					</PropertyInsts>
+				</PropertyInstGroup>
+			</PropertyInstGroups>
+		</DataSourceType>
+  </DataSourceTypes>
+  
+  <DayGroups>
+		<DayGroup DgpName="Weekday" CmpName="Day String Day Group" CptTypeCd="DayGroupType" DgpExtra1="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra2="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra3="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra4="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra5="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra6="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra7="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra8="" DgpExtra9="" DgpExtra10="" />
+		<DayGroup DgpName="Weekend" CmpName="Day String Day Group" CptTypeCd="DayGroupType" DgpExtra1="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra2="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra3="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra4="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra5="F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F" DgpExtra6="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra7="T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T:T" DgpExtra8="" DgpExtra9="" DgpExtra10="" />
+  </DayGroups>
+
+  <ExtraArgsDfns>
+  	<ExtraArgsDfn EadName = "Idle File Collection Alert Interval (minutes)" EntEntity="FileCollection" EadType = "int" EadOrderNo = "0" EadMandatoryFl = "N"/>
+  </ExtraArgsDfns>
+
+  <TriggerTypes>
+		<TriggerType CmpName="File Trigger" CptTypeCd="TriggerType" TrtName="File Trigger">
+			<TriggerPins>
+				<TriggerPin CmpName="File Pin" CptTypeCd="PinType" TrpName="Output File" TrpOrderNo="0"/>
+			</TriggerPins>
+		</TriggerType>
+		<TriggerType CmpName="Task Completed Trigger" CptTypeCd="TriggerType" TrtName="Task Completed Trigger">
+			<TriggerPins>
+				<TriggerPin CmpName="Task Pin" CptTypeCd="PinType" TrpName="Output Task" TrpOrderNo="0"/>
+			</TriggerPins>
+		</TriggerType>
+  </TriggerTypes>
+
+  <CaseItemPrioritys>
+		<CaseItemPriority CipOrderNo="10" CipName="Low" ImgName="NavDownBlue" />
+		<CaseItemPriority CipOrderNo="20" CipName="Medium" ImgName="NavRightGreen" />
+		<CaseItemPriority CipOrderNo="30" CipName="High" ImgName="NavUpRed" />
+  </CaseItemPrioritys>
+
+  <AlertGroups>
+		<AlertGroup AlgGuideEntEntity="StreamController" AlgResultEntEntity="" AlgName="Stream Controller" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="TaskController" AlgResultEntEntity="" AlgName="Task Controller" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="Task" AlgResultEntEntity="" AlgName="Task" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="TriggerTbl" AlgResultEntEntity="" AlgName="Trigger" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="StreamStage" AlgResultEntEntity="" AlgName="Stream Stage" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="Action" AlgResultEntEntity="" AlgName="Action" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="CollectedFile" AlgResultEntEntity="" AlgName="Collected File" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="FileCollection" AlgResultEntEntity="" AlgName="File Collection" AlgSystemFl="Y" />
+		<AlertGroup AlgGuideEntEntity="FileSource" AlgResultEntEntity="" AlgName="File Source" AlgSystemFl="Y" />
+  </AlertGroups>
+
+  <AlertSeveritys>
+		<AlertSeverity AsvOrderNo="10" AsvName="Information" ImgName="Information" />
+		<AlertSeverity AsvOrderNo="20" AsvName="Minor" ImgName="FlagBlue" />
+		<AlertSeverity AsvOrderNo="30" AsvName="Major" ImgName="FlagYellow" />
+		<AlertSeverity AsvOrderNo="40" AsvName="Critical" ImgName="FlagRed" />
+  </AlertSeveritys>
+
+  <AlertDfns>
+
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1000" AldAlertText="Failed to load task controller definitions" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1001" AldAlertText="Error on connection to client" AsvName="Minor" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1002" AldAlertText="Error initialising incoming task controller connection" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1003" AldAlertText="Error on connection to task controller" AsvName="Minor" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1004" AldAlertText="Stream controller failed to reinitialise" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1005" AldAlertText="Stream controller failed to send refresh caches message to task controller '%1'" AsvName="Critical" />
+
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1006" AldAlertText="License load exceeded%4 on '%1'. Licensed limit is '%2' and processed load is '%3'" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1007" AldAlertText="Machine address '%1' is not licensed" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1008" AldAlertText="License Number of Data Adapters violated. Licensed value is '%1' and existing value is '%2'" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1009" AldAlertText="License load%4 exceeded '%1%' of limit on '%2'. Licensed Load is '%3'" AsvName="Minor" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1010" AldAlertText="License load%3 exceeded  95% of limit on '%1'. Licensed Load is '%2'" AsvName="Major" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1011" AldAlertText="Could not retrieve Machine address" AsvName="Major" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1012" AldAlertText="License violated on '%1'. Expression violations are :%2" AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1013" AldAlertText="License violated on '%1'. Max no of violations are :%2.Please contact Subex Ltd support." AsvName="Critical" />
+		<AlertDfn AlgName="Stream Controller" AldAlertNo="1014" AldAlertText="Number of violations in the Validation Window are lesser than licensed. Data can be processed without interruptions." AsvName="Critical" />
+		
+		<AlertDfn AlgName="Task Controller" AldAlertNo="2000" AldAlertText="Error initialising incoming stream controller connection" AsvName="Critical" />
+		<AlertDfn AlgName="Task Controller" AldAlertNo="2001" AldAlertText="Error on connection to task controller" AsvName="Minor" />
+		<AlertDfn AlgName="Task Controller" AldAlertNo="2002" AldAlertText="Task controller failed to reinitialise" AsvName="Critical" />
+
+        <AlertDfn AlgName="Task" AldAlertNo="3000" AldAlertText="Failed to pause task" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3001" AldAlertText="Failed to resume task" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3002" AldAlertText="Failed to cancel task" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3003" AldAlertText="Error updating task to completed" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3004" AldAlertText="Error updating task to failed" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3005" AldAlertText="Error sending task completed message to stream controller" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3006" AldAlertText="Error updating task to paused" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3007" AldAlertText="Error sending task paused message to stream controller" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3008" AldAlertText="Error updating task to resumed" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3009" AldAlertText="Error sending task resumed message to stream controller" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3010" AldAlertText="Error updating task to cancelled" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3011" AldAlertText="Error sending task cancelled message to stream controller" AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3012" AldAlertText="LDC Correlator failed for key: '%1'." AsvName="Major" />
+		<AlertDfn AlgName="Task" AldAlertNo="3013" AldAlertText="Duplicate Record found for File: '%1'." AsvName="Major" />
+
+		<AlertDfn AlgName="Trigger" AldAlertNo="10000" AldAlertText="Failed to initialise trigger" AsvName="Major" />
+		<AlertDfn AlgName="Trigger" AldAlertNo="10001" AldAlertText="Failed to reinitialise trigger" AsvName="Major" />
+		<AlertDfn AlgName="Trigger" AldAlertNo="10002" AldAlertText="Error running action chain on trigger" AsvName="Major" />
+
+		<AlertDfn AlgName="Stream Stage" AldAlertNo="10100" AldAlertText="Failed to validate stream stage" AsvName="Major" />
+		<AlertDfn AlgName="Stream Stage" AldAlertNo="10101" AldAlertText="Failed to reinitialise stream stage" AsvName="Major" />
+		<AlertDfn AlgName="Stream Stage" AldAlertNo="10102" AldAlertText="Failed to schedule recurring task" AsvName="Critical" />
+
+		<AlertDfn AlgName="Action" AldAlertNo="10200" AldAlertText="The destination file '%1' for the move file action already exists" AsvName="Major" />
+		<AlertDfn AlgName="Action" AldAlertNo="10201" AldAlertText="The destination file '%1' for the rename file action already exists" AsvName="Major" />
+
+		<AlertDfn AlgName="Collected File" AldAlertNo="10300" AldAlertText="Post-collection action failed after the file transfer" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10301" AldAlertText="The file has a length of %1 bytes but is only %2 bytes after transfer" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10302" AldAlertText="File transfer failed" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10303" AldAlertText="The filename '%1' does not match the validation filemask" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10304" AldAlertText="The file sequence number '%1' from filename '%2' is not valid" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10305" AldAlertText="The file sequence number '%1' is out of the configured range" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10306" AldAlertText="Failed to transfer the file from the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10307" AldAlertText="Failed to transfer the file from the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10308" AldAlertText="Failed to delete the file from the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10309" AldAlertText="Failed to delete the file from the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10310" AldAlertText="Failed to move the file on the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10311" AldAlertText="Failed to move the file on the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10312" AldAlertText="Failed to rename the file on the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10313" AldAlertText="Failed to rename the file on the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10314" AldAlertText="Failed to change the working directory on the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10315" AldAlertText="Failed to change the working directory on the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10316" AldAlertText="Failed to transfer the file from the local file source" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10317" AldAlertText="Failed to compress the file" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10318" AldAlertText="Failed to move the file on the local file source" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10319" AldAlertText="Failed to rename the file on the local file source" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10320" AldAlertText="Failed to uncompress the file" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10321" AldAlertText="Compressed archive contains multiple files - only one file is supported per archive" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10322" AldAlertText="File transfer failed since error in hash computation due to %1" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10323" AldAlertText="Compressed archive contains folder/sub-folders - only files are supported" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10324" AldAlertText="Failed to transfer the file from the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10325" AldAlertText="Failed to delete the file from the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10326" AldAlertText="Failed to move the file on the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10327" AldAlertText="Failed to rename the file on the SFTP server" AsvName="Critical" />	
+		<AlertDfn AlgName="Collected File" AldAlertNo="10328" AldAlertText="Failed to change the working directory on the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10329" AldAlertText="The file has processed %1 records. The configured record count is %2 for the file %3." AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10330" AldAlertText="The processed record count %1 is not within the configured range of %2 - %3 for the file %4." AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10331" AldAlertText="The file size is %1 bytes. The configured file size is %2 bytes for the file %3" AsvName="Critical" />
+		<AlertDfn AlgName="Collected File" AldAlertNo="10332" AldAlertText="The processed file size %1 KB is not within the configured file size range of %2 - %3 KB for the file %4." AsvName="Critical" />
+		
+		<AlertDfn AlgName="File Collection" AldAlertNo="10400" AldAlertText="Failed to create the output path '%1' for file collection" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10401" AldAlertText="Failed to add a file transfer for the file '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10402" AldAlertText="Failed to retrieve the file list for file collection" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10403" AldAlertText="Failed to initialise the file source for collection" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10404" AldAlertText="The file with sequence number '%1' was not collected" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10405" AldAlertText="The file with sequence number '%1' has already been collected" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10406" AldAlertText="Failed to retrieve the list of files from the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10407" AldAlertText="Failed to change the working directory on the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10408" AldAlertText="Failed to change the working directory on the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10409" AldAlertText="The poll directory '%1' for the local file source does not exist" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10410" AldAlertText="Failed to retrieve the list of files from the local file source" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10411" AldAlertText="The post-collection move directory '%1' for the local file source does not exist" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10412" AldAlertText="Failed to reschedule file collection" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10413" AldAlertText="Failed to retrieve the list of files from the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10414" AldAlertText="Failed to change the working directory on the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10415" AldAlertText="The poll directory is empty since %1 to %2." AsvName="Major" />
+		<AlertDfn AlgName="File Collection" AldAlertNo="10416" AldAlertText="File listing failed" AsvName="Critical" />
+		
+		<AlertDfn AlgName="File Source" AldAlertNo="10500" AldAlertText="Failed to initialise the FTP file source properties" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10501" AldAlertText="Failed to connect to the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10502" AldAlertText="Failed to login to the FTP server - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10503" AldAlertText="Failed to set the FTP transfer type to binary - FTP reply code '%1'" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10504" AldAlertText="Failed to connect to the FTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10505" AldAlertText="The root poll directory '%1' for the local file source does not exist" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10506" AldAlertText="Failed to initialise the local file source properties" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10507" AldAlertText="Failed to initialise the SFTP file source properties" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10508" AldAlertText="Failed to connect to the SFTP server" AsvName="Critical" />
+		<AlertDfn AlgName="File Source" AldAlertNo="10509" AldAlertText="Failed to login to the SFTP server" AsvName="Critical" />
+
+  </AlertDfns>
+  
+  <SequentialNumberGroups>
+		<SequentialNumberGroup CmpName="Simple Id Generator" CptTypeCd="SequentialIdGenerator" SngName="Case Number Group" SngNumber="0" />
+  </SequentialNumberGroups>
+
+  <EntityNumberGroups>
+		<EntityNumberGroup EntEntity="CaseInst" EngNumberProperty="CitCaseNo" SngName="Case Number Group" EngSngKey="" />
+  </EntityNumberGroups>  
+  
+  <ParameterDfns>
+		<ParameterDfn ScrName="Band Search" EntEntity="Band" PmdName="Band" PmdDisplayProperty="BndName"/>
+		<ParameterDfn ScrName="Day Group Search" EntEntity="DayGroup" PmdName="Day Group" PmdDisplayProperty="DgpName"/>
+		<ParameterDfn ScrName="Element Search" EntEntity="Element" PmdName="Element" PmdDisplayProperty="EltName"/>
+		<ParameterDfn ScrName="Image Search" EntEntity="ImageTbl" PmdName="Image" PmdDisplayProperty="ImgName"/>
+		<ParameterDfn ScrName="Role Search" EntEntity="RoleTbl" PmdName="Role" PmdDisplayProperty="RolName"/>
+		<ParameterDfn ScrName="Route Search" EntEntity="Route" PmdName="Route" PmdDisplayProperty="RutName"/>
+		<ParameterDfn ScrName="Stream Search" EntEntity="Stream" PmdName="Stream" PmdDisplayProperty="StmName"/>
+		<ParameterDfn ScrName="Tariff Class Search" EntEntity="TariffClass" PmdName="Tariff Class" PmdDisplayProperty="TcsName"/>
+		<ParameterDfn ScrName="Tariff Search" EntEntity="Tariff" PmdName="Tariff" PmdDisplayProperty="TffName" PmdExtra1="TariffOnly"/>
+		<ParameterDfn ScrName="Tariff Search" EntEntity="TariffPeriod" PmdName="Tariff Period" PmdDisplayProperty="TapFromDttm" PmdExtra1="TariffPeriod"/>
+		<ParameterDfn ScrName="User Search" EntEntity="UserTbl" PmdName="User" PmdDisplayProperty="UsrName"/>
+		<ParameterDfn ScrName="" EntEntity="Country" PmdName="Country" PmdDisplayProperty="CtrName"/>
+		<ParameterDfn ScrName="" EntEntity="Currency" PmdName="Currency" PmdDisplayProperty="CurName"/>
+		<ParameterDfn ScrName="" EntEntity="TariffMetricType" PmdName="Tariff Metric Type" PmdDisplayProperty="TfmName"/>
+		<ParameterDfn ScrName="" EntEntity="Switch" PmdName="Switch" PmdDisplayProperty="SwtName"/>
+  </ParameterDfns>
+  <AgeingEntitys>
+  	<AgeingEntity SagnName = "Task" CmpName = "Task Ageing" CptTypeCd = "AgeingComponent" SagnDatetimeField = "TskEndDttm"/>
+  	<AgeingEntity SagnName = "Collected File" CmpName = "Collected File Ageing" CptTypeCd = "AgeingComponent" SagnDatetimeField = "ClfEndDttm"/>
+  	<AgeingEntity SagnName = "Case" CmpName = "Case Ageing" CptTypeCd = "AgeingComponent" SagnDatetimeField = "CitCreatedDttm"/>
+  	<AgeingEntity SagnName = "Spark Temp" CmpName = "Spark Temp Ageing" CptTypeCd = "AgeingComponent" SagnDatetimeField = "TskEndDttm"/>
+  </AgeingEntitys>
+  <StreamstageTaskschedulers>
+  	<StreamstageTaskscheduler SstaName = "Ageing Task Scheduler" SstCode="Ageing" CmpName = "Ageing TaskScheduler" CptTypeCd = "StreamStageTaskSchedulerComponent"/>
+  </StreamstageTaskschedulers>
+ 
+</SeedData>
