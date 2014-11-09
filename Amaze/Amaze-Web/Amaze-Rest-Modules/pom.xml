@@ -17,5 +17,6 @@
 	</dependencies>
   <modules>
     <module>Amaze-Rest-Framework</module>
+    <module>Amaze-User</module>
   </modules>
 </project>

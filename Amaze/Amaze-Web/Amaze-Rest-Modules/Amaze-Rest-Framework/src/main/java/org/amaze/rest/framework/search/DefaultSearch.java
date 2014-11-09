@@ -10,7 +10,7 @@ import org.amaze.rest.framework.query.QueryFilter;
 public class DefaultSearch implements Search
 {
 	private String screenName;
-	private String entity;
+	private String searchEntity;
 
 	private List<SearchButton> searchButtons;
 	private FilterModel filterModel;
@@ -26,12 +26,7 @@ public class DefaultSearch implements Search
 	{
 		return screenName;
 	}
-
-	public String getEntity()
-	{
-		return entity;
-	}
-
+	
 	public List<SearchButton> getSearchButtons()
 	{
 		return searchButtons;
@@ -81,13 +76,13 @@ public class DefaultSearch implements Search
 	@Override
 	public void setSearchEntity( String entity )
 	{
-		this.entity = entity;
+		this.searchEntity = entity;
 	}
 
 	@Override
 	public String getSearchEntity()
 	{
-		return entity;
+		return searchEntity;
 	}
 
 	@Override
@@ -149,5 +144,5 @@ public class DefaultSearch implements Search
 		// TODO return the response
 		return null;
 	}
-
+	
 }

@@ -176,5 +176,10 @@
 			<artifactId>hamcrest-core</artifactId>
 			<version>1.3</version>
 		</dependency> -->
+		<dependency>
+			<groupId>org.amaze</groupId>
+			<artifactId>Amaze-User</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
