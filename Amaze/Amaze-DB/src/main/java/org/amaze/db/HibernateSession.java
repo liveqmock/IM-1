@@ -2,8 +2,6 @@ package org.amaze.db;
 
 import java.net.UnknownHostException;
 
-import org.amaze.db.hibernate.objects.Other;
-import org.amaze.db.hibernate.objects.Test;
 import org.amaze.db.usage.cassandra.repository.LoginEventRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,7 +57,7 @@ public class HibernateSession {
 		Session session1 = ((SessionFactory) ctx.getBean("sessionFactory")).openSession();
 		SQLQuery q = session1.createSQLQuery("SELECT TABLE_NAME, COLUMN_NAME, TYPE_NAME, COLUMN_SIZE, DECIMAL_DIGITS, IS_NULLABLE FROM INFORMATION_SCHEMA.SYSTEM_COLUMNS WHERE TABLE_NAME NOT LIKE 'SYSTEM_%'");
 		q.list();
-		session1.get( Other.class, new Integer( 1 )  );
+//		session1.get( Other.class, new Integer( 1 )  );
 		ctx.registerShutdownHook();
 		ctx.close();
 		

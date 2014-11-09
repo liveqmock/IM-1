@@ -48,7 +48,7 @@ public class GenerateObjects
 			for ( int i = 0; i < extendsTag.getLength(); i++ )
 			{
 				Element element = ( Element ) extendsTag.item( i );
-				parseSchemaFile( transform.getXMLDocumentObj( element.getTextContent(), false ) );
+				parseSchemaFile( transform.getXMLDocumentObj( element.getNodeValue(), false ) );
 			}
 		}
 		catch ( XMLException | IOException e )
