@@ -5,12 +5,12 @@ import java.util.List;
 public class DefaultColumnModel implements ColumnModel
 {
 	private String modelName;
-	private Integer width;
-	private Integer lenght;
+	private String width;
+	private String lenght;
 	
 	private List<Column> columns;
 	
-	public DefaultColumnModel( String modelName, Integer width, Integer lenght, List<Column> columns )
+	public DefaultColumnModel( String modelName, String width, String lenght, List<Column> columns )
 	{
 		this.modelName = modelName;
 		this.width = width;
@@ -18,26 +18,6 @@ public class DefaultColumnModel implements ColumnModel
 		this.columns = columns;
 	}
 	
-	public Integer getWidth()
-	{
-		return width;
-	}
-
-	public void setWidth( Integer width )
-	{
-		this.width = width;
-	}
-
-	public Integer getLenght()
-	{
-		return lenght;
-	}
-
-	public void setLenght( Integer lenght )
-	{
-		this.lenght = lenght;
-	}
-
 	@Override
 	public String getModelName()
 	{
@@ -51,25 +31,25 @@ public class DefaultColumnModel implements ColumnModel
 	}
 
 	@Override
-	public Integer getModelWidth()
+	public String getModelWidth()
 	{
 		return width;
 	}
 
 	@Override
-	public void setModelWidth( Integer width )
+	public void setModelWidth( String width )
 	{
 		this.width = width;
 	}
 
 	@Override
-	public Integer getModelLenght()
+	public String getModelLenght()
 	{
 		return lenght;
 	}
 
 	@Override
-	public void setModelLenght( Integer lenght )
+	public void setModelLenght( String lenght )
 	{
 		this.lenght = lenght;
 	}
