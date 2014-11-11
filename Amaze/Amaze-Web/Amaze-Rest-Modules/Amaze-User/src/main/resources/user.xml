@@ -11,6 +11,154 @@
 	<bean id="accountScreen" class="org.amaze.rest.framework.search.DefaultSearch">
 		<property name="screenName" value="User" />
 		<property name="searchEntity" value="User" />
+		<property name="screenButtons">
+			<list>
+				<ref bean="dataView"/>
+				<ref bean="chartView"/>
+			</list>
+		</property>
+		<property name="filterModel" ref="filterModel" />
+		<property name="actionModel" ref="actionModel" />
+		<property name="columnModel" ref="columnModel" />
+		<property name="basicDataQuery" value="user.deleteFl = false" />
+		<property name="basicDataQueryFilters">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="columnModel" class="org.amaze.rest.framework.columns.DefaultColumnModel">
+		<property name="modelName" value="ColumnModel" />
+		<property name="modelLenght" value="60%" />
+		<property name="modelWidth" value="100%" />
+		<property name="columns">
+			<list>
+				<ref bean="usrNameColumn"/>
+				<ref bean="usrAppColumn"/>
+				<ref bean="usrDisabledColumn"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="usrNameColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="User" />
+		<property name="columnName" value="User Name" />
+		<property name="dataProperty" value="usrName" />
+		<property name="dataType" value="Text" />
+	</bean>
+	
+	<bean id="usrAppColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="User" />
+		<property name="columnName" value="Application Name" />
+		<property name="dataProperty" value="application.appName" />
+		<property name="dataType" value="Text" />
+	</bean>
+	
+	<bean id="usrDisabledColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="User" />
+		<property name="columnName" value="Is Disabled" />
+		<property name="dataProperty" value="usrDisabled" />
+		<property name="dataType" value="Boolean" />
+	</bean>
+	
+	<bean id="actionModel" class="org.amaze.rest.framework.actions.DefaultActionModel">
+		<property name="actionGroupModels">
+			<list>
+				<ref bean="commonActionGroupModel"/>
+				<ref bean="acceptActionGroupModel"/>
+			</list>
+		</property>
+		<property name="modelName" value="UserActionModel" />
+		<property name="modelLenght" value="10%" />
+		<property name="modelWidth" value="100%" />
+	</bean>
+	
+	<bean id="newUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="new" />
+		<property name="modelLenght" value="10px" />
+		<property name="modelWidth" value="30px" />
+	</bean>
+	<bean id="editUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="edit" />
+		<property name="modelLenght" value="10px" />
+		<property name="modelWidth" value="30px" />
+	</bean>
+	<bean id="deleteUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="delete" />
+		<property name="modelLenght" value="10px" />
+		<property name="modelWidth" value="30px" />
+	</bean>
+	
+	<bean id="acceptUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="accept" />
+		<property name="modelLenght" value="10px" />
+		<property name="modelWidth" value="30px" />
+	</bean>
+	
+	<bean id="commonActionGroupModel" class="org.amaze.rest.framework.actions.DefaultActionGroupModel">
+		<property name="actionItemModels">
+			<list>
+				<ref bean="newUser"/>
+				<ref bean="editUser"/>
+				<ref bean="deleteUser" />
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="acceptActionGroupModel" class="org.amaze.rest.framework.actions.DefaultActionGroupModel">
+		<property name="actionItemModels">
+			<list>
+				<ref bean="acceptUser"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dataView" class="org.amaze.rest.framework.search.SearchButton">
+		<property name="buttonName" value="Data" />
+		<property name="relativeUrl" value="dataView" />
+	</bean>
+	
+	<bean id="chartView" class="org.amaze.rest.framework.search.SearchButton">
+		<property name="buttonName" value="Chart" />
+		<property name="relativeUrl" value="chartView" />
+	</bean>
+	
+	<bean id="filterModel" class="org.amaze.rest.framework.filters.DefaultFilterModel">
+		<property name="modelLenght" value="15%" />
+		<property name="modelWidth" value="100%" />
+		<property name="modelName" value="advancedFilters" />
+		<property name="filters">
+			<list>
+				<ref bean="nameFilter"/>
+				<ref bean="appFilter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="nameFilter" class="org.amaze.rest.framework.filters.Filter">
+		<property name="entity" value="User" />
+		<property name="column" value="userName" />
+		<property name="columnType" value="Text" />
+		<property name="condition" value="like" />
+		<property name="extra">
+			<list>
+				<value>filtQuery:MO~User:FO~usrDisabled != false</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="appFilter" class="org.amaze.rest.framework.filters.Filter">
+		<property name="entity" value="User" />
+		<property name="column" value="application.appName" />
+		<property name="columnType" value="Text" />
+		<property name="condition" value="like" />
+		<property name="extra">
+			<list>
+				<value>filtQuery:MO~User:FO~usrDisabled != false</value>
+			</list>
+		</property>
 	</bean>
 
 </beans>
+

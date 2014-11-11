@@ -3,8 +3,8 @@ package org.amaze.rest.framework.actions;
 public class DefaultActionItemModel implements ActionItemModel
 {
 	private String modelName;
-	private Integer width;
-	private Integer lenght;
+	private String width;
+	private String lenght;
 
 	@Override
 	public String getModelName()
@@ -19,25 +19,25 @@ public class DefaultActionItemModel implements ActionItemModel
 	}
 
 	@Override
-	public Integer getModelWidth()
+	public String getModelWidth()
 	{
 		return this.width;
 	}
 
 	@Override
-	public void setModelWidth( Integer width )
+	public void setModelWidth( String width )
 	{
 		this.width = width;
 	}
 
 	@Override
-	public Integer getModelLenght()
+	public String getModelLenght()
 	{
 		return lenght;
 	}
 
 	@Override
-	public void setModelLenght( Integer lenght )
+	public void setModelLenght( String lenght )
 	{
 		this.lenght = lenght;
 	}

@@ -6,11 +6,11 @@ public class DefaultFilterModel implements FilterModel
 {
 
 	private String modelName;
-	private Integer width;
-	private Integer lenght;
+	private String width;
+	private String lenght;
 	private List<Filter> filters;
 
-	public DefaultFilterModel( String modelName, Integer width, Integer lenght, List<Filter> filters )
+	public DefaultFilterModel( String modelName, String width, String lenght, List<Filter> filters )
 	{
 		this.modelName = modelName;
 		this.width = width;
@@ -23,7 +23,7 @@ public class DefaultFilterModel implements FilterModel
 		return filters;
 	}
 
-	public void getFilters( List<Filter> filters )
+	public void setFilters( List<Filter> filters )
 	{
 		this.filters = filters;
 	}
@@ -47,26 +47,26 @@ public class DefaultFilterModel implements FilterModel
 	}
 
 	@Override
-	public Integer getModelWidth()
+	public String getModelWidth()
 	{
 		return width;
 	}
 
 	@Override
-	public void setModelWidth( Integer width )
+	public void setModelWidth( String width )
 	{
 		this.width = width;
 
 	}
 
 	@Override
-	public Integer getModelLenght()
+	public String getModelLenght()
 	{
 		return lenght;
 	}
 
 	@Override
-	public void setModelLenght( Integer lenght )
+	public void setModelLenght( String lenght )
 	{
 		this.lenght = lenght;
 	}
