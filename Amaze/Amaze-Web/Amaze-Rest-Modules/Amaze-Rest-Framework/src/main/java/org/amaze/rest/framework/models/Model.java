@@ -4,10 +4,10 @@ public interface Model
 {
 	public String getModelName();
 	public void setModelName( String name );
-	public Integer getModelWidth();
-	public void setModelWidth( Integer width );
-	public Integer getModelLenght();
-	public void setModelLenght( Integer lenght );
+	public String getModelWidth();
+	public void setModelWidth( String width );
+	public String getModelLenght();
+	public void setModelLenght( String lenght );
 	public String getResponseJSString();
 }
 

@@ -4,14 +4,10 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx" 
 	xmlns:cassandra="http://www.springframework.org/schema/data/cassandra"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/context/
-		http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/tx/
-		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.springframework.org/schema/data/
-		http://www.springframework.org/schema/data/cassandra/spring-cassandra-1.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/cassandra http://www.springframework.org/schema/data/cassandra/spring-cassandra-1.0.xsd">
 
     <!-- DB properties -->
 	<context:property-placeholder location='classpath:db.properties' />
@@ -25,8 +21,7 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory" autowire="byName" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
@@ -41,8 +36,7 @@
 				<prop key="hibernate.connection.username">${jdbc.username}</prop>
 				<prop key="hibernate.connection.password">${jdbc.password}</prop>
 				<prop key="hibernate.connection.pool_size">10</prop>
-				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
-				</prop>
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
 				<prop key="hibernate.bytecode.use_reflection_optimizer">false</prop>
 				<prop key="hibernate.use_lazy_proxy_factory">true</prop>
 				<prop key="c3p0.acquire_increment">1</prop>
@@ -59,8 +53,7 @@
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.connection.release_mode">after_statement</prop>
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
-				</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
 				<prop key="net.sf.ehcache.configurationResourceName">/secondLevelCache.xml</prop>
 				<prop key="hibernate.jdbc.fetch_size">10</prop>
 			</props>
@@ -77,7 +70,13 @@
 	<cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" />
 	<!-- End Of NoSQL Properties -->
 	
-	<bean id="hibernateSession" class="org.amaze.db.HibernateSession"></bean>
+	<bean id="hibernateSession" class="org.amaze.db.hibernate.utils.HibernateSession" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="hibernateSessionInitialised" ref="hibernateSessionInitialised" />
+	</bean>
+	<bean id="hibernateSessionInitialised" class="java.lang.Boolean" factory-method="valueOf">
+		<constructor-arg value="true" />
+	</bean>
 	
 	
 </beans>

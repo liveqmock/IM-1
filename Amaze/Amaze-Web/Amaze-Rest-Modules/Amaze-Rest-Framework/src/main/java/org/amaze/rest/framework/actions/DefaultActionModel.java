@@ -5,8 +5,8 @@ import java.util.List;
 public class DefaultActionModel implements ActionModel
 {
 	private String modelName;
-	private Integer width;
-	private Integer lenght;
+	private String width;
+	private String lenght;
 
 	private List<ActionGroupModel> actionGroupModels;
 
@@ -23,25 +23,25 @@ public class DefaultActionModel implements ActionModel
 	}
 
 	@Override
-	public Integer getModelWidth()
+	public String getModelWidth()
 	{
 		return width;
 	}
 
 	@Override
-	public void setModelWidth( Integer width )
+	public void setModelWidth( String width )
 	{
 		this.width = width;
 	}
 
 	@Override
-	public Integer getModelLenght()
+	public String getModelLenght()
 	{
 		return lenght;
 	}
 
 	@Override
-	public void setModelLenght( Integer lenght )
+	public void setModelLenght( String lenght )
 	{
 		this.lenght = lenght;
 	}
