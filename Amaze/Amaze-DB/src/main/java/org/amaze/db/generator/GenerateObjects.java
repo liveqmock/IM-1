@@ -27,9 +27,11 @@ public class GenerateObjects
 	String amazeVersion = null;
 	Document doc = null;
 	Map<String, String> tableNameTablePrefixMap = new HashMap<String, String>();
+	String location;
 
-	public void generateObjects( String schemaFile )
+	public void generateObjects( String schemaFile, String location )
 	{
+		this.location = location;
 		//		Document doc = transform.getXMLDocumentObj("org.amaze.database.hibernate.configuration.Amaze_Schema", false);
 		try
 		{
@@ -131,7 +133,7 @@ public class GenerateObjects
 	private void createHibernateObject( String tableName, String tablePrefix, NodeList columns, NodeList indexes, NodeList nestedCollections ) throws IOException
 	{
 		String classFileName = StringUtils.underScoreToCamelCase( tableName );
- 		String srcFolder = "." + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + packageName.replace( ".", File.separator ) + File.separator;
+ 		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator;
 		String srcFile = srcFolder + File.separator + classFileName + ".java";
 		File srcFileObj = new File( srcFolder );
 		if ( !srcFileObj.exists() )
@@ -445,7 +447,7 @@ public class GenerateObjects
 
 	public static void main( String[] args ) throws ParserConfigurationException, SAXException, IOException
 	{
-		new GenerateObjects().generateObjects( args[0] );
+		new GenerateObjects().generateObjects( args[0], args[1] );
 //		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml" );
 	}
 
