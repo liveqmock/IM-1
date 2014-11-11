@@ -17,47 +17,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 public interface DataSource
 {
-	public static final String BCP_FIELD_DELIMITER = "\t";
-
-	public static final String NEW_LINE = System.getProperty( "line.separator" );
-
-	public final static String DATASOURCE = "datasource";
-	public final static String DATABASE = "database";
-	public final static String UNICODE = "unicode";
-
-	public final static String USERNAME = Environment.USER;
-	public final static String PASSWORD = Environment.PASS;
-	public final static String JDBC_URL = Environment.URL;
-	public final static String DRIVER_CLASS = Environment.DRIVER;
-
-	public DatabaseType getDatabaseType();
 
 	public Connection getConnection();
 
 	public void close();
-
-	public BulkLoader createBulkLoader( Table table );
-
-	public BulkLoader createBulkLoader( Table table, TaskStateListener dataLoadTaskListener );
-
-	public BulkLoadRowWriter createBulkLoadRowWriter( File file, AmazeType[] types );
-
-	public BulkLoadRowWriter createBulkLoadRowWriter( File file, AmazeType[] types, boolean append );
-
-	public DateTimeFormatter getBcpDateFormatter();
-
-	public DateTimeFormatter getBcpDateTimeFormatter();
-
-	public String getSqlDateConstant( DateTime dateTime );
-
-	public Charset getBcpCharset();
-
-	public String bcpIn( String tableName, String filename, String delimiter, Table table ) throws DataSourceException;
-
-	public String bcpOut( String tableName, String filename, String delimiter, Table table ) throws DataSourceException;
-
-	public String getUniqueConnectionId( Connection connection ) throws DataSourceException;
-
+	
 	public List<String> getTableNames( String database ) throws DataSourceException;
 
 	public List<String> getTableNames( String database, String tablePattern ) throws DataSourceException;
@@ -113,6 +77,8 @@ public interface DataSource
 	public String getDataSourceName();
 
 	public String getDatabase();
+	
+	public String getDatabaseType();
 
 	public void attachSchema( Schema schema );
 
@@ -125,19 +91,15 @@ public interface DataSource
 	public IdGenerator getIdGenerator();
 
 	public String getSelectString( String tableName, String[] colNames );
+	
+	public String getSelectString( String tableName, String[] colNames, long min, long max );
 
 	public String getSqlToFetchNRows( String tableName, long maxRows );
 
 	public String getSelectString( String tableName, String[] colNames, String orderByClause, long min, long max );
 
-	// escapes a string parameter to avoid unwanted wild card matching sequences - '%' and '_' should be passed through untouched
-	public String escapeString( String s );
-
 	public AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
 
 	public String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
 
-	public String getSelectString( String tableName, String[] colNames, long min, long max );
-
-	public String getUnicodeCharset();
 }

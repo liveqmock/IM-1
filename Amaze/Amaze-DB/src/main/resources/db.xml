@@ -71,8 +71,8 @@
 	<!-- End Of NoSQL Properties -->
 	
 	<bean id="hibernateSession" class="org.amaze.db.hibernate.utils.HibernateSession" scope="singleton">
-		<property name="sessionFactory" ref="sessionFactory" />
-		<property name="hibernateSessionInitialised" ref="hibernateSessionInitialised" />
+		<!-- <property name="sessionFactory" ref="sessionFactory" />
+		<property name="hibernateSessionInitialised" ref="hibernateSessionInitialised" /> -->
 	</bean>
 	<bean id="hibernateSessionInitialised" class="java.lang.Boolean" factory-method="valueOf">
 		<constructor-arg value="true" />

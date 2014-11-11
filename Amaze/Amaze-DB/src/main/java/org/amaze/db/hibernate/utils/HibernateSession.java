@@ -20,10 +20,19 @@ public class HibernateSession
 
 	@Autowired
 	private static SessionFactory sessionFactory;
-	private static Configuration configuration;
 
 	@Autowired
 	private static DataSource dataSource;
+
+	public static void setDataSource( DataSource dataSource )
+	{
+		HibernateSession.dataSource = dataSource;
+	}
+
+	public static void setConnection( Connection connection )
+	{
+		HibernateSession.connection = connection;
+	}
 
 	public static Boolean getHibernateSessionInitialised()
 	{
@@ -86,12 +95,6 @@ public class HibernateSession
 	{
 		checkInitialised();
 		return sessionFactory;
-	}
-
-	public static Configuration getConfiguration()
-	{
-		checkInitialised();
-		return configuration;
 	}
 
 	public static DataSource getDataSource()
