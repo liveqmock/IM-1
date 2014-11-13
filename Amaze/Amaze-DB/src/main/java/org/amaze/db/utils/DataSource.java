@@ -1,7 +1,5 @@
 package org.amaze.db.utils;
 
-import java.io.File;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +9,22 @@ import org.amaze.db.schema.Index;
 import org.amaze.db.schema.Schema;
 import org.amaze.db.schema.Table;
 import org.amaze.db.utils.exceptions.DataSourceException;
-import org.hibernate.cfg.Environment;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
+import org.hibernate.SessionFactory;
+import org.w3c.dom.Document;
 
 public interface DataSource
 {
 
+	public String getDatabase();
+	
+	public String getDatabaseType();
+	
+	public String getDataSourceName();
+	
+	public SessionFactory getSessionFactory();
+	
+	public javax.sql.DataSource getDataSource();
+	
 	public Connection getConnection();
 
 	public void close();
@@ -28,19 +35,11 @@ public interface DataSource
 
 	public void truncateTable( String database, String tableName ) throws DataSourceException;
 
-	public void createTable( Table table, String dataLocation, String indexLocation ) throws DataSourceException;
-
 	public void createTable( Table table, String dataLocation, String indexLocation, boolean createIndexes ) throws DataSourceException;
 
 	public void dropTable( Table table ) throws DataSourceException;
 
-	public void dropTableSilent( Table table );
-
-	public void dropTableSilentInSameSession( Table table, Connection jdbcSession );
-
-	public void recreateTable( Table table, String dataLocation, String indexLocation ) throws DataSourceException;
-
-	public void dropTableWarn( Table table );
+	public void recreateTable( Table table, String dataLocation, String indexLocation, Boolean createIndexes ) throws DataSourceException;
 
 	public void updateTable( Table oldTable, Table newTable, String dataLocation ) throws DataSourceException;
 
@@ -58,35 +57,21 @@ public interface DataSource
 
 	public void applyIndex( Index index, String indexLocation ) throws DataSourceException;
 
-	public void dropAllIndexes() throws DataSourceException;
-
 	public void applyIndexes( String indexLocation ) throws DataSourceException;
-
-	public void updateNextNumber( Table table, String objectName ) throws DataSourceException;
-
-	public void updateNextNumber( String tableName, String primaryKeyColumn, String objectName ) throws DataSourceException;
-
-	public void updateAllNextNumber() throws DataSourceException;
 
 	public void dropStoredProcedure( String procName ) throws DataSourceException;
 
-	public void applyStoredProcedure( Map<String, String> map, String procName, String macro ) throws DataSourceException;
+	public void applyStoredProcedure( String procName, String procedure ) throws DataSourceException;
 
 	public List<String[]> executeStoredProcedure( String procName, List args ) throws DataSourceException;
 
-	public String getDataSourceName();
-
-	public String getDatabase();
-	
-	public String getDatabaseType();
-
 	public void attachSchema( Schema schema );
+	
+	public void attachSchema( String doc );
+	
+	public void attachSchema( Document doc );
 
 	public Schema getSchema();
-
-	public Schema getSchema( String database, String table ) throws DataSourceException;
-
-	public Schema getSchema( String database ) throws DataSourceException;
 
 	public IdGenerator getIdGenerator();
 
@@ -94,11 +79,11 @@ public interface DataSource
 	
 	public String getSelectString( String tableName, String[] colNames, long min, long max );
 
+	public String getSelectString( String tableName, String[] colNames, String orderByClause, long min, long max );
+	
 	public String getSqlToFetchNRows( String tableName, long maxRows );
 
-	public String getSelectString( String tableName, String[] colNames, String orderByClause, long min, long max );
-
-	public AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
+//	public AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
 
 	public String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
 

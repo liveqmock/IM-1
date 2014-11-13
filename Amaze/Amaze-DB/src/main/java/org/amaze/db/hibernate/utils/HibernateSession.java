@@ -2,6 +2,7 @@ package org.amaze.db.hibernate.utils;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -9,7 +10,6 @@ import javax.sql.DataSource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class HibernateSession
@@ -24,12 +24,23 @@ public class HibernateSession
 	@Autowired
 	private static DataSource dataSource;
 
-	public static void setDataSource( DataSource dataSource )
+	@Autowired
+	private static Connection connection;
+
+	public void setDataSource( DataSource dataSource )
 	{
 		HibernateSession.dataSource = dataSource;
+		try
+		{
+			HibernateSession.connection = dataSource.getConnection();
+		}
+		catch ( SQLException e )
+		{
+			
+		}
 	}
 
-	public static void setConnection( Connection connection )
+	public void setConnection( Connection connection )
 	{
 		HibernateSession.connection = connection;
 	}
@@ -48,8 +59,6 @@ public class HibernateSession
 	{
 		HibernateSession.sessionFactory = sessionFactory;
 	}
-
-	private static Connection connection;
 
 	public static void cleanup()
 	{

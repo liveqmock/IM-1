@@ -10,7 +10,6 @@ public class Column implements Cloneable
     public boolean IsPrimaryKey;
     public boolean IsOneToOneNestedObject;
     public String NestedObject;
-    public boolean isAuditEnabled;
 
     public transient Table table;
 
@@ -63,7 +62,6 @@ public class Column implements Cloneable
         ColumnName = columnName;
         DataType = dataType;
         IsMandatory = isMandatory;
-        this.isAuditEnabled = isAuditEnabled;
         this.table = table;
     }
 	public Column clone() throws CloneNotSupportedException
