@@ -35,10 +35,10 @@ public abstract class AbstractDataSource implements DataSource
 	public SessionFactory sessionFactory;
 	public javax.sql.DataSource dataSource;
 	public Connection connection;
-	
+
 	public Schema schema;
-	
-	public AbstractDataSource(String dataBase, String databaseType, String dataSourceName, SessionFactory sessionFactory, javax.sql.DataSource dataSource, Connection connection )
+
+	public AbstractDataSource( String dataBase, String databaseType, String dataSourceName, SessionFactory sessionFactory, javax.sql.DataSource dataSource, Connection connection )
 	{
 		this.dataBase = dataBase;
 		this.databaseType = databaseType;
@@ -57,25 +57,38 @@ public abstract class AbstractDataSource implements DataSource
 	{
 		return databaseType;
 	}
-	
+
 	public String getDataSourceName()
 	{
 		return dataSourceName;
 	}
-	
+
 	public SessionFactory getSessionFactory()
 	{
 		return sessionFactory;
 	}
-	
+
 	public javax.sql.DataSource getDataSource()
 	{
 		return dataSource;
 	}
-	
+
 	public Connection getConnection()
 	{
 		return connection;
+	}
+
+	@Override
+	public void close()
+	{
+		try
+		{
+			connection.close();
+		}
+		catch ( SQLException e )
+		{
+
+		}
 	}
 
 	protected abstract String getTableQuery( String database, String tablePattern, boolean exact );
@@ -144,7 +157,7 @@ public abstract class AbstractDataSource implements DataSource
 		}
 		return tableNames;
 	}
-	
+
 	protected int execute( String query ) throws DataSourceException
 	{
 		int result = -1;
@@ -205,7 +218,7 @@ public abstract class AbstractDataSource implements DataSource
 		}
 		return result;
 	}
-	
+
 	public int[] executeList( List<String> sqlList ) throws DataSourceException
 	{
 		int[] results = null;
@@ -272,25 +285,25 @@ public abstract class AbstractDataSource implements DataSource
 		if ( createIndexes )
 			applyAfterTableCreateIndexes( table, dataLocation, indexLocation );
 	}
-	
+
 	protected abstract String getDefaultConstant( Column column ) throws DataSourceException;
-	
+
 	protected abstract String amazeTypeToDbType( AmazeType amazeType, int length ) throws DataSourceException;
-	
+
 	protected abstract List<String> getCreateTableDDL( Table table, String dataLocation ) throws DataSourceException;
-	
+
 	protected void applyAfterTableCreateIndexes( Table table, String dataLocation, String indexLocation ) throws DataSourceException
 	{
 		applyIndexes( table, indexLocation, false );
 	}
-	
+
 	protected List<String> getCreateIndexDDL( Index index, String indexLocation ) throws DataSourceException
 	{
 		List<String> sqlList = new ArrayList<String>();
 		sqlList.add( getCreateIndexStatement( index, indexLocation ) );
 		return sqlList;
 	}
-	
+
 	@Override
 	public void applyIndexes( Table table, String indexLocation ) throws DataSourceException
 	{
@@ -333,16 +346,16 @@ public abstract class AbstractDataSource implements DataSource
 	{
 		executeList( getDropTableDDL( table, true ) );
 	}
-	
+
 	protected abstract List<String> getDropTableDDL( Table table, boolean checkExists ) throws DataSourceException;
-	
+
 	@Override
 	public void recreateTable( Table table, String dataLocation, String indexLocation, Boolean createIndexes ) throws DataSourceException
 	{
 		dropTable( table );
 		createTable( table, dataLocation, indexLocation, createIndexes );
 	}
-	
+
 	@Override
 	public void updateTable( Table oldTable, Table newTable, String dataLocation ) throws DataSourceException
 	{
@@ -436,19 +449,19 @@ public abstract class AbstractDataSource implements DataSource
 		migrationTable.Database.removeTable( migrationTable.TableName );
 		execute( getRenameTableDDL( migrationTable.TableName, newTable.TableName ) );
 	}
-	
+
 	protected abstract String getSelectDatabaseDDL( String databaseName ) throws DataSourceException;
-	
+
 	protected abstract List<String> getAlterTableDDL( Table oldTable, Table newTable, String dataLocation ) throws DataSourceException;
-	
+
 	protected abstract String getMigrationName( Table table ) throws DataSourceException;
-	
+
 	protected abstract String getRenameTableDDL( String fromTable, String toTable ) throws DataSourceException;
-	
+
 	public abstract String getFunctionName( String functionName ) throws DataSourceException;
-	
+
 	protected abstract String getSqlConvert( AmazeType to, int length, Column from ) throws DataSourceException;
-	
+
 	@Override
 	public void updateIndex( Index oldIndex, Index newIndex, String indexLocation ) throws DataSourceException
 	{
@@ -468,15 +481,15 @@ public abstract class AbstractDataSource implements DataSource
 		}
 		executeList( sqlList );
 	}
-	
+
 	protected abstract List<String> getDropIndexDDL( Index index, boolean checkExists ) throws DataSourceException;
-	
+
 	@Override
 	public void renameTable( String oldTableName, String newTableName ) throws DataSourceException
 	{
 		execute( getRenameTableDDL( oldTableName, newTableName ) );
 	}
-	
+
 	@Override
 	public void copyTable( Table oldTable, String newTableName ) throws DataSourceException
 	{
@@ -493,7 +506,7 @@ public abstract class AbstractDataSource implements DataSource
 			throw new DataSourceException( e );
 		}
 	}
-	
+
 	@Override
 	public boolean tableExists( String tableName ) throws DataSourceException
 	{
@@ -501,7 +514,7 @@ public abstract class AbstractDataSource implements DataSource
 		{ AmazeType.String } );
 		return results.size() > 0;
 	}
-	
+
 	protected List<Object[]> executeQuery( Connection conn, String query, AmazeType[] resultTypes ) throws DataSourceException
 	{
 		List<Object[]> result = null;
@@ -542,7 +555,7 @@ public abstract class AbstractDataSource implements DataSource
 		}
 		return result;
 	}
-	
+
 	private List<Object[]> unwrapResultSet( ResultSet rs, AmazeType[] resultTypes )
 	{
 		List<Object[]> results = new ArrayList<Object[]>();
@@ -568,7 +581,7 @@ public abstract class AbstractDataSource implements DataSource
 		}
 		return results;
 	}
-	
+
 	public void dropAllIndexes( List<Index> indexes ) throws DataSourceException
 	{
 		for ( Index index : indexes )
@@ -595,18 +608,18 @@ public abstract class AbstractDataSource implements DataSource
 	{
 		dropAllIndexes( table.Indexes );
 	}
-	
+
 	public void applyIndexes( Table table, String indexLocation, boolean applyClustered ) throws DataSourceException
 	{
 		applyIndexes( table.Indexes, indexLocation, applyClustered );
 	}
-	
+
 	@Override
 	public abstract void dropStoredProcedure( String procName ) throws DataSourceException;
 
 	@Override
 	public abstract void applyStoredProcedure( String procName, String procedure ) throws DataSourceException;
-	
+
 	@Override
 	public abstract List<String[]> executeStoredProcedure( String procName, List args ) throws DataSourceException;
 
@@ -615,7 +628,7 @@ public abstract class AbstractDataSource implements DataSource
 	{
 		this.schema = schema;
 	}
-	
+
 	@Override
 	public void attachSchema( String doc )
 	{
@@ -623,7 +636,7 @@ public abstract class AbstractDataSource implements DataSource
 		schema.loadSchema( doc );
 		this.schema = schema;
 	}
-	
+
 	@Override
 	public void attachSchema( Document doc )
 	{
@@ -632,25 +645,24 @@ public abstract class AbstractDataSource implements DataSource
 		this.schema = schema;
 	}
 
-	
 	@Override
 	public Schema getSchema()
 	{
 		return schema;
 	}
-	
+
 	public abstract IdGenerator getIdGenerator();
-	
+
 	public abstract String getSelectString( String tableName, String[] colNames );
-	
+
 	public abstract String getSelectString( String tableName, String[] colNames, long min, long max );
-	
+
 	public abstract String getSelectString( String tableName, String[] colNames, String orderByClause, long min, long max );
-	
+
 	public abstract String getSqlToFetchNRows( String tableName, long maxRows );
-	
+
 	public abstract AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
-	
+
 	public abstract String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
-	
+
 }

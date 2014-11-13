@@ -19,13 +19,6 @@ public class MySQLDataSource extends AbstractDataSource
 	}
 
 	@Override
-	public void close()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void truncateTable( String database, String tableName ) throws DataSourceException
 	{
 		// TODO Auto-generated method stub
