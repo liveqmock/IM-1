@@ -2,7 +2,6 @@ package org.amaze.db.utils;
 
 import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Index;

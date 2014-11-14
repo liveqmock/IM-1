@@ -21,9 +21,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.Document;
 
-public abstract class AbstractDataSource implements DataSource
+public abstract class AbstractDataSource implements DataSource, ApplicationContextAware
 {
 	public static final Logger logger = LogManager.getLogger( AbstractDataSource.class );
 	protected static XMLTransform transform = new XMLTransform();
@@ -37,6 +41,14 @@ public abstract class AbstractDataSource implements DataSource
 	public Connection connection;
 
 	public Schema schema;
+	
+	public ApplicationContext context;
+	
+	@Override
+	public void setApplicationContext( ApplicationContext context ) throws BeansException
+	{
+		this.context = context;
+	}
 
 	public AbstractDataSource( String dataBase, String databaseType, String dataSourceName, SessionFactory sessionFactory, javax.sql.DataSource dataSource, Connection connection )
 	{

@@ -448,8 +448,7 @@ public class OracleDataSource extends AbstractDataSource
 	@Override
 	public String getSelectString( String tableName, String[] colNames, String orderByClause, long min, long max )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "select " + StringUtils.merge( colNames, ", " ) + " from " + tableName + " where rownum = 1" + " order by " + orderByClause;
 	}
 
 	@Override
