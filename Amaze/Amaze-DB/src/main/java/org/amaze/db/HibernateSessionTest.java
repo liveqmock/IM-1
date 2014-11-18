@@ -2,7 +2,12 @@ package org.amaze.db;
 
 import java.net.UnknownHostException;
 
+
+
+
 import org.amaze.db.hibernate.objects.User;
+import org.amaze.db.hibernate.utils.HibernateSession;
+//import org.amaze.db.hibernate.objects.User;
 import org.amaze.db.usage.cassandra.repository.LoginEventRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,7 +73,8 @@ public class HibernateSessionTest {
 	{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db.xml");
 		org.amaze.db.hibernate.utils.HibernateSession session = (org.amaze.db.hibernate.utils.HibernateSession) ctx.getBean( "hibernateSession" );
-		org.amaze.db.hibernate.utils.HibernateSession.get( User.class, new Integer( 1 ) );
+//		org.amaze.db.hibernate.utils.HibernateSession.get( User.class, new Integer( 1 ) );
+		User user  = HibernateSession.get( User.class, new Integer( 1 ) );
 		ctx.registerShutdownHook();
 		ctx.close();
 	}

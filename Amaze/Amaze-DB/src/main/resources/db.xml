@@ -81,7 +81,7 @@
 	
 	<!-- DataSource Properties -->
 	<bean id="dataSourceUtils" class="org.amaze.db.utils.DataSourceUtils" init-method="loadAllBeans">
-		<property name="datasourceConfigFile" value="config/AmazeDataSources.xml" />
+		<!-- <property name="datasourceConfigFile" value="config/AmazeDataSources.xml" /> -->
 	</bean>
 	<!-- End of DataSource Properties -->
 	

@@ -78,13 +78,13 @@ public class HibernateSession
 
 	public static Session enableDeleteFilter( Session session )
 	{
-		session.enableFilter( "deletedFilter" ).setParameter( "deleteFl", false );
+		session.enableFilter( "deletedFilter" ).setParameter( "delete_fl", false );
 		return session;
 	}
 
 	public static Session enablePartionFilter( Session session )
 	{
-		session.enableFilter( "partitionFilter" ).setParameter( "partitionId", false );
+		session.enableFilter( "partitionFilter" ).setParameter( "ptn_id", 1 );
 		return session;
 	}
 

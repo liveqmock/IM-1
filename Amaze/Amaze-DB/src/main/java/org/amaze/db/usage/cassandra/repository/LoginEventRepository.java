@@ -17,8 +17,8 @@ public interface LoginEventRepository extends CrudRepository<LoginEvent, Long>
 	@Query("FROM LoginEvent")
     List<LoginEvent> findAllLoginEvent();
 	
-	@Query( "select o from LoginEvent o where inventoryId in :ids" )
-	void findByInventoryIds(@Param("ids") List<Long> inventoryIdList);
+//	@Query( "select o from LoginEvent o where inventoryId in :ids" )
+//	void findByInventoryIds(@Param("ids") List<Long> inventoryIdList);
 	
 	
 }

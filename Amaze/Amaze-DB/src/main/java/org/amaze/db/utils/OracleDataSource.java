@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import oracle.jdbc.OracleTypes;
+//import oracle.jdbc.OracleTypes;
 
 import org.amaze.commons.utils.AmazeString;
 import org.amaze.commons.utils.StringUtils;
@@ -304,7 +304,7 @@ public class OracleDataSource extends AbstractDataSource
 			}
 			queryStr += "); end;";
 			CallableStatement stmt = conn.prepareCall( queryStr );
-			stmt.registerOutParameter( 1, OracleTypes.CURSOR );
+//			stmt.registerOutParameter( 1, OracleTypes.CURSOR );
 			try
 			{
 				int index = 2;

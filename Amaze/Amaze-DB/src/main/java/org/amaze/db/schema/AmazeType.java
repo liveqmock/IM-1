@@ -86,7 +86,7 @@ public enum AmazeType
 		throw new IllegalArgumentException( "Invalid type string passed " + type );
 	}
 
-	public static AmazeType jdbcTypeToCompatibleSparkType( ResultSet resultSet, int columnIndex ) throws SQLException
+	public static AmazeType jdbcTypeToCompatibleAmazeType( ResultSet resultSet, int columnIndex ) throws SQLException
 	{
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		switch( metaData.getColumnType( columnIndex ) )

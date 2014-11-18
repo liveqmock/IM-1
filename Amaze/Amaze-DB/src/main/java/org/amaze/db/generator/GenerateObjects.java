@@ -14,6 +14,7 @@ import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
 import org.amaze.commons.xml.exceptions.XMLException;
 import org.amaze.db.generator.exceptions.GeneratorException;
+import org.hibernate.annotations.ParamDef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -419,7 +420,11 @@ public class GenerateObjects
 				}
 			}
 		}
-		out.write( "@org.hibernate.annotations.Filters( { " + "@org.hibernate.annotations.Filter( name = \"partitionFilter\" , condition = \"ptn_id = :partitionId\" ), " + "@org.hibernate.annotations.Filter( name = \"deletedFilter\", condition = \"" + deleteFlName + " = :deleteFl\" ) " + "} )" );
+//		out.write( "@org.hibernate.annotations.Filters( { " + "@org.hibernate.annotations.Filter( name = \"partitionFilter\" , condition = \"ptn_id = :partitionId\" ), " + "@org.hibernate.annotations.Filter( name = \"deletedFilter\", condition = \"" + deleteFlName + " = :deleteFl\" ) " + "} )" );
+		out.write("@org.hibernate.annotations.FilterDefs( {");
+		out.write( "	@org.hibernate.annotations.FilterDef( name = \"partitionFilter\" , parameters={ @org.hibernate.annotations.ParamDef(name=\"ptn_id\", type=\"java.lang.Integer\") } )," );
+		out.write( "	@org.hibernate.annotations.FilterDef( name = \"deletedFilter\" , parameters={ @org.hibernate.annotations.ParamDef(name=\"delete_fl\", type=\"java.lang.Boolean\") } )" );
+		out.write("} )");
 		out.newLine();
 	}
 
