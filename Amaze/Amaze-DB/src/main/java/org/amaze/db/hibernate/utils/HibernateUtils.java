@@ -12,6 +12,8 @@ import java.util.Map;
 
 import org.amaze.commons.objects.MultiKey;
 import org.amaze.commons.utils.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Interceptor;
 import org.hibernate.Query;
@@ -24,6 +26,8 @@ import org.joda.time.DateTime;
 
 public class HibernateUtils
 {
+	private static final Logger logger = LogManager.getLogger( HibernateUtils.class );
+	
 	public static Object doSessionWork( SessionFactory sessionFactory, SessionWorkListener listener ) throws HibernateException
 	{
 		return doSessionWork( sessionFactory, null, listener );
@@ -74,7 +78,7 @@ public class HibernateUtils
 			}
 			catch ( HibernateException e )
 			{
-
+				logger.error( " HIbernate exception occured while doing session work, ", e );
 			}
 		}
 		return returnObj;
@@ -254,6 +258,24 @@ public class HibernateUtils
 			}
 		} );
 
+		return results;
+	}
+	
+	public static Integer update( SessionFactory sessionFactory, String query, String[] paramNames, Object[] paramValues ) throws HibernateException
+	{
+		final String queryF = query;
+		final Object[] paramValuesF = paramValues;
+		Integer results = ( Integer ) doSessionWork( sessionFactory, new SessionWorkListener()
+		{
+			public Object doSessionWork( Session session ) throws HibernateException
+			{
+				Query q = session.createQuery( queryF );
+				setQueryParameters( q, paramValuesF );
+				Integer results = q.executeUpdate();
+				session.clear();
+				return results;
+			}
+		} );
 		return results;
 	}
 
@@ -1056,7 +1078,6 @@ public class HibernateUtils
 		return classMetadata.getIdentifierPropertyName();
 	}
 
-	// Pagination Methods
 	public static ScrollableResults queryScrollableResults( SessionFactory sessionFactory, String query, String[] paramNames, Object[] paramValues, int maxResults ) throws HibernateException
 	{
 		final String[] paramNamesF = paramNames;

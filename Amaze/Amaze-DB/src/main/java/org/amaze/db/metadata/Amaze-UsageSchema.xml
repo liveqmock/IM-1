@@ -1,108 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-SchemaName="Amaze" ServerPackageName="" MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName="" SystemSchema="true">
-	<Database DatabaseName="amaze">
+SchemaName="AmazeUsage" ServerPackageName="org.amaze.db.usage.objects"
+MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName="" SystemSchema="true">
+	<Database DatabaseName="amazeUsage">
 		<Tables>
-			<Table TableName="user_tasks" TablePrefix="utk" DisplayName="utk_name" >
+			<Table TableName="login_event" TablePrefix="let" DisplayName="">
 				<Columns>
-					<Column ColumnName="app_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="app_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="app_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="app_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="app_version" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-					<Index IndexName="application_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="app_id" />
-				</Indexes>
-			</Table>
-			<Table TableName="user" TablePrefix="usr" DisplayName="usr_name" >
-				<Columns>
-					<Column ColumnName="usr_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="usr_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="usr_disabled" SequenceNumber="2" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="app_id" SequenceNumber="3" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Application" />
-					<Column ColumnName="usr_created_dttm" SequenceNumber="4" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="usr_delete_fl" SequenceNumber="5" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="usr_version" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="7" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-           			<Index IndexName="usr_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="usr_id" />
-           			<Index IndexName="usr_app_unq" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="usr_name,app_id" />
-         		</Indexes>
-				<NestedCollections/>
-			</Table>
-			<Table TableName="role" TablePrefix="rol" DisplayName="rol_name">
-				<Columns>
-					<Column ColumnName="rol_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="rol_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="rol_created_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="rol_delete_fl" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="rol_version" SequenceNumber="4" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-					<Index IndexName="role_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="rol_id" />
-         			</Indexes>
-         		<NestedCollections/>
-			</Table>
-			<Table TableName="user_role_map" TablePrefix="urm" DisplayName="">
-				<Columns>
-					<Column ColumnName="urm_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="usr_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="User"/>
-					<Column ColumnName="rol_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Role"/>
-					<Column ColumnName="urm_created_dttm" SequenceNumber="3" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="urm_delete_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="urm_version" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-					<Index IndexName="user_role_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="rol_id" />
-					<Index IndexName="user_role_unq" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="rol_id,usr_id" />
-         		</Indexes>
-				<NestedCollections>
-					<NestedCollection PropertyName="roles" ForeignObjectMappingName="Role" ForeignPropertyName="rolId" />
-					<NestedCollection PropertyName="users" ForeignObjectMappingName="User" ForeignPropertyName="usrId" />
-				</NestedCollections>
-			</Table>
-			<Table TableName="user_role_map" TablePrefix="urm" DisplayName="">
-				<Columns>
-					<Column ColumnName="urm_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="usr_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="User"/>
-					<Column ColumnName="rol_id" SequenceNumber="2" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Role"/>
-					<Column ColumnName="urm_created_dttm" SequenceNumber="3" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="urm_delete_fl" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="urm_version" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="6" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-					<Index IndexName="role_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="rol_id" />
-         		</Indexes>
-				<NestedCollections>
-					<NestedCollection PropertyName="roles" ForeignObjectMappingName="Role" ForeignPropertyName="rolId" />
-					<NestedCollection PropertyName="users" ForeignObjectMappingName="User" ForeignPropertyName="usrId" />
-				</NestedCollections>
-			</Table>
-			<Table TableName="modules" TablePrefix="mod" DisplayName="module_name">
-				<Columns>
-					<Column ColumnName="mod_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="mod_name" SequenceNumber="1" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="mod_url" SequenceNumber="2" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="is_admin_mod" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="is_session_attached" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="mod_created_dttm" SequenceNumber="5" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-					<Column ColumnName="mod_delete_fl" SequenceNumber="6" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="mod_version" SequenceNumber="7" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-           			<Column ColumnName="ptn_id" SequenceNumber="8" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
-				</Columns>
-				<Indexes>
-					<Index IndexName="mod_pk" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" IsDisplayName="false" ColumnList="mod_id" />
-         		</Indexes>
-				<NestedCollections />
+					<Column ColumnName="let_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" />
+					<Column ColumnName="usr_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" />
+					<Column ColumnName="let_logged_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" />
+					<Column ColumnName="let_loggoff_dttm" SequenceNumber="3" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" />
+					<Column ColumnName="let_session_terminated" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" />
+					<Column ColumnName="let_access_client" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" />
+					<Column ColumnName="let_created_dttm" SequenceNumber="6" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" />
+           			<Column ColumnName="ptn_id" SequenceNumber="7" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" />				
+           		</Columns>
 			</Table>
 		</Tables>
 	</Database>
-	<!-- <Extends>WorkBench_Schema_[Version].xml</Extends> -->
-	<!-- <Extends>Amaze-Schema.xml</Extends> -->
+	<!-- <Extends>WorkBench_Schema_Usage_[Version].xml</Extends> -->
 </Schema>

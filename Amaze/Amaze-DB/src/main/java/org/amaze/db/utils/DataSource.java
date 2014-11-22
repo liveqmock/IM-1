@@ -3,13 +3,14 @@ package org.amaze.db.utils;
 import java.sql.Connection;
 import java.util.List;
 
+import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Index;
 import org.amaze.db.schema.Schema;
 import org.amaze.db.schema.Table;
 import org.amaze.db.utils.exceptions.DataSourceException;
 import org.hibernate.SessionFactory;
-import org.w3c.dom.Document;
+import org.dom4j.Document;
 
 public interface DataSource
 {
@@ -56,10 +57,8 @@ public interface DataSource
 
 	public void applyIndex( Index index, String indexLocation ) throws DataSourceException;
 
-	public void applyIndexes( String indexLocation ) throws DataSourceException;
-
 	public void dropStoredProcedure( String procName ) throws DataSourceException;
-
+	
 	public void applyStoredProcedure( String procName, String procedure ) throws DataSourceException;
 
 	public List<String[]> executeStoredProcedure( String procName, List args ) throws DataSourceException;
@@ -85,5 +84,9 @@ public interface DataSource
 //	public AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
 
 	public String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
+
+	public void createTableEntry( Table eachTable, String tableType, String dataSourceType );
+	
+	public void updateDBTableFromSchemaTable( Table newTable, Tables oldTable);
 
 }

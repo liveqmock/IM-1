@@ -46,7 +46,7 @@ public class Column implements Cloneable
         this.table = table;
     }
 
-    public Column( String columnName, AmazeType dataType, int length, boolean isMandatory, int orderNo, boolean primaryKey, Table table )
+    public Column( String columnName, AmazeType dataType, int length, boolean isMandatory, int orderNo, boolean primaryKey, boolean isOneToOneNestedObject, String nestedObject, Table table )
     {
         ColumnName = columnName;
         DataType = dataType;
@@ -54,6 +54,8 @@ public class Column implements Cloneable
         IsMandatory = isMandatory;
         SequenceNumber = orderNo;
         IsPrimaryKey = primaryKey;
+        IsOneToOneNestedObject = isOneToOneNestedObject;
+        NestedObject = nestedObject;
         this.table = table;
     }
 

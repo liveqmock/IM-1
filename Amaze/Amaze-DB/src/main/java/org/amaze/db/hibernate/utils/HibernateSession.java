@@ -246,6 +246,11 @@ public class HibernateSession
 	{
 		HibernateUtils.update( getSessionFactory(), obj );
 	}
+	
+	public static Integer update( String query, String[] paramNames, Object[] paramValues ) throws HibernateException
+	{
+		return HibernateUtils.update( getSessionFactory(), query, paramNames, paramValues );
+	}
 
 	public static void delete( Object obj ) throws HibernateException
 	{

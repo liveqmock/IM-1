@@ -8,9 +8,9 @@ import org.amaze.db.schema.exceptions.SchemaLoadException;
 import org.amaze.db.schema.exceptions.SchemaParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.Node;
 
 public class Schema implements Cloneable
 {
@@ -118,11 +118,11 @@ public class Schema implements Cloneable
 		{
 			doc = transform.getXMLDocumentObj( schemaFileName, false );
 			loadSchema( doc );
-			NodeList extendsList = doc.getElementsByTagName( "Extends" );
-			for ( int i = 0; i < extendsList.getLength(); i++ )
+			List<Node> extendsList = doc.selectNodes( "Extends" );
+			for ( int i = 0; i < extendsList.size(); i++ )
 			{
 				Schema schema = new Schema();
-				Document doc = transform.getXMLDocumentObj( "./config/" + extendsList.item( i ).getNodeValue().replace( "[Version]", getVersionNumber() ), false );
+				Document doc = transform.getXMLDocumentObj( "./config/" + extendsList.get( i ).getText().replace( "[Version]", getVersionNumber() ), false );
 				schema.loadSchema( doc );
 				mergeSchema( schema );
 			}
@@ -142,98 +142,103 @@ public class Schema implements Cloneable
 	public void loadSchema( Document doc )
 	{
 		this.doc = doc;
-		Element schemaElement = doc.getDocumentElement();
-		this.SchemaName = schemaElement.getAttribute( "SchemaName" );
-		this.ServerPackageName = schemaElement.getAttribute( "ServerPackageName" );
-		this.MajorVersion = Integer.valueOf( schemaElement.getAttribute( "MajorVersion" ) );
-		this.MinorVersion = Integer.valueOf( schemaElement.getAttribute( "MinorVersion" ) );
-		this.ServicePack = Integer.valueOf( schemaElement.getAttribute( "ServicePack" ) );
-		this.IsExtension = Boolean.valueOf( schemaElement.getAttribute( "IsExtension" ) );
-		this.ParentName = schemaElement.getAttribute( "ParentName" );
-		this.SystemSchema = Boolean.valueOf( schemaElement.getAttribute( "SystemSchema" ) );
-		loadDatabase( schemaElement.getChildNodes() );
+		Element schemaElement = doc.getRootElement();
+		this.SchemaName = schemaElement.attributeValue( "SchemaName" );
+		this.ServerPackageName = schemaElement.attributeValue( "ServerPackageName" );
+		this.MajorVersion = Integer.valueOf( schemaElement.attributeValue( "MajorVersion" ) );
+		this.MinorVersion = Integer.valueOf( schemaElement.attributeValue( "MinorVersion" ) );
+		this.ServicePack = Integer.valueOf( schemaElement.attributeValue( "ServicePack" ) );
+		this.IsExtension = Boolean.valueOf( schemaElement.attributeValue( "IsExtension" ) );
+		this.ParentName = schemaElement.attributeValue( "ParentName" );
+		this.SystemSchema = Boolean.valueOf( schemaElement.attributeValue( "SystemSchema" ) );
+		loadDatabase( schemaElement.selectNodes( "//Schema/Database" ) );
 	}
 
-	private void loadDatabase( NodeList databases )
+	private void loadDatabase( List<Node> databases )
 	{
-		if ( databases.getLength() <= 0 )
+		if ( databases.size() <= 0 )
 		{
 			throw new SchemaLoadException( "No Database Configured for the schema" );
 		}
-		for ( int i = 0; i < databases.getLength(); i++ )
+		for ( int i = 0; i < databases.size(); i++ )
 		{
-			if ( databases.item( i ) instanceof Element && ( ( Element ) databases.item( i ) ).getTagName().equals( "Database" ) )
+			if ( databases.get( i ) instanceof Element && ( ( Element ) databases.get( i ) ).getName().equals( "Database" ) )
 			{
-				Element databaseElement = ( Element ) databases.item( i );
+				Element databaseElement = ( Element ) databases.get( i );
 				Database database = new Database();
-				database.DatabaseName = databaseElement.getAttribute( "DatabaseName" );
+				database.DatabaseName = databaseElement.attributeValue( "DatabaseName" );
 				database.Schema = this;
-				loadTables( database, databaseElement.getChildNodes() );
+				loadTables( database, databaseElement.selectNodes( "Tables" ) );
 				this.Databases.add( database );
 			}
 		}
 	}
 
-	private void loadTables( Database database, NodeList tables )
+	private void loadTables( Database database, List<Node> tables )
 	{
-		tables = tables.item( 0 ).getNextSibling().getChildNodes();
-		if ( tables.getLength() <= 0 )
+		if ( tables.size() <= 0 )
 		{
 			throw new SchemaLoadException( "No Tables Configured for the schema" );
 		}
-		for ( int i = 0; i < tables.getLength(); i++ )
+		for ( int i = 0; i < tables.size(); i++ )
 		{
-			if ( tables.item( i ) instanceof Element && ( ( Element ) tables.item( i ) ).getTagName().equals( "Table" ) )
+			if ( tables.get( i ) instanceof Element && ( ( Element ) tables.get( i ) ).getName().equals( "Tables" ) )
 			{
-				Element tableElement = ( Element ) tables.item( i );
-				Table table = new Table();
-				table.TableName = tableElement.getAttribute( "TableName" );
-				table.TablePrefix = tableElement.getAttribute( "TablePrefix" );
-				table.Database = database;
-				loadColumnAndIndexes( table, tableElement.getChildNodes() );
-				database.Tables.add( table );
+				List<Node> tableTags = tables.get( i ).selectNodes( "Table" );
+				for( Node eachNode : tableTags )
+				{
+					Element tableElement = ( Element ) eachNode;
+					Table table = new Table();
+					table.TableName = tableElement.attributeValue( "TableName" );
+					table.TablePrefix = tableElement.attributeValue( "TablePrefix" );
+					table.Database = database;
+					loadColumnAndIndexes( table, tableElement.content() );
+					database.Tables.add( table );
+				}
 			}
 		}
 	}
 
-	private void loadColumnAndIndexes( Table table, NodeList columnAndIndexes )
+	private void loadColumnAndIndexes( Table table, List<Node> columnAndIndexes )
 	{
-		NodeList columns = columnAndIndexes.item( 0 ).getNextSibling().getChildNodes();
-		NodeList indexes = columnAndIndexes.item( 2 ).getNextSibling().getChildNodes();
-		if ( columns.getLength() <= 0 )
+//		NodeList columns = columnAndIndexes.get( 0 ).getNextSibling().getChildNodes();
+//		NodeList indexes = columnAndIndexes.get( 2 ).getNextSibling().getChildNodes();
+		List<Node> columns = columnAndIndexes.get( 1 ).selectNodes( "Column" );
+		List<Node> indexes = columnAndIndexes.get( 3 ).selectNodes( "Index" );
+		if ( columns.size() <= 0 )
 		{
 			throw new SchemaLoadException( "No Columns Configured for the schema" );
 		}
-		for ( int i = 0; i < columns.getLength(); i++ )
+		for ( int i = 0; i < columns.size(); i++ )
 		{
-			if ( columns.item( i ) instanceof Element && ( ( Element ) columns.item( i ) ).getTagName().equals( "Column" ) )
+			if ( columns.get( i ) instanceof Element && ( ( Element ) columns.get( i ) ).getName().equals( "Column" ) )
 			{
-				Element columnElement = ( ( Element ) columns.item( i ) );
+				Element columnElement = ( ( Element ) columns.get( i ) );
 				Column column = new Column();
-				column.ColumnName = columnElement.getAttribute( "ColumnName" );
-				column.SequenceNumber = Integer.valueOf( columnElement.getAttribute( "SequenceNumber" ) );
-				column.DataType = AmazeType.typeofString( columnElement.getAttribute( "DataType" ) );
-				column.Length = Integer.valueOf( columnElement.getAttribute( "Length" ) );
-				column.IsMandatory = Boolean.valueOf( columnElement.getAttribute( "IsMandatory" ) );
-				column.IsPrimaryKey = Boolean.valueOf( columnElement.getAttribute( "IsPrimaryKey" ) );
-				column.IsOneToOneNestedObject = Boolean.valueOf( columnElement.getAttribute( "IsOneToOneNestedObject" ) );
-				column.NestedObject = columnElement.getAttribute( "NestedObject" );
+				column.ColumnName = columnElement.attributeValue( "ColumnName" );
+				column.SequenceNumber = Integer.valueOf( columnElement.attributeValue( "SequenceNumber" ) );
+				column.DataType = AmazeType.typeofString( columnElement.attributeValue( "DataType" ) );
+				column.Length = Integer.valueOf( columnElement.attributeValue( "Length" ) );
+				column.IsMandatory = Boolean.valueOf( columnElement.attributeValue( "IsMandatory" ) );
+				column.IsPrimaryKey = Boolean.valueOf( columnElement.attributeValue( "IsPrimaryKey" ) );
+				column.IsOneToOneNestedObject = Boolean.valueOf( columnElement.attributeValue( "IsOneToOneNestedObject" ) );
+				column.NestedObject = columnElement.attributeValue( "NestedObject" );
 				column.table = table;
 				table.Columns.add( column );
 			}
 		}
-		for ( int i = 0; i < indexes.getLength(); i++ )
+		for ( int i = 0; i < indexes.size(); i++ )
 		{
-			if ( indexes.item( i ) instanceof Element && ( ( Element ) indexes.item( i ) ).getTagName().equals( "Index" ) )
+			if ( indexes.get( i ) instanceof Element && ( ( Element ) indexes.get( i ) ).getName().equals( "Index" ) )
 			{
-				Element indexElement = ( ( Element ) indexes.item( i ) );
+				Element indexElement = ( ( Element ) indexes.get( i ) );
 				Index index = new Index();
-				index.IndexName = indexElement.getAttribute( "IndexName" );
-				index.IsUnique = Boolean.valueOf( indexElement.getAttribute( "IsUnique" ) );
-				index.IsClustered = Boolean.valueOf( indexElement.getAttribute( "IsClustered" ) );
-				index.IsBusinessConstraint = Boolean.valueOf( indexElement.getAttribute( "IsBusinessConstraint" ) );
-				index.IsDisplayName = Boolean.valueOf( indexElement.getAttribute( "IsDisplayName" ) );
-				index.ColumnList = indexElement.getAttribute( "ColumnList" );
+				index.IndexName = indexElement.attributeValue( "IndexName" );
+				index.IsUnique = Boolean.valueOf( indexElement.attributeValue( "IsUnique" ) );
+				index.IsClustered = Boolean.valueOf( indexElement.attributeValue( "IsClustered" ) );
+				index.IsBusinessConstraint = Boolean.valueOf( indexElement.attributeValue( "IsBusinessConstraint" ) );
+				index.IsDisplayName = Boolean.valueOf( indexElement.attributeValue( "IsDisplayName" ) );
+				index.ColumnList = indexElement.attributeValue( "ColumnList" );
 				index.table = table;
 				table.Indexes.add( index );
 			}
@@ -247,3 +252,4 @@ public class Schema implements Cloneable
 	}
 
 }
+	

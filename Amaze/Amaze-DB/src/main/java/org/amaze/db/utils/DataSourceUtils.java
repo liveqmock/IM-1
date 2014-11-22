@@ -38,15 +38,18 @@ public class DataSourceUtils
 
 	private static org.amaze.db.utils.DataSource createSystemDataSource( String dataBaseType )
 	{
+		org.amaze.db.utils.DataSource dataSource = null;
 		if ( dataBaseType.contains( "oracle" ) )
-			return new OracleDataSource( "amaze", "system", HibernateSession.getSessionFactory(), HibernateSession.getDataSource(), HibernateSession.getConnection() );
+			dataSource = new OracleDataSource( "amaze", "system", HibernateSession.getSessionFactory(), HibernateSession.getDataSource(), HibernateSession.getConnection() );
 		else if ( dataBaseType.contains( "mysql" ) )
-			return new MySQLDataSource( "amaze", "system", HibernateSession.getSessionFactory(), HibernateSession.getDataSource(), HibernateSession.getConnection() );
+			dataSource = new MySQLDataSource( "amaze", "system", HibernateSession.getSessionFactory(), HibernateSession.getDataSource(), HibernateSession.getConnection() );
 		else
 			throw new NotImplementedException( " Not supported database " + dataBaseType + " for the Amaze platform... " );
+		dataSource.attachSchema( "/org/amaze/db/metadata/Amaze-Schema.xml" );
+		return dataSource;
 	}
 
-	public org.amaze.db.utils.DataSource getSystemDB()
+	public static org.amaze.db.utils.DataSource getSystemDB()
 	{
 		if ( systemDB == null )
 			throw new NotConfiguredException( "System DB not configured in the DataSourceConfigurationFile" );

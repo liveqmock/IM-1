@@ -5,7 +5,8 @@ import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
 @Table(value = "login_event")
-public class LoginEvent {
+public class LoginEvent 
+{
 
 	@PrimaryKey
 	private LoginEventKey pk;

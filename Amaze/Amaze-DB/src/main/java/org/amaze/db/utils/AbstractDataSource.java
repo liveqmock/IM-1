@@ -7,25 +7,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.amaze.commons.exceptions.AmazeException;
 import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
+import org.amaze.db.hibernate.objects.Columns;
+import org.amaze.db.hibernate.objects.Datasource;
+import org.amaze.db.hibernate.objects.Indexes;
+import org.amaze.db.hibernate.objects.TableType;
+import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.utils.HibernateSession;
+import org.amaze.db.installer.exceptions.AmazeInstallerException;
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Column;
-import org.amaze.db.schema.Database;
 import org.amaze.db.schema.Index;
 import org.amaze.db.schema.Schema;
 import org.amaze.db.schema.Table;
 import org.amaze.db.utils.exceptions.DataSourceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.joda.time.DateTime;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.w3c.dom.Document;
+import org.dom4j.Document;
 
 public abstract class AbstractDataSource implements DataSource, ApplicationContextAware
 {
@@ -41,9 +48,9 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	public Connection connection;
 
 	public Schema schema;
-	
+
 	public ApplicationContext context;
-	
+
 	@Override
 	public void setApplicationContext( ApplicationContext context ) throws BeansException
 	{
@@ -87,7 +94,14 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 
 	public Connection getConnection()
 	{
-		return connection;
+		try
+		{
+			return dataSource.getConnection();
+		}
+		catch ( SQLException e )
+		{
+			throw new AmazeException( e );
+		}
 	}
 
 	@Override
@@ -676,5 +690,88 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	public abstract AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
 
 	public abstract String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
+	
+	public void createTableEntry( Table eachTable, String tableType, String dataSourceType )
+	{
+		DateTime dttm = new DateTime();
+		try{
+//			HibernateSession.get( TableType.class, new Integer( 1 ) );
+			TableType ttp = ( TableType ) HibernateSession.query( "from TableType ttp" /*where ttp.ttpName='" + tableType + "'"*/, new String[]{}, new Object[]{} );//, "ttpName", tableType );
+			Datasource dts = ( Datasource ) HibernateSession.query( "from Datasource dts where dts.dtsType=:dtsType", new String[]{"dtsType"}, new Object[]{dataSourceType} ).get( 0 );
+		}catch(Exception e){
+			System.out.println();
+			System.out.println(e);
+		}
+		List<Object> objectsToSave = new ArrayList<Object>();
+		Tables table = HibernateSession.createObject( Tables.class );
+		table.setTabName( eachTable.TableName );
+		table.setTabPrefix( eachTable.TablePrefix );
+		table.setTabDisplayName( eachTable.DisplayName );
+//		table.setTableType( ttp );
+//		table.setDatasource( dts );
+		table.setTabCreatedDttm( dttm );
+		table.setDeleteFl( false );
+		table.setTabVersion( 1 );
+		table.setPartitionId( 1 );
+		objectsToSave.add( table );
+		for ( Column eachColumn : eachTable.Columns )
+		{
+			Columns column = HibernateSession.createObject( Columns.class );
+			column.setTables( table );
+			column.setColumnName( eachColumn.ColumnName );
+			column.setSequenceNo( eachColumn.SequenceNumber );
+			column.setDataType( eachColumn.DataType.toString() );
+			column.setLenght( eachColumn.Length );
+			column.setIsMandatory( eachColumn.IsMandatory );
+			column.setIsPrimaryKey( eachColumn.IsPrimaryKey );
+			column.setIsOneToOneNestedObject( eachColumn.IsOneToOneNestedObject );
+			column.setNestedObject( eachColumn.NestedObject );
+			column.setColCreatedDttm( dttm );
+			column.setDeleteFl( false );
+			column.setColVersion( 1 );
+			column.setPartitionId( 1 );
+			objectsToSave.add( column );
+		}
+		for ( Index eachIndex : eachTable.Indexes )
+		{
+			Indexes index = HibernateSession.createObject( Indexes.class );
+			index.setTables( table );
+			index.setIndexName( eachIndex.IndexName );
+			index.setIsUnique( eachIndex.IsUnique );
+			index.setIsClustered( eachIndex.IsClustered );
+			index.setIsBusinessConstraint( eachIndex.IsBusinessConstraint );
+			index.setIsDisplayName( eachIndex.IsDisplayName );
+			index.setColumnList( eachIndex.ColumnList );
+			index.setIdxCreatedDttm( dttm );
+			index.setDeleteFl( false );
+			index.setVersionId( 1 );
+			index.setPartitionId( 1 );
+			objectsToSave.add( index );
+		}
+		HibernateSession.save( objectsToSave.toArray( new Object[objectsToSave.size()] ) );
+	}
+	
+	@Override
+	public void updateDBTableFromSchemaTable( Table newTable, Tables oldTable )
+	{
+		Session session = HibernateSession.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+			createTableEntry( newTable, "System", "System" );
+			session.delete( oldTable );
+			for( Columns eachCol : oldTable.getColumnss() )
+				session.delete( eachCol );
+			for( Indexes eachIdx : oldTable.getIndexess() )
+				session.delete( eachIdx );
+		}
+		catch( Exception e)
+		{
+			tx.rollback();
+			session.close();
+			throw new AmazeException( " Could not do the table dfn updation for the table " + newTable.TableName );
+		}
+		tx.commit();
+		session.close();
+	}
 
 }

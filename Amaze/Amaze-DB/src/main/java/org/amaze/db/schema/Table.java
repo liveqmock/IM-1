@@ -3,6 +3,12 @@ package org.amaze.db.schema;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.amaze.db.hibernate.objects.Datasource;
+import org.amaze.db.hibernate.objects.Tables;
+import org.amaze.db.hibernate.utils.HibernateSession;
+import org.amaze.db.installer.exceptions.AmazeInstallerException;
+import org.amaze.db.utils.DataSource;
+
 public class Table implements Cloneable
 {
     public String TableName;
@@ -180,4 +186,52 @@ public class Table implements Cloneable
             }
         }
     }
+    
+    public static Table loadTableFromDbTable( Database database, Tables tables )
+    {
+    	Table table = new Table();
+    	table.TableName = tables.getTabName();
+    	table.TablePrefix = tables.getTabPrefix();
+    	table.DisplayName = tables.getTabDisplayName();
+    	table.Database = database;
+    	List<Column> columnsList = new ArrayList<Column>();
+    	table.Columns = columnsList;
+    	for( org.amaze.db.hibernate.objects.Columns eachCol : tables.getColumnss() )
+    	{
+    		columnsList.add( new Column( eachCol.getColumnName(), AmazeType.valueOf( eachCol.getDataType() ), eachCol.getLenght(), eachCol.getIsMandatory(), eachCol.getSequenceNo(), eachCol.getIsPrimaryKey(), eachCol.getIsOneToOneNestedObject(), eachCol.getNestedObject(), table ) );
+    	}
+    	List<Index> indexesList = new ArrayList<Index>();
+    	table.Indexes = indexesList;
+    	for( org.amaze.db.hibernate.objects.Indexes eachIdx : tables.getIndexess() )
+    	{
+    		indexesList.add( new Index( eachIdx.getIndexName(), eachIdx.getIsUnique(), eachIdx.getIsClustered(), eachIdx.getIsBusinessConstraint(), eachIdx.getIsDisplayName(), eachIdx.getColumnList(), table ) );
+    	}
+    	return table;
+    }
+
+	public static void UpdateDBTableFromSchemaTable( String database, Table eachTable )
+	{
+		List<Tables> tables = HibernateSession.find( "from Tables tab where tab.tabName='" + eachTable.TableName );
+		if( tables.size() == 1 )
+		{
+			
+		}
+		else
+			throw new AmazeInstallerException( "Data Corrupted for the Table Dfn " + eachTable.TableName );
+	}
+
+	public static Table getTableFromTableName( DataSource dataSource, String tableName )
+	{
+		for( Database eachDatabase : dataSource.getSchema().Databases)
+		{
+			for (Table eachTable : eachDatabase.Tables )
+			{
+				if( eachTable.TableName == tableName )
+				{
+					return eachTable;
+				}
+			}
+		}
+		return null;
+	}
 }

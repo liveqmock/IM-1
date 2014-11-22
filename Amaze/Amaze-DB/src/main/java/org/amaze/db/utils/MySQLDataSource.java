@@ -3,6 +3,9 @@ package org.amaze.db.utils;
 import java.sql.Connection;
 import java.util.List;
 
+import org.amaze.db.hibernate.objects.TableType;
+import org.amaze.db.hibernate.objects.Tables;
+import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Column;
 import org.amaze.db.schema.Index;
@@ -20,13 +23,6 @@ public class MySQLDataSource extends AbstractDataSource
 
 	@Override
 	public void truncateTable( String database, String tableName ) throws DataSourceException
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void applyIndexes( String indexLocation ) throws DataSourceException
 	{
 		// TODO Auto-generated method stub
 		
@@ -329,6 +325,5 @@ public class MySQLDataSource extends AbstractDataSource
 //		return sqlList;
 //	}
 //	
-	
 	
 }

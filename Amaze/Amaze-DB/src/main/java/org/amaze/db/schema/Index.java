@@ -15,13 +15,14 @@ public class Index implements Cloneable
     {
     }
 
-    public Index( String indexName, boolean isUnique, boolean isClustered, boolean isBusinessConstraint, boolean isDisplayName, Table table )
+    public Index( String indexName, boolean isUnique, boolean isClustered, boolean isBusinessConstraint, boolean isDisplayName, String columnList, Table table )
     {
         IndexName = indexName;
         IsUnique = isUnique;
         IsClustered = isClustered;
         IsBusinessConstraint = isBusinessConstraint;
         IsDisplayName = isDisplayName;
+        ColumnList = columnList;
         this.table = table;
     }
 

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,12 +15,10 @@ import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
 import org.amaze.commons.xml.exceptions.XMLException;
 import org.amaze.db.generator.exceptions.GeneratorException;
-import org.hibernate.annotations.ParamDef;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.Node;
+
 
 public class GenerateObjects
 {
@@ -37,21 +36,19 @@ public class GenerateObjects
 		try
 		{
 			doc = transform.getXMLDocumentObj( schemaFile, false );
-			NodeList elements = doc.getElementsByTagName( "Table" );
-			for ( int i = 0; i < elements.getLength(); i++ )
+			List<Node> tables = doc.selectNodes( "//Schema/Database/Tables/Table" ); 
+			for( Node eachNode : tables )
 			{
-				Element element = ( Element ) elements.item( i );
-				;
-				tableNameTablePrefixMap.put( StringUtils.underScoreToCamelCase( element.getAttribute( "TableName" ) ), element.getAttribute( "TablePrefix" ) );
+				tableNameTablePrefixMap.put( StringUtils.underScoreToCamelCase( ( (Element)eachNode).attributeValue( "TableName" ) ), (( Element)eachNode).attributeValue( "TablePrefix" ) );
 			}
 			validate( doc );
 			clearOldSrcFiles();
 			parseSchemaFile( doc );
-			NodeList extendsTag = doc.getElementsByTagName( "Extends" );
-			for ( int i = 0; i < extendsTag.getLength(); i++ )
+			List<Node> extendsTag = doc.selectNodes( "//Schema/Extends" );
+			for( Node eachTag : extendsTag )
 			{
-				Element element = ( Element ) extendsTag.item( i );
-				parseSchemaFile( transform.getXMLDocumentObj( element.getNodeValue(), false ) );
+				Element element = ( Element ) eachTag;
+				parseSchemaFile( transform.getXMLDocumentObj( element.getText(), false ) );
 			}
 		}
 		catch ( XMLException | IOException e )
@@ -74,13 +71,13 @@ public class GenerateObjects
 
 	private void parseSchemaFile( Document doc )
 	{
-		NodeList database = doc.getElementsByTagName( "Database" );
-		if ( database.getLength() == 1 )
+		List<Node> database = doc.selectNodes( "//Schema/Database" );
+		if ( database.size() == 1 )
 		{
-			Node eachDatabase = database.item( 0 );
-			if ( ( ( Element ) eachDatabase ).getAttribute( "DatabaseName" ).equals( "amaze" ) )
+			Node eachDatabase = database.get( 0 );
+			if ( ( ( Element ) eachDatabase ).attributeValue( "DatabaseName" ).equals( "amaze" ) )
 			{
-				parseDatabase( database.item( 0 ) );
+				parseDatabase( database.get( 0 ) );
 			}
 			else
 				throw new GeneratorException( "No Amaze database configured" );
@@ -91,13 +88,13 @@ public class GenerateObjects
 
 	private void parseDatabase( Node eachDatabase )
 	{
-		NodeList tablesTags = ( ( Element ) eachDatabase ).getElementsByTagName( "Tables" );
-		if ( tablesTags.getLength() == 1 )
+		List<Node> tablesTags = eachDatabase.selectNodes( "//Schema/Database/Tables" );  
+		if ( tablesTags.size() == 1 )
 		{
-			Node tablesTag = tablesTags.item( 0 );
-			NodeList tables = ( ( Element ) tablesTag ).getElementsByTagName( "Table" );
-			for ( int i = 0; i < tables.getLength(); i++ )
-				parseTables( tables.item( i ) );
+			Node tablesTag = tablesTags.get( 0 );
+			List<Node> tables = tablesTag.selectNodes( "Table" );
+			for( Node eachTable : tables )
+				parseTables( eachTable );
 		}
 		else
 			throw new GeneratorException( "Multiple Tables tag configured" );
@@ -106,21 +103,21 @@ public class GenerateObjects
 	private void parseTables( Node tableTag )
 	{
 		Element table = ( Element ) tableTag;
-		String tableName = table.getAttribute( "TableName" );
-		String tablePrefix = table.getAttribute( "TablePrefix" );
-		NodeList columns = table.getElementsByTagName( "Columns" );
-		if ( columns.getLength() != 1 )
+		String tableName = table.attributeValue( "TableName" );
+		String tablePrefix = table.attributeValue( "TablePrefix" );
+		List<Node> columns = table.selectNodes( "Columns" );
+		if ( columns.size() != 1 )
 			throw new GeneratorException( "Multiple no of Columns tag configured" );
-		columns = columns.item( 0 ).getChildNodes();
-		NodeList indexes = table.getElementsByTagName( "Indexes" );
-		if ( indexes.getLength() != 1 )
+		columns = columns.get( 0 ).selectNodes( "Column" );
+		List<Node> indexes = table.selectNodes( "Indexes" );
+		if ( indexes.size() != 1 )
 			throw new GeneratorException( "Multiple no of Indexes tag configured" );
-		indexes = indexes.item( 0 ).getChildNodes();
-		NodeList nestedCollections = table.getElementsByTagName( "NestedCollections" );
-		if ( nestedCollections.getLength() > 1 )
+		indexes = indexes.get( 0 ).selectNodes( "Index" );
+		List<Node> nestedCollections = table.selectNodes( "NestedCollections" );
+		if ( nestedCollections.size() > 1 )
 			throw new GeneratorException( "Multiple no of NestedCollections tag configured" );
-		if ( nestedCollections.getLength() != 0 )
-			nestedCollections = nestedCollections.item( 0 ).getChildNodes();
+		if ( nestedCollections.size() != 0 )
+			nestedCollections = nestedCollections.get( 0 ).selectNodes( "NestedCollection" );
 		try
 		{
 			createHibernateObject( tableName, tablePrefix, columns, indexes, nestedCollections );
@@ -131,7 +128,7 @@ public class GenerateObjects
 		}
 	}
 
-	private void createHibernateObject( String tableName, String tablePrefix, NodeList columns, NodeList indexes, NodeList nestedCollections ) throws IOException
+	private void createHibernateObject( String tableName, String tablePrefix, List<Node> columns, List<Node> indexes, List<Node> nestedCollections ) throws IOException
 	{
 		String classFileName = StringUtils.underScoreToCamelCase( tableName );
  		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator;
@@ -166,23 +163,23 @@ public class GenerateObjects
 		out.close();
 	}
 
-	private void createIndexAnnotations( BufferedWriter out, NodeList indexes, String tablePrefix, String tableName ) throws IOException
+	private void createIndexAnnotations( BufferedWriter out, List<Node> indexes, String tablePrefix, String tableName ) throws IOException
 	{
-		if ( indexes.getLength() > 0 )
+		if ( indexes.size() > 0 )
 		{
 			out.write( "@org.amaze.db.hibernate.annotations.Table( tableName = \"" + tableName + "\", tablePrefix = \"" + tablePrefix + "\", indexes = {" );
 			out.newLine();
-			for ( int i = 0; i < indexes.getLength(); i++ )
+			for ( int i = 0; i < indexes.size(); i++ )
 			{
-				Node eachNode = indexes.item( i );
+				Node eachNode = indexes.get( i );
 				if ( eachNode instanceof Element )
 				{
-					String indexName = ( ( Element ) eachNode ).getAttribute( "IndexName" );
-					String isUnique = ( ( Element ) eachNode ).getAttribute( "IsUnique" );
-					String isClustered = ( ( Element ) eachNode ).getAttribute( "IsClustered" );
-					String isBusinessConstraint = ( ( Element ) eachNode ).getAttribute( "IsBusinessConstraint" );
-					String isDisplayName = ( ( Element ) eachNode ).getAttribute( "IsDisplayName" );
-					String columnList = ( ( Element ) eachNode ).getAttribute( "ColumnList" );
+					String indexName = ( ( Element ) eachNode ).attributeValue( "IndexName" );
+					String isUnique = ( ( Element ) eachNode ).attributeValue( "IsUnique" );
+					String isClustered = ( ( Element ) eachNode ).attributeValue( "IsClustered" );
+					String isBusinessConstraint = ( ( Element ) eachNode ).attributeValue( "IsBusinessConstraint" );
+					String isDisplayName = ( ( Element ) eachNode ).attributeValue( "IsDisplayName" );
+					String columnList = ( ( Element ) eachNode ).attributeValue( "ColumnList" );
 					out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", isUnique = \"" + isUnique + "\", isClustered = \"" + isClustered + "\", isBusinessConstraint = \"" + isBusinessConstraint + "\", displayName = \"" + isDisplayName + "\", columnNames = { \"" + columnList + "\" } )," );
 					out.newLine();
 				}
@@ -191,47 +188,47 @@ public class GenerateObjects
 		}
 	}
 
-	private void createNestedCollectionsMapping( BufferedWriter out, NodeList nestedCollections, String currentObjectname ) throws IOException
+	private void createNestedCollectionsMapping( BufferedWriter out, List<Node> nestedCollections, String currentObjectname ) throws IOException
 	{
-		for ( int i = 0; i < nestedCollections.getLength(); i++ )
+		for ( int i = 0; i < nestedCollections.size(); i++ )
 		{
-			Node eachNode = nestedCollections.item( i );
+			Node eachNode = nestedCollections.get( i );
 			if ( eachNode instanceof Element )
 			{
-				String propertyName = ( ( Element ) eachNode ).getAttribute( "PropertyName" );
-				String foreignObjectMappingName = ( ( Element ) eachNode ).getAttribute( "ForeignObjectMappingName" );
-				String foreignPropertyName = ( ( Element ) eachNode ).getAttribute( "ForeignPropertyName" );
-				out.write( "	private java.util.Collection< " + foreignObjectMappingName + " > " + propertyName + " = new java.util.ArrayList< " + foreignObjectMappingName + " >();" );
+				String propertyName = ( ( Element ) eachNode ).attributeValue( "PropertyName" );
+				String foreignObjectMappingName = ( ( Element ) eachNode ).attributeValue( "ForeignObjectMappingName" );
+				String foreignPropertyName = ( ( Element ) eachNode ).attributeValue( "ForeignPropertyName" );
+				out.write( "	private java.util.List< " + foreignObjectMappingName + " > " + propertyName + " = new java.util.ArrayList< " + foreignObjectMappingName + " >();" );
 				out.newLine();
 				out.write( "	@javax.persistence.OneToMany( fetch = javax.persistence.FetchType.LAZY, mappedBy = \"" + foreignPropertyName + "\" )" );
 				out.newLine();
-				out.write( "	public java.util.Collection< " + foreignObjectMappingName + " > get" + foreignObjectMappingName + "s() { return " + propertyName + "; }" );
+				out.write( "	public java.util.List< " + foreignObjectMappingName + " > get" + foreignObjectMappingName + "s() { return " + propertyName + "; }" );
 				out.newLine();
 				out.write( "	public void add" + foreignObjectMappingName + "s( " + foreignObjectMappingName + " var  ) { " );
 				out.write( "		var.set" + currentObjectname + "( this ); " );
 				out.write( "		" + propertyName + ".add( var ); " );
 				out.write( "	}" );
 				out.newLine();
-				out.write( "	public void set" + foreignObjectMappingName + "s( java.util.Collection< " + foreignObjectMappingName + " > val ) { this." + propertyName + " = val; }" );
+				out.write( "	public void set" + foreignObjectMappingName + "s( java.util.List< " + foreignObjectMappingName + " > val ) { this." + propertyName + " = val; }" );
 				out.newLine();
 			}
 		}
 	}
 
-	private void createFieldMappings( BufferedWriter out, NodeList columns, String prefix ) throws IOException
+	private void createFieldMappings( BufferedWriter out, List<Node> columns, String prefix ) throws IOException
 	{
-		for ( int i = 0; i < columns.getLength(); i++ )
+		for ( int i = 0; i < columns.size(); i++ )
 		{
-			Node eachNode = columns.item( i );
+			Node eachNode = columns.get( i );
 			if ( eachNode instanceof Element )
 			{
-				String columnName = ( ( Element ) eachNode ).getAttribute( "ColumnName" );
-				String dataType = ( ( Element ) eachNode ).getAttribute( "DataType" );
-				String length = ( ( Element ) eachNode ).getAttribute( "Length" );
-				String isMandatory = ( ( Element ) eachNode ).getAttribute( "IsMandatory" );
-				String isPrimaryKey = ( ( Element ) eachNode ).getAttribute( "IsPrimaryKey" );
-				String isOneToOneNestedObject = ( ( Element ) eachNode ).getAttribute( "IsOneToOneNestedObject" );
-				String nestedObject = ( ( Element ) eachNode ).getAttribute( "NestedObject" );
+				String columnName = ( ( Element ) eachNode ).attributeValue( "ColumnName" );
+				String dataType = ( ( Element ) eachNode ).attributeValue( "DataType" );
+				String length = ( ( Element ) eachNode ).attributeValue( "Length" );
+				String isMandatory = ( ( Element ) eachNode ).attributeValue( "IsMandatory" );
+				String isPrimaryKey = ( ( Element ) eachNode ).attributeValue( "IsPrimaryKey" );
+				String isOneToOneNestedObject = ( ( Element ) eachNode ).attributeValue( "IsOneToOneNestedObject" );
+				String nestedObject = ( ( Element ) eachNode ).attributeValue( "NestedObject" );
 				String camelCaseColName = StringUtils.underScoreToCamelCase( columnName );
 				String colName = camelCaseColName.substring( 0, 1 ).toLowerCase() + camelCaseColName.substring( 1, camelCaseColName.length() );
 				if ( isPrimaryKey.equals( "true" ) )
@@ -244,9 +241,9 @@ public class GenerateObjects
 					out.newLine();
 					out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
 					out.newLine();
-					out.write( "	public int get" + colName + "() { return getId(); }" );
+					out.write( "	public int get" + camelCaseColName + "() { return getId(); }" );
 					out.newLine();
-					out.write( "	public void set" + colName + "( int id ) { setId( id ); } " );
+					out.write( "	public void set" + camelCaseColName + "( int id ) { setId( id ); } " );
 					out.newLine();
 					out.newLine();
 					continue;
@@ -309,10 +306,6 @@ public class GenerateObjects
 				}
 				else
 				{
-					if ( dataType.equals( "DateTime" ) )
-						out.write( "	private " + "org.joda.time.DateTime" + " " + colName + ";" );
-					else
-						out.write( "	private " + dataType + " " + colName + ";" );
 					out.newLine();
 					out.write( "	@javax.persistence.Basic" );
 					out.newLine();
@@ -329,6 +322,8 @@ public class GenerateObjects
 						out.newLine();
 						out.write( "	@org.hibernate.validator.constraints.Length( max = " + length + " )" );
 						out.newLine();
+						out.write( "	private " + dataType + " " + colName + ";" );
+						out.newLine();
 						out.write( "	public String get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( String val ) {this." + colName + " = val; }" );
@@ -337,6 +332,8 @@ public class GenerateObjects
 					else if ( dataType.equals( "Integer" ) )
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
+						out.newLine();
+						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
@@ -349,6 +346,8 @@ public class GenerateObjects
 						out.newLine();
 						out.write( "	@javax.validation.constraints.NotNull" );
 						out.newLine();
+						out.write( "	private " + dataType + " " + colName + ";" );
+						out.newLine();
 						out.write( "	public Boolean get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Boolean val ) {this." + colName + " = val; }" );
@@ -358,6 +357,8 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"org.amaze.db.hibernate.types.DateTimeType\" )" );
 						out.newLine();
+						out.write( "	private " + "org.joda.time.DateTime" + " " + colName + ";" );
+						out.newLine();
 						out.write( "	public org.joda.time.DateTime get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( org.joda.time.DateTime val ) {this." + colName + " = val; }" );
@@ -366,6 +367,8 @@ public class GenerateObjects
 					else if ( dataType.equals( "Long" ) )
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"Long\" )" );
+						out.newLine();
+						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Long get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
@@ -402,18 +405,18 @@ public class GenerateObjects
 		}
 	}
 
-	private void addEntityAnnotation( BufferedWriter out, String tableName, NodeList columns ) throws IOException
+	private void addEntityAnnotation( BufferedWriter out, String tableName, List<Node> columns ) throws IOException
 	{
 		out.write( "@javax.persistence.Entity" );
 		out.newLine();
 		out.write( "@javax.persistence.Table( name = \"" + tableName + "\" )" );
 		out.newLine();
 		String deleteFlName = null;
-		for ( int i = 0; i < columns.getLength(); i++ )
+		for ( int i = 0; i < columns.size(); i++ )
 		{
-			if ( columns.item( i ).getNextSibling().getAttributes() != null )
+			if ( ( (Element) columns.get( i ) ).attributes() != null )
 			{
-				deleteFlName = ( columns.item( i ).getNextSibling() ).getAttributes().getNamedItem( "ColumnName" ).getNodeValue();
+				deleteFlName = ( (Element)columns.get( i )).attribute( "ColumnName" ).getText();
 				if ( deleteFlName.endsWith( "_delete_fl" ) )
 				{
 					break;
@@ -438,11 +441,11 @@ public class GenerateObjects
 
 	private void validate( Document doc )
 	{
-		Element schemaElement = doc.getDocumentElement();
-		if ( schemaElement.getAttribute( "SchemaName" ).equals( "Amaze" ) )
+		Element schemaElement = doc.getRootElement();
+		if ( schemaElement.attributeValue( "SchemaName" ).equals( "Amaze" ) )
 		{
-			packageName = schemaElement.getAttribute( "ServerPackageName" );
-			amazeVersion = schemaElement.getAttribute( "MajorVersion" ) + "_" + schemaElement.getAttribute( "MinorVersion" ) + "_" + schemaElement.getAttribute( "ServicePack" );
+			packageName = schemaElement.attributeValue( "ServerPackageName" );
+			amazeVersion = schemaElement.attributeValue( "MajorVersion" ) + "_" + schemaElement.attributeValue( "MinorVersion" ) + "_" + schemaElement.attributeValue( "ServicePack" );
 		}
 		else
 		{
@@ -450,10 +453,10 @@ public class GenerateObjects
 		}
 	}
 
-	public static void main( String[] args ) throws ParserConfigurationException, SAXException, IOException
+	public static void main( String[] args ) throws ParserConfigurationException, IOException
 	{
 		new GenerateObjects().generateObjects( args[0], args[1] );
-//		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml" );
+//		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml", "./src/main/java/" );
 	}
 
 }
