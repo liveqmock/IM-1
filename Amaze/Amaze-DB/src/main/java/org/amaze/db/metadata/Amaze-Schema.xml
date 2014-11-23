@@ -76,10 +76,10 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="idx_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" IsOneToOneNestedObject="false" NestedObject="" />
 					<Column ColumnName="tab_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="true" NestedObject="Tables" />
 					<Column ColumnName="index_name" SequenceNumber="2" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
-					<Column ColumnName="is_unique" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
-					<Column ColumnName="is_clustered" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
-					<Column ColumnName="is_business_constraint" SequenceNumber="5" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
-					<Column ColumnName="is_display_name" SequenceNumber="6" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
+					<Column ColumnName="is_unique" SequenceNumber="3" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
+					<Column ColumnName="is_clustered" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
+					<Column ColumnName="is_business_constraint" SequenceNumber="5" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
+					<Column ColumnName="is_display_name" SequenceNumber="6" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
 					<Column ColumnName="column_list" SequenceNumber="7" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject="" />
 					<Column ColumnName="idx_created_dttm" SequenceNumber="8" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>
 					<Column ColumnName="idx_delete_fl" SequenceNumber="9" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" IsOneToOneNestedObject="false" NestedObject=""/>

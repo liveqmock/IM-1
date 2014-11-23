@@ -1,6 +1,8 @@
 package org.amaze.db;
 
-import org.amaze.db.usage.cassandra.repository.LoginEventRepository;
+import org.amaze.db.hibernate.objects.Users;
+import org.amaze.db.hibernate.utils.HibernateSession;
+import org.amaze.db.usage.repository.LoginEventRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.cassandra.core.CassandraOperations;
 
@@ -53,17 +55,21 @@ public class HibernateSessionTest {
 //		
 //	}
 	
-//	public static void main( String[] args )
-//	{
-//		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db.xml");
-//		org.amaze.db.hibernate.utils.HibernateSession session = (org.amaze.db.hibernate.utils.HibernateSession) ctx.getBean( "hibernateSession" );
-////		org.amaze.db.hibernate.utils.HibernateSession.get( User.class, new Integer( 1 ) );
-//		Users user  = HibernateSession.get( Users.class, new Integer( 1 ) );
-//		ctx.registerShutdownHook();
-//		ctx.close();
-//	}
-
 	public static void main( String[] args )
+	{
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db.xml");
+		org.amaze.db.hibernate.utils.HibernateSession session = (org.amaze.db.hibernate.utils.HibernateSession) ctx.getBean( "hibernateSession" );
+//		org.amaze.db.hibernate.utils.HibernateSession.get( User.class, new Integer( 1 ) );
+		try{
+			Users user  = HibernateSession.get( Users.class, new Integer( 1 ) );
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		ctx.registerShutdownHook();
+		ctx.close();
+	}
+
+	/*public static void main( String[] args )
 	{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db.xml");
 		CassandraOperations cassandraOperations = ctx.getBean("cqlTemplate", CassandraOperations.class);
@@ -71,5 +77,5 @@ public class HibernateSessionTest {
 		cassandraOperations.execute(insert1);
 		LoginEventRepository loginEventRepository = (LoginEventRepository) ctx.getBean("loginEventRepository");
 		loginEventRepository.findAll();
-	}
+	}*/
 }

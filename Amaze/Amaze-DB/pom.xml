@@ -140,6 +140,12 @@
 									<arg line="/org/amaze/db/metadata/Amaze-Schema.xml" />
 									<arg line="${basedir}/src/main/java" />
 								</java>
+								<java classname="org.amaze.db.generator.GenerateUsageObjects"
+									failonerror="true">
+									<classpath refid="maven.runtime.classpath" />
+									<arg line="/org/amaze/db/metadata/Amaze-UsageSchema.xml" />
+									<arg line="${basedir}/src/main/java" />
+								</java>
 								<copy todir="${project.build.outputDirectory}">
 									<fileset dir="./src/main/resources">
 										<include name="META-INF/*" />
