@@ -248,7 +248,7 @@ public class GenerateUsageObjects
 				{
 					String indexName = ( ( Element ) eachNode ).attributeValue( "IndexName" );
 					String columnList = ( ( Element ) eachNode ).attributeValue( "ColumnList" );
-					out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", columnNames = { \"" + columnList + "\" } )," );
+					out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", columnList = { \"" + columnList + "\" } )," );
 					out.newLine();
 				}
 			}

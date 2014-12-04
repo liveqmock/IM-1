@@ -739,7 +739,6 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 			index.setColumnList( eachIndex.columnList );
 			index.setIdxCreatedDttm( dttm );
 			index.setDeleteFl( false );
-			index.setVersionId( 1 );
 			objectsToSave.add( index );
 		}
 		HibernateSession.save( objectsToSave.toArray( new Object[objectsToSave.size()] ) );

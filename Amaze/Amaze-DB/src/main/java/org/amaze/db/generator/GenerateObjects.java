@@ -15,8 +15,6 @@ import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
 import org.amaze.commons.xml.exceptions.XMLException;
 import org.amaze.db.generator.exceptions.GeneratorException;
-import org.amaze.db.hibernate.objects.Application;
-import org.amaze.db.hibernate.objects.UserRoleMap;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;

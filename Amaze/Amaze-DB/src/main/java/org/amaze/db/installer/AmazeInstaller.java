@@ -187,7 +187,6 @@ public class AmazeInstaller
 		version.setVerExtensionFl( true );
 		version.setVerCreatedDttm( new DateTime() );
 		version.setDeleteFl( false );
-		version.setVersionId( 1 );
 		HibernateSession.save( version );
 	}
 
