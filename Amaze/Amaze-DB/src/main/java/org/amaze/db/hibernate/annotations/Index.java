@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target( ElementType.TYPE )
 public @interface Index
 {
-	
+
 	String indexName() default "";
 
 	String isUnique() default "false";
@@ -18,7 +18,8 @@ public @interface Index
 
 	String isBusinessConstraint() default "false";
 
-	String displayName() default "false";
+	String[] columnList() default "";
+	
+	String condition() default "";
 
-	String[] columnNames() default "";
 }

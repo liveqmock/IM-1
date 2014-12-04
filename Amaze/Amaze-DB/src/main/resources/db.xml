@@ -71,12 +71,14 @@
 	<!-- End Of Hibernate Properties -->
 
 	<!-- NoSQL Properties -->
-	<cassandra:cluster contact-points="${cassandra.contactpoints}" port="${cassandra.port}" />
+	<!-- <cassandra:cluster contact-points="${cassandra.contactpoints}" port="${cassandra.port}" />
 	<cassandra:session keyspace-name="${cassandra.keyspace}" />
 	<cassandra:mapping />
 	<cassandra:converter />
 	<cassandra:template id="cqlTemplate" />
 	<cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" />
+	
+	<bean class="org.apache.cassandra.cql.jdbc.CassandraDataSource"/> -->
 	<!-- End Of NoSQL Properties -->
 	
 	<!-- DataSource Properties -->

@@ -14,38 +14,36 @@ import org.dom4j.Node;
 
 public class Schema implements Cloneable
 {
-
 	private static final Logger logger = LogManager.getLogger( Schema.class );
-
 	public static XMLTransform transform = new XMLTransform();
+	
+	public String schemaName;
+	public String serverPackageName;
+	public int majorVersion;
+	public int minorVersion;
+	public int servicePack;
+	public boolean isExtension;
+	public String parentName;
+	public Boolean systemSchema;
+	
+	private Document document;
 
-	private Document doc;
-
-	public String SchemaName;
-	public String ServerPackageName;
-	public int MajorVersion;
-	public int MinorVersion;
-	public int ServicePack;
-	public boolean IsExtension;
-	public String ParentName;
-	public Boolean SystemSchema;
-
-	public List<Database> Databases = new ArrayList<Database>();
+	public List<Database> databases = new ArrayList<Database>();
 
 	public Object clone() throws CloneNotSupportedException
 	{
 		Schema schema = new Schema();
-		schema.SchemaName = SchemaName;
-		schema.ServerPackageName = ServerPackageName;
-		schema.MajorVersion = MajorVersion;
-		schema.MinorVersion = MinorVersion;
-		schema.ServicePack = ServicePack;
-		schema.IsExtension = IsExtension;
-		schema.ParentName = ParentName;
-		schema.SystemSchema = SystemSchema;
-		for ( Database database : Databases )
+		schema.schemaName = schemaName;
+		schema.serverPackageName = serverPackageName;
+		schema.majorVersion = majorVersion;
+		schema.minorVersion = minorVersion;
+		schema.servicePack = servicePack;
+		schema.isExtension = isExtension;
+		schema.parentName = parentName;
+		schema.systemSchema = systemSchema;
+		for ( Database database : databases )
 		{
-			schema.Databases.add( ( Database ) database.clone() );
+			schema.databases.add( ( Database ) database.clone() );
 		}
 		return schema;
 	}
@@ -60,9 +58,9 @@ public class Schema implements Cloneable
 
 	public Database findDatabase( String databaseName )
 	{
-		for ( Database database : Databases )
+		for ( Database database : databases )
 		{
-			if ( database.DatabaseName.equals( databaseName ) )
+			if ( database.databaseName.equals( databaseName ) )
 			{
 				return database;
 			}
@@ -72,29 +70,29 @@ public class Schema implements Cloneable
 
 	public void mergeSchema( Schema mergeSchema )
 	{
-		for ( Database mergeDatabase : mergeSchema.Databases )
+		for ( Database mergeDatabase : mergeSchema.databases )
 		{
-			Database localDatabase = findDatabase( mergeDatabase.DatabaseName );
+			Database localDatabase = findDatabase( mergeDatabase.databaseName );
 			if ( localDatabase == null )
 			{
-				Databases.add( mergeDatabase );
+				databases.add( mergeDatabase );
 				continue;
 			}
-			for ( Table mergeTable : mergeDatabase.Tables )
+			for ( Table mergeTable : mergeDatabase.tables )
 			{
-				Table table = localDatabase.findTable( mergeTable.TableName );
+				Table table = localDatabase.findTable( mergeTable.tableName );
 				if ( table == null )
 				{
-					localDatabase.Tables.add( mergeTable );
-					mergeTable.Database = localDatabase;
+					localDatabase.tables.add( mergeTable );
+					mergeTable.database = localDatabase;
 					continue;
 				}
-				for ( Index mergeIndex : mergeTable.Indexes )
+				for ( Index mergeIndex : mergeTable.indexes )
 				{
-					Index index = table.findIndex( mergeIndex.IndexName );
+					Index index = table.findIndex( mergeIndex.indexName );
 					if ( index == null )
 					{
-						table.Indexes.add( mergeIndex );
+						table.indexes.add( mergeIndex );
 						mergeIndex.table = table;
 						continue;
 					}
@@ -105,20 +103,20 @@ public class Schema implements Cloneable
 
 	public void changeDatabaseName( String databaseName )
 	{
-		if ( Databases.size() > 1 )
+		if ( databases.size() > 1 )
 		{
 			throw new UnsupportedOperationException( "Cannot change database name on multiple database schema" );
 		}
-		Databases.get( 0 ).DatabaseName = databaseName;
+		databases.get( 0 ).databaseName = databaseName;
 	}
 
 	public void loadSchema( String schemaFileName )
 	{
 		try
 		{
-			doc = transform.getXMLDocumentObj( schemaFileName, false );
-			loadSchema( doc );
-			List<Node> extendsList = doc.selectNodes( "Extends" );
+			document = transform.getXMLDocumentObj( schemaFileName, false );
+			loadSchema( document );
+			List<Node> extendsList = document.selectNodes( "Extends" );
 			for ( int i = 0; i < extendsList.size(); i++ )
 			{
 				Schema schema = new Schema();
@@ -136,21 +134,21 @@ public class Schema implements Cloneable
 
 	private String getVersionNumber()
 	{
-		return MajorVersion + "-" + MinorVersion + "-" + ServicePack;
+		return majorVersion + "-" + minorVersion + "-" + servicePack;
 	}
 
 	public void loadSchema( Document doc )
 	{
-		this.doc = doc;
+		this.document = doc;
 		Element schemaElement = doc.getRootElement();
-		this.SchemaName = schemaElement.attributeValue( "SchemaName" );
-		this.ServerPackageName = schemaElement.attributeValue( "ServerPackageName" );
-		this.MajorVersion = Integer.valueOf( schemaElement.attributeValue( "MajorVersion" ) );
-		this.MinorVersion = Integer.valueOf( schemaElement.attributeValue( "MinorVersion" ) );
-		this.ServicePack = Integer.valueOf( schemaElement.attributeValue( "ServicePack" ) );
-		this.IsExtension = Boolean.valueOf( schemaElement.attributeValue( "IsExtension" ) );
-		this.ParentName = schemaElement.attributeValue( "ParentName" );
-		this.SystemSchema = Boolean.valueOf( schemaElement.attributeValue( "SystemSchema" ) );
+		this.schemaName = schemaElement.attributeValue( "SchemaName" );
+		this.serverPackageName = schemaElement.attributeValue( "ServerPackageName" );
+		this.majorVersion = Integer.valueOf( schemaElement.attributeValue( "MajorVersion" ) );
+		this.minorVersion = Integer.valueOf( schemaElement.attributeValue( "MinorVersion" ) );
+		this.servicePack = Integer.valueOf( schemaElement.attributeValue( "ServicePack" ) );
+		this.isExtension = Boolean.valueOf( schemaElement.attributeValue( "IsExtension" ) );
+		this.parentName = schemaElement.attributeValue( "ParentName" );
+		this.systemSchema = Boolean.valueOf( schemaElement.attributeValue( "SystemSchema" ) );
 		loadDatabase( schemaElement.selectNodes( "//Schema/Database" ) );
 	}
 
@@ -166,10 +164,10 @@ public class Schema implements Cloneable
 			{
 				Element databaseElement = ( Element ) databases.get( i );
 				Database database = new Database();
-				database.DatabaseName = databaseElement.attributeValue( "DatabaseName" );
-				database.Schema = this;
+				database.databaseName = databaseElement.attributeValue( "DatabaseName" );
+				database.schema = this;
 				loadTables( database, databaseElement.selectNodes( "Tables" ) );
-				this.Databases.add( database );
+				this.databases.add( database );
 			}
 		}
 	}
@@ -189,11 +187,11 @@ public class Schema implements Cloneable
 				{
 					Element tableElement = ( Element ) eachNode;
 					Table table = new Table();
-					table.TableName = tableElement.attributeValue( "TableName" );
-					table.TablePrefix = tableElement.attributeValue( "TablePrefix" );
-					table.Database = database;
+					table.tableName = tableElement.attributeValue( "TableName" );
+					table.tablePrefix = tableElement.attributeValue( "TablePrefix" );
+					table.database = database;
 					loadColumnAndIndexes( table, tableElement.content() );
-					database.Tables.add( table );
+					database.tables.add( table );
 				}
 			}
 		}
@@ -215,16 +213,14 @@ public class Schema implements Cloneable
 			{
 				Element columnElement = ( ( Element ) columns.get( i ) );
 				Column column = new Column();
-				column.ColumnName = columnElement.attributeValue( "ColumnName" );
-				column.SequenceNumber = Integer.valueOf( columnElement.attributeValue( "SequenceNumber" ) );
-				column.DataType = AmazeType.typeofString( columnElement.attributeValue( "DataType" ) );
-				column.Length = Integer.valueOf( columnElement.attributeValue( "Length" ) );
-				column.IsMandatory = Boolean.valueOf( columnElement.attributeValue( "IsMandatory" ) );
-				column.IsPrimaryKey = Boolean.valueOf( columnElement.attributeValue( "IsPrimaryKey" ) );
-				column.IsOneToOneNestedObject = Boolean.valueOf( columnElement.attributeValue( "IsOneToOneNestedObject" ) );
-				column.NestedObject = columnElement.attributeValue( "NestedObject" );
+				column.columnName = columnElement.attributeValue( "ColumnName" );
+				column.dataType = AmazeType.typeofString( columnElement.attributeValue( "DataType" ) );
+				column.length = Integer.valueOf( columnElement.attributeValue( "Length" ) );
+				column.isMandatory = Boolean.valueOf( columnElement.attributeValue( "IsMandatory" ) );
+				column.isPrimaryKey = Boolean.valueOf( columnElement.attributeValue( "IsPrimaryKey" ) );
+				column.nestedObject = columnElement.attributeValue( "NestedObject" );
 				column.table = table;
-				table.Columns.add( column );
+				table.columns.add( column );
 			}
 		}
 		for ( int i = 0; i < indexes.size(); i++ )
@@ -233,14 +229,13 @@ public class Schema implements Cloneable
 			{
 				Element indexElement = ( ( Element ) indexes.get( i ) );
 				Index index = new Index();
-				index.IndexName = indexElement.attributeValue( "IndexName" );
-				index.IsUnique = Boolean.valueOf( indexElement.attributeValue( "IsUnique" ) );
-				index.IsClustered = Boolean.valueOf( indexElement.attributeValue( "IsClustered" ) );
-				index.IsBusinessConstraint = Boolean.valueOf( indexElement.attributeValue( "IsBusinessConstraint" ) );
-				index.IsDisplayName = Boolean.valueOf( indexElement.attributeValue( "IsDisplayName" ) );
-				index.ColumnList = indexElement.attributeValue( "ColumnList" );
+				index.indexName = indexElement.attributeValue( "IndexName" );
+				index.isUnique = Boolean.valueOf( indexElement.attributeValue( "IsUnique" ) );
+				index.isClustered = Boolean.valueOf( indexElement.attributeValue( "IsClustered" ) );
+				index.isBusinessConstraint = Boolean.valueOf( indexElement.attributeValue( "IsBusinessConstraint" ) );
+				index.columnList = indexElement.attributeValue( "ColumnList" );
 				index.table = table;
-				table.Indexes.add( index );
+				table.indexes.add( index );
 			}
 		}
 

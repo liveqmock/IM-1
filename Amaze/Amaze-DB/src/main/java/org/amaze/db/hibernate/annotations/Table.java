@@ -10,6 +10,10 @@ import java.lang.annotation.Target;
 public @interface Table
 {
 	String tableName() default "";
+
 	String tablePrefix() default "";
-	Index[] indexes(); 
+
+	String displayName() default "";
+
+	Index[] indexes();
 }

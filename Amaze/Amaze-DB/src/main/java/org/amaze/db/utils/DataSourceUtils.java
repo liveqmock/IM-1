@@ -12,28 +12,48 @@ import org.amaze.commons.exceptions.AmazeException;
 import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.utils.exceptions.NotConfiguredException;
 import org.amaze.db.utils.exceptions.NotImplementedException;
+import org.springframework.beans.BeansException;
+import org.springframework.cassandra.core.CqlTemplate;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-public class DataSourceUtils
+public class DataSourceUtils implements ApplicationContextAware
 {
 
+	public static ApplicationContext applicationContext = null;
+	
 	public static org.amaze.db.utils.DataSource systemDB;
 	public static org.amaze.db.utils.DataSource systemUsageDB;
 
 	public static Map<String, org.amaze.db.utils.DataSource> nameDataSourceMap = new HashMap<String, org.amaze.db.utils.DataSource>();
 
+	@Override
+	public void setApplicationContext( ApplicationContext applicationContext ) throws BeansException
+	{
+		DataSourceUtils.applicationContext = applicationContext;
+	}
+	
 	@PostConstruct
 	public static void loadAllBeans()
 	{
 		try
 		{
 			systemDB = createSystemDataSource( HibernateSession.getDataSource().getConnection().getMetaData().getURL() );
+			systemUsageDB = createSystemUsageDataSource();
 		}
 		catch ( SQLException e )
 		{
 			throw new AmazeException( e );
 		}
+	}
+
+	private static org.amaze.db.utils.DataSource createSystemUsageDataSource()
+	{
+		org.amaze.db.utils.DataSource dataSource = null;
+//		dataSource = new CQLDataSource( "amazeUsage", "systemUsage", null, dataSource, ( (CqlTemplate) applicationContext.getBean("cqlTemplate") ).getSession() );
+		return dataSource;
 	}
 
 	private static org.amaze.db.utils.DataSource createSystemDataSource( String dataBaseType )

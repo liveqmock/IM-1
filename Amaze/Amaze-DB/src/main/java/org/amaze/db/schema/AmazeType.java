@@ -6,6 +6,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.hibernate.validator.constraints.Length;
+
 public enum AmazeType
 {
 	Long, Int, String, DateTime, Bool, Decimal, Text, Unknown;

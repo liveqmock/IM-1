@@ -1,8 +1,10 @@
 package org.amaze.db.utils;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.amaze.commons.utils.StringUtils;
 import org.amaze.db.hibernate.objects.TableType;
 import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.utils.HibernateSession;
@@ -24,42 +26,98 @@ public class MySQLDataSource extends AbstractDataSource
 	@Override
 	public void truncateTable( String database, String tableName ) throws DataSourceException
 	{
-		// TODO Auto-generated method stub
+		String query = "truncate table " + tableName;
+		execute( query );
 		
 	}
 
 	@Override
-	protected String getTableQuery( String database, String tablePattern, boolean exact )
+	protected String getTableQuery( String database, String tableName, boolean exact )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append( " select  tab.TABLE_NAME " );
+		sb.append( " from      information_schema.tables    tab " );
+		sb.append( " where     tab.table_schema             = '" + database.toUpperCase() + "' " );
+		if ( tableName != null && tableName.length() > 0 )
+		{
+			if ( exact )
+			{
+				sb.append( " and     tab.TABLE_NAME       = '" + tableName.toUpperCase() + "' " );
+			}
+			else
+			{
+				sb.append( " and     tab.TABLE_NAME       like '" + tableName.toUpperCase() + "' " );
+			}
+		}
+		sb.append( " order by tab.TABLE_NAME" );
+		return sb.toString();
 	}
 
 	@Override
 	protected String getDefaultConstant( Column column ) throws DataSourceException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		switch( column.dataType )
+		{
+		case Bool:
+			return ( "'N'" );
+		case DateTime:
+			return "str_to_date('01-JAN-2000')";
+		case Int:
+		case Long:
+		case Decimal:
+			return "0";
+		case String:
+			return ( "''" );
+		default:
+			throw new IllegalArgumentException( "Unknown 'ConstantType': '" + column.dataType + "'" );
+		}
 	}
 
 	@Override
 	protected String amazeTypeToDbType( AmazeType amazeType, int length ) throws DataSourceException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		switch( amazeType )
+		{
+		case Bool:
+			return "char";
+		case DateTime:
+			return "timestamp";
+		case Int:
+			return "number(10)";
+		case Long:
+		case Decimal:
+			return "number(19)";
+		case String:
+			return ( "varchar2(" + length + ")" );
+		case Text:
+			throw new DataSourceException( " AmazeType: Text is not supported for Oracle" );
+		default:
+			throw new DataSourceException( "Unknown '%1': '%2'", "AmazeType", amazeType );
+		}
 	}
 
 	@Override
 	protected List<String> getCreateTableDDL( Table table, String dataLocation ) throws DataSourceException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<String> sqlList = new ArrayList<String>();
+		String statement;
+		statement = "create table " + table.tableName + StringUtils.NEW_LINE + "(";
+		for ( Column col : table.columns )
+		{
+			String mandatory = " default " + getDefaultConstant( col ) + " " + ( col.isMandatory ? "not null," : "null    ," );
+			statement += StringUtils.NEW_LINE + "    " + col.columnName + " " + amazeTypeToDbType( col.dataType, col.length ) + " " + mandatory;
+		}
+		statement = statement.substring( 0, statement.length() - 1 ) + StringUtils.NEW_LINE + ")" + StringUtils.NEW_LINE;
+		if ( dataLocation != null && dataLocation.length() > 0 )
+			statement += " tablespace " + dataLocation;
+		sqlList.add( statement );
+		return sqlList;
 	}
 
 	@Override
 	protected String getCreateIndexStatement( Index index, String indexLocation )
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

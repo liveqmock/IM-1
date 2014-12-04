@@ -6,62 +6,69 @@ import java.util.List;
 
 public class Database implements Cloneable
 {
-    public String DatabaseName;
+	public String databaseName;
 
-    public List< Table > Tables = new ArrayList< Table >();
-    
-    public Schema Schema;
+	public List<Table> tables = new ArrayList<Table>();
 
-    public Database()
-    {
-    }
+	public Schema schema;
 
-    public Database( String databaseName )
-    {
-        DatabaseName = databaseName;
-    }
+	public Database()
+	{
+	}
 
-    public Database( String databaseName, List< Table > tables )
-    {
-        DatabaseName = databaseName;
-        Tables = tables;
-    }
+	public Database( String databaseName )
+	{
+		this.databaseName = databaseName;
+	}
 
-    public Object clone() throws CloneNotSupportedException
-    {
-        Database database = new Database();
-        for ( Table table : Tables )
-        {
-            database.Tables.add( table.clone() );
-        }
-        database.DatabaseName = DatabaseName;
-        return database;
-    }
+	public Database( String databaseName, List<Table> tables )
+	{
+		this.databaseName = databaseName;
+		this.tables = tables;
+	}
 
-    public Table findTable( String tablename )
-    {
-        for ( Table table : Tables )
-        {
-            if ( table.TableName.equalsIgnoreCase( tablename ) )
-            {
-                return table;
-            }
-        }
-        return null;
-    }
+	public Database( String databaseName, List<Table> tables, Schema schema )
+	{
+		this.databaseName = databaseName;
+		this.tables = tables;
+		this.schema = schema;
+	}
 
-    public Table removeTable( String tablename )
-    {
-        for ( Iterator< Table > it = Tables.iterator(); it.hasNext(); )
-        {
-            Table table = it.next();
-            if ( table.TableName.equalsIgnoreCase( tablename ) )
-            {
-                it.remove();
-                return table;
-            }
-        }
-        return null;
-    }
-    
+	public Object clone() throws CloneNotSupportedException
+	{
+		Database database = new Database();
+		for ( Table table : tables )
+		{
+			database.tables.add( table.clone() );
+		}
+		database.databaseName = databaseName;
+		return database;
+	}
+
+	public Table findTable( String tablename )
+	{
+		for ( Table table : tables )
+		{
+			if ( table.tableName.equalsIgnoreCase( tablename ) )
+			{
+				return table;
+			}
+		}
+		return null;
+	}
+
+	public Table removeTable( String tablename )
+	{
+		for ( Iterator<Table> it = tables.iterator(); it.hasNext(); )
+		{
+			Table table = it.next();
+			if ( table.tableName.equalsIgnoreCase( tablename ) )
+			{
+				it.remove();
+				return table;
+			}
+		}
+		return null;
+	}
+
 }

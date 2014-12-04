@@ -342,7 +342,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		{
 			for ( Index index : indexes )
 			{
-				if ( index.IsClustered )
+				if ( index.isClustered )
 				{
 					applyIndex( index, indexLocation );
 					break;
@@ -351,7 +351,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		}
 		for ( Index index : indexes )
 		{
-			if ( !index.IsClustered )
+			if ( !index.isClustered )
 			{
 				applyIndex( index, indexLocation );
 			}
@@ -387,10 +387,10 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	{
 		List<String> sqlList = new ArrayList<String>();
 		String statement;
-		statement = getSelectDatabaseDDL( oldTable.Database.DatabaseName );
+		statement = getSelectDatabaseDDL( oldTable.database.databaseName );
 		if ( statement != null && statement.length() > 0 )
 			sqlList.add( statement );
-		if ( oldTable.Columns.size() < newTable.Columns.size() )
+		if ( oldTable.columns.size() < newTable.columns.size() )
 		{
 			List<String> alterSqlList = getAlterTableDDL( oldTable, newTable, dataLocation );
 			if ( alterSqlList != null )
@@ -410,40 +410,40 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 			throw new DataSourceException( "Clone of table failed", e );
 		}
 
-		migrationTable.TableName = getMigrationName( newTable );
-		if ( newTable.Database.findTable( migrationTable.TableName ) != null )
-			throw new DataSourceException( "The schema already contains the migration table '%1'", migrationTable.TableName );
-		newTable.Database.Tables.add( migrationTable );
-		migrationTable.Database = newTable.Database;
+		migrationTable.tableName = getMigrationName( newTable );
+		if ( newTable.database.findTable( migrationTable.tableName ) != null )
+			throw new DataSourceException( "The schema already contains the migration table '%1'", migrationTable.tableName );
+		newTable.database.tables.add( migrationTable );
+		migrationTable.database = newTable.database;
 		List<String> sql = getCreateTableDDL( migrationTable, dataLocation );
 		sqlList.addAll( sql );
 		executeList( sqlList );
 		sqlList.clear();
 		StringBuilder migrationTableSQ = new StringBuilder();
 		migrationTableSQ.append( "select " );
-		for ( int i = 0; i < newTable.Columns.size(); i++ )
+		for ( int i = 0; i < newTable.columns.size(); i++ )
 		{
-			Column newColumn = newTable.Columns.get( i );
+			Column newColumn = newTable.columns.get( i );
 			String selectColumn = "";
-			if ( oldTable.findColumn( newColumn.ColumnName ) != null )
+			if ( oldTable.findColumn( newColumn.columnName ) != null )
 			{
-				Column oldColumn = oldTable.findColumn( newColumn.ColumnName );
-				if ( ( oldColumn.IsMandatory == newColumn.IsMandatory ) || ( !newColumn.IsMandatory ) )
+				Column oldColumn = oldTable.findColumn( newColumn.columnName );
+				if ( ( oldColumn.isMandatory == newColumn.isMandatory ) || ( !newColumn.isMandatory ) )
 				{
-					selectColumn = newColumn.ColumnName;
+					selectColumn = newColumn.columnName;
 				}
 				else
 				{
-					selectColumn = getFunctionName( "isnull" ) + "(" + newColumn.ColumnName + ", " + getDefaultConstant( newColumn ) + ")";
+					selectColumn = getFunctionName( "isnull" ) + "(" + newColumn.columnName + ", " + getDefaultConstant( newColumn ) + ")";
 				}
-				if ( !oldColumn.DataType.equals( newColumn.DataType ) )
+				if ( !oldColumn.dataType.equals( newColumn.dataType ) )
 				{
-					selectColumn = getSqlConvert( newColumn.DataType, newColumn.Length, oldColumn );
+					selectColumn = getSqlConvert( newColumn.dataType, newColumn.length, oldColumn );
 				}
 			}
 			else
 			{
-				if ( newColumn.IsMandatory )
+				if ( newColumn.isMandatory )
 				{
 					selectColumn = getDefaultConstant( newColumn );
 				}
@@ -454,10 +454,10 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 			}
 			migrationTableSQ.append( selectColumn + ", " );
 		}
-		if ( newTable.Columns.size() > 0 )
+		if ( newTable.columns.size() > 0 )
 			migrationTableSQ.delete( migrationTableSQ.length() - 2, migrationTableSQ.length() );
-		migrationTableSQ.append( " from " + oldTable.TableName );
-		String migrationTableIQ = "insert into " + migrationTable.TableName + "(" + StringUtils.merge( migrationTable.getColumnNames(), "," ) + ")" + StringUtils.NEW_LINE + migrationTableSQ.toString();
+		migrationTableSQ.append( " from " + oldTable.tableName );
+		String migrationTableIQ = "insert into " + migrationTable.tableName + "(" + StringUtils.merge( migrationTable.getColumnNames(), "," ) + ")" + StringUtils.NEW_LINE + migrationTableSQ.toString();
 		sqlList.add( migrationTableIQ );
 		try
 		{
@@ -472,8 +472,8 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		sqlList.clear();
 		sqlList.addAll( getDropTableDDL( oldTable, false ) );
 		executeList( sqlList );
-		migrationTable.Database.removeTable( migrationTable.TableName );
-		execute( getRenameTableDDL( migrationTable.TableName, newTable.TableName ) );
+		migrationTable.database.removeTable( migrationTable.tableName );
+		execute( getRenameTableDDL( migrationTable.tableName, newTable.tableName ) );
 	}
 
 	protected abstract String getSelectDatabaseDDL( String databaseName ) throws DataSourceException;
@@ -522,10 +522,10 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		try
 		{
 			Table newTable = oldTable.clone();
-			newTable.TableName = newTableName;
-			newTable.Indexes.clear();
+			newTable.tableName = newTableName;
+			newTable.indexes.clear();
 			createTable( newTable, null, null, true );
-			execute( "insert into " + newTableName + " select * from " + oldTable.TableName );
+			execute( "insert into " + newTableName + " select * from " + oldTable.tableName );
 		}
 		catch ( CloneNotSupportedException e )
 		{
@@ -612,7 +612,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	{
 		for ( Index index : indexes )
 		{
-			if ( !index.IsClustered )
+			if ( !index.isClustered )
 			{
 				List<String> sqlList = getDropIndexDDL( index, true );
 				executeList( sqlList );
@@ -620,7 +620,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		}
 		for ( Index index : indexes )
 		{
-			if ( index.IsClustered )
+			if ( index.isClustered )
 			{
 				List<String> sqlList = getDropIndexDDL( index, true );
 				executeList( sqlList );
@@ -632,12 +632,12 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	@Override
 	public void dropAllIndexes( Table table ) throws DataSourceException
 	{
-		dropAllIndexes( table.Indexes );
+		dropAllIndexes( table.indexes );
 	}
 
 	public void applyIndexes( Table table, String indexLocation, boolean applyClustered ) throws DataSourceException
 	{
-		applyIndexes( table.Indexes, indexLocation, applyClustered );
+		applyIndexes( table.indexes, indexLocation, applyClustered );
 	}
 
 	@Override
@@ -704,48 +704,42 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		}
 		List<Object> objectsToSave = new ArrayList<Object>();
 		Tables table = HibernateSession.createObject( Tables.class );
-		table.setTabName( eachTable.TableName );
-		table.setTabPrefix( eachTable.TablePrefix );
-		table.setTabDisplayName( eachTable.DisplayName );
+		table.setTabName( eachTable.tableName );
+		table.setTabPrefix( eachTable.tablePrefix );
+		table.setTabDisplayName( eachTable.displayName );
 //		table.setTableType( ttp );
 //		table.setDatasource( dts );
 		table.setTabCreatedDttm( dttm );
 		table.setDeleteFl( false );
 		table.setTabVersion( 1 );
-		table.setPartitionId( 1 );
 		objectsToSave.add( table );
-		for ( Column eachColumn : eachTable.Columns )
+		for ( Column eachColumn : eachTable.columns )
 		{
 			Columns column = HibernateSession.createObject( Columns.class );
 			column.setTables( table );
-			column.setColumnName( eachColumn.ColumnName );
-			column.setSequenceNo( eachColumn.SequenceNumber );
-			column.setDataType( eachColumn.DataType.toString() );
-			column.setLenght( eachColumn.Length );
-			column.setIsMandatory( eachColumn.IsMandatory );
-			column.setIsPrimaryKey( eachColumn.IsPrimaryKey );
-			column.setIsOneToOneNestedObject( eachColumn.IsOneToOneNestedObject );
-			column.setNestedObject( eachColumn.NestedObject );
+			column.setColumnName( eachColumn.columnName );
+			column.setDataType( eachColumn.dataType.toString() );
+			column.setLenght( eachColumn.length );
+			column.setIsMandatory( eachColumn.isMandatory );
+			column.setIsPrimaryKey( eachColumn.isPrimaryKey );
+			column.setNestedObject( eachColumn.nestedObject );
 			column.setColCreatedDttm( dttm );
 			column.setDeleteFl( false );
 			column.setColVersion( 1 );
-			column.setPartitionId( 1 );
 			objectsToSave.add( column );
 		}
-		for ( Index eachIndex : eachTable.Indexes )
+		for ( Index eachIndex : eachTable.indexes )
 		{
 			Indexes index = HibernateSession.createObject( Indexes.class );
 			index.setTables( table );
-			index.setIndexName( eachIndex.IndexName );
-			index.setIsUnique( eachIndex.IsUnique );
-			index.setIsClustered( eachIndex.IsClustered );
-			index.setIsBusinessConstraint( eachIndex.IsBusinessConstraint );
-			index.setIsDisplayName( eachIndex.IsDisplayName );
-			index.setColumnList( eachIndex.ColumnList );
+			index.setIndexName( eachIndex.indexName );
+			index.setIsUnique( eachIndex.isUnique );
+			index.setIsClustered( eachIndex.isClustered );
+			index.setIsBusinessConstraint( eachIndex.isBusinessConstraint );
+			index.setColumnList( eachIndex.columnList );
 			index.setIdxCreatedDttm( dttm );
 			index.setDeleteFl( false );
 			index.setVersionId( 1 );
-			index.setPartitionId( 1 );
 			objectsToSave.add( index );
 		}
 		HibernateSession.save( objectsToSave.toArray( new Object[objectsToSave.size()] ) );
@@ -768,7 +762,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		{
 			tx.rollback();
 			session.close();
-			throw new AmazeException( " Could not do the table dfn updation for the table " + newTable.TableName );
+			throw new AmazeException( " Could not do the table dfn updation for the table " + newTable.tableName );
 		}
 		tx.commit();
 		session.close();

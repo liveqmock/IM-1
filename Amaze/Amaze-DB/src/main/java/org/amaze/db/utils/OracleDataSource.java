@@ -71,7 +71,7 @@ public class OracleDataSource extends AbstractDataSource
 	@Override
 	protected String getDefaultConstant( Column column ) throws DataSourceException
 	{
-		switch( column.DataType )
+		switch( column.dataType )
 		{
 		case Bool:
 			return ( "'N'" );
@@ -84,7 +84,7 @@ public class OracleDataSource extends AbstractDataSource
 		case String:
 			return ( "''" );
 		default:
-			throw new IllegalArgumentException( "Unknown 'ConstantType': '" + column.DataType + "'" );
+			throw new IllegalArgumentException( "Unknown 'ConstantType': '" + column.dataType + "'" );
 		}
 	}
 
@@ -116,11 +116,11 @@ public class OracleDataSource extends AbstractDataSource
 	{
 		List<String> sqlList = new ArrayList<String>();
 		String statement;
-		statement = "create table " + table.TableName + StringUtils.NEW_LINE + "(";
-		for ( Column col : table.Columns )
+		statement = "create table " + table.tableName + StringUtils.NEW_LINE + "(";
+		for ( Column col : table.columns )
 		{
-			String mandatory = " default " + getDefaultConstant( col ) + " " + ( col.IsMandatory ? "not null," : "null    ," );
-			statement += StringUtils.NEW_LINE + "    " + col.ColumnName + " " + amazeTypeToDbType( col.DataType, col.Length ) + " " + mandatory;
+			String mandatory = " default " + getDefaultConstant( col ) + " " + ( col.isMandatory ? "not null," : "null    ," );
+			statement += StringUtils.NEW_LINE + "    " + col.columnName + " " + amazeTypeToDbType( col.dataType, col.length ) + " " + mandatory;
 		}
 		statement = statement.substring( 0, statement.length() - 1 ) + StringUtils.NEW_LINE + ")" + StringUtils.NEW_LINE;
 		if ( dataLocation != null && dataLocation.length() > 0 )
@@ -135,7 +135,7 @@ public class OracleDataSource extends AbstractDataSource
 		// For oracle we must check if the index already exists, if it does then we
 		// we do not need to add it again
 		// Check for existence
-		String statement = "declare v_count number;" + " begin" + " select  count(1) into v_count " + " from    all_indexes" + " where   index_name  = '" + index.IndexName.toUpperCase() + "'" + " and     owner       = '" + getDatabase().toUpperCase() + "'" + " and     table_name  = '" + index.table.TableName.toUpperCase() + "';" + " if v_count = 0 then" + "    execute immediate '" + "        create" + ( index.IsUnique ? " unique" : "" ) + " index " + index.IndexName + "        on " + index.table.TableName + "(" + index.ColumnList + ") ";
+		String statement = "declare v_count number;" + " begin" + " select  count(1) into v_count " + " from    all_indexes" + " where   index_name  = '" + index.indexName.toUpperCase() + "'" + " and     owner       = '" + getDatabase().toUpperCase() + "'" + " and     table_name  = '" + index.table.tableName.toUpperCase() + "';" + " if v_count = 0 then" + "    execute immediate '" + "        create" + ( index.isUnique ? " unique" : "" ) + " index " + index.indexName + "        on " + index.table.tableName + "(" + index.columnList + ") ";
 		// Add the storage options if specified
 		if ( indexLocation != null && indexLocation.length() > 0 )
 			statement += " tablespace " + indexLocation + " ";
@@ -155,11 +155,11 @@ public class OracleDataSource extends AbstractDataSource
 		String statement;
 		if ( checkExists )
 		{
-			statement = "declare v_count number;" + " begin" + " select count(1) into v_count from all_tables" + " where table_name = '" + table.TableName.toUpperCase() + "' and owner = '" + getDatabase().toUpperCase() + "';" + " if v_count > 0 then" + "    execute immediate 'drop table " + table.TableName + "';" + "  end if;" + " end;";
+			statement = "declare v_count number;" + " begin" + " select count(1) into v_count from all_tables" + " where table_name = '" + table.tableName.toUpperCase() + "' and owner = '" + getDatabase().toUpperCase() + "';" + " if v_count > 0 then" + "    execute immediate 'drop table " + table.tableName + "';" + "  end if;" + " end;";
 		}
 		else
 		{
-			statement = "drop table " + table.TableName;
+			statement = "drop table " + table.tableName;
 		}
 		sqlList.add( statement );
 		return sqlList;
@@ -178,29 +178,29 @@ public class OracleDataSource extends AbstractDataSource
 		StringBuilder addColsDDL = new StringBuilder();
 		StringBuilder dropDefaultDDL = new StringBuilder();
 		boolean hasMandatoryCols = false;
-		addColsDDL.append( "ALTER TABLE " + newTable.TableName + " ADD ( " );
-		dropDefaultDDL.append( "ALTER TABLE " + newTable.TableName + " MODIFY ( " );
-		for ( int i = 0; i < oldTable.Columns.size(); i++ )
+		addColsDDL.append( "ALTER TABLE " + newTable.tableName + " ADD ( " );
+		dropDefaultDDL.append( "ALTER TABLE " + newTable.tableName + " MODIFY ( " );
+		for ( int i = 0; i < oldTable.columns.size(); i++ )
 		{
-			Column oldColumn = oldTable.Columns.get( i );
+			Column oldColumn = oldTable.columns.get( i );
 			Column newColumn = null;
-			if ( ( newColumn = newTable.Columns.get( i ) ) != null )
+			if ( ( newColumn = newTable.columns.get( i ) ) != null )
 				if ( !oldColumn.equals( newColumn ) )
 					return null;
 		}
-		for ( int i = oldTable.Columns.size(); i < newTable.Columns.size(); i++ )
+		for ( int i = oldTable.columns.size(); i < newTable.columns.size(); i++ )
 		{
-			Column newColumn = newTable.Columns.get( i );
+			Column newColumn = newTable.columns.get( i );
 			String mandatory = "";
-			if ( newColumn.IsMandatory )
+			if ( newColumn.isMandatory )
 			{
 				hasMandatoryCols = true;
 				mandatory = " DEFAULT " + getDefaultConstant( newColumn ) + " NOT NULL ,";
-				dropDefaultDDL.append( StringUtils.NEW_LINE + "    " + newColumn.ColumnName + "    " + amazeTypeToDbType( newColumn.DataType, newColumn.Length ) + " DEFAULT NULL ," );
+				dropDefaultDDL.append( StringUtils.NEW_LINE + "    " + newColumn.columnName + "    " + amazeTypeToDbType( newColumn.dataType, newColumn.length ) + " DEFAULT NULL ," );
 			}
 			else
 				mandatory = "NULL    ,";
-			addColsDDL.append( StringUtils.NEW_LINE + "    " + newColumn.ColumnName + "    " + amazeTypeToDbType( newColumn.DataType, newColumn.Length ) + " " + mandatory );
+			addColsDDL.append( StringUtils.NEW_LINE + "    " + newColumn.columnName + "    " + amazeTypeToDbType( newColumn.dataType, newColumn.length ) + " " + mandatory );
 		}
 		String statement = addColsDDL.toString();
 		statement = statement.substring( 0, statement.length() - 1 ) + "  ) " + StringUtils.NEW_LINE;
@@ -223,7 +223,7 @@ public class OracleDataSource extends AbstractDataSource
 	protected String getMigrationName( Table table ) throws DataSourceException
 	{
 		// Return a migration name - temp_ limited to 30 chars
-		return "temp_" + table.TableName.substring( 0, ( ( table.TableName.length() > 25 ) ? 25 : table.TableName.length() ) );
+		return "temp_" + table.tableName.substring( 0, ( ( table.tableName.length() > 25 ) ? 25 : table.tableName.length() ) );
 	}
 
 	@Override
@@ -254,11 +254,11 @@ public class OracleDataSource extends AbstractDataSource
 		statement = "";
 		if ( checkExists )
 		{
-			statement = "declare v_count number; " + "begin " + "  select count(1) into v_count from all_indexes" + "  where index_name = '" + index.IndexName.toUpperCase() + "'" + "  and owner = '" + getDatabase().toUpperCase() + "'" + "  and table_name = '" + index.table.TableName.toUpperCase() + "';" + "  if v_count > 0 then" + "    execute immediate 'drop index " + index.IndexName + "';" + "  end if;" + "end;";
+			statement = "declare v_count number; " + "begin " + "  select count(1) into v_count from all_indexes" + "  where index_name = '" + index.indexName.toUpperCase() + "'" + "  and owner = '" + getDatabase().toUpperCase() + "'" + "  and table_name = '" + index.table.tableName.toUpperCase() + "';" + "  if v_count > 0 then" + "    execute immediate 'drop index " + index.indexName + "';" + "  end if;" + "end;";
 		}
 		else
 		{
-			statement = "drop index " + index.IndexName;
+			statement = "drop index " + index.indexName;
 		}
 		sqlList.add( statement );
 		return sqlList;

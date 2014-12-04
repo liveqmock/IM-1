@@ -43,18 +43,23 @@ public class HibernateUtils
 			if ( interceptor == null )
 			{
 				session = sessionFactory.openSession();
-				HibernateSession.enablePartionFilter( session );
+//				HibernateSession.enablePartionFilter( session );
 				HibernateSession.enableDeleteFilter( session );
 			}
 			else
 			{
 				session = sessionFactory.withOptions().interceptor( interceptor ).openSession();
-				HibernateSession.enablePartionFilter( session );
+//				HibernateSession.enablePartionFilter( session );
 				HibernateSession.enableDeleteFilter( session );
 			}
 			tx = session.beginTransaction();
 			returnObj = listener.doSessionWork( session );
+			try{
 			tx.commit();
+			}catch(Exception e){
+				System.out.println(e);
+				e.printStackTrace();
+			}
 		}
 		catch ( Exception e )
 		{

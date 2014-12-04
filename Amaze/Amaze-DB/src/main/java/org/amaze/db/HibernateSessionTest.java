@@ -1,13 +1,13 @@
 package org.amaze.db;
 
+import java.util.List;
+
+import org.amaze.db.hibernate.objects.Application;
+import org.amaze.db.hibernate.objects.UserRoleMap;
 import org.amaze.db.hibernate.objects.Users;
 import org.amaze.db.hibernate.utils.HibernateSession;
-import org.amaze.db.usage.repository.LoginEventRepository;
+import org.joda.time.DateTime;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.cassandra.core.CassandraOperations;
-
-import com.datastax.driver.core.querybuilder.Insert;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
 
 public class HibernateSessionTest {
 
@@ -54,16 +54,36 @@ public class HibernateSessionTest {
 //		ctx.close();
 //		
 //	}
-	
+
+	@SuppressWarnings( "unused" )
 	public static void main( String[] args )
 	{
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db.xml");
 		org.amaze.db.hibernate.utils.HibernateSession session = (org.amaze.db.hibernate.utils.HibernateSession) ctx.getBean( "hibernateSession" );
-//		org.amaze.db.hibernate.utils.HibernateSession.get( User.class, new Integer( 1 ) );
 		try{
-			Users user  = HibernateSession.get( Users.class, new Integer( 1 ) );
+			Users user  = HibernateSession.get( Users.class, new Integer( 2 ) );
+			user.getApplication();
+			List<UserRoleMap> maps = user.getUserRoleMaps();
+			user.setUsrName( "ChangedName" );
+			HibernateSession.update( user );
+			Users user1 = HibernateSession.createObject( Users.class );
+			user1.setId( 3 );
+			user1.setApplication( HibernateSession.get( Application.class, 1 ) );
+			user1.setDeleteFl( true );
+			user1.setUsrCreatedDttm( new DateTime() );
+			user1.setUsrDisabled( false );
+			user1.setUsrName( "ChangedName1" );
+			user1.setUsrVersion( 23 );
+			HibernateSession.save( user1 );
+			HibernateSession.find( "from Users" );
+			HibernateSession.query( "from Users where usrId = :usrId", "usrId", 2 );
+			HibernateSession.queryExpectExactlyOneRow( "from Users where usrId = :usrId", "usrId", 2 );
+			HibernateSession.queryExpectOneRow( "from Users where usrId = :usrId", "usrId", 2 );
+			HibernateSession.queryExpectExactlyOneRow( "from Users where usrName = :usrName", "usrName", "ChangedName" );
+			HibernateSession.queryExpectOneRow( "from Users where usrName = :usrName", "usrName", "ChangedName" );
+			System.out.println("Done");
 		}catch(Exception e){
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 		ctx.registerShutdownHook();
 		ctx.close();

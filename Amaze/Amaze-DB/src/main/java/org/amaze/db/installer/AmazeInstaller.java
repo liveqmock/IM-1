@@ -80,9 +80,9 @@ public class AmazeInstaller
 				if ( versions.size() == 1 )
 				{
 					Version existingVersion = ( Version ) versions.get( 0 );
-					if ( schema.MajorVersion > existingVersion.getVerMajor() )
-						if ( schema.MinorVersion > existingVersion.getVerMinor() )
-							if ( schema.ServicePack > existingVersion.getVerSpk() )
+					if ( schema.majorVersion > existingVersion.getVerMajor() )
+						if ( schema.minorVersion > existingVersion.getVerMinor() )
+							if ( schema.servicePack > existingVersion.getVerSpk() )
 								states.add( AmazeInstallerState.UpdateInstallation );
 				}
 			}
@@ -108,15 +108,15 @@ public class AmazeInstaller
 			{
 				installNewTables( schema, dataSource );
 				installSeedUpdateScript( dataSource );
-				for ( Database eachDatabase : schema.Databases )
-					installNewTableDfn( dataSource, eachDatabase.Tables );
+				for ( Database eachDatabase : schema.databases )
+					installNewTableDfn( dataSource, eachDatabase.tables );
 				installVersion( schema, dataSource );
 			}
 			else if ( eachTask.equals( AmazeInstallerState.UpdateInstallation ) )
 			{
 				installUpdateTable( schema, dataSource );
-				for ( Database eachDatabase : schema.Databases )
-					installUpdateTableDfn( dataSource, eachDatabase.Tables );
+				for ( Database eachDatabase : schema.databases )
+					installUpdateTableDfn( dataSource, eachDatabase.tables );
 				installUpdateVersion( schema, dataSource );
 			}
 			else if( eachTask.equals( AmazeInstallerState.SeedUpdate ) )
@@ -153,50 +153,49 @@ public class AmazeInstaller
 	{
 		for ( Table eachTable : tables )
 		{
-			List<Tables> dbTables = HibernateSession.find( "from Tables tab where tab.tabDisplayName='" + eachTable.DisplayName + "'" );
+			List<Tables> dbTables = HibernateSession.find( "from Tables tab where tab.tabDisplayName='" + eachTable.displayName + "'" );
 			if ( dbTables.size() == 1 )
 				dataSource.updateDBTableFromSchemaTable( eachTable, dbTables.get( 0 ) );
 			else
-				throw new AmazeInstallerException( " Could not do the table dfn updation for the table " + eachTable.TableName );
+				throw new AmazeInstallerException( " Could not do the table dfn updation for the table " + eachTable.tableName );
 		}
 	}
 
 	private void installUpdateTable( Schema schema, DataSource dataSource )
 	{
-		for ( Database database : schema.Databases )
-			for ( Table table : database.Tables )
+		for ( Database database : schema.databases )
+			for ( Table table : database.tables )
 			{
-				List<Tables> tables = HibernateSession.query( "from Tables tab where tab.tabName=:TableName", "TableName", table.TableName );
+				List<Tables> tables = HibernateSession.query( "from Tables tab where tab.tabName=:TableName", "TableName", table.tableName );
 				if ( tables.size() == 1 )
 				{
 					dataSource.updateTable( Table.loadTableFromDbTable( database, tables.get( 0 ) ), table, "" );
 				}
 				else
-					throw new AmazeInstallerException( " No or more than one tables found for the updation of the existing table  " + table.TableName );
+					throw new AmazeInstallerException( " No or more than one tables found for the updation of the existing table  " + table.tableName );
 			}
 	}
 
 	private void installVersion( Schema schema, DataSource dataSource )
 	{
 		Version version = HibernateSession.createObject( Version.class );
-		version.setVerName( schema.SchemaName );
-		version.setVerMajor( schema.MajorVersion );
-		version.setVerMinor( schema.MinorVersion );
-		version.setVerSpk( schema.ServicePack );
+		version.setVerName( schema.schemaName );
+		version.setVerMajor( schema.majorVersion );
+		version.setVerMinor( schema.minorVersion );
+		version.setVerSpk( schema.servicePack );
 		version.setVerCurrent( true );
 		version.setVerExtensionFl( true );
 		version.setVerCreatedDttm( new DateTime() );
 		version.setDeleteFl( false );
 		version.setVersionId( 1 );
-		version.setPartitionId( 1 );
 		HibernateSession.save( version );
 	}
 
 	private void installNewTables( Schema schema, DataSource dataSource )
 	{
-		for ( Database eachDatabase : schema.Databases )
+		for ( Database eachDatabase : schema.databases )
 		{
-			for ( Table eachTable : eachDatabase.Tables )
+			for ( Table eachTable : eachDatabase.tables )
 			{
 				dataSource.createTable( eachTable, "", "", true );
 			}
@@ -228,7 +227,7 @@ public class AmazeInstaller
 					Table table = Table.getTableFromTableName( dataSource, parentTagName.substring( 0, parentTagName.length() - 1 ) );
 					if ( table != null )
 					{
-						List<Column> columns = table.Columns;
+						List<Column> columns = table.columns;
 						try
 						{
 							List<Element> childNodes = eachSeed.elements();
@@ -249,9 +248,9 @@ public class AmazeInstaller
 										String value = eachAttribute.getValue();
 										AmazeType dataType = null;
 										for ( Column eachCol : columns )
-											if ( eachCol.ColumnName.equals( columnName ) )
+											if ( eachCol.columnName.equals( columnName ) )
 											{
-												dataType = eachCol.DataType;
+												dataType = eachCol.dataType;
 												break;
 											}
 										if ( !isRefType )

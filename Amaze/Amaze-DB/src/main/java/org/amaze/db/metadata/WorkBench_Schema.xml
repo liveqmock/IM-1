@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	SchemaName="Amaze" ServerPackageName="org.amaze.db.hibernate.objects"
+	MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false"
+	ParentName="" SystemSchema="true">
+	<Database DatabaseName="amaze">
+		<Tables>
+			<Table TableName="test" TablePrefix="tst" DisplayName="tst_name" >
+					<Columns>
+						<Column ColumnName="tst_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
+						<Column ColumnName="tst_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+						<Column ColumnName="tst_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+						<Column ColumnName="tst_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+	           			<Column ColumnName="tst_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					</Columns>
+					<Indexes>
+						<Index IndexName="test_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="tst_name" Condition="" />
+					</Indexes>
+					<NestedCollections />
+			</Table>
+		</Tables>
+	</Database>
+</Schema>

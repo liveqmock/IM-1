@@ -15,6 +15,8 @@ import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
 import org.amaze.commons.xml.exceptions.XMLException;
 import org.amaze.db.generator.exceptions.GeneratorException;
+import org.amaze.db.hibernate.objects.Application;
+import org.amaze.db.hibernate.objects.UserRoleMap;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -32,7 +34,6 @@ public class GenerateObjects
 	public void generateObjects( String schemaFile, String location )
 	{
 		this.location = location;
-		//		Document doc = transform.getXMLDocumentObj("org.amaze.database.hibernate.configuration.Amaze_Schema", false);
 		try
 		{
 			doc = transform.getXMLDocumentObj( schemaFile, false );
@@ -48,7 +49,7 @@ public class GenerateObjects
 			for( Node eachTag : extendsTag )
 			{
 				Element element = ( Element ) eachTag;
-				parseSchemaFile( transform.getXMLDocumentObj( element.getText(), false ) );
+				parseSchemaFile( transform.getXMLDocumentObj( "/org/amaze/db/metadata/" + element.getText(), false ) );
 			}
 		}
 		catch ( XMLException | IOException e )
@@ -71,30 +72,24 @@ public class GenerateObjects
 
 	private void parseSchemaFile( Document doc )
 	{
-		List<Node> database = doc.selectNodes( "//Schema/Database" );
-		if ( database.size() == 1 )
+		for( Object eachNode : doc.selectNodes( "//Schema/Database" ) )
 		{
-			Node eachDatabase = database.get( 0 );
+			Node eachDatabase = (Node) eachNode;
 			if ( ( ( Element ) eachDatabase ).attributeValue( "DatabaseName" ).equals( "amaze" ) )
 			{
-				parseDatabase( database.get( 0 ) );
+				parseDatabase( eachDatabase );
 			}
-			else
-				throw new GeneratorException( "No Amaze database configured" );
 		}
-		else
-			throw new GeneratorException( "Multiple databases configured" );
 	}
 
 	private void parseDatabase( Node eachDatabase )
 	{
-		List<Node> tablesTags = eachDatabase.selectNodes( "//Schema/Database/Tables" );  
+		List<Node> tablesTags = eachDatabase.selectNodes( "Tables" );  
 		if ( tablesTags.size() == 1 )
 		{
 			Node tablesTag = tablesTags.get( 0 );
-			List<Node> tables = tablesTag.selectNodes( "Table" );
-			for( Node eachTable : tables )
-				parseTables( eachTable );
+			for( Object eachTable : tablesTag.selectNodes( "Table" ) )
+				parseTables( (Node) eachTable );
 		}
 		else
 			throw new GeneratorException( "Multiple Tables tag configured" );
@@ -105,6 +100,7 @@ public class GenerateObjects
 		Element table = ( Element ) tableTag;
 		String tableName = table.attributeValue( "TableName" );
 		String tablePrefix = table.attributeValue( "TablePrefix" );
+		String displayName = table.attributeValue( "DisplayName" );
 		List<Node> columns = table.selectNodes( "Columns" );
 		if ( columns.size() != 1 )
 			throw new GeneratorException( "Multiple no of Columns tag configured" );
@@ -120,7 +116,7 @@ public class GenerateObjects
 			nestedCollections = nestedCollections.get( 0 ).selectNodes( "NestedCollection" );
 		try
 		{
-			createHibernateObject( tableName, tablePrefix, columns, indexes, nestedCollections );
+			createHibernateObject( tableName, tablePrefix, displayName, columns, indexes, nestedCollections );
 		}
 		catch ( IOException e )
 		{
@@ -128,7 +124,7 @@ public class GenerateObjects
 		}
 	}
 
-	private void createHibernateObject( String tableName, String tablePrefix, List<Node> columns, List<Node> indexes, List<Node> nestedCollections ) throws IOException
+	private void createHibernateObject( String tableName, String tablePrefix, String displayName, List<Node> columns, List<Node> indexes, List<Node> nestedCollections ) throws IOException
 	{
 		String classFileName = StringUtils.underScoreToCamelCase( tableName );
  		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator;
@@ -146,7 +142,7 @@ public class GenerateObjects
 		out.newLine();
 		addEntityAnnotation( out, tableName, columns );
 		out.newLine();
-		createIndexAnnotations( out, indexes, tablePrefix, tableName );
+		createIndexAnnotations( out, indexes, tablePrefix, tableName, displayName );
 		out.newLine();
 		out.write( "public class " + classFileName + " extends AbstractHibernateObject implements Serializable " );
 		out.newLine();
@@ -163,11 +159,11 @@ public class GenerateObjects
 		out.close();
 	}
 
-	private void createIndexAnnotations( BufferedWriter out, List<Node> indexes, String tablePrefix, String tableName ) throws IOException
+	private void createIndexAnnotations( BufferedWriter out, List<Node> indexes, String tablePrefix, String tableName, String displayName ) throws IOException
 	{
 		if ( indexes.size() > 0 )
 		{
-			out.write( "@org.amaze.db.hibernate.annotations.Table( tableName = \"" + tableName + "\", tablePrefix = \"" + tablePrefix + "\", indexes = {" );
+			out.write( "@org.amaze.db.hibernate.annotations.Table( tableName = \"" + tableName + "\", tablePrefix = \"" + tablePrefix + "\", displayName = \"" + tablePrefix + "\", indexes = {" );
 			out.newLine();
 			for ( int i = 0; i < indexes.size(); i++ )
 			{
@@ -178,9 +174,12 @@ public class GenerateObjects
 					String isUnique = ( ( Element ) eachNode ).attributeValue( "IsUnique" );
 					String isClustered = ( ( Element ) eachNode ).attributeValue( "IsClustered" );
 					String isBusinessConstraint = ( ( Element ) eachNode ).attributeValue( "IsBusinessConstraint" );
-					String isDisplayName = ( ( Element ) eachNode ).attributeValue( "IsDisplayName" );
 					String columnList = ( ( Element ) eachNode ).attributeValue( "ColumnList" );
-					out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", isUnique = \"" + isUnique + "\", isClustered = \"" + isClustered + "\", isBusinessConstraint = \"" + isBusinessConstraint + "\", displayName = \"" + isDisplayName + "\", columnNames = { \"" + columnList + "\" } )," );
+					String condition = ( ( Element ) eachNode ).attributeValue( "Condition" );
+					if( !( i + 1 == indexes.size() ) )
+						out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", isUnique = \"" + isUnique + "\", isClustered = \"" + isClustered + "\", isBusinessConstraint = \"" + isBusinessConstraint + "\", columnList = { \"" + columnList + "\" }, condition = \"" + condition + "\" ), " );
+					else
+						out.write( "	@org.amaze.db.hibernate.annotations.Index( indexName = \"" + indexName + "\", isUnique = \"" + isUnique + "\", isClustered = \"" + isClustered + "\", isBusinessConstraint = \"" + isBusinessConstraint + "\", columnList = { \"" + columnList + "\" }, condition = \"" + condition + "\" ) " );
 					out.newLine();
 				}
 			}
@@ -190,6 +189,14 @@ public class GenerateObjects
 
 	private void createNestedCollectionsMapping( BufferedWriter out, List<Node> nestedCollections, String currentObjectname ) throws IOException
 	{
+//		private java.util.List< UserRoleMap > userRoleMaps = new java.util.ArrayList< UserRoleMap >();
+//		@javax.persistence.OneToMany( fetch = javax.persistence.FetchType.EAGER, mappedBy = "users" )
+//		public java.util.List< UserRoleMap > getUserRoleMaps() { return userRoleMaps; }
+//		public void setUserRoleMaps( java.util.List< UserRoleMap > val ) { this.userRoleMaps = val; }
+//		public void addUserRoleMaps( UserRoleMap var  ) { 		var.setUsers( this ); 		userRoleMaps.add( var ); 	}
+		
+		
+		
 		for ( int i = 0; i < nestedCollections.size(); i++ )
 		{
 			Node eachNode = nestedCollections.get( i );
@@ -200,17 +207,18 @@ public class GenerateObjects
 				String foreignPropertyName = ( ( Element ) eachNode ).attributeValue( "ForeignPropertyName" );
 				out.write( "	private java.util.List< " + foreignObjectMappingName + " > " + propertyName + " = new java.util.ArrayList< " + foreignObjectMappingName + " >();" );
 				out.newLine();
-				out.write( "	@javax.persistence.OneToMany( fetch = javax.persistence.FetchType.LAZY, mappedBy = \"" + foreignPropertyName + "\" )" );
+				out.write( "	@javax.persistence.OneToMany( fetch = javax.persistence.FetchType.EAGER, mappedBy = \"" + foreignPropertyName + "\" )" );
 				out.newLine();
 				out.write( "	public java.util.List< " + foreignObjectMappingName + " > get" + foreignObjectMappingName + "s() { return " + propertyName + "; }" );
+				out.newLine();
+				out.write( "	public void set" + foreignObjectMappingName + "s( java.util.List< " + foreignObjectMappingName + " > val ) { this." + propertyName + " = val; }" );
 				out.newLine();
 				out.write( "	public void add" + foreignObjectMappingName + "s( " + foreignObjectMappingName + " var  ) { " );
 				out.write( "		var.set" + currentObjectname + "( this ); " );
 				out.write( "		" + propertyName + ".add( var ); " );
 				out.write( "	}" );
 				out.newLine();
-				out.write( "	public void set" + foreignObjectMappingName + "s( java.util.List< " + foreignObjectMappingName + " > val ) { this." + propertyName + " = val; }" );
-				out.newLine();
+
 			}
 		}
 	}
@@ -227,7 +235,6 @@ public class GenerateObjects
 				String length = ( ( Element ) eachNode ).attributeValue( "Length" );
 				String isMandatory = ( ( Element ) eachNode ).attributeValue( "IsMandatory" );
 				String isPrimaryKey = ( ( Element ) eachNode ).attributeValue( "IsPrimaryKey" );
-				String isOneToOneNestedObject = ( ( Element ) eachNode ).attributeValue( "IsOneToOneNestedObject" );
 				String nestedObject = ( ( Element ) eachNode ).attributeValue( "NestedObject" );
 				String camelCaseColName = StringUtils.underScoreToCamelCase( columnName );
 				String colName = camelCaseColName.substring( 0, 1 ).toLowerCase() + camelCaseColName.substring( 1, camelCaseColName.length() );
@@ -248,19 +255,6 @@ public class GenerateObjects
 					out.newLine();
 					continue;
 				}
-				else if ( columnName.equals( prefix + "_version_id" ) )
-				{
-					out.write( "	@javax.persistence.Version" );
-					out.newLine();
-					out.write( "	@javax.persistence.Column( name = \"" + columnName + "\" )" );
-					out.newLine();
-					out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
-					out.newLine();
-					out.write( "	public int getVersionId() { return super.getVersionId(); }" );
-					out.newLine();
-					out.newLine();
-					continue;
-				}
 				else if ( columnName.equals( prefix + "_delete_fl" ) )
 				{
 					out.write( "	@javax.persistence.Basic" );
@@ -276,40 +270,17 @@ public class GenerateObjects
 					out.newLine();
 					continue;
 				}
-				else if ( columnName.equals( "system_generated_fl" ) )
-				{
-					out.write( "	@javax.persistence.Basic" );
-					out.newLine();
-					out.write( "	@javax.persistence.Column( name = \"system_generated_fl\" )" );
-					out.newLine();
-					out.write( "	@org.hibernate.annotations.Type( type = \"yes_no\" )" );
-					out.newLine();
-					out.write( "	public Boolean getSystemGeneratedFl() { return super.getSystemGeneratedFl(); }" );
-					out.newLine();
-					out.newLine();
-					continue;
-				}
-				else if ( columnName.equals( "ptn_id" ) )
-				{
-					out.write( "	@javax.persistence.Basic" );
-					out.newLine();
-					out.write( "	@javax.persistence.Column( name = \"ptn_id\" )" );
-					out.newLine();
-					out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
-					out.newLine();
-					out.write( "	@javax.validation.constraints.Min( 0 )" );
-					out.newLine();
-					out.write( "	public int getPartitionId() { return super.getPartitionId(); }" );
-					out.newLine();
-					out.newLine();
-					continue;
-				}
 				else
 				{
+					if( dataType.equals( "DateTime" ) )
+						out.write( "	private " + "org.joda.time.DateTime" + " " + colName + ";" );
+					else
+						out.write( "	private " + dataType + " " + colName + ";" );
+					out.newLine();
 					out.newLine();
 					out.write( "	@javax.persistence.Basic" );
 					out.newLine();
-					boolean isEditable = isOneToOneNestedObject.equals( "true" ) ? false : true;
+					boolean isEditable = !nestedObject.equals( "" ) ? false : true;
 					out.write( "	@javax.persistence.Column( name = \"" + columnName + "\", nullable = " + isMandatory + ", insertable = " + isEditable + ", updatable = " + isEditable + " )" );
 					out.newLine();
 					if ( dataType.equals( "String" ) )
@@ -322,8 +293,6 @@ public class GenerateObjects
 						out.newLine();
 						out.write( "	@org.hibernate.validator.constraints.Length( max = " + length + " )" );
 						out.newLine();
-						out.write( "	private " + dataType + " " + colName + ";" );
-						out.newLine();
 						out.write( "	public String get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( String val ) {this." + colName + " = val; }" );
@@ -332,8 +301,6 @@ public class GenerateObjects
 					else if ( dataType.equals( "Integer" ) )
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
-						out.newLine();
-						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
@@ -346,8 +313,6 @@ public class GenerateObjects
 						out.newLine();
 						out.write( "	@javax.validation.constraints.NotNull" );
 						out.newLine();
-						out.write( "	private " + dataType + " " + colName + ";" );
-						out.newLine();
 						out.write( "	public Boolean get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Boolean val ) {this." + colName + " = val; }" );
@@ -356,8 +321,6 @@ public class GenerateObjects
 					else if ( dataType.equals( "DateTime" ) )
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"org.amaze.db.hibernate.types.DateTimeType\" )" );
-						out.newLine();
-						out.write( "	private " + "org.joda.time.DateTime" + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public org.joda.time.DateTime get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
@@ -368,34 +331,33 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"Long\" )" );
 						out.newLine();
-						out.write( "	private " + dataType + " " + colName + ";" );
-						out.newLine();
 						out.write( "	public Long get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Long val ) {this." + colName + " = val; }" );
 						out.newLine();
 					}
 					out.newLine();
-					if ( isOneToOneNestedObject.equals( "true" ) )
+					if ( !nestedObject.equals( "" ) )
 					{
 						String nestedTypeName =/* StringUtils.camelCaseToUnderScore(*/ nestedObject /*)*/;
 						String nestedVarName = nestedTypeName.substring( 0, 1 ).toLowerCase() + nestedTypeName.substring( 1, nestedTypeName.length() );
+						out.write( "	private " + nestedTypeName + " " + nestedVarName + " ;" );
+						out.newLine();
+						out.newLine();
 						out.write( "	@javax.persistence.ManyToOne( fetch = javax.persistence.FetchType.LAZY )" );
 						out.newLine();
 						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = true, updatable = true )" );
 						out.newLine();
 						out.write( "	@org.hibernate.annotations.NotFound( action = org.hibernate.annotations.NotFoundAction.IGNORE )" );
 						out.newLine();
-						out.write( "	private " + nestedTypeName + " " + nestedVarName + " ;" );
+						out.write( "	public " + nestedTypeName + " get" + nestedTypeName + "()" );
+						out.write( "	{" );
+						out.write( "		return this." + nestedVarName + ";" );
+						out.write( "	}" );
 						out.newLine();
 						out.write( "	public void set" + nestedTypeName + "( " + nestedTypeName + " " + nestedVarName + ")" );
 						out.write( "	{" );
 						out.write( "		this." + nestedVarName + " = " + nestedVarName + ";" );
-						out.write( "	}" );
-						out.newLine();
-						out.write( "	public " + nestedTypeName + " get" + nestedTypeName + "()" );
-						out.write( "	{" );
-						out.write( "		return this." + nestedVarName + ";" );
 						out.write( "	}" );
 						out.newLine();
 					}
@@ -423,9 +385,7 @@ public class GenerateObjects
 				}
 			}
 		}
-//		out.write( "@org.hibernate.annotations.Filters( { " + "@org.hibernate.annotations.Filter( name = \"partitionFilter\" , condition = \"ptn_id = :partitionId\" ), " + "@org.hibernate.annotations.Filter( name = \"deletedFilter\", condition = \"" + deleteFlName + " = :deleteFl\" ) " + "} )" );
 		out.write("@org.hibernate.annotations.FilterDefs( {");
-		out.write( "	@org.hibernate.annotations.FilterDef( name = \"partitionFilter\" , parameters={ @org.hibernate.annotations.ParamDef(name=\"ptn_id\", type=\"java.lang.Integer\") } )," );
 		out.write( "	@org.hibernate.annotations.FilterDef( name = \"deletedFilter\" , parameters={ @org.hibernate.annotations.ParamDef(name=\"delete_fl\", type=\"java.lang.Boolean\") } )" );
 		out.write("} )");
 		out.newLine();
@@ -455,8 +415,8 @@ public class GenerateObjects
 
 	public static void main( String[] args ) throws ParserConfigurationException, IOException
 	{
-		new GenerateObjects().generateObjects( args[0], args[1] );
-//		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml", "./src/main/java/" );
+//		new GenerateObjects().generateObjects( args[0], args[1] );
+		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml", "./src/main/java/" );
 	}
 
 }

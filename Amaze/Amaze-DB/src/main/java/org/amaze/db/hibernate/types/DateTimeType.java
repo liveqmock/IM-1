@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -29,71 +30,83 @@ public class DateTimeType implements UserType
 		return DateTime.class;
 	}
 
-	public boolean equals( Object x, Object y )
+	@Override
+	public Object replace( Object original, Object target, Object owner ) throws HibernateException
 	{
-		if ( x == y )
-			return true;
-		if ( x == null || y == null )
-			return false;
-
-		return x.equals( y );
+		return original;
 	}
 
-	public Object deepCopy( Object x )
+	@Override
+	public void nullSafeSet( PreparedStatement stmt, Object value, int index, SessionImplementor session ) throws HibernateException, SQLException
 	{
-		if ( x == null )
+		if ( value == null )
+			stmt.setNull( index, Types.TIMESTAMP );
+		if ( !( value instanceof DateTime ) )
+			throw new UnsupportedOperationException( "Cannot convert " + value.getClass() );
+		stmt.setDate( index, new java.sql.Date( ( ( DateTime ) value ).getMillis() ) );
+	}
+
+	@Override
+	public Object nullSafeGet( ResultSet res, String[] names, SessionImplementor session, Object owner ) throws HibernateException, SQLException
+	{
+		java.sql.Date value = res.getDate( names[0] );
+		if ( value == null )
 			return null;
-		return new DateTime( ( ( DateTime ) x ) );
+		return new DateTime( value.getTime() );
 	}
 
+	@Override
 	public boolean isMutable()
 	{
 		return true;
 	}
 
 	@Override
-	public Object assemble( Serializable arg0, Object arg1 ) throws HibernateException
+	public int hashCode( Object value ) throws HibernateException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return value.hashCode();
 	}
 
 	@Override
-	public Serializable disassemble( Object arg0 ) throws HibernateException
+	public boolean equals( Object x, Object y )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if ( x == y )
+			return true;
+		if ( x == null || y == null )
+			return false;
+		return x.equals( y );
 	}
 
 	@Override
-	public int hashCode( Object arg0 ) throws HibernateException
+	public Serializable disassemble( Object value ) throws HibernateException
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		if ( !( value instanceof Date ) )
+			throw new UnsupportedOperationException( "Cannot convert " + value.getClass() );
+		return new DateTime( ( Date ) value );
 	}
 
 	@Override
-	public Object nullSafeGet( ResultSet arg0, String[] arg1, SessionImplementor arg2, Object arg3 ) throws HibernateException, SQLException
+	public Object deepCopy( Object value )
 	{
-		return null;
+		if ( value == null )
+			return null;
+		if ( !( value instanceof DateTime ) )
+			throw new UnsupportedOperationException( "Cannot convert " + value.getClass() );
+		return new DateTime( value );
 	}
 
 	@Override
-	public void nullSafeSet( PreparedStatement arg0, Object arg1, int arg2, SessionImplementor arg3 ) throws HibernateException, SQLException
+	public Object assemble( Serializable cached, Object owner ) throws HibernateException
 	{
-
+		return cached;
 	}
 
-	@Override
-	public Object replace( Object arg0, Object arg1, Object arg2 ) throws HibernateException
+	public static Object nullSafeGet( ResultSet rs, int i ) throws SQLException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		java.sql.Date value = rs.getDate( i );
+		if ( value == null )
+			return null;
+		return new DateTime( value.getTime() );
 	}
 
-	public static Object nullSafeGet( ResultSet rs, int i )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

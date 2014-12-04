@@ -2,100 +2,79 @@ package org.amaze.db.schema;
 
 public class Column implements Cloneable
 {
-    public String ColumnName;
-    public int SequenceNumber;
-    public AmazeType DataType;
-    public int Length;
-    public boolean IsMandatory;
-    public boolean IsPrimaryKey;
-    public boolean IsOneToOneNestedObject;
-    public String NestedObject;
+	public String columnName;
+	public AmazeType dataType;
+	public int length;
+	public boolean isMandatory;
+	public boolean isPrimaryKey;
+	public String nestedObject;
 
-    public transient Table table;
+	public transient Table table;
 
-    public Column()
-    {
-    }
+	public Column()
+	{
+	}
 
-    public Column( String columnName, AmazeType dataType, boolean isMandatory, Table table )
-    {
-        ColumnName = columnName;
-        DataType = dataType;
-        IsMandatory = isMandatory;
-        this.table = table;
-    }
+	public Column( String columnName, AmazeType dataType, Integer length, boolean isMandatory, boolean isPrimaryKey, String nestedObject, Table table )
+	{
+		this.columnName = columnName;
+		this.dataType = dataType;
+		this.length = length;
+		this.isMandatory = isMandatory;
+		this.isPrimaryKey = isPrimaryKey;
+		this.nestedObject = nestedObject;
+		this.table = table;
+	}
 
+	public Column( String columnName, AmazeType dataType, int length, boolean isPrimaryKey, Table table )
+	{
+		this.columnName = columnName;
+		this.dataType = dataType;
+		this.length = length;
+		this.isPrimaryKey = isPrimaryKey;
+		this.table = table;
+	}
+	
+	
 
-    public Column( String columnName, AmazeType dataType, int length, boolean isMandatory, Table table )
-    {
-        ColumnName = columnName;
-        DataType = dataType;
-        Length = length;
-        IsMandatory = isMandatory;
-        this.table = table;
-    }
+	public Column( String columnName, AmazeType dataType, boolean isPrimaryKey, Table table )
+	{
+		this.columnName = columnName;
+		this.dataType = dataType;
+		this.isPrimaryKey = isPrimaryKey;
+		this.table = table;
+	}
 
-    public Column( String columnName, AmazeType dataType, boolean isMandatory, int orderNo, boolean primaryKey, Table table )
-    {
-        ColumnName = columnName;
-        DataType = dataType;
-        IsMandatory = isMandatory;
-        Length = dataType.getLength();
-        SequenceNumber = orderNo;
-        IsPrimaryKey = primaryKey;
-        this.table = table;
-    }
-
-    public Column( String columnName, AmazeType dataType, int length, boolean isMandatory, int orderNo, boolean primaryKey, boolean isOneToOneNestedObject, String nestedObject, Table table )
-    {
-        ColumnName = columnName;
-        DataType = dataType;
-        Length = length;
-        IsMandatory = isMandatory;
-        SequenceNumber = orderNo;
-        IsPrimaryKey = primaryKey;
-        IsOneToOneNestedObject = isOneToOneNestedObject;
-        NestedObject = nestedObject;
-        this.table = table;
-    }
-
-    public Column( String columnName, AmazeType dataType, boolean isMandatory, Table table, boolean isAuditEnabled )
-    {
-        ColumnName = columnName;
-        DataType = dataType;
-        IsMandatory = isMandatory;
-        this.table = table;
-    }
 	public Column clone() throws CloneNotSupportedException
-    {
-        Column clone = (Column)super.clone();
-        clone.table = null;
-        return clone;
-    }
+	{
+		Column clone = ( Column ) super.clone();
+		clone.table = null;
+		return clone;
+	}
 
-    public boolean equals( Object object )
-    {
-        if ( object == null )
-            return false;
-        if ( !( object instanceof Column ) )
-            return false;
-        Column fromColumn = (Column)object;
-        if ( !ColumnName.equalsIgnoreCase( fromColumn.ColumnName ) )
-            return false;
-        if ( !DataType.equals( fromColumn.DataType ) )
-        {
-            if ( !( ( DataType == AmazeType.Decimal || DataType == AmazeType.Long ) && ( fromColumn.DataType == AmazeType.Decimal || fromColumn.DataType == AmazeType.Long ) ) )
-            {
-                return false;
-            }
-        }
-        if ( DataType == AmazeType.String )
-        {
-            if ( Length != fromColumn.Length )
-                return false;
-        }
-        if ( IsMandatory != fromColumn.IsMandatory )
-            return false;
-        return true;
-    }
+	public boolean equals( Object object )
+	{
+		if ( object == null )
+			return false;
+		if ( !( object instanceof Column ) )
+			return false;
+		Column fromColumn = ( Column ) object;
+		if ( !columnName.equalsIgnoreCase( fromColumn.columnName ) )
+			return false;
+		if ( !dataType.equals( fromColumn.dataType ) )
+		{
+			if ( !( ( dataType == AmazeType.Decimal || dataType == AmazeType.Long ) && ( fromColumn.dataType == AmazeType.Decimal || fromColumn.dataType == AmazeType.Long ) ) )
+			{
+				return false;
+			}
+		}
+		if ( dataType == AmazeType.String )
+		{
+			if ( length != fromColumn.length )
+				return false;
+		}
+		if ( isMandatory != fromColumn.isMandatory )
+			return false;
+		return true;
+	}
 }
