@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location='classpath:db.properties' />
+	
+	<context:component-scan base-package="org.amaze.db.usage.objects" />
+
+	<bean id="cassandraEmf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="cassandra" />
+		<property name="loadTimeWeaver">
+			<bean
+				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		</property>
+		<property name="packagesToScan">
+			<array value-type="java.lang.String">
+				<value>org.amaze.db.usage.objects</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean id="cassandraEm"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>META-INF/persistence.xml</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -103,6 +103,26 @@
 			<artifactId>cassandra-jdbc</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-cassandra</artifactId>
+			<version>2.9</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.supercsv</groupId>
+			<artifactId>super-csv</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.7.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.thrift</groupId>
+			<artifactId>libthrift</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -135,7 +155,7 @@
 									/> -->
 								<mkdir dir="${project.build.outputDirectory}" />
 								<javac srcdir="${basedir}/src/main/java" destdir="${project.build.outputDirectory}"
-									fork="true">
+									fork="yes">
 									<classpath refid="maven.compile.classpath" />
 									<include name="org/amaze/db/hibernate/objects/*.java" />
 								</javac>
@@ -228,4 +248,28 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+		<repository>
+			<id>sonatype-nexus</id>
+			<name>Kundera Public Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>kundera-missing</id>
+			<name>Kundera Public Missing Resources Repository</name>
+			<url>http://kundera.googlecode.com/svn/maven2/maven-missing-resources</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

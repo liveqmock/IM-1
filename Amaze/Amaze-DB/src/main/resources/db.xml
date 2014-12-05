@@ -71,24 +71,23 @@
 	<!-- End Of Hibernate Properties -->
 
 	<!-- NoSQL Properties -->
-	<!-- <cassandra:cluster contact-points="${cassandra.contactpoints}" port="${cassandra.port}" />
+	<cassandra:cluster contact-points="${cassandra.contactpoints}" port="${cassandra.port}" />
 	<cassandra:session keyspace-name="${cassandra.keyspace}" />
 	<cassandra:mapping />
 	<cassandra:converter />
 	<cassandra:template id="cqlTemplate" />
-	<cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" />
+	<!-- Not supporting the JPA repositories through Spring data as of now -->
+	<!-- <cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" /> -->
 	
-	<bean class="org.apache.cassandra.cql.jdbc.CassandraDataSource"/> -->
+	<!-- <bean class="org.apache.cassandra.cql.jdbc.CassandraDataSource"/> -->
 	<!-- End Of NoSQL Properties -->
 	
 	<!-- DataSource Properties -->
-	<bean id="dataSourceUtils" class="org.amaze.db.utils.DataSourceUtils" init-method="loadAllBeans">
-		<!-- <property name="datasourceConfigFile" value="config/AmazeDataSources.xml" /> -->
-	</bean>
+	<!-- <bean id="dataSourceUtils" class="org.amaze.db.utils.DataSourceUtils" init-method="loadAllBeans">
+		<property name="datasourceConfigFile" value="config/AmazeDataSources.xml" />
+	</bean> -->
 	<!-- End of DataSource Properties -->
 	
-	
-	
-	
+	<import resource="dbusage.xml"/>
 	
 </beans>

@@ -1,0 +1,22 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+	<persistence-unit name="cassandra">
+		<provider>com.impetus.kundera.KunderaPersistence</provider>
+		<class>org.amaze.db.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="9160"/>
+			<property name="kundera.keyspace" value="amaze"/>
+			<property name="kundera.dialect" value="cassandra"/>
+			<property name="kundera.client.lookup.class" value="com.impetus.client.cassandra.pelops.PelopsClientFactory" />
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+			<property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>
+			<!--  PackagesToScan is not working, Since hibernate classes also in the classpath throws an exception trying to add those class, hence classes that are to be added as kundera entities should be added in persistance xml. ONly those added there are picked by kundera.. Hence all usage objects need to be added there.. -->
+			<!--  Has to be fixed or GenerateUsageObjects has to add these classes to persistence xml-->
+			<property name="packagesToScan" value="org.amaze.db.usage.objects" />
+		</properties>
+	</persistence-unit>
+</persistence>
