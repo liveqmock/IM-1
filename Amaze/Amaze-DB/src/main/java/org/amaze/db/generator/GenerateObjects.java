@@ -19,7 +19,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-
+@SuppressWarnings( "unchecked" )
 public class GenerateObjects
 {
 	XMLTransform transform = new XMLTransform();
@@ -240,8 +240,10 @@ public class GenerateObjects
 				{
 					out.write( "	@javax.persistence.Id" );
 					out.newLine();
-					out.write( "	@javax.validation.constraints.Min( 1 )" );
+					out.write( "	@javax.persistence.GeneratedValue" );
 					out.newLine();
+//					out.write( "	@javax.validation.constraints.Min( 1 )" );
+//					out.newLine();
 					out.write( "	@javax.persistence.Column( name = \"" + columnName + "\" )" );
 					out.newLine();
 					out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
@@ -263,7 +265,9 @@ public class GenerateObjects
 					out.newLine();
 					out.write( "	@javax.validation.constraints.NotNull" );
 					out.newLine();
-					out.write( "	public Boolean getDeleteFl() { return super.getDeleteFl(); }" );
+					out.write( "	public Boolean get" + camelCaseColName + "() { return super.getDeleteFl(); }" );
+					out.newLine();
+					out.write( "	public void set" + camelCaseColName + "( Boolean flag ) { super.setDeleteFl( flag ); } " );
 					out.newLine();
 					out.newLine();
 					continue;
@@ -285,10 +289,13 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"org.amaze.db.hibernate.types.StringType\" )" );
 						out.newLine();
-						out.write( "	@javax.validation.constraints.NotNull" );
-						out.newLine();
-						out.write( "	@org.hibernate.validator.constraints.NotEmpty" );
-						out.newLine();
+						if( nestedObject.equals( "" ) && isMandatory.equals( "true" ) )
+						{
+							out.write( "	@javax.validation.constraints.NotNull" );
+							out.newLine();
+							out.write( "	@org.hibernate.validator.constraints.NotEmpty" );
+							out.newLine();
+						}
 						out.write( "	@org.hibernate.validator.constraints.Length( max = " + length + " )" );
 						out.newLine();
 						out.write( "	public String get" + camelCaseColName + "() { return this." + colName + "; }" );
@@ -300,6 +307,11 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"int\" )" );
 						out.newLine();
+						if( nestedObject.equals( "" ) && isMandatory.equals( "true" ) )
+						{
+							out.write( "	@javax.validation.constraints.NotNull" );
+							out.newLine();
+						}
 						out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Integer val ) {this." + colName + " = val; }" );
@@ -309,8 +321,11 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"yes_no\" )" );
 						out.newLine();
-						out.write( "	@javax.validation.constraints.NotNull" );
-						out.newLine();
+						if( nestedObject.equals( "" ) && isMandatory.equals( "true" ) )
+						{
+							out.write( "	@javax.validation.constraints.NotNull" );
+							out.newLine();
+						}
 						out.write( "	public Boolean get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Boolean val ) {this." + colName + " = val; }" );
@@ -320,6 +335,11 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"org.amaze.db.hibernate.types.DateTimeType\" )" );
 						out.newLine();
+						if( nestedObject.equals( "" ) && isMandatory.equals( "true" ) )
+						{
+							out.write( "	@javax.validation.constraints.NotNull" );
+							out.newLine();
+						}
 						out.write( "	public org.joda.time.DateTime get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( org.joda.time.DateTime val ) {this." + colName + " = val; }" );
@@ -329,6 +349,11 @@ public class GenerateObjects
 					{
 						out.write( "	@org.hibernate.annotations.Type( type = \"Long\" )" );
 						out.newLine();
+						if( nestedObject.equals( "" ) && isMandatory.equals( "true" ) )
+						{
+							out.write( "	@javax.validation.constraints.NotNull" );
+							out.newLine();
+						}
 						out.write( "	public Long get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Long val ) {this." + colName + " = val; }" );

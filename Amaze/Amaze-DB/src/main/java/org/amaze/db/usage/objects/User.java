@@ -1,4 +1,4 @@
-package org.amaze.db;
+package org.amaze.db.usage.objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users", schema = "amaze@cassandra")
+@Table(name = "users", schema = "amaze@systemusage")
 public class User 
 {
     @Id

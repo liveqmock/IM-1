@@ -96,7 +96,9 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	{
 		try
 		{
-			return dataSource.getConnection();
+			Connection ds = dataSource.getConnection();
+			ds.setAutoCommit( false );
+			return ds;
 		}
 		catch ( SQLException e )
 		{
@@ -258,7 +260,8 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 				stmt = conn.createStatement();
 				for ( String sql : sqlList )
 				{
-					stmt.addBatch( sql );
+					if ( !sql.equals( "" ) )
+						stmt.addBatch( sql );
 				}
 				results = stmt.executeBatch();
 				conn.commit();
@@ -351,10 +354,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		}
 		for ( Index index : indexes )
 		{
-			if ( !index.isClustered )
-			{
-				applyIndex( index, indexLocation );
-			}
+			applyIndex( index, indexLocation );
 		}
 	}
 
@@ -690,32 +690,26 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 	public abstract AmazeType externalDBTypeToAmazeType( String dbType, int precision, int scale, boolean ignoreError ) throws DataSourceException;
 
 	public abstract String getOrderByClause( List<Object[]> colNames, AmazeType[] resultTypes ) throws Exception;
-	
+
 	public void createTableEntry( Table eachTable, String tableType, String dataSourceType )
 	{
 		DateTime dttm = new DateTime();
-		try{
-//			HibernateSession.get( TableType.class, new Integer( 1 ) );
-			TableType ttp = ( TableType ) HibernateSession.query( "from TableType ttp" /*where ttp.ttpName='" + tableType + "'"*/, new String[]{}, new Object[]{} );//, "ttpName", tableType );
-			Datasource dts = ( Datasource ) HibernateSession.query( "from Datasource dts where dts.dtsType=:dtsType", new String[]{"dtsType"}, new Object[]{dataSourceType} ).get( 0 );
-		}catch(Exception e){
-			System.out.println();
-			System.out.println(e);
-		}
+		TableType ttp = ( TableType ) HibernateSession.query( "from TableType ttp where ttp.ttpName='" + tableType + "'", new String[]{}, new Object[]{} ).get( 0 );
+		Datasource dts = ( Datasource ) HibernateSession.query( "from Datasource dts where dts.dtsType=:dtsType", new String[]{ "dtsType" }, new Object[]{ dataSourceType } ).get( 0 );
 		List<Object> objectsToSave = new ArrayList<Object>();
 		Tables table = HibernateSession.createObject( Tables.class );
 		table.setTabName( eachTable.tableName );
 		table.setTabPrefix( eachTable.tablePrefix );
 		table.setTabDisplayName( eachTable.displayName );
-//		table.setTableType( ttp );
-//		table.setDatasource( dts );
+		table.setTableType( ttp );
+		table.setDatasource( dts );
 		table.setTabCreatedDttm( dttm );
 		table.setDeleteFl( false );
 		table.setTabVersion( 1 );
 		objectsToSave.add( table );
 		for ( Column eachColumn : eachTable.columns )
 		{
-			Columns column = HibernateSession.createObject( Columns.class );
+			Columns column = HibernateSession.instantiate( Columns.class );
 			column.setTables( table );
 			column.setColumnName( eachColumn.columnName );
 			column.setDataType( eachColumn.dataType.toString() );
@@ -730,34 +724,41 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		}
 		for ( Index eachIndex : eachTable.indexes )
 		{
-			Indexes index = HibernateSession.createObject( Indexes.class );
+			Indexes index = HibernateSession.instantiate( Indexes.class );
 			index.setTables( table );
 			index.setIndexName( eachIndex.indexName );
 			index.setIsUnique( eachIndex.isUnique );
 			index.setIsClustered( eachIndex.isClustered );
 			index.setIsBusinessConstraint( eachIndex.isBusinessConstraint );
 			index.setColumnList( eachIndex.columnList );
+			index.setConditions( eachIndex.condition );
 			index.setIdxCreatedDttm( dttm );
 			index.setDeleteFl( false );
+			index.setIdxVersion( 1 );
 			objectsToSave.add( index );
 		}
+		try{
 		HibernateSession.save( objectsToSave.toArray( new Object[objectsToSave.size()] ) );
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public void updateDBTableFromSchemaTable( Table newTable, Tables oldTable )
 	{
 		Session session = HibernateSession.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		try{
+		try
+		{
 			createTableEntry( newTable, "System", "System" );
 			session.delete( oldTable );
-			for( Columns eachCol : oldTable.getColumnss() )
+			for ( Columns eachCol : oldTable.getColumnss() )
 				session.delete( eachCol );
-			for( Indexes eachIdx : oldTable.getIndexess() )
+			for ( Indexes eachIdx : oldTable.getIndexess() )
 				session.delete( eachIdx );
 		}
-		catch( Exception e)
+		catch ( Exception e )
 		{
 			tx.rollback();
 			session.close();

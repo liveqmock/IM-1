@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.amaze.commons.utils.StringUtils;
@@ -18,8 +19,11 @@ import org.amaze.db.generator.exceptions.GeneratorException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.springframework.data.cassandra.mapping.Column;
 
+import com.impetus.kundera.index.Index;
+import com.impetus.kundera.index.IndexCollection;
+
+@SuppressWarnings( "unchecked" )
 public class GenerateUsageObjects
 {
 	XMLTransform transform = new XMLTransform();
@@ -28,35 +32,34 @@ public class GenerateUsageObjects
 	Document doc = null;
 	Map<String, String> tableNameTablePrefixMap = new HashMap<String, String>();
 	String location;
-	
+
 	public void generateObjects( String schemaFile, String location )
 	{
 		this.location = location;
 		try
 		{
 			doc = transform.getXMLDocumentObj( schemaFile, false );
-			List<Node> tables = doc.selectNodes( "//Schema/Database/Tables/Table" ); 
-			for( Node eachNode : tables )
+			List<Node> tables = doc.selectNodes( "//Schema/Database/Tables/Table" );
+			for ( Node eachNode : tables )
 			{
-				tableNameTablePrefixMap.put( StringUtils.underScoreToCamelCase( ( (Element)eachNode).attributeValue( "TableName" ) ), (( Element)eachNode).attributeValue( "TablePrefix" ) );
+				tableNameTablePrefixMap.put( StringUtils.underScoreToCamelCase( ( ( Element ) eachNode ).attributeValue( "TableName" ) ), ( ( Element ) eachNode ).attributeValue( "TablePrefix" ) );
 			}
 			validate( doc );
 			clearOldSrcFiles();
 			parseSchemaFile( doc );
 			List<Node> extendsTag = doc.selectNodes( "//Schema/Extends" );
-			for( Node eachTag : extendsTag )
+			for ( Node eachTag : extendsTag )
 			{
 				Element element = ( Element ) eachTag;
 				parseSchemaFile( transform.getXMLDocumentObj( element.getText(), false ) );
 			}
-
 		}
 		catch ( XMLException | IOException e )
 		{
 			throw new GeneratorException( e );
 		}
 	}
-	
+
 	private void parseSchemaFile( Document doc2 )
 	{
 		List<Node> database = doc.selectNodes( "//Schema/Database" );
@@ -76,12 +79,12 @@ public class GenerateUsageObjects
 
 	private void parseDatabase( Node eachDatabase )
 	{
-		List<Node> tablesTags = eachDatabase.selectNodes( "//Schema/Database/Tables" );  
+		List<Node> tablesTags = eachDatabase.selectNodes( "//Schema/Database/Tables" );
 		if ( tablesTags.size() == 1 )
 		{
 			Node tablesTag = tablesTags.get( 0 );
 			List<Node> tables = tablesTag.selectNodes( "Table" );
-			for( Node eachTable : tables )
+			for ( Node eachTable : tables )
 				parseTables( eachTable );
 		}
 		else
@@ -113,8 +116,9 @@ public class GenerateUsageObjects
 
 	private void createUsageObject( String tableName, String tablePrefix, List<Node> columns, List<Node> indexes ) throws IOException
 	{
+		/*Create Entity Class*/
 		String classFileName = StringUtils.underScoreToCamelCase( tableName );
- 		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator;
+		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator + "entity";
 		String srcFile = srcFolder + File.separator + classFileName + ".java";
 		File srcFileObj = new File( srcFolder );
 		if ( !srcFileObj.exists() )
@@ -123,7 +127,7 @@ public class GenerateUsageObjects
 		srcFileObj.createNewFile();
 		Writer outWriter = new FileWriter( srcFileObj );
 		BufferedWriter out = new BufferedWriter( outWriter );
-		out.write( "package " + packageName + ";" );
+		out.write( "package " + packageName  + ".entity;" );
 		out.newLine();
 		addImports( out );
 		out.newLine();
@@ -143,6 +147,19 @@ public class GenerateUsageObjects
 		out.write( "}" );
 		out.flush();
 		out.close();
+		
+		//Create Entity Dao class
+		srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator + "dao";
+		srcFile = srcFolder + File.separator + classFileName + ".java";
+		srcFileObj = new File( srcFolder );
+		if ( !srcFileObj.exists() )
+			srcFileObj.mkdirs();
+		srcFileObj = new File( srcFile );
+		srcFileObj.createNewFile();
+		outWriter = new FileWriter( srcFileObj );
+		out = new BufferedWriter( outWriter );
+		out.write( "package " + packageName  + ".dao;" );
+		out.newLine();
 	}
 	
 	private void createFieldMappings( BufferedWriter out, List<Node> columns, String tablePrefix ) throws IOException
@@ -154,27 +171,42 @@ public class GenerateUsageObjects
 			{
 				String columnName = ( ( Element ) eachNode ).attributeValue( "ColumnName" );
 				String dataType = ( ( Element ) eachNode ).attributeValue( "DataType" );
-				String length = ( ( Element ) eachNode ).attributeValue( "Length" );
 				String isMandatory = ( ( Element ) eachNode ).attributeValue( "IsMandatory" );
 				String isPrimaryKey = ( ( Element ) eachNode ).attributeValue( "IsPrimaryKey" );
 				String camelCaseColName = StringUtils.underScoreToCamelCase( columnName );
+				String nestedObject = ( ( Element ) eachNode ).attributeValue( "NestedObject" );
 				String colName = camelCaseColName.substring( 0, 1 ).toLowerCase() + camelCaseColName.substring( 1, camelCaseColName.length() );
 				if ( isPrimaryKey.equals( "true" ) )
 				{
-					out.write( "	@org.springframework.data.cassandra.mapping.PrimaryKeyColumn(name = \"id\", ordinal = 2, type = org.springframework.cassandra.core.PrimaryKeyType.CLUSTERED, ordering = org.springframework.cassandra.core.Ordering.DESCENDING)" );
+//					out.write( "	@org.springframework.data.cassandra.mapping.PrimaryKeyColumn(name = \"id\", ordinal = 2, type = org.springframework.cassandra.core.PrimaryKeyType.CLUSTERED, ordering = org.springframework.cassandra.core.Ordering.DESCENDING)" );
+//					out.newLine();
+					out.write( "	@javax.persistence.Id" );
 					out.newLine();
-					out.write( "	public int get" + camelCaseColName + "() { return getId(); }" );
+					out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
 					out.newLine();
-					out.write( "	public void set" + camelCaseColName + "( int id ) { setId( id ); } " );
+					out.write( "	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.TABLE)" );
+					out.newLine();
+					out.write( "	private " + dataType + " " + colName + ";" );
+					out.newLine();
+					out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
+					out.newLine();
+					out.write( "	public void set" + camelCaseColName + "( int id ) { super.setId( id ); this." + colName + " = id; }" );
 					out.newLine();
 					out.newLine();
 					continue;
 				}
 				else if ( columnName.equals( "ptn_id" ) )
 				{
-					out.write( "	@org.springframework.data.cassandra.mapping.PrimaryKeyColumn(name = \"id\", ordinal = 2, type = org.springframework.cassandra.core.PrimaryKeyType.CLUSTERED, ordering = org.springframework.cassandra.core.Ordering.DESCENDING)" );
+//					out.write( "	@org.springframework.data.cassandra.mapping.PrimaryKeyColumn(name = \"id\", ordinal = 2, type = org.springframework.cassandra.core.PrimaryKeyType.CLUSTERED, ordering = org.springframework.cassandra.core.Ordering.DESCENDING)" );
+//					out.newLine();
+					out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
 					out.newLine();
-					out.write( "	public int getPartitionId() { return super.getPartitionId(); }" );
+					out.write( "	private Integer ptnId;" );
+					out.newLine();
+					out.write( "	public Integer getPtnId() { return ptnId; }" );
+					out.newLine();
+					out.write( "	public void setPtnId( int ptnId ) { this.ptnId = ptnId; }" );
+					out.newLine();
 					out.newLine();
 					out.newLine();
 					continue;
@@ -182,10 +214,12 @@ public class GenerateUsageObjects
 				else
 				{
 					out.newLine();
-					out.write( "	@org.springframework.data.cassandra.mapping.Column" );
-					out.newLine();
+//					out.write( "	@org.springframework.data.cassandra.mapping.Column" );
+//					out.newLine();
 					if ( dataType.equals( "String" ) )
 					{
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + ", nullable=\"" + isMandatory.equals( "false" ) + "  )" );
+						out.newLine();
 						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public String get" + camelCaseColName + "() { return this." + colName + "; }" );
@@ -195,6 +229,8 @@ public class GenerateUsageObjects
 					}
 					else if ( dataType.equals( "Integer" ) )
 					{
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
+						out.newLine();
 						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
@@ -204,6 +240,8 @@ public class GenerateUsageObjects
 					}
 					else if ( dataType.equals( "Boolean" ) )
 					{
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
+						out.newLine();
 						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Boolean get" + camelCaseColName + "() { return this." + colName + "; }" );
@@ -213,6 +251,8 @@ public class GenerateUsageObjects
 					}
 					else if ( dataType.equals( "DateTime" ) )
 					{
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
+						out.newLine();
 						out.write( "	private " + "org.joda.time.DateTime" + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public org.joda.time.DateTime get" + camelCaseColName + "() { return this." + colName + "; }" );
@@ -222,11 +262,36 @@ public class GenerateUsageObjects
 					}
 					else if ( dataType.equals( "Long" ) )
 					{
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
+						out.newLine();
 						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();
 						out.write( "	public Long get" + camelCaseColName + "() { return this." + colName + "; }" );
 						out.newLine();
 						out.write( "	public void set" + camelCaseColName + "( Long val ) {this." + colName + " = val; }" );
+						out.newLine();
+					}
+					out.newLine();
+					if ( !nestedObject.equals( "" ) )
+					{
+						String nestedTypeName =/* StringUtils.camelCaseToUnderScore(*/ nestedObject /*)*/;
+						String nestedVarName = nestedTypeName.substring( 0, 1 ).toLowerCase() + nestedTypeName.substring( 1, nestedTypeName.length() );
+						out.write( "	private " + nestedTypeName + " " + nestedVarName + " ;" );
+						out.newLine();
+						out.newLine();
+						out.write( "	@javax.persistence.ManyToOne( fetch = javax.persistence.FetchType.LAZY )" );
+						out.newLine();
+						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = true, updatable = true )" );
+						out.newLine();
+						out.write( "	public " + nestedTypeName + " get" + nestedTypeName + "()" );
+						out.write( "	{" );
+						out.write( "		return this." + nestedVarName + ";" );
+						out.write( "	}" );
+						out.newLine();
+						out.write( "	public void set" + nestedTypeName + "( " + nestedTypeName + " " + nestedVarName + ")" );
+						out.write( "	{" );
+						out.write( "		this." + nestedVarName + " = " + nestedVarName + ";" );
+						out.write( "	}" );
 						out.newLine();
 					}
 					out.newLine();
@@ -253,12 +318,36 @@ public class GenerateUsageObjects
 				}
 			}
 			out.write( "} )" );
+			out.newLine();
+			StringBuilder sb = new StringBuilder();
+			for ( int i = 0; i < indexes.size(); i++ )
+			{
+				Node eachNode = indexes.get( i );
+				if ( eachNode instanceof Element )
+				{
+					String columnList = ( ( Element ) eachNode ).attributeValue( "ColumnList" );
+					sb.append( "	@Index(name = \"" + columnList + "\"), " );
+				}
+			}
+			out.write( "@IndexCollection(columns = { " );
+			out.newLine();
+			if( sb.length() > 1)
+			{
+				out.write( sb.toString().substring( 0, sb.length() - 2 ) );
+			}
+			out.newLine();
+			out.write( "})" );
+			out.newLine();
 		}
 	}
 
 	private void addEntityAnnotation( BufferedWriter out, String tableName, List<Node> columns ) throws IOException
 	{
-		out.write( "@org.springframework.data.cassandra.mapping.Table" );
+//		out.write( "@org.springframework.data.cassandra.mapping.Table" );
+//		out.newLine();
+		out.write( "@javax.persistence.Entity");
+		out.newLine();
+		out.write( "@javax.persistence.Table(name = \"" + tableName + "\", schema = \"amaze@systemusage\")" );
 		out.newLine();
 	}
 
@@ -267,6 +356,10 @@ public class GenerateUsageObjects
 		out.write( "import java.io.Serializable;" );
 		out.newLine();
 		out.write( "import org.amaze.db.usage.AbstractUsageObject;" );
+		out.newLine();
+		out.write( "import com.impetus.kundera.index.Index;" );
+		out.newLine();
+		out.write( "import com.impetus.kundera.index.IndexCollection;" );
 		out.newLine();
 	}
 
@@ -280,8 +373,8 @@ public class GenerateUsageObjects
 			for ( File eachFile : list )
 				eachFile.delete();
 		}
-	}	
-	
+	}
+
 	private void validate( Document doc )
 	{
 		Element schemaElement = doc.getRootElement();
@@ -295,11 +388,11 @@ public class GenerateUsageObjects
 			throw new GeneratorException( "Schema file has invalid Database name" );
 		}
 	}
-	
+
 	public static void main( String[] args ) throws ParserConfigurationException, IOException
 	{
-		new GenerateUsageObjects().generateObjects( args[0], args[1] );
-//		new GenerateUsageObjects().generateObjects( "/org/amaze/db/metadata/Amaze-UsageSchema.xml", "./src/main/java/" );
+//		new GenerateUsageObjects().generateObjects( args[0], args[1] );
+				new GenerateUsageObjects().generateObjects( "/org/amaze/db/metadata/Amaze-UsageSchema.xml", "./src/main/java/" );
 	}
 
 }

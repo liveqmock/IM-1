@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
+@SuppressWarnings( "unchecked" )
 public class Schema implements Cloneable
 {
 	private static final Logger logger = LogManager.getLogger( Schema.class );
@@ -189,6 +190,7 @@ public class Schema implements Cloneable
 					Table table = new Table();
 					table.tableName = tableElement.attributeValue( "TableName" );
 					table.tablePrefix = tableElement.attributeValue( "TablePrefix" );
+					table.displayName = tableElement.attributeValue( "DisplayName" );
 					table.database = database;
 					loadColumnAndIndexes( table, tableElement.content() );
 					database.tables.add( table );
@@ -234,6 +236,7 @@ public class Schema implements Cloneable
 				index.isClustered = Boolean.valueOf( indexElement.attributeValue( "IsClustered" ) );
 				index.isBusinessConstraint = Boolean.valueOf( indexElement.attributeValue( "IsBusinessConstraint" ) );
 				index.columnList = indexElement.attributeValue( "ColumnList" );
+				index.condition = indexElement.attributeValue( "Condition" );
 				index.table = table;
 				table.indexes.add( index );
 			}

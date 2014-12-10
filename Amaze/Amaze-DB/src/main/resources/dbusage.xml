@@ -13,9 +13,9 @@
 	
 	<context:component-scan base-package="org.amaze.db.usage.objects" />
 
-	<bean id="cassandraEmf"
+	<bean id="systemusage"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="cassandra" />
+		<property name="persistenceUnitName" value="systemusage" />
 		<property name="loadTimeWeaver">
 			<bean
 				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />

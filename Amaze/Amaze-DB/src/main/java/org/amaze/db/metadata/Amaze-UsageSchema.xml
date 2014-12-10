@@ -2,24 +2,25 @@
 <Schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 SchemaName="AmazeUsage" ServerPackageName="org.amaze.db.usage.objects"
 MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName="" SystemSchema="true">
+	<!-- This database name here corresponds to the Key space name in Cassandra  -->
 	<Database DatabaseName="amazeUsage">
 		<Tables>
 			<Table TableName="login_event" TablePrefix="let" DisplayName="">
 				<Columns>
-					<Column ColumnName="let_id" SequenceNumber="0" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" />
-					<Column ColumnName="usr_id" SequenceNumber="1" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" />
-					<Column ColumnName="let_logged_dttm" SequenceNumber="2" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" />
-					<Column ColumnName="let_loggoff_dttm" SequenceNumber="3" DataType="DateTime" Length="0" IsMandatory="false" IsPrimaryKey="false" />
-					<Column ColumnName="let_session_terminated" SequenceNumber="4" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" />
-					<Column ColumnName="let_access_client" SequenceNumber="5" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" />
-					<Column ColumnName="let_created_dttm" SequenceNumber="6" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" />
-           			<Column ColumnName="ptn_id" SequenceNumber="7" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" />				
+					<Column ColumnName="let_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="usr_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="let_logged_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_loggoff_dttm" DataType="DateTime" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_session_terminated" DataType="Boolean" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_access_client" DataType="Integer" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_created_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>				
            		</Columns>
 				<Indexes>
-					<Index IndexName="let_idx1" ColumnList="tab_id" />
+					<Index IndexName="let_idx1" ColumnList="usr_id" />
 				</Indexes>
 			</Table>
 		</Tables>
 	</Database>
-	<!-- <Extends>WorkBench_Schema_Usage_[Version].xml</Extends> -->
+	<!-- <Extends>WorkBench-UsageSchema.xml</Extends> -->
 </Schema>

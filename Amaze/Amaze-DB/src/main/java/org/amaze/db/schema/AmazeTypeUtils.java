@@ -3,6 +3,7 @@ package org.amaze.db.schema;
 import java.math.BigDecimal;
 
 import org.amaze.commons.constants.AmazeConstants;
+import org.amaze.db.installer.exceptions.AmazeInstallerException;
 import org.joda.time.DateTime;
 
 public class AmazeTypeUtils
@@ -115,4 +116,44 @@ public class AmazeTypeUtils
 
         throw new IllegalArgumentException( "Invalid type string passed " + type );
     }
+    
+    public static Object getCorrectTypedValue( String value, String dataType )
+	{
+		if( dataType.equals( "java.lang.Boolean" ) )
+			return Boolean.valueOf( value );
+		else if( dataType.equals( "java.lang.String" ) )
+			return String.valueOf( value );
+		else if( dataType.equals( "java.lang.Integer" ) )
+			return Integer.valueOf( value );
+		else if( dataType.equals( "java.lang.Long" ) )
+			return Long.valueOf( value );
+		else if( dataType.equals( "org.joda.time.DateTime" )){
+			if( value.equals( "now" ) )
+				return new DateTime();
+			else
+				return new DateTime( value );
+		}
+		throw new AmazeInstallerException( "Installer exception for getting the datatype class from amaze for Type " + dataType.toString()  );
+	}
+
+	public static String getCompleteClassNameForAmazeType( AmazeType dataType )
+	{
+		if( dataType.equals( AmazeType.String ))
+			return "java.lang.String";
+		else if( dataType.equals( AmazeType.Bool ) )
+			return "java.lang.Boolean";
+		else if( dataType.equals( AmazeType.Int ) )
+			return "java.lang.Integer";
+		else if( dataType.equals( AmazeType.Long ) )
+			return "java.lang.Long";
+		else if( dataType.equals( AmazeType.Decimal ) )
+			return "java.lang.Long";
+		else if( dataType.equals( AmazeType.Text ) )
+			return "java.lang.String";
+		else if( dataType.equals( AmazeType.DateTime ))
+			return "org.joda.time.DateTime";
+		else if( dataType.equals( AmazeType.Unknown ) )
+			throw new AmazeInstallerException( "Unknown Type configured in the Seed for the Type " + dataType.toString() );
+		throw new AmazeInstallerException( "Installer exception for getting the datatype class from amaze for Type " + dataType.toString()  );
+	}
 }

@@ -207,7 +207,7 @@ public class Table implements Cloneable
 		{
 			for ( Table eachTable : eachDatabase.tables )
 			{
-				if ( eachTable.tableName == tableName )
+				if ( eachTable.tableName.equals( tableName ) )
 				{
 					return eachTable;
 				}

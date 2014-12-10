@@ -81,7 +81,10 @@ public class StringType implements UserType
 	public void nullSafeSet( PreparedStatement stmt, Object value, int index, SessionImplementor session ) throws HibernateException, SQLException
 	{
 		if ( value == null )
+		{
 			stmt.setNull( index, Types.VARCHAR );
+			return;
+		}
 		if ( !( value instanceof String ) )
 			throw new UnsupportedOperationException( "Cannot convert " + value.getClass() );
 		stmt.setString( index, (String) value );

@@ -13,7 +13,6 @@ import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.utils.exceptions.NotConfiguredException;
 import org.amaze.db.utils.exceptions.NotImplementedException;
 import org.springframework.beans.BeansException;
-import org.springframework.cassandra.core.CqlTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 

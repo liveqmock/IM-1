@@ -2,9 +2,10 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     version="2.0">
-	<persistence-unit name="cassandra">
+	<persistence-unit name="systemusage">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
-		<class>org.amaze.db.User</class>
+		<class>org.amaze.db.usage.objects.User</class>
+		<class>org.amaze.db.usage.objects.entity.LoginEvent</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
@@ -17,6 +18,7 @@
 			<!--  PackagesToScan is not working, Since hibernate classes also in the classpath throws an exception trying to add those class, hence classes that are to be added as kundera entities should be added in persistance xml. ONly those added there are picked by kundera.. Hence all usage objects need to be added there.. -->
 			<!--  Has to be fixed or GenerateUsageObjects has to add these classes to persistence xml-->
 			<property name="packagesToScan" value="org.amaze.db.usage.objects" />
+			<property name="kundera.ddl.auto.prepare" value="update" />
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -1,5 +1,7 @@
 package org.amaze.db.installer;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.objects.Version;
 import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.installer.exceptions.AmazeInstallerException;
-import org.amaze.db.schema.AmazeType;
+import org.amaze.db.schema.AmazeTypeUtils;
 import org.amaze.db.schema.Column;
 import org.amaze.db.schema.Database;
 import org.amaze.db.schema.Schema;
@@ -25,6 +27,8 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.joda.time.DateTime;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
 
 public class AmazeInstaller
 {
@@ -62,7 +66,7 @@ public class AmazeInstaller
 	}
 
 	private static final Logger logger = LogManager.getLogger( AmazeInstaller.class );
-	
+
 	private List<AmazeInstallerState> states = new ArrayList<AmazeInstallerState>();
 	private Integer taskCompletion;
 
@@ -85,6 +89,12 @@ public class AmazeInstaller
 							if ( schema.servicePack > existingVersion.getVerSpk() )
 								states.add( AmazeInstallerState.UpdateInstallation );
 				}
+				else
+				{
+					ctx.registerShutdownHook();
+					ctx.close();
+					throw new AmazeInstallerException( "Invalid Version data configured... " );
+				}
 			}
 			else
 			{
@@ -104,31 +114,54 @@ public class AmazeInstaller
 	private void doInstallation( Schema schema, DataSource dataSource )
 	{
 		for ( AmazeInstallerState eachTask : states )
-			if ( eachTask.equals( AmazeInstallerState.NewInstallation ) )
+			try
 			{
-				installNewTables( schema, dataSource );
-				installSeedUpdateScript( dataSource );
-				for ( Database eachDatabase : schema.databases )
-					installNewTableDfn( dataSource, eachDatabase.tables );
-				installVersion( schema, dataSource );
+				if ( eachTask.equals( AmazeInstallerState.NewInstallation ) )
+				{
+					installNewTables( schema, dataSource );
+					installNewSeeds( dataSource );
+					for ( Database eachDatabase : schema.databases )
+						installNewTableDfn( dataSource, eachDatabase.tables );
+					installVersion( schema, dataSource );
+				}
+				else if ( eachTask.equals( AmazeInstallerState.UpdateInstallation ) )
+				{
+					installUpdateTable( schema, dataSource );
+					installSeedUpdate( dataSource );
+					for ( Database eachDatabase : schema.databases )
+						installUpdateTableDfn( dataSource, eachDatabase.tables );
+					installUpdateVersion( schema, dataSource );
+				}
+				else if ( eachTask.equals( AmazeInstallerState.SeedUpdate ) )
+				{
+					installNewSeeds( dataSource );
+					installVersion( schema, dataSource );
+				}
+				else if ( eachTask.equals( AmazeInstallerState.LicenceUpdate ) )
+				{
+					installLicence( schema, dataSource );
+					installVersion( schema, dataSource );
+				}
 			}
-			else if ( eachTask.equals( AmazeInstallerState.UpdateInstallation ) )
+			catch ( NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException e )
 			{
-				installUpdateTable( schema, dataSource );
-				for ( Database eachDatabase : schema.databases )
-					installUpdateTableDfn( dataSource, eachDatabase.tables );
-				installUpdateVersion( schema, dataSource );
-			}
-			else if( eachTask.equals( AmazeInstallerState.SeedUpdate ) )
-			{
-				installSeedUpdateScript( dataSource );
-			}
-			else if( eachTask.equals( AmazeInstallerState.LicenceUpdate ) )
-			{
-				
+				throw new AmazeInstallerException( "Could not install Amaze while executing the Amaze task " + eachTask + " ... ", e );
 			}
 	}
 
+	private void installSeedUpdate( DataSource dataSource )
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	private void installLicence( Schema schema, DataSource dataSource )
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@SuppressWarnings( "unused" )
 	private void installSeedUpdateScript( DataSource dataSource )
 	{
 		try
@@ -187,6 +220,7 @@ public class AmazeInstaller
 		version.setVerExtensionFl( true );
 		version.setVerCreatedDttm( new DateTime() );
 		version.setDeleteFl( false );
+		version.setVerVersion( 1 );
 		HibernateSession.save( version );
 	}
 
@@ -204,10 +238,11 @@ public class AmazeInstaller
 	private void installNewTableDfn( DataSource dataSource, List<Table> tables )
 	{
 		for ( Table eachTable : tables )
-			dataSource.createTableEntry( eachTable, "system", "system" );
+			dataSource.createTableEntry( eachTable, "System", "System" );
 	}
 
-	public void installNewSeeds( DataSource dataSource )
+	@SuppressWarnings( "unchecked" )
+	private void installNewSeeds( DataSource dataSource ) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException
 	{
 		Document doc = new XMLTransform().getXMLDocumentObj( "/org/amaze/db/metadata/Amaze-Seed.xml", false );
 		Element rootElement = doc.getRootElement();
@@ -222,8 +257,8 @@ public class AmazeInstaller
 					Element eachSeed = childrens.get( i );
 					String parentTagName = eachSeed.getName();
 					String tableName = "org.amaze.db.hibernate.objects." + parentTagName.substring( 0, parentTagName.length() - 1 );
-					Class< ? > cls = null;
-					Table table = Table.getTableFromTableName( dataSource, parentTagName.substring( 0, parentTagName.length() - 1 ) );
+					Class< ? > cls = Class.forName( tableName );
+					Table table = Table.getTableFromTableName( dataSource, StringUtils.camelCaseToUnderScore( parentTagName.substring( 0, parentTagName.length() - 1 ) ) );
 					if ( table != null )
 					{
 						List<Column> columns = table.columns;
@@ -239,54 +274,61 @@ public class AmazeInstaller
 									List<Attribute> attributes = eachSeedElement.attributes();
 									for ( Attribute eachAttribute : attributes )
 									{
+										String dataType = null;
 										String name = eachAttribute.getName();
 										Boolean isRefType = name.endsWith( "Ref" );
 										if ( isRefType == true )
+										{
 											name = name.substring( 0, name.indexOf( "Ref" ) );
+											dataType = "org.amaze.db.hibernate.objects." + name;
+										}
 										String columnName = StringUtils.camelCaseToUnderScore( name );
 										String value = eachAttribute.getValue();
-										AmazeType dataType = null;
 										for ( Column eachCol : columns )
 											if ( eachCol.columnName.equals( columnName ) )
 											{
-												dataType = eachCol.dataType;
+												dataType = AmazeTypeUtils.getCompleteClassNameForAmazeType( eachCol.dataType );
 												break;
 											}
 										if ( !isRefType )
 										{
-											//											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType.toString() ) );
-											//											setterMethod.invoke( object,  );
+											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
+											setterMethod.invoke( object, AmazeTypeUtils.getCorrectTypedValue( value, dataType ) );
 										}
 										else
 										{
-
+											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
+											setterMethod.invoke( object, getReferencedValue( value ) );
 										}
 									}
-
-									Tables tables = ( Tables ) HibernateSession.find( "from Tables tab where tab.tableName='" + childNodes.get( i ).getName() + "'" ).get( 0 );
-									//									List<Columns> columns = tables.getColumnss();
-									List<Attribute> attribs = childNodes.get( 1 ).attributes();
-									cls = Class.forName( tableName );
-									//									AbstractHibernateObject object = (AbstractHibernateObject) HibernateSession.createObject( cls );
-									for ( int k = 0; k < attribs.size(); k++ )
-									{
-										Attribute attrib = attribs.get( k );
-										String name = attrib.getName();
-										String val = attrib.getValue();
-										//										Method[] methods = object.getClass().getDeclaredMethod( "set" + name, null );
-									}
-
+									HibernateSession.save( object );
 								}
 							}
 						}
 						catch ( ClassNotFoundException e )
 						{
-							System.out.println( e );
+
 						}
-						Object sessionObject = HibernateSession.createObject( cls );
+					}
+					else
+					{
+						throw new AmazeInstallerException( "Invalid Seed data configured for the table name " + tableName );
 					}
 				}
 		}
+	}
+
+	private Object getReferencedValue( String value )
+	{
+		String condition = value.split( "=" )[0];
+		String conditionObject = condition.substring( 0, condition.indexOf( "." ) );
+		String conditionString = condition.substring( condition.indexOf( "." ) + 1, condition.length() );
+		String conditionValue = value.split( "=" )[1];
+		List< ? > values = HibernateSession.query( " from " + conditionObject + " obj where obj." + conditionString + " = :value", "value", conditionValue );
+		if ( values.size() == 1 )
+			return values.get( 0 );
+		else
+			throw new AmazeInstallerException( "Invalid No of reference values for the Object " + conditionObject + ".... Check the Ref Condition passed in Seed File..." );
 	}
 
 	public static void main( String[] args )

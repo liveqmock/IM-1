@@ -1,2 +1,3 @@
-Insert into AMAZE.DATASOURCE (DTS_ID,DTS_NAME,DTS_SERVER,DTS_DRIVER,DTS_URL,DTS_USER_NAME,DTS_PASSWORD,DTS_TYPE,DTS_CREATED_DTTM,DTS_DELETE_FL,DTS_VERSION,PTN_ID) values (1,'System','Oracle','oracle.jdbc.driver.OracleDriver','jdbc:oracle:thin:@localhost:1521:xe','amaze','srp','system',to_timestamp('01-01-14 12:00:00.396000000 AM','DD-MM-RR HH12:MI:SSXFF AM'),'N',1,1);
-Insert into AMAZE.TABLE_TYPE (TTP_ID,TTP_NAME,TTP_CREATED_DTTM,TTP_DELETE_FL,TTP_VERSION,PTN_ID) values (1,'System',to_timestamp('22-11-14 12:00:00.638000000 AM','DD-MM-RR HH12:MI:SSXFF AM'),'N',1,1);
+-- MySQL Database script
+INSERT INTO `amaze`.`datasource` (`dts_name`, `dts_server`, `dts_driver`, `dts_url`, `dts_user_name`, `dts_password`, `dts_type`, `dts_delete_fl`, `dts_version`) VALUES ('System', 'Mysql', 'com.mysql.Driver', 'jdbc:mysql:@localhost:3306/amaze', 'root', '', 'system', 'N', '1');
+INSERT INTO `amaze`.`table_type` (`ttp_name`, `ttp_delete_fl`, `ttp_version`) VALUES ('System', 'N', '1');

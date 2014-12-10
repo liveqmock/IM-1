@@ -29,7 +29,9 @@ public class ScriptRunner
 			{
 				String rawStatement = scanner.next();
 				statement = conn.createStatement();
-				statement.execute( rawStatement );
+				if( !statement.equals( "" ) )
+					statement.execute( rawStatement );
+				conn.commit();
 				statement.close();
 			}
 			logger.info( " DB Script " + script + " succesfully executed. " );

@@ -35,7 +35,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
            			<Column ColumnName="ttp_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            		</Columns>
 				<Indexes>
-					<Index IndexName="ttp_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="ttp_prefix" Condition=""/>
+					<Index IndexName="ttp_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="ttp_name" Condition=""/>
 				</Indexes>
 				<NestedCollections />
 			</Table>
@@ -65,7 +65,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="is_clustered" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="is_business_constraint" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="column_list" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="condition" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="conditions" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="idx_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="idx_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="idx_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -211,7 +211,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="mrm_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
 					<Column ColumnName="mod_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Module"/>
 					<Column ColumnName="rol_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Role"/>
-					<Column ColumnName="mrm_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
+					<Column ColumnName="mrm_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="mrm_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="mrm_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
@@ -228,7 +228,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="dts_driver" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="dts_url" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="dts_user_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="dts_password" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="dts_password" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="dts_type" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="dts_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="dts_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>

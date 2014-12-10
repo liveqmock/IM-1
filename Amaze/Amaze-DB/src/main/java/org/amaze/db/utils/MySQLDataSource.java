@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.amaze.commons.utils.StringUtils;
-import org.amaze.db.hibernate.objects.TableType;
-import org.amaze.db.hibernate.objects.Tables;
-import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Column;
 import org.amaze.db.schema.Index;
@@ -61,7 +58,7 @@ public class MySQLDataSource extends AbstractDataSource
 		case Bool:
 			return ( "'N'" );
 		case DateTime:
-			return "str_to_date('01-JAN-2000')";
+			return "CURRENT_TIMESTAMP";
 		case Int:
 		case Long:
 		case Decimal:
@@ -83,14 +80,15 @@ public class MySQLDataSource extends AbstractDataSource
 		case DateTime:
 			return "timestamp";
 		case Int:
-			return "number(10)";
+			return "int";
 		case Long:
 		case Decimal:
-			return "number(19)";
+			return "int";
 		case String:
-			return ( "varchar2(" + length + ")" );
+			return ( "varchar(" + length + ")" );
 		case Text:
-			throw new DataSourceException( " AmazeType: Text is not supported for Oracle" );
+			return "text";
+//			throw new DataSourceException( " AmazeType: Text is not supported for Mysql" );
 		default:
 			throw new DataSourceException( "Unknown '%1': '%2'", "AmazeType", amazeType );
 		}
@@ -101,13 +99,29 @@ public class MySQLDataSource extends AbstractDataSource
 	{
 		List<String> sqlList = new ArrayList<String>();
 		String statement;
+		Boolean isHavingPk = false;
+		String primaryKeys = "PRIMARY KEY ( ";
 		statement = "create table " + table.tableName + StringUtils.NEW_LINE + "(";
 		for ( Column col : table.columns )
 		{
-			String mandatory = " default " + getDefaultConstant( col ) + " " + ( col.isMandatory ? "not null," : "null    ," );
-			statement += StringUtils.NEW_LINE + "    " + col.columnName + " " + amazeTypeToDbType( col.dataType, col.length ) + " " + mandatory;
+			if( !col.isPrimaryKey )
+			{
+				String mandatory = " default " + getDefaultConstant( col ) + " " + ( col.isMandatory ? "not null," : "null    ," );
+				statement += StringUtils.NEW_LINE + "    " + col.columnName + " " + amazeTypeToDbType( col.dataType, col.length ) + " " + mandatory;
+			}
+			else
+			{
+				String mandatory = /*" default " + getDefaultConstant( col ) +*/ " " + ( col.isMandatory ? "not null" : "null    " );
+				statement += StringUtils.NEW_LINE + "    " + col.columnName + " " + amazeTypeToDbType( col.dataType, col.length ) + " " + mandatory + " " + "AUTO_INCREMENT 	,";
+				isHavingPk = true;
+				primaryKeys += col.columnName + ",";
+			}
 		}
-		statement = statement.substring( 0, statement.length() - 1 ) + StringUtils.NEW_LINE + ")" + StringUtils.NEW_LINE;
+		primaryKeys = primaryKeys.substring( 0, primaryKeys.length() - 1 ) + " )";
+		if( !isHavingPk )
+			statement = statement + StringUtils.NEW_LINE + ")" + StringUtils.NEW_LINE;
+		else
+			statement = statement + StringUtils.NEW_LINE + primaryKeys + ")" + StringUtils.NEW_LINE;
 		if ( dataLocation != null && dataLocation.length() > 0 )
 			statement += " tablespace " + dataLocation;
 		sqlList.add( statement );
@@ -117,8 +131,33 @@ public class MySQLDataSource extends AbstractDataSource
 	@Override
 	protected String getCreateIndexStatement( Index index, String indexLocation )
 	{
-		
-		return null;
+		String statement = "";
+		if( index.isUnique || index.isClustered )
+			statement = " create" + " unique index " + index.indexName + "        on " + index.table.tableName + "(" + index.columnList + ") ";
+		else if( index.isBusinessConstraint == true )
+		{
+//			statement = " ALTER TABLE " + index.table.tableName  + " ADD CONSTRAINT " + index.indexName + " CHECK ( " + index.condition + " ) ";
+//			DELIMITER $$
+//			CREATE TRIGGER trig_phone_check BEFORE INSERT ON data
+//			FOR EACH ROW 
+//			BEGIN 
+//			IF (NEW.phone REGEXP '^(\\+?[0-9]{1,4}-)?[0-9]{3,10}$' ) = 0 THEN 
+//			  SIGNAL SQLSTATE '12345'
+//			     SET MESSAGE_TEXT = 'Wroooong!!!';
+//			END IF; 
+//			END$$
+//			DELIMITER ;
+//			statement += " CREATE TRIGGER " + index.indexName + "_bi BEFORE INSERT ON " + index.table.tableName + " " + StringUtils.NEW_LINE ;
+//			statement += " FOR EACH ROW " + StringUtils.NEW_LINE + " BEGIN " + StringUtils.NEW_LINE;
+//			statement += " IF ( " + index.condition + " ) THEN " + StringUtils.NEW_LINE;
+//			statement += "  SIGNAL SQLSTATE '12345' " + StringUtils.NEW_LINE + "  SET MESSAGE_TEXT = 'Invalid Operation... Value should satisfy " + index.condition  + "'";
+//			statement += " END IF; " +StringUtils.NEW_LINE + " END ";
+		}
+		else 
+			throw new UnsupportedOperationException( "InvalidConfiguration of the index configured for the table " + index.table.tableName + " with name " + index.indexName );
+		if ( indexLocation != null && indexLocation.length() > 0 )
+			statement += " tablespace " + indexLocation + " ";
+		return statement;
 	}
 
 	@Override

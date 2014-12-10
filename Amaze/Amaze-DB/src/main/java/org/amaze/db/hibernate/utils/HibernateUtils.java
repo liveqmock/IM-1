@@ -54,12 +54,7 @@ public class HibernateUtils
 			}
 			tx = session.beginTransaction();
 			returnObj = listener.doSessionWork( session );
-			try{
 			tx.commit();
-			}catch(Exception e){
-				System.out.println(e);
-				e.printStackTrace();
-			}
 		}
 		catch ( Exception e )
 		{

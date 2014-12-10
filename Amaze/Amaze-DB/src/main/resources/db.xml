@@ -80,14 +80,15 @@
 	<!-- <cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" /> -->
 	
 	<!-- <bean class="org.apache.cassandra.cql.jdbc.CassandraDataSource"/> -->
+	<import resource="dbusage.xml"/>
 	<!-- End Of NoSQL Properties -->
 	
 	<!-- DataSource Properties -->
-	<!-- <bean id="dataSourceUtils" class="org.amaze.db.utils.DataSourceUtils" init-method="loadAllBeans">
-		<property name="datasourceConfigFile" value="config/AmazeDataSources.xml" />
-	</bean> -->
+	<bean id="dataSourceUtils" class="org.amaze.db.utils.DataSourceUtils" init-method="loadAllBeans">
+		<!-- <property name="datasourceConfigFile" value="config/AmazeDataSources.xml" /> -->
+	</bean>
 	<!-- End of DataSource Properties -->
 	
-	<import resource="dbusage.xml"/>
+	
 	
 </beans>

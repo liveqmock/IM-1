@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SeedData>
-<!-- 	<PartitionTbls>
-		<PartitionTbl PtnName="Common" />
-	</PartitionTbls> -->
+	<Applications>
+		<Application AppName="Amaze" AppCreatedDttm="now" AppVersion="1"/>
+	</Applications>
 	<Userss>
-		<Users UserName="Admin" UsrDisabled="true" AppId="application.appName=Amaze" usr_created_dttm="now" usr_delete_fl="N" usr_version="1" ptn_id="1"  />
+		<Users UsrName="Admin" UsrDisabled="true" ApplicationRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
 	</Userss>
+	<TableTypes>
+		<TableType TtpName="System" TtpCreatedDttm="now" TtpDeleteFl="N" TtpVersion="1" />
+	</TableTypes>
+	<Datasources>
+		<Datasource DtsName="System" DtsServer="MySQL" DtsDriver="com.mysql.jdbc.Driver" DtsUrl="jdbc:mysql://localhost:3306/amaze" DtsUserName="root" DtsPassword="" DtsType="System" DtsCreatedDttm="now" DtsDeleteFl="N" DtsVersion="1"/>
+	</Datasources>
 </SeedData>
