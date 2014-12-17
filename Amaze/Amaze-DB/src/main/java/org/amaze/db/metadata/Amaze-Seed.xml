@@ -12,4 +12,54 @@
 	<Datasources>
 		<Datasource DtsName="System" DtsServer="MySQL" DtsDriver="com.mysql.jdbc.Driver" DtsUrl="jdbc:mysql://localhost:3306/amaze" DtsUserName="root" DtsPassword="" DtsType="System" DtsCreatedDttm="now" DtsDeleteFl="N" DtsVersion="1"/>
 	</Datasources>
+
+
+
+	<PropertyGroups>
+		<PropertyGroup PgpName="FileSourcePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		<PropertyGroup PgpName="FileSinkPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		<PropertyGroup PgpName="TransformProcessorPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+	</PropertyGroups>
+	
+	<Propertys>
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/insrc.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="preventDuplicates" PrtDefault="true" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="pattern" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fixedDelay" PrtDefault="5" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="ref" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/outsink.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="binary" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="charset" PrtDefault="UTF-8" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="mode" PrtDefault="APPEND" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="name" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="suffix" PrtDefault="txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+		<Property PrtName="expression" PrtDefault="payload.toUpperCase()" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+	</Propertys>
+	
+	<SourceTypes>
+		<SourceType SctName="Default" SctCreatedDttm="now" SctDeleteFl="N" SctVersion="1"/>
+	</SourceTypes>
+
+	<Sources>
+		<Source SrcName="file" SourceTypeRef="SourceType.sctName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" SrcCreatedDttm="now" SrcDeleteFl="N" SrcVersion="1" />
+	</Sources>
+	
+	<SinkTypes>
+		<SinkType SktName="Default" SktCreatedDttm="now" SktDeleteFl="N" SktVersion="1" />
+	</SinkTypes>
+	
+	<Sinks>
+		<Sink SikName="file" SinkTypeRef="SinkType.sktName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" SikCreatedDttm="now" SikDeleteFl="N" SikVersion="1" />
+	</Sinks>
+	
+	<ProcessorTypes>
+		<ProcessorType PctName="Default" PctCreatedDttm="now" PctDeleteFl="N" PctVersion="1" />
+	</ProcessorTypes>
+	
+	<Processors>
+		<Processor PrcName="transform" ProcessorTypeRef="ProcessorType.pctName=Default" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrcCreatedDttm="now" PrcDeleteFl="N" PrcVersion="1"/>
+	</Processors>
 </SeedData>

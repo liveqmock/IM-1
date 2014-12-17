@@ -185,7 +185,7 @@ public class Table implements Cloneable
 		table.indexes = indexesList;
 		for ( org.amaze.db.hibernate.objects.Indexes eachIdx : tables.getIndexess() )
 		{
-//			indexesList.add( new Index( eachIdx.getIndexName(), eachIdx.getIsUnique(), eachIdx.getIsClustered(), eachIdx.getIsBusinessConstraint(), eachIdx.getColumnList(), eachIdx.getCondition(), table ) );
+			indexesList.add( new Index( eachIdx.getIndexName(), eachIdx.getIsUnique(), eachIdx.getIsClustered(), eachIdx.getIsBusinessConstraint(), eachIdx.getColumnList(), eachIdx.getConditions(), table ) );
 		}
 		return table;
 	}

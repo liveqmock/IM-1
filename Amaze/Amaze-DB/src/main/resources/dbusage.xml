@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
-
-	xsi:schemaLocation="
-    http://www.springframework.org/schema/beans 
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:cassandra="http://www.springframework.org/schema/data/cassandra"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/cassandra http://www.springframework.org/schema/data/cassandra/spring-cassandra-1.0.xsd">
 
 	<context:property-placeholder location='classpath:db.properties' />
 	
+	<!-- NoSQL Properties -->
+	<cassandra:cluster contact-points="${cassandra.contactpoints}" port="${cassandra.port}" />
+	<cassandra:session keyspace-name="${cassandra.keyspace}" />
+	<cassandra:mapping />
+	<cassandra:converter />
+	<cassandra:template id="cqlTemplate" />
+	<!-- Not supporting the JPA repositories through Spring data as of now -->
+	<!-- <cassandra:repositories base-package="org.amaze.db.usage.cassandra.repository" /> -->
+
+	<bean class="org.apache.cassandra.cql.jdbc.CassandraDataSource" id="systemUsageDataSource">
+		<constructor-arg index="0" type="java.lang.String" value="${cassandra.contactpoints}" />
+		<constructor-arg index="1" type="int" value="${cassandra.port}" />
+		<constructor-arg index="2" type="java.lang.String" value="${cassandra.keyspace}" />
+		<constructor-arg index="3" type="java.lang.String" value="${cassandra.user}" />
+		<constructor-arg index="4" type="java.lang.String" value="${cassandra.password}" />
+		<constructor-arg index="5" type="java.lang.String" value="${cassandra.cql.version}" />
+	</bean>
+	
+	<bean id="usageSessionInitialised" class="java.lang.Boolean" factory-method="valueOf">
+		<constructor-arg value="true" />
+	</bean>
+	
+	<!-- End Of NoSQL Properties -->
+	
 	<context:component-scan base-package="org.amaze.db.usage.objects" />
 
-	<bean id="systemusage"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="systemUsage" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="systemusage" />
 		<property name="loadTimeWeaver">
 			<bean
@@ -27,15 +50,20 @@
 		</property>
 	</bean>
 
-	<bean
-		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	<bean id="cassandraEm"
-		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean id="cassandraEm" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
 		<property name="persistenceXmlLocations">
 			<list>
-				<value>META-INF/persistence.xml</value>
+				<value>classpath:META-INF/persistence.xml</value>
 			</list>
 		</property>
 	</bean>
 
+	<bean id="usageSession" class="org.amaze.db.usage.utils.UsageSession" scope="singleton">
+		<property name="systemUsage" ref="systemUsage" />
+		<property name="systemUsageInitialised" ref="usageSessionInitialised" />
+		<!-- <property name="systemUsageDataSource" ref="systemUsageDataSource"  /> -->
+		<property name="cqlTemplate" ref="cqlTemplate" />
+	</bean>
+	
 </beans>

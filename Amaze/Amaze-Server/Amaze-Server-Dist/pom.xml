@@ -41,5 +41,10 @@
 			<artifactId>Amaze-Server-Task</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.amaze</groupId>
+			<artifactId>Amaze-Server-Stream</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

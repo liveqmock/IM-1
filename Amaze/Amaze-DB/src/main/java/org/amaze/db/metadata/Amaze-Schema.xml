@@ -9,7 +9,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="tab_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="tab_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="tab_prefix" DataType="String" Length="3" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="tab_display_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="tab_display_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="ttp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="TableType" />
 					<Column ColumnName="dts_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Datasource" />
 					<Column ColumnName="tab_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -127,6 +127,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="usr_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="usr_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="usr_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<!-- <Column ColumnName="dts_Test" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/> -->
 				</Columns>
 				<Indexes>
            			<Index IndexName="user_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="usr_name,app_id" Condition="" />
@@ -237,6 +238,231 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes>
 					<Index IndexName="dts_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="dts_name" Condition="" />
 				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="property_group" TablePrefix="pgp" DisplayName="pgp_name">
+				<Columns>
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="pgp_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pgp_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="pgp_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="pgp_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="pgp_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="pgp_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="property" TablePrefix="prt" DisplayName="prt_name">
+				<Columns>
+					<Column ColumnName="prt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="prt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="prt_default" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="prt_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="prt_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="prt_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="property_value_group" TablePrefix="prg" DisplayName="pvg_name">
+				<Columns>
+					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="pvg_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="pvg_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="pvg_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="pvg_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="property_value" TablePrefix="prv" DisplayName="">
+				<Columns>
+					<Column ColumnName="prv_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="prt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Property" />
+					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyValueGroup" />
+					<Column ColumnName="prv_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="prv_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="prv_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="prv_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="source_type" TablePrefix="sct" DisplayName="sct_name">
+				<Columns>
+					<Column ColumnName="sct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="sct_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="sct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SourceType" />
+					<Column ColumnName="sct_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="sct_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="sct_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="sct_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="sct_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="source" TablePrefix="src" DisplayName="src_name">
+				<Columns>
+					<Column ColumnName="src_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="src_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="sct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="SourceType" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="src_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="src_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="src_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="src_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="src_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="sink_type" TablePrefix="skt" DisplayName="skt_name">
+				<Columns>
+					<Column ColumnName="skt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="skt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="skt_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SinkType" />
+					<Column ColumnName="skt_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="skt_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="skt_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="skt_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="skt_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="sink" TablePrefix="sik" DisplayName="sik_name">
+				<Columns>
+					<Column ColumnName="sik_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="sik_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="skt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="SinkType" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="sik_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="sik_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="sik_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="sik_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="sik_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="processor_type" TablePrefix="pct" DisplayName="pct_name">
+				<Columns>
+					<Column ColumnName="pct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="pct_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="ProcessorType" />
+					<Column ColumnName="pct_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="pct_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="pct_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="prt_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="pct_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="processor" TablePrefix="prc" DisplayName="prc_name">
+				<Columns>
+					<Column ColumnName="prc_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="prc_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="ProcessorType" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="prc_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="prc_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="prc_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="prc_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="prc_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="stream_type" TablePrefix="smt" DisplayName="smt_name">
+				<Columns>
+					<Column ColumnName="stm_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="smt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="smt_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="smt_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="smt_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="smt_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="smt_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="stream" TablePrefix="stm" DisplayName="stm_name">
+				<Columns>
+					<Column ColumnName="stm_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="stm_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="smt_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="StreamType" />
+					<Column ColumnName="stm_create_on_load" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="stm_deploy_on_load" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="stm_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="stm_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="stm_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="stm_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="stm_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
+			<Table TableName="stream_modules" TablePrefix="smd" DisplayName="">
+				<Columns>
+					<Column ColumnName="smd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="smd_type" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="smd_value" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
+					<Column ColumnName="smd_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="smd_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="smd_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="job" TablePrefix="job" DisplayName="job_name">
+				<Columns>
+					<Column ColumnName="job_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="job_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_tasklet" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_create_on_load" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_deploy_on_load" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_cron" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_fixed_delay_trig" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_payload_pmt" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="is_event_triggered" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_notif_sink" DataType="String" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_comp_trigger" DataType="String" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="job_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="job_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="job_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="taps" TablePrefix="tap" DisplayName="tap_name">
+				<Columns>
+					<Column ColumnName="tap_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="tap_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="smd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="StreamModules" />
+					<Column ColumnName="tap_sink" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Sink" />
+					<Column ColumnName="tap_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tap_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="tap_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="nodes" TablePrefix="nod" DisplayName="">
+				<Columns>
+					<Column ColumnName="nod_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="nod_url" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="nod_status" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="nod_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="nod_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="nod_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
 				<NestedCollections />
 			</Table>
 		</Tables>

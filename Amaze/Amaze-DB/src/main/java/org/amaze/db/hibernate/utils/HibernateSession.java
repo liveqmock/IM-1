@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.amaze.commons.exceptions.AmazeException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,7 +37,7 @@ public class HibernateSession
 		}
 		catch ( SQLException e )
 		{
-			
+			throw new AmazeException( e );
 		}
 	}
 

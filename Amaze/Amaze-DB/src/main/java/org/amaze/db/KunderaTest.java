@@ -8,8 +8,9 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.amaze.db.usage.objects.User;
-import org.amaze.db.usage.objects.entity.LoginEvent;
+import org.amaze.db.usage.objects.LoginEvent;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class KunderaTest
@@ -19,9 +20,10 @@ public class KunderaTest
 	{
 
 		//Spring approach to get the EMFactory and EM
-		//		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext( "db.xml" );
-		//		EntityManagerFactory emf = (EntityManagerFactory) ctx.getBean("systemusage");
-		//		EntityManager em = emf.createEntityManager();
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext( "db.xml" );
+		EntityManagerFactory emf = ( EntityManagerFactory ) ctx.getBean( "systemusage" );
+		EntityManager em = emf.createEntityManager();
+		
 
 		org.amaze.db.usage.objects.User user = new org.amaze.db.usage.objects.User();
 		user.setUserId( 0002 );
@@ -40,8 +42,8 @@ public class KunderaTest
 		event.setUsrId( 1 );
 
 		// Non Spring approach to get EMFactory and EM 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory( "systemusage" );
-		EntityManager em = emf.createEntityManager();
+		//		EntityManagerFactory emf = Persistence.createEntityManagerFactory( "systemusage" );
+		//		EntityManager em = emf.createEntityManager();
 
 		em.persist( event );
 		em.find( LoginEvent.class, 750 );

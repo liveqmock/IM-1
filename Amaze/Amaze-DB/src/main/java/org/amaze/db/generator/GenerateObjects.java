@@ -283,7 +283,10 @@ public class GenerateObjects
 					out.write( "	@javax.persistence.Basic" );
 					out.newLine();
 					boolean isEditable = !nestedObject.equals( "" ) ? false : true;
-					out.write( "	@javax.persistence.Column( name = \"" + columnName + "\", nullable = " + isMandatory + ", insertable = " + isEditable + ", updatable = " + isEditable + " )" );
+					if( isEditable )
+						out.write( "	@javax.persistence.Column( name = \"" + columnName + "\", nullable = " + isMandatory + ", insertable = " + isEditable + ", updatable = " + isEditable + " )" );
+					else
+						out.write( "	@javax.persistence.Column( name = \"" + columnName + "\", nullable = " + isMandatory + ", insertable = " + "false" + ", updatable = " + "false" + " )" );
 					out.newLine();
 					if ( dataType.equals( "String" ) )
 					{

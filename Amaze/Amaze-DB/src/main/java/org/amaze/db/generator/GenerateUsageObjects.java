@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.amaze.commons.utils.StringUtils;
@@ -20,9 +20,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import com.impetus.kundera.index.Index;
-import com.impetus.kundera.index.IndexCollection;
-
 @SuppressWarnings( "unchecked" )
 public class GenerateUsageObjects
 {
@@ -32,6 +29,7 @@ public class GenerateUsageObjects
 	Document doc = null;
 	Map<String, String> tableNameTablePrefixMap = new HashMap<String, String>();
 	String location;
+	List<String> persistanceObjects = new ArrayList<String>();
 
 	public void generateObjects( String schemaFile, String location )
 	{
@@ -53,6 +51,11 @@ public class GenerateUsageObjects
 				Element element = ( Element ) eachTag;
 				parseSchemaFile( transform.getXMLDocumentObj( element.getText(), false ) );
 			}
+			StringBuffer sb = new StringBuffer();
+			for( String eachClass : persistanceObjects )
+				sb.append( "<class>" + eachClass + "</class>\n" );
+//			Document persistanceDoc = transform.getXMLDocumentObj( "./src/main/resources/META-INF/persistence.xml", false );
+//			((Element)persistanceDoc.selectNodes( "persistence-unit" ).get( 0 )).selectNodes( "//persistence-unit" ).addElement( sb.toString() );
 		}
 		catch ( XMLException | IOException e )
 		{
@@ -116,9 +119,8 @@ public class GenerateUsageObjects
 
 	private void createUsageObject( String tableName, String tablePrefix, List<Node> columns, List<Node> indexes ) throws IOException
 	{
-		/*Create Entity Class*/
 		String classFileName = StringUtils.underScoreToCamelCase( tableName );
-		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator + "entity";
+		String srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator;
 		String srcFile = srcFolder + File.separator + classFileName + ".java";
 		File srcFileObj = new File( srcFolder );
 		if ( !srcFileObj.exists() )
@@ -127,7 +129,8 @@ public class GenerateUsageObjects
 		srcFileObj.createNewFile();
 		Writer outWriter = new FileWriter( srcFileObj );
 		BufferedWriter out = new BufferedWriter( outWriter );
-		out.write( "package " + packageName  + ".entity;" );
+		out.write( "package " + packageName  + ";" );
+		persistanceObjects.add( packageName + "." + classFileName);
 		out.newLine();
 		addImports( out );
 		out.newLine();
@@ -147,19 +150,6 @@ public class GenerateUsageObjects
 		out.write( "}" );
 		out.flush();
 		out.close();
-		
-		//Create Entity Dao class
-		srcFolder = location + File.separator + packageName.replace( ".", File.separator ) + File.separator + "dao";
-		srcFile = srcFolder + File.separator + classFileName + ".java";
-		srcFileObj = new File( srcFolder );
-		if ( !srcFileObj.exists() )
-			srcFileObj.mkdirs();
-		srcFileObj = new File( srcFile );
-		srcFileObj.createNewFile();
-		outWriter = new FileWriter( srcFileObj );
-		out = new BufferedWriter( outWriter );
-		out.write( "package " + packageName  + ".dao;" );
-		out.newLine();
 	}
 	
 	private void createFieldMappings( BufferedWriter out, List<Node> columns, String tablePrefix ) throws IOException
@@ -218,7 +208,7 @@ public class GenerateUsageObjects
 //					out.newLine();
 					if ( dataType.equals( "String" ) )
 					{
-						out.write( "	@javax.persistence.Column( name=\"" + columnName + ", nullable=\"" + isMandatory.equals( "false" ) + "  )" );
+						out.write( "	@javax.persistence.Column( name=\"" + columnName + "\", nullable=" + isMandatory.equals( "false" ) + "  )" );
 						out.newLine();
 						out.write( "	private " + dataType + " " + colName + ";" );
 						out.newLine();

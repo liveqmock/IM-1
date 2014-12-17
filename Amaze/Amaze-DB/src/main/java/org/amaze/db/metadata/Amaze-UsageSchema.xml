@@ -11,7 +11,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="usr_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="let_logged_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_loggoff_dttm" DataType="DateTime" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="let_session_terminated" DataType="Boolean" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_session_terminated" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_access_client" DataType="Integer" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_created_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="ptn_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>				

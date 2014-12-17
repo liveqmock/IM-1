@@ -9,6 +9,8 @@ import java.util.List;
 import org.amaze.commons.scripts.ScriptRunner;
 import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
+import org.amaze.db.hibernate.AbstractHibernateObject;
+import org.amaze.db.hibernate.objects.Property;
 import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.objects.Version;
 import org.amaze.db.hibernate.utils.HibernateSession;
@@ -27,7 +29,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.joda.time.DateTime;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 
 public class AmazeInstaller
@@ -113,6 +114,8 @@ public class AmazeInstaller
 
 	private void doInstallation( Schema schema, DataSource dataSource )
 	{
+		if( states.size() == 0 )
+			logger.error( "No updates in the system... Exiting the Amaze Installer... For development changes pass updateTask as a paramater to the Installer args..." );
 		for ( AmazeInstallerState eachTask : states )
 			try
 			{
@@ -134,8 +137,8 @@ public class AmazeInstaller
 				}
 				else if ( eachTask.equals( AmazeInstallerState.SeedUpdate ) )
 				{
-					installNewSeeds( dataSource );
-					installVersion( schema, dataSource );
+					installSeedUpdate( dataSource );
+					installUpdateVersion( schema, dataSource );
 				}
 				else if ( eachTask.equals( AmazeInstallerState.LicenceUpdate ) )
 				{
@@ -152,13 +155,11 @@ public class AmazeInstaller
 	private void installSeedUpdate( DataSource dataSource )
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	private void installLicence( Schema schema, DataSource dataSource )
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@SuppressWarnings( "unused" )
@@ -176,9 +177,7 @@ public class AmazeInstaller
 
 	private void installUpdateVersion( Schema schema, DataSource dataSource )
 	{
-		HibernateSession.update( "update Version ver set ver.verCurrent=:verCurrent ", new String[]
-		{ "verCurrent" }, new Object[]
-		{ false } );
+		HibernateSession.update( "update Version ver set ver.verCurrent=:verCurrent ", new String[]{ "verCurrent" }, new Object[]{ false } );
 		installVersion( schema, dataSource );
 	}
 
@@ -197,16 +196,19 @@ public class AmazeInstaller
 	private void installUpdateTable( Schema schema, DataSource dataSource )
 	{
 		for ( Database database : schema.databases )
-			for ( Table table : database.tables )
+		{
+			List<Table> tableList = database.tables; 
+			for ( int i = 0 ; i < tableList.size() ; i++ )
 			{
-				List<Tables> tables = HibernateSession.query( "from Tables tab where tab.tabName=:TableName", "TableName", table.tableName );
+				List<Tables> tables = HibernateSession.query( "from Tables tab where tab.tabName=:TableName", "TableName", tableList.get( i ).tableName );
 				if ( tables.size() == 1 )
 				{
-					dataSource.updateTable( Table.loadTableFromDbTable( database, tables.get( 0 ) ), table, "" );
+					dataSource.updateTable( Table.loadTableFromDbTable( database, tables.get( 0 ) ), tableList.get( i ), "" );
 				}
 				else
-					throw new AmazeInstallerException( " No or more than one tables found for the updation of the existing table  " + table.tableName );
+					throw new AmazeInstallerException( " No or more than one tables found for the updation of the existing table  " + tableList.get( i ).tableName );
 			}
+		}
 	}
 
 	private void installVersion( Schema schema, DataSource dataSource )
@@ -297,8 +299,11 @@ public class AmazeInstaller
 										}
 										else
 										{
+											AbstractHibernateObject refObject = (AbstractHibernateObject) getReferencedValue( value ); 
 											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
-											setterMethod.invoke( object, getReferencedValue( value ) );
+											setterMethod.invoke( object, refObject );
+//											setterMethod = cls.getDeclaredMethod( "set" + value.substring( value.lastIndexOf( "$" ) + 1, value.length() ), Class.forName( "java.lang.Integer" ) );
+//											setterMethod.invoke( object, refObject.getId() );
 										}
 									}
 									HibernateSession.save( object );

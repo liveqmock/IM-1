@@ -737,11 +737,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 			index.setIdxVersion( 1 );
 			objectsToSave.add( index );
 		}
-		try{
 		HibernateSession.save( objectsToSave.toArray( new Object[objectsToSave.size()] ) );
-		}catch(Exception e){
-			e.printStackTrace();
-		}
 	}
 
 	@Override

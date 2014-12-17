@@ -13,15 +13,9 @@ import oracle.jdbc.OracleTypes;
 
 import org.amaze.commons.utils.AmazeString;
 import org.amaze.commons.utils.StringUtils;
-import org.amaze.db.hibernate.objects.Columns;
-import org.amaze.db.hibernate.objects.Datasource;
-import org.amaze.db.hibernate.objects.Indexes;
-import org.amaze.db.hibernate.objects.TableType;
-import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.types.DateTimeType;
 import org.amaze.db.hibernate.types.DecimalType;
 import org.amaze.db.hibernate.types.StringType;
-import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.db.schema.AmazeType;
 import org.amaze.db.schema.Column;
 import org.amaze.db.schema.Index;

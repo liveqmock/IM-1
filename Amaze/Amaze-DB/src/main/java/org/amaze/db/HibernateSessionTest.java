@@ -19,7 +19,7 @@ public class HibernateSessionTest
 		HibernateSession session = ( org.amaze.db.hibernate.utils.HibernateSession ) ctx.getBean( "hibernateSession" );
 		try
 		{
-			Users user = HibernateSession.get( Users.class, new Integer( 2 ) );
+			Users user = HibernateSession.get( Users.class, new Integer( 1 ) );
 			user.getApplication();
 			List<UserRoleMap> maps = user.getUserRoleMaps();
 			user.setUsrName( "ChangedName" );

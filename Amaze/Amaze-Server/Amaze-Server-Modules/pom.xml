@@ -19,5 +19,6 @@
 	<packaging>pom</packaging>
   <modules>
     <module>Amaze-Server-Task</module>
+    <module>Amaze-Server-Stream</module>
   </modules>
 </project>
