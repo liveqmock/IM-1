@@ -266,7 +266,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes />
 				<NestedCollections />
 			</Table>
-			<Table TableName="property_value_group" TablePrefix="prg" DisplayName="pvg_name">
+			<Table TableName="property_value_group" TablePrefix="pvg" DisplayName="pvg_name">
 				<Columns>
 					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="pvg_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
@@ -281,8 +281,9 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 			<Table TableName="property_value" TablePrefix="prv" DisplayName="">
 				<Columns>
 					<Column ColumnName="prv_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
-					<Column ColumnName="prt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Property" />
+					<!-- <Column ColumnName="prt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Property" /> -->
 					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyValueGroup" />
+					<Column ColumnName="prt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="prv_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="prv_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="prv_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -295,7 +296,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Columns>
 					<Column ColumnName="sct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="sct_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="sct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SourceType" />
+					<!-- <Column ColumnName="sct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SourceType" /> -->
 					<Column ColumnName="sct_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="sct_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="sct_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -324,7 +325,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Columns>
 					<Column ColumnName="skt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="skt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="skt_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SinkType" />
+					<!-- <Column ColumnName="skt_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="SinkType" /> -->
 					<Column ColumnName="skt_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="skt_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="skt_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -353,7 +354,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Columns>
 					<Column ColumnName="pct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="pct_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="pct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="ProcessorType" />
+					<!-- <Column ColumnName="pct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="ProcessorType" /> -->
 					<Column ColumnName="pct_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="pct_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="pct_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -410,8 +411,9 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 			<Table TableName="stream_modules" TablePrefix="smd" DisplayName="">
 				<Columns>
 					<Column ColumnName="smd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="stm_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Stream" />
 					<Column ColumnName="smd_type" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="smd_value" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="smd_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
 					<Column ColumnName="smd_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="smd_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>

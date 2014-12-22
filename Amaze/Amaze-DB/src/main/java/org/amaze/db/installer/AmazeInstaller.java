@@ -10,7 +10,6 @@ import org.amaze.commons.scripts.ScriptRunner;
 import org.amaze.commons.utils.StringUtils;
 import org.amaze.commons.xml.XMLTransform;
 import org.amaze.db.hibernate.AbstractHibernateObject;
-import org.amaze.db.hibernate.objects.Property;
 import org.amaze.db.hibernate.objects.Tables;
 import org.amaze.db.hibernate.objects.Version;
 import org.amaze.db.hibernate.utils.HibernateSession;
@@ -264,55 +263,46 @@ public class AmazeInstaller
 					if ( table != null )
 					{
 						List<Column> columns = table.columns;
-						try
+						List<Element> childNodes = eachSeed.elements();
+						for ( int j = 0; j < childNodes.size(); j++ )
 						{
-							List<Element> childNodes = eachSeed.elements();
-							for ( int j = 0; j < childNodes.size(); j++ )
+							Object object = HibernateSession.createObject( Class.forName( tableName ) );
+							if ( childNodes.get( j ) instanceof Element )
 							{
-								Object object = HibernateSession.createObject( Class.forName( tableName ) );
-								if ( childNodes.get( j ) instanceof Element )
+								Element eachSeedElement = childNodes.get( j );
+								List<Attribute> attributes = eachSeedElement.attributes();
+								for ( Attribute eachAttribute : attributes )
 								{
-									Element eachSeedElement = childNodes.get( j );
-									List<Attribute> attributes = eachSeedElement.attributes();
-									for ( Attribute eachAttribute : attributes )
+									String dataType = null;
+									String name = eachAttribute.getName();
+									Boolean isRefType = name.endsWith( "Ref" );
+									if ( isRefType == true )
 									{
-										String dataType = null;
-										String name = eachAttribute.getName();
-										Boolean isRefType = name.endsWith( "Ref" );
-										if ( isRefType == true )
-										{
-											name = name.substring( 0, name.indexOf( "Ref" ) );
-											dataType = "org.amaze.db.hibernate.objects." + name;
-										}
-										String columnName = StringUtils.camelCaseToUnderScore( name );
-										String value = eachAttribute.getValue();
-										for ( Column eachCol : columns )
-											if ( eachCol.columnName.equals( columnName ) )
-											{
-												dataType = AmazeTypeUtils.getCompleteClassNameForAmazeType( eachCol.dataType );
-												break;
-											}
-										if ( !isRefType )
-										{
-											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
-											setterMethod.invoke( object, AmazeTypeUtils.getCorrectTypedValue( value, dataType ) );
-										}
-										else
-										{
-											AbstractHibernateObject refObject = (AbstractHibernateObject) getReferencedValue( value ); 
-											Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
-											setterMethod.invoke( object, refObject );
-//											setterMethod = cls.getDeclaredMethod( "set" + value.substring( value.lastIndexOf( "$" ) + 1, value.length() ), Class.forName( "java.lang.Integer" ) );
-//											setterMethod.invoke( object, refObject.getId() );
-										}
+										name = name.substring( 0, name.indexOf( "Ref" ) );
+										dataType = "org.amaze.db.hibernate.objects." + name;
 									}
-									HibernateSession.save( object );
+									String columnName = StringUtils.camelCaseToUnderScore( name );
+									String value = eachAttribute.getValue();
+									for ( Column eachCol : columns )
+										if ( eachCol.columnName.equals( columnName ) )
+										{
+											dataType = AmazeTypeUtils.getCompleteClassNameForAmazeType( eachCol.dataType );
+											break;
+										}
+									if ( !isRefType )
+									{
+										Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
+										setterMethod.invoke( object, AmazeTypeUtils.getCorrectTypedValue( value, dataType ) );
+									}
+									else
+									{
+										AbstractHibernateObject refObject = (AbstractHibernateObject) getReferencedValue( value ); 
+										Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
+										setterMethod.invoke( object, refObject );
+									}
 								}
+								HibernateSession.save( object );
 							}
-						}
-						catch ( ClassNotFoundException e )
-						{
-
 						}
 					}
 					else
@@ -325,6 +315,10 @@ public class AmazeInstaller
 
 	private Object getReferencedValue( String value )
 	{
+		if( value == null )
+			return null;
+		if( value.equals( "" ) || value.equals( "null" ) )
+			return null;
 		String condition = value.split( "=" )[0];
 		String conditionObject = condition.substring( 0, condition.indexOf( "." ) );
 		String conditionString = condition.substring( condition.indexOf( "." ) + 1, condition.length() );
