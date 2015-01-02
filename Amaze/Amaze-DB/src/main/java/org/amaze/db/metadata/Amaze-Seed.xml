@@ -13,8 +13,6 @@
 		<Datasource DtsName="System" DtsServer="MySQL" DtsDriver="com.mysql.jdbc.Driver" DtsUrl="jdbc:mysql://localhost:3306/amaze" DtsUserName="root" DtsPassword="" DtsType="System" DtsCreatedDttm="now" DtsDeleteFl="N" DtsVersion="1"/>
 	</Datasources>
 
-
-
 	<PropertyGroups>
 		<PropertyGroup PgpName="FileSourcePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="FileSinkPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
@@ -96,18 +94,29 @@
 		<Stream StmName="fileRedirection" StreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
 	</Streams>
 	
-
-	
 	<StreamModuless>
 		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Source" SmdValue="time" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
 		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Sink" SmdValue="log" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="time" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="log" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Processor" SmdValue="transform" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
 	</StreamModuless>
 	
-	
-	
-	
+	<JobComponentTypes>
+		<jobComponentType JctName="Default" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="Writer" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="Reader" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="Processor" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="TaskExecutor" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="JobStep" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="JobStepListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="Tasklet" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="TaskletChunk" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="JobStepChunkListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="JobListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="FlowDecider" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="TransactionManager" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+		<jobComponentType JctName="CompletionPolicy" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
+	</JobComponentTypes>
 	
 </SeedData>

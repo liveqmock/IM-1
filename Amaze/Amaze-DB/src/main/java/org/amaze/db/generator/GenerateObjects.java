@@ -203,6 +203,8 @@ public class GenerateObjects
 				String propertyName = ( ( Element ) eachNode ).attributeValue( "PropertyName" );
 				String foreignObjectMappingName = ( ( Element ) eachNode ).attributeValue( "ForeignObjectMappingName" );
 				String foreignPropertyName = ( ( Element ) eachNode ).attributeValue( "ForeignPropertyName" );
+				String prefix = tableNameTablePrefixMap.get( currentObjectname );
+				String camelCaseColName = StringUtils.underScoreToCamelCase( prefix ) + "Id";
 				out.write( "	private java.util.List< " + foreignObjectMappingName + " > " + propertyName + " = new java.util.ArrayList< " + foreignObjectMappingName + " >();" );
 				out.newLine();
 				out.write( "	@javax.persistence.OneToMany( fetch = javax.persistence.FetchType.EAGER, mappedBy = \"" + foreignPropertyName + "\" )" );
@@ -212,7 +214,7 @@ public class GenerateObjects
 				out.write( "	public void set" + foreignObjectMappingName + "s( java.util.List< " + foreignObjectMappingName + " > val ) { this." + propertyName + " = val; }" );
 				out.newLine();
 				out.write( "	public void add" + foreignObjectMappingName + "s( " + foreignObjectMappingName + " var  ) { " );
-				out.write( "		var.set" + currentObjectname + "( this ); " );
+				out.write( "		var.set" + camelCaseColName + currentObjectname + "( this ); " );
 				out.write( "		" + propertyName + ".add( var ); " );
 				out.write( "	}" );
 				out.newLine();
@@ -366,24 +368,25 @@ public class GenerateObjects
 					if ( !nestedObject.equals( "" ) )
 					{
 						String nestedTypeName =/* StringUtils.camelCaseToUnderScore(*/ nestedObject /*)*/;
-						String nestedVarName = nestedTypeName.substring( 0, 1 ).toLowerCase() + nestedTypeName.substring( 1, nestedTypeName.length() );
-						out.write( "	private " + nestedTypeName + " " + nestedVarName + " ;" );
+//						String nestedVarName = nestedTypeName.substring( 0, 1 ).toLowerCase() + nestedTypeName.substring( 1, nestedTypeName.length() );
+						String nestedVarName = nestedTypeName;
+						out.write( "	private " + nestedTypeName + " " + colName + nestedVarName + " ;" );
 						out.newLine();
 						out.newLine();
 						out.write( "	@javax.persistence.ManyToOne( fetch = javax.persistence.FetchType.LAZY )" );
 						out.newLine();
-						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = true, updatable = true )" );
+						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = false, updatable = false )" );
 						out.newLine();
 						out.write( "	@org.hibernate.annotations.NotFound( action = org.hibernate.annotations.NotFoundAction.IGNORE )" );
 						out.newLine();
-						out.write( "	public " + nestedTypeName + " get" + nestedTypeName + "()" );
+						out.write( "	public " + nestedTypeName + " get" + camelCaseColName + nestedTypeName + "()" );
 						out.write( "	{" );
-						out.write( "		return this." + nestedVarName + ";" );
+						out.write( "		return this." + colName + nestedVarName + ";" );
 						out.write( "	}" );
 						out.newLine();
-						out.write( "	public void set" + nestedTypeName + "( " + nestedTypeName + " " + nestedVarName + ")" );
+						out.write( "	public void set" + camelCaseColName + nestedTypeName + "( " + nestedTypeName + " " + colName + nestedVarName + ")" );
 						out.write( "	{" );
-						out.write( "		this." + nestedVarName + " = " + nestedVarName + ";" );
+						out.write( "		this." + colName + nestedVarName + " = " + colName + nestedVarName + ";" );
 						out.write( "	}" );
 						out.newLine();
 					}

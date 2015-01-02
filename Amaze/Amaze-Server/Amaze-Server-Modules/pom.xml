@@ -20,5 +20,6 @@
   <modules>
     <module>Amaze-Server-Task</module>
     <module>Amaze-Server-Stream</module>
+    <module>Amaze-Server-Job</module>
   </modules>
 </project>

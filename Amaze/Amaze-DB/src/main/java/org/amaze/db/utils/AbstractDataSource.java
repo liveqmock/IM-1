@@ -701,8 +701,8 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		table.setTabName( eachTable.tableName );
 		table.setTabPrefix( eachTable.tablePrefix );
 		table.setTabDisplayName( eachTable.displayName );
-		table.setTableType( ttp );
-		table.setDatasource( dts );
+		table.setTtpIdTableType( ttp );
+		table.setDtsIdDatasource( dts );
 		table.setTabCreatedDttm( dttm );
 		table.setDeleteFl( false );
 		table.setTabVersion( 1 );
@@ -710,7 +710,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		for ( Column eachColumn : eachTable.columns )
 		{
 			Columns column = HibernateSession.instantiate( Columns.class );
-			column.setTables( table );
+			column.setTabIdTables( table );
 			column.setColumnName( eachColumn.columnName );
 			column.setDataType( eachColumn.dataType.toString() );
 			column.setLenght( eachColumn.length );
@@ -725,7 +725,7 @@ public abstract class AbstractDataSource implements DataSource, ApplicationConte
 		for ( Index eachIndex : eachTable.indexes )
 		{
 			Indexes index = HibernateSession.instantiate( Indexes.class );
-			index.setTables( table );
+			index.setTabIdTables( table );
 			index.setIndexName( eachIndex.indexName );
 			index.setIsUnique( eachIndex.isUnique );
 			index.setIsClustered( eachIndex.isClustered );

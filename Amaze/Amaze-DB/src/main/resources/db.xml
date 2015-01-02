@@ -71,7 +71,7 @@
 	<!-- End Of Hibernate Properties -->
 
 	<!-- Import the Usage DB Properties -->
-	<import resource="dbusage.xml"/>
+	<!-- <import resource="dbusage.xml"/> -->
 	<!-- End Of Import the Usage DB Properties -->
 
 	<!-- DataSource Properties -->

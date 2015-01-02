@@ -20,13 +20,13 @@ public class HibernateSessionTest
 		try
 		{
 			Users user = HibernateSession.get( Users.class, new Integer( 1 ) );
-			user.getApplication();
+			user.getAppIdApplication();
 			List<UserRoleMap> maps = user.getUserRoleMaps();
 			user.setUsrName( "ChangedName" );
 			HibernateSession.update( user );
 			Users user1 = HibernateSession.createObject( Users.class );
 			user1.setId( 3 );
-			user1.setApplication( HibernateSession.get( Application.class, 1 ) );
+			user1.setAppIdApplication( HibernateSession.get( Application.class, 1 ) );
 			user1.setDeleteFl( true );
 			user1.setUsrCreatedDttm( new DateTime() );
 			user1.setUsrDisabled( false );

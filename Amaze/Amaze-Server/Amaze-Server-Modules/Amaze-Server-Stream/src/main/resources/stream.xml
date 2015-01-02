@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd" >
+	
+	<!-- <context:property-placeholder location='classpath:stream.properties' /> -->
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:stream.properties</value>
+				<value>classpath:db.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<import resource="classpath:db.xml"/>
+	<import resource="classpath:job.xml"/>
+	<import resource="classpath:jobComponents.xml"/>
+	
+	<bean id="restBaseUrl" class="java.lang.String" factory-method="valueOf">
+		<constructor-arg value="${restBaseUrl}" />
+	</bean>
+	
+	<bean id="apiUtils" class="org.amaze.server.streams.rest.StreamApiUtils" >
+		<property name="restBaseUrl" ref="restBaseUrl"></property>
+	</bean>
+	
+	<bean id="commandBuilder" class="org.amaze.server.streams.StreamCommandBuilder" />
+	<bean id="tapCommandBuilder" class="org.amaze.server.streams.TapCommandBuilder" />	
+	
+	<bean id="streamDeployer" class="org.amaze.server.streams.StreamDeployer">
+		<property name="apiUtils" ref="apiUtils" />
+		<property name="commandBuilder" ref="commandBuilder" />
+	</bean>
+	
+	<bean id="tapsDeployer" class="org.amaze.server.streams.TapsDeployer">
+		<property name="apiUtils" ref="apiUtils" />
+		<property name="commandBuilder" ref="tapCommandBuilder" />
+	</bean>
+
+</beans>

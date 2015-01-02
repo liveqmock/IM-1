@@ -247,7 +247,7 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>sonatype-nexus</id>
 			<name>Kundera Public Repository</name>
@@ -270,5 +270,5 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories> -->
 </project>

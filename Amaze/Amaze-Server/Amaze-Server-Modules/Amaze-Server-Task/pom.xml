@@ -8,9 +8,7 @@
 		<artifactId>Amaze-Server-Modules</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>org.amaze</groupId>
 	<artifactId>Amaze-Server-Task</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Amaze-Server-Task</name>
 	<url>http://maven.apache.org</url>
 	<properties>
