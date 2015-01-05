@@ -37,7 +37,7 @@ public class TapCommandBuilder
 		{
 			List<PropertyValue> propertyValues = HibernateSession.query( "from PropertyValue prv where prv.pvgId = :pvgId", "pvgId", eachModule.getPvgIdPropertyValueGroup().getPgpId() );
 			for ( PropertyValue eachProperty : propertyValues )
-				moduleProperties.append( " --" ).append( eachProperty.getPrtName() ).append( " " ).append( eachProperty.getPrvValue() );
+				moduleProperties.append( " --" ).append( eachProperty.getPrtName() ).append( " " ).append( eachProperty.getPrvValue() != null ? eachProperty.getPrvValue() : eachProperty.getPrtIdProperty() != null ? eachProperty.getPrtIdProperty().getPrtDefault() : null );
 		}
 		return moduleName + " " + moduleProperties;
 	}

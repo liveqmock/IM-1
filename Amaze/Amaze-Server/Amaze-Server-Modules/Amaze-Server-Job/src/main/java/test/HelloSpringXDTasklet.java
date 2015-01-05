@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
@@ -27,6 +29,9 @@ import org.springframework.batch.repeat.RepeatStatus;
 */
 public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 {
+	
+	private static final Logger logger = LogManager.getLogger( HelloSpringXDTasklet.class );
+	
 	private volatile AtomicInteger counter = new AtomicInteger( 0 );
 
 	/**
@@ -42,13 +47,16 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 		final JobParameters jobParameters = chunkContext.getStepContext().getStepExecution().getJobParameters();
 		final ExecutionContext stepExecutionContext = chunkContext.getStepContext().getStepExecution().getExecutionContext();
 		System.out.println( "Hello Spring XD!" );
+		logger.debug( "Hello Spring XD!" );
 		if ( jobParameters != null && !jobParameters.isEmpty() )
 		{
 			final Set<Entry<String, JobParameter>> parameterEntries = jobParameters.getParameters().entrySet();
 			System.out.println( String.format( "The following %s Job Parameter(s) is/are present:", parameterEntries.size() ) );
+			logger.debug( String.format( "The following %s Job Parameter(s) is/are present:", parameterEntries.size() ) );
 			for ( Entry<String, JobParameter> jobParameterEntry : parameterEntries )
 			{
 				System.out.println( String.format( "Parameter name: %s; isIdentifying: %s; type: %s; value: %s", jobParameterEntry.getKey(), jobParameterEntry.getValue().isIdentifying(), jobParameterEntry.getValue().getType().toString(), jobParameterEntry.getValue().getValue() ) );
+				logger.debug( String.format( "Parameter name: %s; isIdentifying: %s; type: %s; value: %s", jobParameterEntry.getKey(), jobParameterEntry.getValue().isIdentifying(), jobParameterEntry.getValue().getType().toString(), jobParameterEntry.getValue().getValue() ) );
 				if ( jobParameterEntry.getKey().startsWith( "context" ) )
 				{
 					stepExecutionContext.put( jobParameterEntry.getKey(), jobParameterEntry.getValue().getValue() );
@@ -59,6 +67,7 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 				if ( this.counter.compareAndSet( 3, 0 ) )
 				{
 					System.out.println( "Counter reset to 0. Execution will succeed." );
+					logger.debug( "Counter reset to 0. Execution will succeed." );
 				}
 				else
 				{
@@ -75,6 +84,7 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 		while( i == 1 )
 		{
 			System.out.println( "Hello Spring XD!" );
+			logger.debug( "Hello Spring XD!" );
 			w.write( "Test data " + jobParameters + "    " + new Date() + "\n" );
 		}
 			
@@ -84,6 +94,7 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 	@Override
 	public void beforeStep( StepExecution stepExecution )
 	{
+		logger.debug( " Inside Before Step " );
 	}
 
 	@Override
@@ -93,6 +104,7 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 		// and return failed ExitStatus
 		// stepExecution.setStatus(BatchStatus.FAILED);
 		// return ExitStatus.FAILED;
+		logger.debug( " Inside After Step " );
 		return ExitStatus.COMPLETED;
 	}
 }

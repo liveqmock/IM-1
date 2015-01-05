@@ -2,6 +2,7 @@ package org.amaze.server.job;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.SimpleJob;
+import org.springframework.batch.core.partition.support.MultiResourcePartitioner;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.item.Chunk;
 import org.springframework.batch.core.step.job.JobStep;
@@ -18,7 +19,6 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-        
         SimpleJob job = new SimpleJob();
         JobStep step = new JobStep();
         job.addStep( step );

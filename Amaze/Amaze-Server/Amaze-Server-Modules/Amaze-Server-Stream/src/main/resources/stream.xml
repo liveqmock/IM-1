@@ -7,8 +7,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd" >
 	
-	<!-- <context:property-placeholder location='classpath:stream.properties' /> -->
-	
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
@@ -18,10 +16,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<import resource="classpath:db.xml"/>
-	<import resource="classpath:job.xml"/>
-	<import resource="classpath:jobComponents.xml"/>
+	<context:component-scan base-package="org.amaze.server.streams"></context:component-scan>
+	<context:component-scan base-package="org.amaze.server.jobs"></context:component-scan>
 	
 	<bean id="restBaseUrl" class="java.lang.String" factory-method="valueOf">
 		<constructor-arg value="${restBaseUrl}" />
@@ -31,17 +27,17 @@
 		<property name="restBaseUrl" ref="restBaseUrl"></property>
 	</bean>
 	
-	<bean id="commandBuilder" class="org.amaze.server.streams.StreamCommandBuilder" />
-	<bean id="tapCommandBuilder" class="org.amaze.server.streams.TapCommandBuilder" />	
+	<bean id="streamCommandBuilder" class="org.amaze.server.streams.StreamCommandBuilder" />
 	
-	<bean id="streamDeployer" class="org.amaze.server.streams.StreamDeployer">
-		<property name="apiUtils" ref="apiUtils" />
-		<property name="commandBuilder" ref="commandBuilder" />
-	</bean>
+	<bean id="tapCommandBuilder" class="org.amaze.server.streams.TapCommandBuilder" />
 	
-	<bean id="tapsDeployer" class="org.amaze.server.streams.TapsDeployer">
-		<property name="apiUtils" ref="apiUtils" />
-		<property name="commandBuilder" ref="tapCommandBuilder" />
-	</bean>
+	<bean id="jobCommandBuilder" class="org.amaze.server.jobs.JobCommandBuilder" />	
+	
+	
+	<bean id="streamDeployer" class="org.amaze.server.streams.StreamDeployer" />
+	
+	<bean id="tapsDeployer" class="org.amaze.server.streams.TapsDeployer" />
+	
+	<bean id="jobsDeployer" class="org.amaze.server.jobs.JobDeployer" />
 
 </beans>

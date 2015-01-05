@@ -12,19 +12,19 @@ public class StreamDeployer
 {
 
 	@Autowired
-	StreamCommandBuilder commandBuilder;
+	StreamCommandBuilder streamCommandBuilder;
 
 	@Autowired
 	StreamApiUtils apiUtils;
 	
 	public StreamCommandBuilder getCommandBuilder()
 	{
-		return commandBuilder;
+		return streamCommandBuilder;
 	}
 
 	public void setCommandBuilder( StreamCommandBuilder commandBuilder )
 	{
-		this.commandBuilder = commandBuilder;
+		this.streamCommandBuilder = commandBuilder;
 	}
 
 	public StreamApiUtils getApiUtils()
@@ -39,7 +39,7 @@ public class StreamDeployer
 
 	public void createAndDeploy( Stream stream )
 	{
-		Map<String, String> commands = commandBuilder.buildCommand( stream );
+		Map<String, String> commands = streamCommandBuilder.buildCommand( stream );
 		apiUtils.post( "/streams/definitions", commands );
 	}
 
@@ -51,13 +51,13 @@ public class StreamDeployer
 
 	public void createAndDeploy( String streamName )
 	{
-		Map<String, String> commands = commandBuilder.buildCommand( streamName );
+		Map<String, String> commands = streamCommandBuilder.buildCommand( streamName );
 		apiUtils.post( "/streams/definitions", commands );
 	}
 
 	public void createAndDeployAll()
 	{
-		List<Map<String, String>> commands = commandBuilder.buildCommand();
+		List<Map<String, String>> commands = streamCommandBuilder.buildCommand();
 		for ( Map<String, String> eachStreamCommand : commands )
 			apiUtils.post( "/streams/definitions", eachStreamCommand );
 	}

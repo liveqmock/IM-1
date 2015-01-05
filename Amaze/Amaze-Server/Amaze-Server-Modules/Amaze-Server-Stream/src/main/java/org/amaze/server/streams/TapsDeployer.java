@@ -3,7 +3,6 @@ package org.amaze.server.streams;
 import java.util.List;
 import java.util.Map;
 
-import org.amaze.db.hibernate.objects.Stream;
 import org.amaze.db.hibernate.objects.Taps;
 import org.amaze.server.streams.rest.StreamApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +12,19 @@ public class TapsDeployer
 {
 
 	@Autowired
-	TapCommandBuilder commandBuilder;
+	TapCommandBuilder tapCommandBuilder;
 
 	@Autowired
 	StreamApiUtils apiUtils;
 	
 	public TapCommandBuilder getCommandBuilder()
 	{
-		return commandBuilder;
+		return tapCommandBuilder;
 	}
 
 	public void setCommandBuilder( TapCommandBuilder commandBuilder )
 	{
-		this.commandBuilder = commandBuilder;
+		this.tapCommandBuilder = commandBuilder;
 	}
 
 	public StreamApiUtils getApiUtils()
@@ -40,7 +39,7 @@ public class TapsDeployer
 
 	public void createAndDeploy( Taps tap )
 	{
-		Map<String, String> commands = commandBuilder.buildCommand( tap );
+		Map<String, String> commands = tapCommandBuilder.buildCommand( tap );
 		apiUtils.post( "/streams/definitions", commands );
 	}
 
@@ -52,13 +51,13 @@ public class TapsDeployer
 
 	public void createAndDeploy( String tapName )
 	{
-		Map<String, String> commands = commandBuilder.buildCommand( tapName );
+		Map<String, String> commands = tapCommandBuilder.buildCommand( tapName );
 		apiUtils.post( "/streams/definitions", commands );
 	}
 
 	public void createAndDeployAll()
 	{
-		List<Map<String, String>> commands = commandBuilder.buildCommand();
+		List<Map<String, String>> commands = tapCommandBuilder.buildCommand();
 		for ( Map<String, String> eachStreamCommand : commands )
 			apiUtils.post( "/streams/definitions", eachStreamCommand );
 	}

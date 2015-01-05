@@ -444,8 +444,8 @@ public class GenerateObjects
 
 	public static void main( String[] args ) throws ParserConfigurationException, IOException
 	{
-//		new GenerateObjects().generateObjects( args[0], args[1] );
-		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml", "./src/main/java/" );
+		new GenerateObjects().generateObjects( args[0], args[1] );
+//		new GenerateObjects().generateObjects( "/org/amaze/db/metadata/Amaze-Schema.xml", "./src/main/java/" );
 	}
 
 }
