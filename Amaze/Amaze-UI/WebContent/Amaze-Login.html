@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="Styles/Amaze-Basic.css">
+</head>
+<body data-ng-app="amazeApp">
+    <div style="position: absolute; top: 0px; width: 100%; min-width: 1024px; height: 64px; display: block; overflow: hidden; -webkit-transition: top 1s ease; transition: top 1s ease; background-color: rgb(40, 39, 39);">
+        <div style="background:url(/Images/amaze-logo.png) no-repeat;      width:160px;      height:29px;      position:relative;      top:13px;      left:27px;"></div>
+    </div>
+	<div id="login-overlay" class="modal-dialog" style="position: absolute; left: 100px; top: 50px; width: 600px; padding: 10px; border: 10px;" >
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Login to Amaze Platform</h4>
+          </div>
+          <div class="modal-body" data-ng-controller="loginController">   
+              <div class="row">
+                  <div class="col-xs-6">
+                      <div class="well">
+                          <form id="loginForm" data-ng-submit="login()">
+                              <div class="form-group">
+                                  <label for="username" class="control-label">Username</label>
+                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div class="form-group">
+                                  <label for="password" class="control-label">Password</label>
+                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" placeholder="********">
+                                  <span class="help-block"></span>
+                              </div>
+                              <div id="loginErrorMsg" class="alert alert-error hide" data-ng-bind="$scope.errorMsg">Invalid Username or Password</div>
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" name="remember" id="remember"> Remember ME
+                                  </label>
+                                  <p class="help-block">(Use On a Private Computer)</p>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-block">Login</button>
+                              <a href="/forgot/" data-ng-click="forgot()" class="btn btn-default btn-block">Help to login</a>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="col-xs-6">
+                      <p class="lead">New Items <span class="text-success">FREE</span></p>
+                      <ul class="list-unstyled" style="line-height: 2">
+                          <li><span class="fa fa-check text-success"></span> <a href="http://www.twitter.com">Follow Us On Twitter</a></li>
+                          <li><span class="fa fa-check text-success"></span> <a href="http://www.facebook.com">Follow Us On Facebook<div></div></a></li>
+                          <li><span class="fa fa-check text-success"></span> <a href="http://www.facebook.com">Contact US</a><small> (For Business) </small></li>
+                          <li><a href="/read-more/">Know more</a></li>
+                      </ul>
+                      <p><a href="new-customer/" class="btn btn-info btn-block">Register now!</a></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+	<script src="JS/Amaze-App.js"></script>
+</body>
+</html>

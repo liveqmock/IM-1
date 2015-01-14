@@ -16,7 +16,6 @@
 	<modules>
 		<module>Amaze-Server-Dist</module>
 		<module>Amaze-Server-Modules</module>
-    <module>Amaze-Server-Plugins</module>
   </modules>
 	<dependencies>
 		<dependency>

@@ -12,5 +12,7 @@
 	<context:component-scan base-package="org.amaze.web.rest" />
 
 	<mvc:annotation-driven />
+	
+	<bean id="sessionBuilder" class="org.amaze.web.defaults.SessionBuilder"/>
 
 </beans>  
