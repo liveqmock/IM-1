@@ -12,7 +12,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="let_logged_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_loggoff_dttm" DataType="DateTime" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_session_terminated" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="let_access_client" DataType="Integer" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="let_access_client" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="let_created_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="ptn_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>				
            		</Columns>
@@ -21,6 +21,24 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				</Indexes>
 			</Table>
 		</Tables>
+		<Tables>
+			<Table TableName="mailbox" TablePrefix="mbx" DisplayName="">
+				<Columns>
+					<Column ColumnName="mbx_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="usr_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="from" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="to" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="cc" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="bcc" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="content" DataType="String" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="ptn_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>				
+           		</Columns>
+				<Indexes>
+					<Index IndexName="let_idx1" ColumnList="usr_id" />
+				</Indexes>
+			</Table>
+		</Tables>
+		
 	</Database>
 	<!-- <Extends>WorkBench-UsageSchema.xml</Extends> -->
 </Schema>

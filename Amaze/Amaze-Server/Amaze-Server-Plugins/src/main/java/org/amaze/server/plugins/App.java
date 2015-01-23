@@ -1,4 +1,4 @@
-package org.amaze.server.xd.plugins;
+package org.amaze.server.plugins;
 
 /**
  * Hello world!

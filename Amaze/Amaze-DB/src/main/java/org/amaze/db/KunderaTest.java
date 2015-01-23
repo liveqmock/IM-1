@@ -32,7 +32,7 @@ public class KunderaTest
 		user.setCity( "123456" );
 
 		LoginEvent event = new LoginEvent();
-		event.setLetAccessClient( 1 );
+		event.setLetAccessClient( "" );
 		event.setLetCreatedDttm( new DateTime() );
 		//		event.setLetId( 12345 );
 		event.setLetLoggedDttm( new DateTime() );

@@ -7,21 +7,21 @@ import java.util.Map;
 import org.amaze.db.hibernate.objects.UserPassword;
 import org.amaze.db.hibernate.objects.Users;
 import org.amaze.db.hibernate.utils.HibernateSession;
+import org.amaze.db.usage.objects.LoginEvent;
+import org.amaze.db.usage.utils.UsageSession;
 import org.amaze.web.defaults.SessionBuilder;
 import org.amaze.web.exception.LoginException;
 import org.amaze.web.rest.AmazeRestUrls;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class AmazeRestLoginController
+public class LoginController
 {
 
 	@Autowired
@@ -36,21 +36,21 @@ public class AmazeRestLoginController
 		{
 			if ( user.get( 0 ).getUsrDisabled() )
 			{
-				loginResponse.put( "message", String.format( "User %1 disabled. Contact System Admin.", name ) );
+				loginResponse.put( "message", String.format( "User %s disabled. Contact System Admin.", name ) );
 				return loginResponse;
 			}
-			List<UserPassword> userPassword = HibernateSession.query( "from UserPassword upw where upw.usrIdUsers.usrId=:UsrId", "UsrId", user.get( 0 ) );
+			List<UserPassword> userPassword = HibernateSession.query( "from UserPassword upw where upw.usrIdUsers.usrId=:UsrId", "UsrId", user.get( 0 ).getId() );
 			if ( userPassword.size() == 1 )
 			{
 				if ( userPassword.get( 0 ).getUpwPassword().equals( password ) )
 				{
-//					LoginEvent loginEvent = new LoginEvent();
-//					loginEvent.setLetAccessClient( accessClient );
-//					DateTime dttm = new DateTime();
-//					loginEvent.setLetCreatedDttm( dttm );
-//					loginEvent.setLetLoggedDttm( dttm );
-//					loginEvent.setUsrId( user.get( 0 ).getUsrId() );
-//					UsageSession.save( loginEvent );
+					LoginEvent loginEvent = new LoginEvent();
+					loginEvent.setLetAccessClient( accessClient );
+					DateTime dttm = new DateTime();
+					loginEvent.setLetCreatedDttm( dttm );
+					loginEvent.setLetLoggedDttm( dttm );
+					loginEvent.setUsrId( user.get( 0 ).getUsrId() );
+					UsageSession.save( loginEvent );
 					loginResponse.put( "message", "Login Validated" );
 					loginResponse.put( "name", name );
 					loginResponse.put( "accessClient", accessClient );
@@ -75,52 +75,5 @@ public class AmazeRestLoginController
 			throw new LoginException( String.format( "Multiple Rows found for the UserName %1", name ) );
 	}
 
-	public static void main( String[] args )
-	{
-		RestTemplate template = new RestTemplate();
-		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		template.getMessageConverters().add(new StringHttpMessageConverter());
-		String uri = new String("http://" + "http://localhost:8080/Amaze-Rest-0.0.1-SNAPSHOT/AmazeRest");
-		Vars v = new Vars( "Test", "Test", "Test" );
-		template.postForLocation( uri, v , String.class, new Object[]{} );
-	}
-	
-}
-
-class Vars {
-	
-	public Vars(String name, String password, String accessClient){
-		this.name= name;
-		this.password = password;
-		this.accessClient = accessClient;
-	}
-	String name;
-	String password;
-	String accessClient;
-	public String getName()
-	{
-		return name;
-	}
-	public void setName( String name )
-	{
-		this.name = name;
-	}
-	public String getPassword()
-	{
-		return password;
-	}
-	public void setPassword( String password )
-	{
-		this.password = password;
-	}
-	public String getAccessClient()
-	{
-		return accessClient;
-	}
-	public void setAccessClient( String accessClient )
-	{
-		this.accessClient = accessClient;
-	}
-	
 	
 }

@@ -55,9 +55,9 @@ public class LoginEvent extends AbstractUsageObject implements Serializable
 
 
 	@javax.persistence.Column( name="let_access_client", nullable=true  )
-	private Integer letAccessClient;
-	public Integer getLetAccessClient() { return this.letAccessClient; }
-	public void setLetAccessClient( Integer val ) {this.letAccessClient = val; }
+	private String letAccessClient;
+	public String getLetAccessClient() { return this.letAccessClient; }
+	public void setLetAccessClient( String val ) {this.letAccessClient = val; }
 
 
 
