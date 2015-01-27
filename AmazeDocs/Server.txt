@@ -1,0 +1,91 @@
+Server Features List
+
+Input consumption into system
+1) Real time Data Ingest
+	Spring XD is the real time data ingesting stream processor used.
+	Any input source ( like file, http, messagebroker etc ) will be source for the stream.
+	Parsing or transforming logic can be written in Groovy, Scala, JS, Java scripts.
+	The output of the stream can be piped again to any sink like hdfc, jdbc, file etc. which again serves the input for futher analytical processing.
+	
+	There would be Taps, which can tap the data from the stream and preserve in a sink, which again serve the input for further analytical processing or reporting.
+	
+	As an Addon the streams created through the platform will have a configuration, when configured can trigger a job. The job triggered can have the references for the outputs created from the streams.
+	
+	Various Sources are : 
+	Supported by Spring XD : 
+		HTTP, Tail, File, Mail, Twitter Search, Twitter Stream, GemFire Source, GemFire Continuous Query, Syslog, TCP, TCP Client, Reactor IP, RabbitMQ, JMS, Time, MQTT, Stdout Capture
+	From Platform: 
+		
+	Various Processors
+	Supported by Spring XD
+		Filter, Transform, Script, Splitter, Aggregator, HTTP Client, JSON to Tuple, Object to JSON
+	From Platform
+		
+	Various Sinks
+	Supported by Spring XD
+		Log, File Sink, Hadoop (HDFS), HDFS Dataset (Avro/Parquet), JDBC, TCP Sink, Mongo, Mail, RabbitMQ, GemFire Server, Splunk Server, MQTT Sink, Dynamic Router, Null Sink
+	From Platform
+	
+2) Batch data consumption into system.
+	Pull batch data in the files, binary data, or in database into system and this data again becomes the input for analytical processing.
+	Supported by Spring XD
+		filepollhdfs(CSV), filejdbc(CSV), jdbchdfs, hdfsmongodb, ftphdfs.
+	From Platform
+		ETLJob( Run Extract, Transform, Load Jobs ) - A pluggable job where ETL components can be plugged in and run as a Job.
+		Hadoop Job ( Run Hadoop MR Jobs ) - Pluggable job where MR can be plugged.
+		Hive Job - Pluggable job where Hive query is processed. Hive Query is pluggable as property.
+		Pig Script Job - ( Run Pig Latin script ) - Pig Script is pluggable.
+
+	Except ETLJob all others expect file data in HDFS. ETLJob can connect for any data source and pull data into the system. 
+	Basically others are for Big data , while ETL is for small data that needs to be brought into the system.
+		
+These batch jobs need to be parallelized. Running DIRT the Spring XD YARN distributions.
+
+	Spring XD newer releases support registration of modules commands to shell-xd.
+
+Analytical Processing
+	Processing to the analytics is always from 
+Weka Processing
+	Various Processors include PreProcessor, PostProcessor, Classifier, Regression etc.
+	1) Convert Data into Weka ARFF file format.
+	2) Convert Data into Weka ARFF objects( In Memory ).
+	3) Processor class configured in will take the properties and build the processor, and process the Weka ARFF objects.
+	4) Convert Output ARFF to CSV, JDBC, Cassandra, RabbitMQ.
+	5) Pipe the ARFF object to another Weka Processor.
+	
+R Processing
+	R Scripts to be executed will be present in the configured location.
+	1) The input to the R is loaded from JDBC, Cassandra, File, RabbitMQ.
+	2) Execute the Script using R java.
+	3) All the Output are written from memory into CSV, JDBC, Cassandra, RabbitMQ.
+	4) Or Output from the memory are piped again ( Through Messaging Queue ) to a different R script processor.
+	
+Generic Cache ( Should be evaluated for Grid cache like JBoss Cache data grid Solutions )
+	Gemfire Cache( Or EHCache ) framework, that will be initialized at startup. 
+	The configured cache objects, are loaded at the startup and the caches are created. There would be RefreshManager for the caches that would be reloading the caches on regular intervals.
+	There would be a CacheManager static method from where the required cache reference are taken and required cache can be picked from framework.
+	CacheManager can get different types of Key caches. 1) IDKeyCache( Which has single Key which is Id PK, Object as Value ) 2) ColumnKeyCache ( Single Column Other than PK as Key Cache, Object as Value) 3) ColumnKeyColumnValueCache ( Single Column as Key Cache, Single Value in the Object as Cache ).
+
+Storage App
+	Amaze Storage App is a different module that keeps the Storage objects on Server infrastructure or Cloud.
+	The object registration, metadata retrieval is done via a rest API calls.
+	The system stores the objects url, metadata and its revisions.
+	The actual object is pushed into the file system or cloud storage depending on the adapter that is wired.
+	
+On Cloud deployment 
+AWS services is used for the cloud.
+	For RDBMS(Config DB) for the AWS RDS.
+	For NoSQL( Usage DB ) for the AWS EC2 - To be evaluated for using Amazon Dynamo DB on AWS.
+	For Hadoop Cluster AWS EMR.
+	For HDFS and Simple data Storage AWS S3 - To be evaluated for the HDFS Storage( Whether the EMR provide a Defualt storage or from S3 only).
+	For Spring XD - Amazon AWS EC2 ( To be evaluated to run on Yarn Cluster or simple EC2 instances ). - Incase of simple EC2
+	For Distributed Caching running on different machine - To be evaluated on cloud to whether support on EC2.
+	For Client AWS BeanStalk and AWS LoadBalancer.
+	For Message Broker on cloud usage - Need to be evaluated to be done on cloud through EC2 or something else.
+	
+	
+	
+Utils
+SoftDelete for the RDBMS, Cassandra
+BulkLoaders for RDBMS, Caassandra,
+PartitionSwap

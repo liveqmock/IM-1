@@ -1,0 +1,108 @@
+Tasks on Server side
+
+============================================================================================================
+M1) - Job and stream processors framework for Amaze
+============================================================================================================
+
+F1) Spring XD
+I1) Evaluate the Spring XD to remove all the modules deployed already in it and try to create a new module that would be trying to log the start, end of the context, any message coming to channel, outging from the channel. Try to plugin this feature to all the module implementations that are developed here after.
+
+T1) Create the db entries for the Spring xd Source, Sink, Processors.
+T2) Test for all the stream by deploying through the deployer created in the Amaze.
+T3) Create any one of each of them as Plugins under the Plugins directory and test them.
+T4) Create a script that would be called from the root to the Spring XD. 
+	This should read the spring XD from the System Variable configured.
+	There should be a rest service provided for the module deployment( which also the shell uses to install modules ), using the same to install the module.
+	
+I2) Should decide how exactly the Spring along with the new version release changes from the framework can be picked and built as a distribution release, so that this release is shared across the machines during deployment of the XD cluster.
+
+T5) Create the DB entries for these again and test their deployment.
+
+F2) Spring XD Jobs
+T1) Create the definition of all the job modules and their parameters in the Database supported by the Spring XD.
+T2) Test for all of them by deploying using the deployer created in amaze.
+T3) Create any Job as Plugins under the plugins directory and test the same.
+T4) Create a script that would be called from the root to the Spring XD. 
+	This should read the spring XD from the System Variable configured.
+	There should be a rest service provided for the module deployment( which also the shell uses to install modules ), using the same to install the module.
+T5) Create the DB entries for these again and test their deployment.
+
+I3) Should find a clear cut way to run the jobs in the distributed manner rather than running in the same node.
+	Spring multi threading support given by batch can be evaluated with a thread property to paralellize.
+	Also Running on Distrubuted DIRT environment can be evaluated to see the throughput of the machine.
+	Also Running on Yarn has to be evaluated to run the same for the better performance.( But running on yarn implies implicitly needs a Hadoop Cluster then multi cluster environment cannot be supported )
+	Also Running on a JPPF Cluster can be evaluated backed by our own task managing framework.
+
+T6) Implements Jobs. These jobs should have a abstract job that calls the Job logic. This abstract will create the Job running required details in the task framework. At start and end it will create the task states in the DB. All of the these job instances that run during the job launch would also be logging the logs. logging.properties file in thier module will have the log configuration these logs would be the task logs. These task log entries files URL are stored in the Job Log file table. The basic idea behind this is to see the required logs of the job execution and monitor the job itself from the client.
+	TaskJob - Simple Task Job that would take the data and process, output ( Data intake output handling is internal to the task implementation )
+	ETLJob( Run Extract, Transform, Load Jobs ) - A pluggable job where ETL components can be plugged in and run as a Job.
+	CronJob
+	FileProcessorJob( Reference to a file is passed to the processor )
+	QueryProcessorJob( DataSource Ref and the Query to the same is passed )
+	Hadoop Job ( Run Hadoop MR Jobs ) - Pluggable job where MR can be plugged.
+	Hive Job - Pluggable job where Hive query is processed. Hive Query is pluggable as property.
+	Pig Script Job - ( Run Pig Latin script ) - Pig Script is pluggable.
+	SQOOP Job - Run any Sqoop Job
+	Spark App Job - That could process any request from the Spark.
+	Mahout Job - 
+
+With these the Streams and Jobs processing frameworks for amaze would be ready.
+
+============================================================================================================
+
+============================================================================================================
+M2) Hadoop Cluster Set Up - This would be a prerequiste to test the Jobs that are developed as Jobs module
+============================================================================================================
+	
+	There would be a Hadoop cluster running managed by external tools.
+	This hadoop cluster would be used by the Amaze platform to process big data.
+T1) Set up the Hadoop cluster on the different machine and connect from different machine.
+T2) Placeholder to configure the hadoop details that would be confiured in the system, and there after the hadoop cluster communication is done through this only.
+T3) Once Configured evaluate the cloud integration pattern for the hadoop.
+T4) Ensure the cloud integration runs for all Hadoop, Hive, Pig, Oozie.
+T5) Can pass the objects ( files effectively accross the HDFS and Storage App )
+
+============================================================================================================
+
+============================================================================================================
+M3) Analytics App - Weka and R Modelling
+============================================================================================================
+Directly integrated with the Storage App or the Cassandra DB.
+Takes Input from these and outputs into these.
+The processing logic can be modelled.
+
+
+F1) Develop a interface that would create a on demand job for weka processing.
+
+Various Processors include PreProcessor, PostProcessor, Classifier, Regression etc.
+T1) Convert Data into Weka ARFF file format.
+T2) Convert Data into Weka ARFF objects( In Memory ).
+T3) Processor class configured in will take the properties and build the processor, and process the Weka ARFF objects.
+T4) Convert Output ARFF to CSV, JDBC, Cassandra, RabbitMQ.
+T5) Pipe the ARFF object to another Weka Processor.
+T6) Task Can be Croned for continous execution support.
+
+F2) Develop a Interface for processing the R scripts and piping the data.
+	
+R Scripts to be executed will be present in the configured location.
+T1) The input to the R is loaded from JDBC, Cassandra, File, RabbitMQ.
+T2) Execute the Script using R java.
+T3) All the Output are written from memory into CSV, JDBC, Cassandra, RabbitMQ.
+T4) Or Output from the memory are piped again ( Through Messaging Queue ) to a different R script processor.
+T5) Task Can be Croned for continous execution support.
+
+============================================================================================================
+
+============================================================================================================
+M4) Analytics App - Caching GemFire
+============================================================================================================
+
+Distributed Gemfire Cache( Or EHCache ) framework, that will be initialized at startup. 
+	The configured cache objects, are loaded at the startup and the caches are created. There would be RefreshManager for the caches that would be reloading the caches on regular intervals.
+	There would be a CacheManager static method from where the required cache reference are taken and required cache can be picked from framework.
+	CacheManager can get different types of Key caches. 
+	1) IDKeyCache( Which has single Key which is Id PK, Object as Value ) 
+	2) ColumnKeyCache ( Single Column Other than PK as Key Cache, Object as Value) 
+	3) ColumnKeyColumnValueCache ( Single Column as Key Cache, Single Value in the Object as Cache ).
+	Also on demand cache can be created which provide a standard api to put objects into the cache and get it them when needed. These objects are into the instance, when restarted will be lost.
+

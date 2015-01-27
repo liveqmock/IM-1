@@ -1,0 +1,79 @@
+Client Features List
+
+==========================================================================================================================
+M1) Search Framework
+==========================================================================================================================
+Resource Interface - Interface that has to be built ( on the build or runtime to be evaluated ).
+
+Search framework is the search screens configured for the tables.
+
+On the client end the ActionController loads a SPA module into the target div. This is fixed for the search screen.
+There would be a search entity( either menu or a search filter to select the search screens. This entity is loaded from the Resource class ).
+On selection of a entity the call to the search() method in the SearcController to the server where the Search name is sent to the server.
+This call is redirected to the Server side SearchEntity class search() method.
+ON click of any if the action in the search there would be a URL associated with this and the server side call to the action is made by passing the searchName and the action url.
+Action url include the action name and the ids of the entities for which they are to be acted on.
+
+The each Search class as below would be a search screen.
+Each Search URL has a Search implementation.
+@Search( table="users" )
+UsersSearch
+
+At start up all the @Search classes are parsed and then the Resource class is generated where it has a datastructure to hold all the class and search references.
+Map<String, Class> searchEntities;
+
+Search will return a model that has the table header and the table values that are used to build the data table.
+The table headers came from the server also have isFilter value, which will filter the data table.
+Also actionGroup that are to be in the search screen is returned from the server. ActionGroup again has the Actions inside it.
+
+SearchEntity class is the entrypoint for the whole search screen where the actions or the search is redirected.
+SearchEntity has method called search() where in the accordingly required entity is injected by pulling the same from the same Resource class Map.
+
+Search search = Resource.lookUpSearch( String searchUrl );
+SearchModel model = search.search();
+Return this model from the Service as JSON Reponse.
+
+SearchEntity has a method called action() which is the entry point for the Action. This method has a action variable to which the action is injected from the Map maintained in the Resource Object.
+
+Action action = Resource.lookUpAction( String searchUrl, String actionName ); // This action also have the reference to the Search.
+ActionModel model = action.action();
+Return this model from the Service as JSON Reponse.
+
+======================================================================================================================================
+
+======================================================================================================================================
+M2) Detail Framework
+======================================================================================================================================
+On open if any action, the actionUrl is passed. This action can be New, View, Edit, Delete, Export, Import actions by default.
+Any other actions can be by added ( which would be the custom actions ).
+
+On click of the actions the client action method is called which makes a async call, and redirects to the server SearchEntity action() method.
+
+public ActionResponse lookUpAction( String actionName, String screenName )
+{
+	if( actionName.equals( "ApproveUser" ) )
+		return new org.amaze.client.users.actions.ApproveUsers( String screenName );
+	else if( actionName.equals( "----" ) )
+	----
+	
+	else
+		throw new InvalidActionConfigException();
+}
+
+ActionResponse has a code that is identifier to the respose ie for New Action is fired a NewActionResponse is opened in the screen,
+for Custom actions like show mapped users View Entity Modal is opened in the screen with response.
+for just Information a new InformationResponse is opened.
+for confirmation a new ConfirmationReponse is opened etc.		
+
+Each Action has a URL
+	URL : localhost:8080/amaze/rest/search/action?actionName=ApproveUser&ids=1,3,54	
+	Then Resource.lookUpAction( String actionName )  returns action response Object which is child of the ActionResponse.
+	Then the action is injected through Resource and action to action() is called. The .
+	The ActionResponse which is sub class model class can be built inside the method.
+
+The detail model is built.
+	Again in the Resource class the Classes that are annotated with the @Detail is added using the screenName as key.
+	
+The each Detail class as below would be a detail screen.
+@Detail( table="users" )
+DetailSearch
