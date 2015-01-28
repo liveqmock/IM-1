@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.amaze.commons.api.rest.RestApiUtils;
 import org.amaze.db.hibernate.objects.JobInstance;
 import org.amaze.db.hibernate.objects.PropertyValue;
 import org.amaze.db.hibernate.objects.PropertyValueGroup;
 import org.amaze.db.hibernate.utils.HibernateSession;
-import org.amaze.server.streams.rest.StreamApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class JobDeployer
@@ -18,7 +18,7 @@ public class JobDeployer
 	JobCommandBuilder jobCommandBuilder;
 
 	@Autowired
-	StreamApiUtils apiUtils;
+	RestApiUtils apiUtils;
 	
 	public JobCommandBuilder getCommandBuilder()
 	{
@@ -30,12 +30,12 @@ public class JobDeployer
 		this.jobCommandBuilder = commandBuilder;
 	}
 
-	public StreamApiUtils getApiUtils()
+	public RestApiUtils getApiUtils()
 	{
 		return apiUtils;
 	}
 
-	public void setApiUtils( StreamApiUtils apiUtils )
+	public void setApiUtils( RestApiUtils apiUtils )
 	{
 		this.apiUtils = apiUtils;
 	}

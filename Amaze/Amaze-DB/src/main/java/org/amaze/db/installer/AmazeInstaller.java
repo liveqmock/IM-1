@@ -279,7 +279,7 @@ public class AmazeInstaller
 									if ( isRefType == true )
 									{
 										name = name.substring( 0, name.indexOf( "Ref" ) );
-										dataType = "org.amaze.db.hibernate.objects." + name;
+										dataType = "org.amaze.db.hibernate.objects." + name.subSequence( 5, name.length() );
 									}
 									String columnName = StringUtils.camelCaseToUnderScore( name );
 									String value = eachAttribute.getValue();

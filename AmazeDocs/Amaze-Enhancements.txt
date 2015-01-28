@@ -1,0 +1,3 @@
+Amaze Client features
+
+1) Preference in user settings that will set the no of Messages to be shown in the Message drop menu

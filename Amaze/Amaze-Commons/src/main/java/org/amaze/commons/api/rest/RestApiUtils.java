@@ -1,4 +1,4 @@
-package org.amaze.server.streams.rest;
+package org.amaze.commons.api.rest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.amaze.server.streams.exceptions.AmazeStreamException;
+import org.amaze.commons.exceptions.AmazeException;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -19,18 +19,18 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class StreamApiUtils
+public class RestApiUtils
 {
 	
 	@Autowired
 	String restBaseUrl;
 	
-	public StreamApiUtils()
+	public RestApiUtils()
 	{
 		
 	}
 	
-	public StreamApiUtils( String restBaseUrl )
+	public RestApiUtils( String restBaseUrl )
 	{
 		this.restBaseUrl = restBaseUrl;
 	}
@@ -48,14 +48,14 @@ public class StreamApiUtils
 	public String get( String resource )
 	{
 		if ( restBaseUrl == null || restBaseUrl.equals( "" ) )
-			throw new AmazeStreamException( "The base url for the admin Rest service is not set " );
+			throw new AmazeException( "The base url for the Rest service is not set " );
 		try
 		{
 			HttpClient client = HttpClientBuilder.create().build();
 			HttpGet request = new HttpGet( restBaseUrl + resource );
 			HttpResponse response = client.execute( request );
 			if ( !( response.getStatusLine().getStatusCode() == 200 ) )
-				throw new AmazeStreamException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
+				throw new AmazeException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
 			BufferedReader rd = new BufferedReader( new InputStreamReader( response.getEntity().getContent() ) );
 			StringBuffer result = new StringBuffer();
 			String line = "";
@@ -67,14 +67,14 @@ public class StreamApiUtils
 		}
 		catch ( IOException e )
 		{
-			throw new AmazeStreamException( e );
+			throw new AmazeException( e );
 		}
 	}
 
 	public String post( String resource, Map<String, String> values )
 	{
 		if ( restBaseUrl == null || restBaseUrl.equals( "" ) )
-			throw new AmazeStreamException( "The base url for the admin Rest service is not set " );
+			throw new AmazeException( "The base url for the admin Rest service is not set " );
 		try
 		{
 			HttpClient client = HttpClientBuilder.create().build();
@@ -88,7 +88,7 @@ public class StreamApiUtils
 			}
 			HttpResponse response = client.execute( post );
 			if ( !( response.getStatusLine().getStatusCode() == 200 ||  response.getStatusLine().getStatusCode() == 201 ) )
-				throw new AmazeStreamException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
+				throw new AmazeException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
 			BufferedReader rd = new BufferedReader( new InputStreamReader( response.getEntity().getContent() ) );
 			StringBuffer result = new StringBuffer();
 			String line = "";
@@ -100,21 +100,21 @@ public class StreamApiUtils
 		}
 		catch ( IOException e )
 		{
-			throw new AmazeStreamException( e );
+			throw new AmazeException( e );
 		}
 	}
 
 	public String delete( String resource )
 	{
 		if ( restBaseUrl == null || restBaseUrl.equals( "" ) )
-			throw new AmazeStreamException( "The base url for the admin Rest service is not set " );
+			throw new AmazeException( "The base url for the admin Rest service is not set " );
 		try
 		{
 			HttpClient client = HttpClientBuilder.create().build();
 			HttpDelete delete = new HttpDelete( restBaseUrl + resource );
 			HttpResponse response = client.execute( delete );
 			if ( !( response.getStatusLine().getStatusCode() == 200 ) )
-				throw new AmazeStreamException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
+				throw new AmazeException( " Http Error : " + response.getStatusLine().getReasonPhrase() + " Http Error Code : " + response.getStatusLine().getStatusCode() );
 			BufferedReader rd = new BufferedReader( new InputStreamReader( response.getEntity().getContent() ) );
 			StringBuffer result = new StringBuffer();
 			String line = "";
@@ -126,7 +126,7 @@ public class StreamApiUtils
 		}
 		catch ( IOException e )
 		{
-			throw new AmazeStreamException( e );
+			throw new AmazeException( e );
 		}
 	}
 

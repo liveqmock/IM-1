@@ -1,4 +1,4 @@
-package org.amaze.server.job.exception;
+package org.amaze.server.jobs.exceptions;
 
 import org.amaze.commons.exceptions.AmazeException;
 import org.amaze.commons.utils.AmazeString;

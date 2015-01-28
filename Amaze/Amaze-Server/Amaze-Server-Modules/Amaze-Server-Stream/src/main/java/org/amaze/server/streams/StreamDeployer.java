@@ -3,8 +3,9 @@ package org.amaze.server.streams;
 import java.util.List;
 import java.util.Map;
 
+import org.amaze.commons.api.rest.RestApiUtils;
 import org.amaze.db.hibernate.objects.Stream;
-import org.amaze.server.streams.rest.StreamApiUtils;
+import org.amaze.server.jobs.JobDeployer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,7 +16,7 @@ public class StreamDeployer
 	StreamCommandBuilder streamCommandBuilder;
 
 	@Autowired
-	StreamApiUtils apiUtils;
+	RestApiUtils apiUtils;
 	
 	public StreamCommandBuilder getCommandBuilder()
 	{
@@ -27,12 +28,12 @@ public class StreamDeployer
 		this.streamCommandBuilder = commandBuilder;
 	}
 
-	public StreamApiUtils getApiUtils()
+	public RestApiUtils getApiUtils()
 	{
 		return apiUtils;
 	}
 
-	public void setApiUtils( StreamApiUtils apiUtils )
+	public void setApiUtils( RestApiUtils apiUtils )
 	{
 		this.apiUtils = apiUtils;
 	}
@@ -107,7 +108,9 @@ public class StreamDeployer
 //		StreamDeployer deployer = new StreamDeployer();
 //		deployer.createAndDeployAll();
 		
+		@SuppressWarnings( "resource" )
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext( "stream.xml" );
-		( ( StreamDeployer ) ctx.getBean( "streamDeployer" ) ).createAndDeployAll();
+//		( ( StreamDeployer ) ctx.getBean( "streamDeployer" ) ).createAndDeployAll();
+		( ( JobDeployer ) ctx.getBean( "jobDeployer" )).createAndDeployAll();
 	}
 }

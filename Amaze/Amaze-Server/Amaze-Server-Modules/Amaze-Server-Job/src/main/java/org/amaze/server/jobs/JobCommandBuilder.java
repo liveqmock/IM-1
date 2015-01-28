@@ -10,7 +10,7 @@ import org.amaze.db.hibernate.objects.JobInstance;
 import org.amaze.db.hibernate.objects.PropertyValue;
 import org.amaze.db.hibernate.objects.PropertyValueGroup;
 import org.amaze.db.hibernate.utils.HibernateSession;
-import org.amaze.server.streams.exceptions.JobBuilderException;
+import org.amaze.server.jobs.exceptions.JobBuilderException;
 
 public class JobCommandBuilder
 {

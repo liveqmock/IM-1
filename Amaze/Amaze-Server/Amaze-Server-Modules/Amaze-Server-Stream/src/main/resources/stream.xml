@@ -7,8 +7,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd" >
 	
+	<import resource="classpath:db.xml"/>
+	<import resource="classpath:job.xml" />
+	
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreResourceNotFound" value="false" />
+		<property name="ignoreUnresolvablePlaceholders" value="false"/>
 		<property name="locations">
 			<list>
 				<value>classpath:stream.properties</value>
@@ -16,14 +20,15 @@
 			</list>
 		</property>
 	</bean>
+	
 	<context:component-scan base-package="org.amaze.server.streams"></context:component-scan>
 	<context:component-scan base-package="org.amaze.server.jobs"></context:component-scan>
 	
-	<bean id="restBaseUrl" class="java.lang.String" factory-method="valueOf">
-		<constructor-arg value="${restBaseUrl}" />
+	<bean id="restBaseUrl" class="java.lang.String">
+		<constructor-arg type="String" value="http://ingbtcpic5nb014:9393/" />
 	</bean>
 	
-	<bean id="apiUtils" class="org.amaze.server.streams.rest.StreamApiUtils" >
+	<bean id="apiUtils" class="org.amaze.server.streams.rest.RestApiUtils" >
 		<property name="restBaseUrl" ref="restBaseUrl"></property>
 	</bean>
 	
@@ -31,13 +36,8 @@
 	
 	<bean id="tapCommandBuilder" class="org.amaze.server.streams.TapCommandBuilder" />
 	
-	<bean id="jobCommandBuilder" class="org.amaze.server.jobs.JobCommandBuilder" />	
-	
-	
 	<bean id="streamDeployer" class="org.amaze.server.streams.StreamDeployer" />
 	
 	<bean id="tapsDeployer" class="org.amaze.server.streams.TapsDeployer" />
-	
-	<bean id="jobsDeployer" class="org.amaze.server.jobs.JobDeployer" />
 
 </beans>

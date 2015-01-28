@@ -4,7 +4,7 @@
 		<Application AppName="Amaze" AppCreatedDttm="now" AppVersion="1"/>
 	</Applications>
 	<Userss>
-		<Users UsrName="Admin" UsrDisabled="true" ApplicationRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
+		<Users UsrName="Admin" UsrDisabled="true" AppIdApplicationRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
 	</Userss>
 	<TableTypes>
 		<TableType TtpName="System" TtpCreatedDttm="now" TtpDeleteFl="N" TtpVersion="1" />
@@ -17,47 +17,116 @@
 		<PropertyGroup PgpName="FileSourcePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="FileSinkPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="TransformProcessorPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		
+		<PropertyGroup PgpName="CSVtoHDFSJobPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+
+		
 	</PropertyGroups>
 	
 	<Propertys>
-		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/insrc.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="preventDuplicates" PrtDefault="true" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="pattern" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="fixedDelay" PrtDefault="5" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="ref" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/insrc.txt" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="preventDuplicates" PrtDefault="true" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="pattern" PrtDefault="**.*" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fixedDelay" PrtDefault="5" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="ref" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
-		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/outsink.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="binary" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="charset" PrtDefault="UTF-8" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="mode" PrtDefault="APPEND" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="name" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="suffix" PrtDefault="txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/outsink.txt" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="binary" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="charset" PrtDefault="UTF-8" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="mode" PrtDefault="APPEND" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="name" PrtDefault="**.*" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="suffix" PrtDefault="txt" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
-		<Property PrtName="expression" PrtDefault="payload.toUpperCase()" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="expression" PrtDefault="payload.toUpperCase()" PgpIdPropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+		<Property PrtName="abandonWhenPercentageFull" PrtDefault="0" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="alternateUsernameAllowed" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="commitInterval" PrtDefault="1000" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="connectionProperties" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="deleteFiles" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="delimiter" PrtDefault="," PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="driverClassName" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fairQueue" PrtDefault="true" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fsUri" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initSQL" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initialSize" PrtDefault="0" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initializeDatabase" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initializerScript" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="jdbcInterceptors" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="jmxEnabled" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="logAbandoned" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxActive" PrtDefault="100" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxAge" PrtDefault="0" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxIdle" PrtDefault="100" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxWait" PrtDefault="30000" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="minEvictableIdleTimeMillis" PrtDefault="60000" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="minIdle" PrtDefault="10" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="names" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="password" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="removeAbandoned" PrtDefault="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="removeAbandonedTimeout" PrtDefault="60" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="resources" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="restartable" PrtDefault="true" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="suspectTimeout" PrtDefault="true" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="tableName" PrtDefault="" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
 	</Propertys>
 	
 	<PropertyValueGroups>
-		<PropertyValueGroup PvgName="TickTockSourceProperties" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
-		<PropertyValueGroup PvgName="TickTockSinkProperties" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
-		<PropertyValueGroup PvgName="TickTockProcessorProperties" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockSourceProperties" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockSinkProperties" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockProcessorProperties" PgpIdPropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		
+		<PropertyValueGroup PvgName="CSVtoHDFSJobProperties" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
 	</PropertyValueGroups>
 	
 	<PropertyValues>
-		<PropertyValue PrtName="dir" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="preventDuplicates" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="input.txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="pattern" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="fixedDelay" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="10" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="ref" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="dir" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="preventDuplicates" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="pattern" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fixedDelay" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="1" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="ref" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
-		<PropertyValue PrtName="dir" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="binary" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="charset" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="UTF-8" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="mode" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="APPEND" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="name" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="suffix" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="dir" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="binary" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="charset" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="UTF-8" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="mode" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="APPEND" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="name" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="data" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="suffix" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
-		<PropertyValue PrtName="expression" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" PrvValue="payload.toUpperCase()" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="expression" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" PrvValue="new String(payload).toUpperCase()" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		
+		
+		<PropertyValue PrtName="abandonWhenPercentageFull" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="alternateUsernameAllowed" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="commitInterval" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="connectionProperties" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="deleteFiles" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="delimiter" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="driverClassName" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fairQueue" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fsUri" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initSQL" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initialSize" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initializeDatabase" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initializerScript" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="jdbcInterceptors" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="jmxEnabled" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="logAbandoned" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxActive" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxAge" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxIdle" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxWait" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="minEvictableIdleTimeMillis" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="minIdle" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="names" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="password" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="removeAbandoned" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="removeAbandonedTimeout" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="resources" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="restartable" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="suspectTimeout" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="tableName" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=CSVtoHDFSJobProperties" PrvValue="" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
 	</PropertyValues>
 	
@@ -66,7 +135,7 @@
 	</SourceTypes>
 
 	<Sources>
-		<Source SrcName="file" SourceTypeRef="SourceType.sctName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" SrcCreatedDttm="now" SrcDeleteFl="N" SrcVersion="1" />
+		<Source SrcName="file" SctIdSourceTypeRef="SourceType.sctName=Default" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" SrcCreatedDttm="now" SrcDeleteFl="N" SrcVersion="1" />
 	</Sources>
 	
 	<SinkTypes>
@@ -74,7 +143,7 @@
 	</SinkTypes>
 	
 	<Sinks>
-		<Sink SikName="file" SinkTypeRef="SinkType.sktName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" SikCreatedDttm="now" SikDeleteFl="N" SikVersion="1" />
+		<Sink SikName="file" SktIdSinkTypeRef="SinkType.sktName=Default" PgpIdPropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" SikCreatedDttm="now" SikDeleteFl="N" SikVersion="1" />
 	</Sinks>
 	
 	<ProcessorTypes>
@@ -82,7 +151,7 @@
 	</ProcessorTypes>
 	
 	<Processors>
-		<Processor PrcName="transform" ProcessorTypeRef="ProcessorType.pctName=Default" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrcCreatedDttm="now" PrcDeleteFl="N" PrcVersion="1"/>
+		<Processor PrcName="transform" PctIdProcessorTypeRef="ProcessorType.pctName=Default" PgpIdPropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrcCreatedDttm="now" PrcDeleteFl="N" PrcVersion="1"/>
 	</Processors>
 	
 	<StreamTypes>
@@ -90,19 +159,28 @@
 	</StreamTypes>
 
 	<Streams>
-		<Stream StmName="ticktock" StreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
-		<Stream StmName="fileRedirection" StreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
+		<Stream StmName="ticktock" SmtIdStreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
+		<Stream StmName="fileRedirection" SmtIdStreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
 	</Streams>
 	
 	<StreamModuless>
-		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Source" SmdValue="time" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Sink" SmdValue="log" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Processor" SmdValue="transform" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdStreamRef="Stream.stmName=ticktock" SmdType="Source" SmdValue="time" PvgIdPropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdStreamRef="Stream.stmName=ticktock" SmdType="Sink" SmdValue="log" PvgIdPropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdStreamRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="file" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdStreamRef="Stream.stmName=fileRedirection" SmdType="Processor" SmdValue="transform" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdStreamRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="file" PvgIdPropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
 	</StreamModuless>
 	
-	<JobComponentTypes>
+	<JobDefinitionTypes>
+		<JobDefinition JdtName="Default" JdtCreatedDttm="now" JdtDeleteFl="N" JdtVersion="1" />
+	</JobDefinitionTypes>
+	
+	<JobDefinitions>
+		<JobDefinition JbdName="CSVtoHDFS" JdtIdJobDefinitionTypeRef="JobDefinitionType.jdtName=Default" JbdNeedStreamDeploy="false" PgpIdPropertyGroupRef="PropertyGroup.pgpName=CSVtoHDFSJobPropertyGroup" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1" />
+	</JobDefinitions>
+	
+	
+	<!-- <JobComponentTypes>
 		<jobComponentType JctName="Default" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
 		<jobComponentType JctName="Writer" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
 		<jobComponentType JctName="Reader" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
@@ -117,6 +195,6 @@
 		<jobComponentType JctName="FlowDecider" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
 		<jobComponentType JctName="TransactionManager" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
 		<jobComponentType JctName="CompletionPolicy" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-	</JobComponentTypes>
+	</JobComponentTypes> -->
 	
 </SeedData>
