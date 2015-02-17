@@ -24,7 +24,7 @@
 		<module>Amaze-Simple-Batch</module>
 		<module>AmazeMR</module>
 		<module>AmazeETL</module>
-    <module>AmazeHive</module>
-    <module>Amaze-Simple</module>
+		<module>AmazeHive</module>
+		<module>AmazeSimple</module>
   </modules>
 </project>
