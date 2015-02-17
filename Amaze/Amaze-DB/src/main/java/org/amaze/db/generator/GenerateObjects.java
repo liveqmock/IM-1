@@ -375,7 +375,9 @@ public class GenerateObjects
 						out.newLine();
 						out.write( "	@javax.persistence.ManyToOne( fetch = javax.persistence.FetchType.LAZY )" );
 						out.newLine();
-						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = false, updatable = false )" );
+//						out.write( "	@javax.persistence.JoinColumn( name = \"" + tableNameTablePrefixMap.get( nestedTypeName ) + "_id" + "\", nullable = " + isMandatory + ", insertable = true, updatable = true )" );
+//						out.newLine();
+						out.write( "	@javax.persistence.JoinColumn( name = \"" + columnName + "\", nullable = " + isMandatory + ", insertable = true, updatable = true )" );
 						out.newLine();
 						out.write( "	@org.hibernate.annotations.NotFound( action = org.hibernate.annotations.NotFoundAction.IGNORE )" );
 						out.newLine();

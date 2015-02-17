@@ -77,8 +77,8 @@ public class HelloSpringXDTasklet implements Tasklet, StepExecutionListener
 			}
 		}
 		int i = 1;
-		if( i == 1 )
-			throw new IllegalStateException();
+//		if( i == 1 )
+//			throw new IllegalStateException();
 		File f = new File( "D:\\Abc.txt" );
 		BufferedWriter w = new BufferedWriter( new FileWriter( f ) );
 		while( i == 1 )

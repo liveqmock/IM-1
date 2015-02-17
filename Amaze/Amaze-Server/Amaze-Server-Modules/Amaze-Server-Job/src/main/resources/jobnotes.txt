@@ -1,7 +1,0 @@
-Not Featured
-	1) Abstract Step definition is not Supported.
-	2) Since Abstract Step definition is not supported listeners merge is also not supported.
-	3) Composite item reader i.e. multiple streams are not supported now... This feature may not be much used in amaze context since amaze is configured as one to one streams.
-	
-Not Implemented
-	1) For no roll back logic the exclude classes are not implemented since not sure of implementing. No API's provided from Spring Batch for the same.

@@ -40,7 +40,10 @@ public class DateTimeType implements UserType
 	public void nullSafeSet( PreparedStatement stmt, Object value, int index, SessionImplementor session ) throws HibernateException, SQLException
 	{
 		if ( value == null )
+		{
 			stmt.setNull( index, Types.TIMESTAMP );
+			return;
+		}
 		if ( !( value instanceof DateTime ) )
 			throw new UnsupportedOperationException( "Cannot convert " + value.getClass() );
 		stmt.setDate( index, new java.sql.Date( ( ( DateTime ) value ).getMillis() ) );

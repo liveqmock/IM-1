@@ -4,7 +4,7 @@
 		<Application AppName="Amaze" AppCreatedDttm="now" AppVersion="1"/>
 	</Applications>
 	<Userss>
-		<Users UsrName="Admin" UsrDisabled="true" ApplicationRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
+		<Users UsrName="Admin" UsrDisabled="true" AppIdRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
 	</Userss>
 	<TableTypes>
 		<TableType TtpName="System" TtpCreatedDttm="now" TtpDeleteFl="N" TtpVersion="1" />
@@ -17,48 +17,119 @@
 		<PropertyGroup PgpName="FileSourcePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="FileSinkPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="TransformProcessorPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		
+		<PropertyGroup PgpName="FileJdbcPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		<PropertyGroup PgpName="AmazeSimplePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 	</PropertyGroups>
 	
 	<Propertys>
-		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/insrc.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="preventDuplicates" PrtDefault="true" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="pattern" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="fixedDelay" PrtDefault="5" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="ref" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/insrc.txt" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="preventDuplicates" PrtDefault="true" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="pattern" PrtDefault="**.*" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fixedDelay" PrtDefault="5" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="ref" PrtDefault="false" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
-		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/outsink.txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="binary" PrtDefault="false" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="charset" PrtDefault="UTF-8" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="mode" PrtDefault="APPEND" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="name" PrtDefault="**.*" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
-		<Property PrtName="suffix" PrtDefault="txt" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="dir" PrtDefault="${Amaze-DataHome}/file/outsink.txt" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="binary" PrtDefault="false" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="charset" PrtDefault="UTF-8" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="mode" PrtDefault="APPEND" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="name" PrtDefault="**.*" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="suffix" PrtDefault="txt" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
-		<Property PrtName="expression" PrtDefault="payload.toUpperCase()" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="expression" PrtDefault="payload.toUpperCase()" PgpIdRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
+		<Property PrtName="abandonWhenPercentageFull" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="alternateUsernameAllowed" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="commitInterval" PrtDefault="1000" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="connectionProperties" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="deleteFiles" PrtDefault="false" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="delimiter" PrtDefault="," PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="driverClassName" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fairQueue" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="fsUri" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initSQL" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initialSize" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initializeDatabase" PrtDefault="true" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="initializerScript" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="jdbcInterceptors" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="jmxEnabled" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="logAbandoned" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxActive" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxAge" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxIdle" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="maxWait" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="minEvictableIdleTimeMillis" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="minIdle" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="names" PrtDefault="id,username,lastname" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="password" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="removeAbandoned" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="removeAbandonedTimeout" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="resources" PrtDefault="file://D:/input/*.csv" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="restartable" PrtDefault="true" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="suspectTimeout" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="tableName" PrtDefault="test" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+		<Property PrtName="class" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 	</Propertys>
 	
 	<PropertyValueGroups>
-		<PropertyValueGroup PvgName="TickTockSourceProperties" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
-		<PropertyValueGroup PvgName="TickTockSinkProperties" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
-		<PropertyValueGroup PvgName="TickTockProcessorProperties" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockSourceProperties" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockSinkProperties" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="TickTockProcessorProperties" PgpIdRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		
+		<PropertyValueGroup PvgName="FileJdbcProperties" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		<PropertyValueGroup PvgName="FileSystemCopyProperties" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
 	</PropertyValueGroups>
 	
 	<PropertyValues>
-		<PropertyValue PrtName="dir" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="preventDuplicates" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="input.txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="pattern" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="fixedDelay" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="10" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="ref" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="dir" PrtIdRef="CQ{from Property where prtName='dir' and pgpIdPropertyGroup.pgpName='FileSourcePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="preventDuplicates" PrtIdRef="CQ{from Property where prtName='preventDuplicates' and pgpIdPropertyGroup.pgpName='FileSourcePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="pattern" PrtIdRef="CQ{from Property where prtName='pattern' and pgpIdPropertyGroup.pgpName='FileSourcePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fixedDelay" PrtIdRef="CQ{from Property where prtName='fixedDelay' and pgpIdPropertyGroup.pgpName='FileSourcePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="1" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="ref" PrtIdRef="CQ{from Property where prtName='ref' and pgpIdPropertyGroup.pgpName='FileSourcePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
-		<PropertyValue PrtName="dir" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="binary" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="charset" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="UTF-8" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="mode" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="APPEND" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="name" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="**.*" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
-		<PropertyValue PrtName="suffix" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="dir" PrtIdRef="CQ{from Property where prtName='dir' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="." PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="binary" PrtIdRef="CQ{from Property where prtName='binary' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="false" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="charset" PrtIdRef="CQ{from Property where prtName='charset' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="UTF-8" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="mode" PrtIdRef="CQ{from Property where prtName='mode' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="APPEND" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="name" PrtIdRef="CQ{from Property where prtName='name' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="data" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="suffix" PrtIdRef="CQ{from Property where prtName='suffix' and pgpIdPropertyGroup.pgpName='FileSinkPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" PrvValue="txt" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
-		<PropertyValue PrtName="expression" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" PrvValue="payload.toUpperCase()" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="expression" PrtIdRef="CQ{from Property where prtName='expression' and pgpIdPropertyGroup.pgpName='TransformProcessorPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" PrvValue="new String(payload).toUpperCase()" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
+		
+		<PropertyValue PrtName="abandonWhenPercentageFull" PrtIdRef="CQ{from Property where prtName='abandonWhenPercentageFull' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="alternateUsernameAllowed" PrtIdRef="CQ{from Property where prtName='alternateUsernameAllowed' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="commitInterval" PrtIdRef="CQ{from Property where prtName='commitInterval' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="connectionProperties" PrtIdRef="CQ{from Property where prtName='connectionProperties' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="deleteFiles" PrtIdRef="CQ{from Property where prtName='deleteFiles' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="delimiter" PrtIdRef="CQ{from Property where prtName='delimiter' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="driverClassName" PrtIdRef="CQ{from Property where prtName='driverClassName' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fairQueue" PrtIdRef="CQ{from Property where prtName='fairQueue' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="fsUri" PrtIdRef="CQ{from Property where prtName='fsUri' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initSQL" PrtIdRef="CQ{from Property where prtName='initSQL' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initialSize" PrtIdRef="CQ{from Property where prtName='initialSize' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initializeDatabase" PrtIdRef="CQ{from Property where prtName='initializeDatabase' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="initializerScript" PrtIdRef="CQ{from Property where prtName='initializerScript' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="jdbcInterceptors" PrtIdRef="CQ{from Property where prtName='jdbcInterceptors' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="jmxEnabled" PrtIdRef="CQ{from Property where prtName='jmxEnabled' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="logAbandoned" PrtIdRef="CQ{from Property where prtName='logAbandoned' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxActive" PrtIdRef="CQ{from Property where prtName='maxActive' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxAge" PrtIdRef="CQ{from Property where prtName='maxAge' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxIdle" PrtIdRef="CQ{from Property where prtName='maxIdle' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="maxWait" PrtIdRef="CQ{from Property where prtName='maxWait' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="minEvictableIdleTimeMillis" PrtIdRef="CQ{from Property where prtName='minEvictableIdleTimeMillis' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="minIdle" PrtIdRef="CQ{from Property where prtName='minIdle' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="names" PrtIdRef="CQ{from Property where prtName='names' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="password" PrtIdRef="CQ{from Property where prtName='password' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="removeAbandoned" PrtIdRef="CQ{from Property where prtName='removeAbandoned' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="removeAbandonedTimeout" PrtIdRef="CQ{from Property where prtName='removeAbandonedTimeout' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="resources" PrtIdRef="CQ{from Property where prtName='resources' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="restartable" PrtIdRef="CQ{from Property where prtName='restartable' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="suspectTimeout" PrtIdRef="CQ{from Property where prtName='suspectTimeout' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="tableName" PrtIdRef="CQ{from Property where prtName='tableName' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		
+		<PropertyValue PrtName="class" PrtIdRef="CQ{from Property where prtName='class' and pgpIdPropertyGroup.pgpName='AmazeSimplePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileSystemCopyProperties" PrvValue="org.amaze.data.file.task.FSToFSTask" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 	</PropertyValues>
 	
 	<SourceTypes>
@@ -66,7 +137,7 @@
 	</SourceTypes>
 
 	<Sources>
-		<Source SrcName="file" SourceTypeRef="SourceType.sctName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSourcePropertyGroup" SrcCreatedDttm="now" SrcDeleteFl="N" SrcVersion="1" />
+		<Source SrcName="file" SctIdRef="SourceType.sctName=Default" PgpIdRef="PropertyGroup.pgpName=FileSourcePropertyGroup" SrcCreatedDttm="now" SrcDeleteFl="N" SrcVersion="1" />
 	</Sources>
 	
 	<SinkTypes>
@@ -74,7 +145,7 @@
 	</SinkTypes>
 	
 	<Sinks>
-		<Sink SikName="file" SinkTypeRef="SinkType.sktName=Default" PropertyGroupRef="PropertyGroup.pgpName=FileSinkPropertyGroup" SikCreatedDttm="now" SikDeleteFl="N" SikVersion="1" />
+		<Sink SikName="file" SktIdRef="SinkType.sktName=Default" PgpIdRef="PropertyGroup.pgpName=FileSinkPropertyGroup" SikCreatedDttm="now" SikDeleteFl="N" SikVersion="1" />
 	</Sinks>
 	
 	<ProcessorTypes>
@@ -82,7 +153,7 @@
 	</ProcessorTypes>
 	
 	<Processors>
-		<Processor PrcName="transform" ProcessorTypeRef="ProcessorType.pctName=Default" PropertyGroupRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrcCreatedDttm="now" PrcDeleteFl="N" PrcVersion="1"/>
+		<Processor PrcName="transform" PctIdRef="ProcessorType.pctName=Default" PgpIdRef="PropertyGroup.pgpName=TransformProcessorPropertyGroup" PrcCreatedDttm="now" PrcDeleteFl="N" PrcVersion="1"/>
 	</Processors>
 	
 	<StreamTypes>
@@ -90,33 +161,49 @@
 	</StreamTypes>
 
 	<Streams>
-		<Stream StmName="ticktock" StreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
-		<Stream StmName="fileRedirection" StreamTypeRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
+		<Stream StmName="ticktock" SmtIdRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
+		<Stream StmName="fileRedirection" SmtIdRef="StreamType.smtName=Default" StmCreateOnLoad="true" StmDeployOnLoad="true" StmCreatedDttm="now" StmDeleteFl="N" StmVersion="1" />
 	</Streams>
 	
 	<StreamModuless>
-		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Source" SmdValue="time" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=ticktock" SmdType="Sink" SmdValue="log" PropertyValueGroupRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Processor" SmdValue="transform" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
-		<StreamModules StreamRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="file" PropertyValueGroupRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdRef="Stream.stmName=ticktock" SmdType="Source" SmdValue="time" PvgIdRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdRef="Stream.stmName=ticktock" SmdType="Sink" SmdValue="log" PvgIdRef="null" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdRef="Stream.stmName=fileRedirection" SmdType="Source" SmdValue="file" PvgIdRef="PropertyValueGroup.pvgName=TickTockSourceProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdRef="Stream.stmName=fileRedirection" SmdType="Processor" SmdValue="transform" PvgIdRef="PropertyValueGroup.pvgName=TickTockProcessorProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
+		<StreamModules StmIdRef="Stream.stmName=fileRedirection" SmdType="Sink" SmdValue="file" PvgIdRef="PropertyValueGroup.pvgName=TickTockSinkProperties" SmdCreatedDttm="now" SmdDeleteFl="N" SmdVersion="1" />
 	</StreamModuless>
 	
-	<JobComponentTypes>
-		<jobComponentType JctName="Default" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="Writer" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="Reader" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="Processor" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="TaskExecutor" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="JobStep" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="JobStepListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="Tasklet" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="TaskletChunk" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="JobStepChunkListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="JobListener" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="FlowDecider" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="TransactionManager" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-		<jobComponentType JctName="CompletionPolicy" JctCreatedDttm="now" JctDeleteFl="false" JctVersion="1"/>
-	</JobComponentTypes>
+	<JobTypes>
+		<JobType JtyName="Default" JtyCreatedDttm="now" JtyDeleteFl="N" JtyVersion="1" />
+	</JobTypes>
+	
+	<Jobs>
+		<Job JobName="fileJdbc" JtyIdRef="JobType.jtyName=Default" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" JobCreatedDttm="now" JobDeleteFl="N" JobVersion="1" />
+		<Job JobName="AmazeSimple" JtyIdRef="JobType.jtyName=Default" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" JobCreatedDttm="now" JobDeleteFl="N" JobVersion="1" />
+	</Jobs>
+	
+	<JobDefinitions>
+		<JobDefinition JbdName="SampleFileJdbc" JobIdRef="Job.jobName=fileJdbc" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" JbdNeedStreamDeploy="false"  JbdCreateOnLoad="true" JbdDeployOnLoad="true" JbdLaunchOnLoad="true" JbdCron="null" JbdFixedDelayTrig="null" JbdPayloadPmt="null" JbdIsEventTriggered="null" JbdTriggeringEvent="null" JbdTriggeredEventPvgIdRef="null" JbdNotifSink="null" JbdNotifSinkPvgIdRef="null" JbdCompTrigger="null" JbdCompTriggeredPvgIdRef="null" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1"  />
+		<JobDefinition JbdName="FileSystemCopyTask" JobIdRef="Job.jobName=AmazeSimple" PvgIdRef="PropertyValueGroup.pvgName=FileSystemCopyProperties" JbdNeedStreamDeploy="false"  JbdCreateOnLoad="true" JbdDeployOnLoad="true" JbdLaunchOnLoad="true" JbdCron="null" JbdFixedDelayTrig="null" JbdPayloadPmt="null" JbdIsEventTriggered="null" JbdTriggeringEvent="null" JbdTriggeredEventPvgIdRef="null" JbdNotifSink="null" JbdNotifSinkPvgIdRef="null" JbdCompTrigger="null" JbdCompTriggeredPvgIdRef="null" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1"  />
+	</JobDefinitions>
+	
+	<JobInstances>
+		<JobInstance JitName="Jit001" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JitCreatedDttm="now" JitDeleteFl="N" JitVersion="1" />
+	</JobInstances>
+	
+	<JobTaskParams>
+		<JobTaskParam JtpName="srcPath" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+		<JobTaskParam JtpName="destPath" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+		<JobTaskParam JtpName="folder" JtpDefault="false" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+	</JobTaskParams>
+			
+	<JobTaskParamValues>
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='srcPath' and jbdIdJobDefinition.jbdName='FileSystemCopyTask'}" JitIdRef="JobInstance.jitName=Jit001" JpvValue="D:/Vids/SinglePageApplicationswithjQueryorAngularJS-YouTube[viatorchbrowser.com].mp4" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='destPath' and jbdIdJobDefinition.jbdName='FileSystemCopyTask'}" JitIdRef="JobInstance.jitName=Jit001" JpvValue="D:/Sample.mp4" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+	</JobTaskParamValues>
+	
+	<Tasks>
+		<Task TskName="Task001" JitIdRef="JobInstance.jitName=Jit001" TskStatus="Created" TskCreated="now" TskStarted="null" TskCompleted="null" TskCreatedDttm="now" TskDeleteFl="N" TskVersion="1" />
+	</Tasks>
 	
 </SeedData>

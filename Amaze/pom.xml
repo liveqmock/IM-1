@@ -42,6 +42,7 @@
 		<module>Amaze-Commons</module>
 		<module>Amaze-DB</module>
 		<module>Amaze-Web</module>
+    <module>Amaze-Data</module>
   </modules>
 	<build>
 		<pluginManagement>

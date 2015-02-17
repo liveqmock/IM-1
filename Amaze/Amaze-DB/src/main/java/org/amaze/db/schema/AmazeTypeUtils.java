@@ -119,6 +119,8 @@ public class AmazeTypeUtils
     
     public static Object getCorrectTypedValue( String value, String dataType )
 	{
+    	if( value == null )
+    		return null;
 		if( dataType.equals( "java.lang.Boolean" ) )
 			return Boolean.valueOf( value );
 		else if( dataType.equals( "java.lang.String" ) )

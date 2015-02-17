@@ -6,9 +6,7 @@
 		<artifactId>Amaze-Server</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>org.amaze</groupId>
 	<artifactId>Amaze-Server-Modules</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Amaze-Server-Modules</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -17,9 +15,10 @@
 	<dependencies>
 	</dependencies>
 	<packaging>pom</packaging>
-  <modules>
-    <module>Amaze-Server-Task</module>
-    <module>Amaze-Server-Stream</module>
-    <module>Amaze-Server-Job</module>
+	<modules>
+		<module>Amaze-Server-Stream</module>
+		<module>Amaze-Server-Job</module>
+		<module>Amaze-Server-Hadoop</module>
+    <module>Amaze-Task</module>
   </modules>
 </project>

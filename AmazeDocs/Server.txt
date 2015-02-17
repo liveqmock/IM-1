@@ -5,7 +5,7 @@ Input consumption into system
 	Spring XD is the real time data ingesting stream processor used.
 	Any input source ( like file, http, messagebroker etc ) will be source for the stream.
 	Parsing or transforming logic can be written in Groovy, Scala, JS, Java scripts.
-	The output of the stream can be piped again to any sink like hdfc, jdbc, file etc. which again serves the input for futher analytical processing.
+	The output of the stream can be piped again to any sink like hdfs, jdbc, file etc. which again serves the input for futher analytical processing.
 	
 	There would be Taps, which can tap the data from the stream and preserve in a sink, which again serve the input for further analytical processing or reporting.
 	

@@ -27,8 +27,8 @@ import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.joda.time.DateTime;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 public class AmazeInstaller
 {
@@ -69,6 +69,8 @@ public class AmazeInstaller
 
 	private List<AmazeInstallerState> states = new ArrayList<AmazeInstallerState>();
 	private Integer taskCompletion;
+
+	private static final String TX_MANAGER_NAME = "sessionTransaction";
 
 	private void install( String[] args ) throws AmazeInstallerException
 	{
@@ -111,9 +113,10 @@ public class AmazeInstaller
 		ctx.close();
 	}
 
+	@Transactional( TX_MANAGER_NAME )
 	private void doInstallation( Schema schema, DataSource dataSource )
 	{
-		if( states.size() == 0 )
+		if ( states.size() == 0 )
 			logger.error( "No updates in the system... Exiting the Amaze Installer... For development changes pass updateTask as a paramater to the Installer args..." );
 		for ( AmazeInstallerState eachTask : states )
 			try
@@ -145,7 +148,9 @@ public class AmazeInstaller
 					installVersion( schema, dataSource );
 				}
 			}
-			catch ( NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException e )
+			catch ( NoSuchMethodException | SecurityException
+					| IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | ClassNotFoundException e )
 			{
 				throw new AmazeInstallerException( "Could not install Amaze while executing the Amaze task " + eachTask + " ... ", e );
 			}
@@ -176,7 +181,9 @@ public class AmazeInstaller
 
 	private void installUpdateVersion( Schema schema, DataSource dataSource )
 	{
-		HibernateSession.update( "update Version ver set ver.verCurrent=:verCurrent ", new String[]{ "verCurrent" }, new Object[]{ false } );
+		HibernateSession.update( "update Version ver set ver.verCurrent=:verCurrent ", new String[]
+		{ "verCurrent" }, new Object[]
+		{ false } );
 		installVersion( schema, dataSource );
 	}
 
@@ -196,8 +203,8 @@ public class AmazeInstaller
 	{
 		for ( Database database : schema.databases )
 		{
-			List<Table> tableList = database.tables; 
-			for ( int i = 0 ; i < tableList.size() ; i++ )
+			List<Table> tableList = database.tables;
+			for ( int i = 0; i < tableList.size(); i++ )
 			{
 				List<Tables> tables = HibernateSession.query( "from Tables tab where tab.tabName=:TableName", "TableName", tableList.get( i ).tableName );
 				if ( tables.size() == 1 )
@@ -279,14 +286,21 @@ public class AmazeInstaller
 									if ( isRefType == true )
 									{
 										name = name.substring( 0, name.indexOf( "Ref" ) );
-										dataType = "org.amaze.db.hibernate.objects." + name;
+										//										dataType = "org.amaze.db.hibernate.objects." + name.subSequence( 5, name.length() );
 									}
 									String columnName = StringUtils.camelCaseToUnderScore( name );
-									String value = eachAttribute.getValue();
+									String value = eachAttribute.getValue().equals( "null" ) ? null : eachAttribute.getValue();
+									String simpleDataType = null;
 									for ( Column eachCol : columns )
 										if ( eachCol.columnName.equals( columnName ) )
 										{
-											dataType = AmazeTypeUtils.getCompleteClassNameForAmazeType( eachCol.dataType );
+											if ( !isRefType )
+												dataType = AmazeTypeUtils.getCompleteClassNameForAmazeType( eachCol.dataType );
+											else
+											{
+												simpleDataType = eachCol.nestedObject;
+												dataType = "org.amaze.db.hibernate.objects." + eachCol.nestedObject;
+											}
 											break;
 										}
 									if ( !isRefType )
@@ -296,8 +310,8 @@ public class AmazeInstaller
 									}
 									else
 									{
-										AbstractHibernateObject refObject = (AbstractHibernateObject) getReferencedValue( value ); 
-										Method setterMethod = cls.getDeclaredMethod( "set" + name, Class.forName( dataType ) );
+										AbstractHibernateObject refObject = ( AbstractHibernateObject ) getReferencedValue( value );
+										Method setterMethod = cls.getDeclaredMethod( "set" + name + simpleDataType, Class.forName( dataType ) );
 										setterMethod.invoke( object, refObject );
 									}
 								}
@@ -315,19 +329,32 @@ public class AmazeInstaller
 
 	private Object getReferencedValue( String value )
 	{
-		if( value == null )
+		if ( value == null )
 			return null;
-		if( value.equals( "" ) || value.equals( "null" ) )
+		if ( value.equals( "" ) || value.equals( "null" ) )
 			return null;
-		String condition = value.split( "=" )[0];
-		String conditionObject = condition.substring( 0, condition.indexOf( "." ) );
-		String conditionString = condition.substring( condition.indexOf( "." ) + 1, condition.length() );
-		String conditionValue = value.split( "=" )[1];
-		List< ? > values = HibernateSession.query( " from " + conditionObject + " obj where obj." + conditionString + " = :value", "value", conditionValue );
-		if ( values.size() == 1 )
-			return values.get( 0 );
+		List< ? > values = null;
+		if ( value.startsWith( "CQ{" ) )
+		{
+			value = value.substring( 3, value.length() - 1 );
+			values = HibernateSession.find( value );
+			if ( values.size() == 1 )
+				return values.get( 0 );
+			else
+				throw new AmazeInstallerException( "Invalid No of reference values for the CQ " + value + ".... Check the Ref Condition passed in Seed File..." );
+		}
 		else
-			throw new AmazeInstallerException( "Invalid No of reference values for the Object " + conditionObject + ".... Check the Ref Condition passed in Seed File..." );
+		{
+			String condition = value.split( "=" )[0];
+			String conditionObject = condition.substring( 0, condition.indexOf( "." ) );
+			String conditionString = condition.substring( condition.indexOf( "." ) + 1, condition.length() );
+			String conditionValue = value.split( "=" )[1];
+			values = HibernateSession.query( " from " + conditionObject + " obj where obj." + conditionString + " = :value", "value", conditionValue );
+			if ( values.size() == 1 )
+				return values.get( 0 );
+			else
+				throw new AmazeInstallerException( "Invalid No of reference values for the Object " + conditionObject + ".... Check the Ref Condition passed in Seed File..." );
+		}
 	}
 
 	public static void main( String[] args )

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+		http://www.springframework.org/schema/batch	http://www.springframework.org/schema/batch/spring-batch.xsd">
+		
+	<context:property-placeholder location="classpath:AmazeHive.properties" />
+	
+	<hdp:configuration id="hadoopConfiguration">
+		fs.default.name=hdfs://localhost.localdomain:54321
+		signature.secret=blahblahASDA12313Aasdaadssa
+		hadoop.log.dir=./target/logs
+		mapred.job.tracker=localhost.localdomain:54310
+	</hdp:configuration>
+	
+	<hdp:configuration properties-location="${xd.config.home}/hadoop.properties">
+		fs.default.name=${fs.default.name}
+		mapred.job.tracker=${mapred.job.tracker}
+	</hdp:configuration>
+	
+	<bean class="org.springframework.batch.core.scope.StepScope">
+		<property name="proxyTargetClass" value="true"/>
+	</bean>
+	
+	<batch:job id="job">
+		<batch:step id="mrJobStep">
+			<batch:tasklet ref="mr-tasklet" />
+		</batch:step>
+	</batch:job>
+	
+	<hdp:job-tasklet id="mr-tasklet" job-ref="mr-job" />
+	
+	<hdp:job id="mr-job" scope="step" input-path="#{jobParameters['input.path']}"
+		output-path="#{jobParameters['output.path']}"
+		mapper="#{jobParameters['mapper']}"
+		reducer="#{jobParameters['reducer']}" />
+	
+	<!-- <hdp:pig-tasklet id="pig-tasklet">
+		<hdp:script location="classpath:script.pig" />
+	</hdp:pig-tasklet> -->
+
+</beans>

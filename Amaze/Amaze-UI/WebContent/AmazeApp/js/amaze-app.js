@@ -163,6 +163,7 @@ amazeApp.controller('NotesController', function($scope) {
 
 amazeApp.controller('ConfigController', function($scope) {
     alert("Config");
+    
 });
 
 

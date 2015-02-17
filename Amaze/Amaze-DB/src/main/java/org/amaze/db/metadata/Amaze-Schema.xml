@@ -284,7 +284,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="prt_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Property" />
 					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyValueGroup" />
 					<Column ColumnName="prt_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="prv_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="prv_value" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="prv_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="prv_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="prv_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -452,80 +452,124 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes />
 				<NestedCollections />
 			</Table>
-			
-			<Table TableName="job_component_type" TablePrefix="jct" DisplayName="jctName">
+			<Table TableName="job_type" TablePrefix="jty" DisplayName="jty_name">
 				<Columns>
-					<Column ColumnName="jct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
-					<Column ColumnName="jct_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<!-- <Column ColumnName="jct_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="JobComponentType"/> -->
-					<Column ColumnName="jct_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="jct_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-           			<Column ColumnName="jct_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jty_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="jty_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jty_parent" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="JobType"/>
+					<Column ColumnName="jty_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jty_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="jty_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
 				<Indexes>
-					<Index IndexName="jct_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jct_name" Condition="" />
+					<Index IndexName="jty_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jty_name" Condition="" />
 				</Indexes>
 				<NestedCollections />
 			</Table>
-			<Table TableName="job_component" TablePrefix="jcm" DisplayName="jcmName">
+			<Table TableName="job" TablePrefix="job" DisplayName="job_name">
 				<Columns>
-					<Column ColumnName="jcm_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
-					<Column ColumnName="jct_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobComponentType" />
-					<Column ColumnName="jcm_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="jcm_type" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="jcm_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="jcm_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-           			<Column ColumnName="jcm_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="job_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="job_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jty_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="JobType" />
+					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="job_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="job_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="job_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
 				<Indexes>
-					<Index IndexName="jcm_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jcm_name" Condition="" />
+					<Index IndexName="job_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="job_name,jty_id" Condition="" />
 				</Indexes>
 				<NestedCollections />
 			</Table>
 			<Table TableName="job_definition" TablePrefix="jbd" DisplayName="jbdName">
 				<Columns>
 					<Column ColumnName="jbd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="job_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Job" />
 					<Column ColumnName="jbd_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
 					<Column ColumnName="jbd_need_stream_deploy" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="pgp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="PropertyGroup" />
+					<Column ColumnName="jbd_create_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_deploy_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_launch_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_cron" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_fixed_delay_trig" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_payload_pmt" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_is_event_triggered" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_triggering_event" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_triggered_event_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
+					<Column ColumnName="jbd_notif_sink" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_notif_sink_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
+					<Column ColumnName="jbd_comp_trigger" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_comp_triggered_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
 					<Column ColumnName="jbd_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="jbd_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="jbd_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
 				<Indexes>
-					<Index IndexName="jbd_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jbd_name" Condition="" />
+					<Index IndexName="jbd_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jbd_name,job_id" Condition="" />
 				</Indexes>
-				<NestedCollections />
+				<NestedCollections>
+					<NestedCollection PropertyName="jobTaskParams" ForeignObjectMappingName="JobTaskParam" ForeignPropertyName="jbdId" />
+				</NestedCollections>
 			</Table>
-			<Table TableName="job_instance" TablePrefix="jit" DisplayName="jitName">
+			<Table TableName="job_instance" TablePrefix="jit" DisplayName="">
 				<Columns>
 					<Column ColumnName="jit_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
-					<Column ColumnName="jit_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jit_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="jbd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobDefinition"/>
-					<Column ColumnName="pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
-					<Column ColumnName="jit_create_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_deploy_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_launch_on_load" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_cron" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_fixed_delay_trig" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_payload_pmt" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="is_event_triggered" DataType="Boolean" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_triggering_event" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_triggered_event_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
-					<Column ColumnName="jit_notif_sink" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_notif_sink_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
-					<Column ColumnName="jit_comp_trigger" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
-					<Column ColumnName="jit_comp_triggered_pvg_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="PropertyValueGroup"/>
 					<Column ColumnName="jit_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="jit_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="jit_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
+				<Indexes />
+				<NestedCollections>
+					<NestedCollection PropertyName="jobTaskParamValues" ForeignObjectMappingName="JobTaskParamValue" ForeignPropertyName="jitId" />
+				</NestedCollections>
+			</Table>
+			<Table TableName="job_task_param" TablePrefix="jtp" DisplayName="">
+				<Columns>
+					<Column ColumnName="jtp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="jtp_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jtp_default" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jbd_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobDefinition"/>
+					<Column ColumnName="jtp_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jtp_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="jtp_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
 				<Indexes>
-					<Index IndexName="jit_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jit_name" Condition="" />
+					<Index IndexName="jtp_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="jtp_name,jbd_id" Condition="" />
 				</Indexes>
 				<NestedCollections />
 			</Table>
-
+			<Table TableName="job_task_param_value" TablePrefix="jpv" DisplayName="">
+				<Columns>
+					<Column ColumnName="jpv_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="jtp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobTaskParam" />
+					<Column ColumnName="jit_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobInstance" />
+					<Column ColumnName="jpv_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jpv_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jpv_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="jpv_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
+			<Table TableName="task" TablePrefix="tsk" DisplayName="tskName">
+				<Columns>
+					<Column ColumnName="tsk_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="tsk_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jit_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobInstance"/>
+					<Column ColumnName="tsk_status" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tsk_created" DataType="DateTime" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tsk_started" DataType="DateTime" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tsk_completed" DataType="DateTime" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tsk_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="tsk_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="tsk_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+				<NestedCollections />
+			</Table>
 
 			<Table TableName="nodes" TablePrefix="nod" DisplayName="">
 				<Columns>
@@ -539,6 +583,8 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes />
 				<NestedCollections />
 			</Table>
+			
+			
 		</Tables>
 	</Database>
 	<Extends>WorkBench_Schema.xml</Extends>

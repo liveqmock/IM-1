@@ -18,11 +18,13 @@ public class StreamCommandBuilder
 		Map<String, String> commands = new HashMap<String, String>();
 		StringBuffer command = new StringBuffer();
 		List<StreamModules> modules = stream.getStreamModuless();
+		int i = 0;
 		for ( StreamModules eachModule : modules )
 		{
-			command.append( getCommandWithProperties( eachModule ) ).append( " | " );
+			command.append( "m" + i + ":" + getCommandWithProperties( eachModule ) ).append( " | " );
+			i++;
 		}
-		commands.put( "definition", "\"" + command.toString().substring( 0, command.toString().length() - 2 ) + "\"" );
+		commands.put( "definition", command.toString().substring( 0, command.toString().length() - 2 ) );
 		commands.put( "name", stream.getStmName() );
 		commands.put( "deploy", stream.getStmDeployOnLoad().toString() );
 		return commands;
@@ -35,8 +37,13 @@ public class StreamCommandBuilder
 		if ( eachModule.getPvgIdPropertyValueGroup() != null )
 		{
 			List<PropertyValue> propertyValues = HibernateSession.query( "from PropertyValue prv where prv.pvgId = :pvgId", "pvgId", eachModule.getPvgIdPropertyValueGroup().getPgpId() );
+			String prvValue;
 			for ( PropertyValue eachProperty : propertyValues )
-				moduleProperties.append( " --" ).append( eachProperty.getPrtName() ).append( " " ).append( eachProperty.getPrvValue() != null ? eachProperty.getPrvValue() : eachProperty.getPrtIdProperty() != null ? eachProperty.getPrtIdProperty().getPrtDefault() : null );
+			{
+				prvValue = eachProperty.getPrvValue() != null  ? eachProperty.getPrvValue() : eachProperty.getPrtIdProperty() != null ? eachProperty.getPrtIdProperty().getPrtDefault() : null;
+				if( prvValue != null )
+					moduleProperties.append( " --" ).append( eachProperty.getPrtName() ).append( "=" ).append( "'" + prvValue + "'" );
+			}
 		}
 		return moduleName + " " + moduleProperties;
 	}
