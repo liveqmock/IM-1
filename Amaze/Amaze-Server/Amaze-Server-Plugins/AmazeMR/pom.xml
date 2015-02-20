@@ -8,8 +8,10 @@
 		<artifactId>spring-xd-module-parent</artifactId>
 		<version>1.1.0.BUILD-SNAPSHOT</version>
 	</parent>
+	<groupId>org.amaze</groupId>
 	<artifactId>AmazeMR</artifactId>
 	<name>AmazeMR</name>
+	<version>1.0.0</version>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,14 +22,15 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<descriptors>
-						<descriptor>${basedir}/src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
 					<finalName>AmazeMR</finalName>
-					<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/modules/job</outputDirectory>
+					<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/plugins/job</outputDirectory>
 				</configuration>
 				<executions>
 					<execution>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -65,4 +68,11 @@
 			<url>http://maven.springframework.org/release</url>
 		</pluginRepository>
 	</pluginRepositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-core</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+	</dependencies>
 </project>

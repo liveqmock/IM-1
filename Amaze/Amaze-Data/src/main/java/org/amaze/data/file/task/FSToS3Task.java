@@ -73,7 +73,7 @@ public class FSToS3Task extends AbstractTask
 	// http://ceph.com/docs/master/radosgw/s3/java/
 	// http://docs.aws.amazon.com/AmazonS3/latest/dev/UploadObjSingleOpJava.html
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider ());
         try {

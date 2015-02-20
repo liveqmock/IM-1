@@ -57,7 +57,7 @@ public class FSToHDFSTask extends AbstractTask
 
 	// https://linuxjunkies.wordpress.com/2011/11/21/a-hdfsclient-for-hadoop-using-the-native-java-api-a-tutorial/
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		try
 		{

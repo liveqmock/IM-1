@@ -11,15 +11,17 @@ T1) Create the db entries for the Spring xd Source, Sink, Processors.
 T2) Test for all the stream by deploying through the deployer created in the Amaze.
 T3) Create any one of each of them as Plugins under the Plugins directory and test them.
 T4) Create a script that would be called from the root to the Spring XD.
-	This should read the spring XD from the System Variable configured.
+	This should read the spring XD from the System Variable configured. 
 	There should be a rest service provided for the module deployment( which also the shell uses to install modules ), using the same to install the module.
 	
 I2) Should decide how exactly the Spring along with the new version release changes from the framework can be picked and built as a distribution release, so that this release is shared across the machines during deployment of the XD cluster.
+ - Resolved.. The new modules should be child to the Amaze plugins and they have a assembly plugin that would be configured to output the binaries to the amaze server distribution. There would be a folder called modules under that job,sink,processor, source etc.. This folder should be made available over the network, where $AMAZE_HOME/modules would be the directory.
+Spring distributions that run over the network, will have a configurstion propert in its server.yml where ${xd.custom.modules} which says where actually the modules are configured.. This should the be module directory on the network. Spring XD should be added with the code changes ( Editing the parent_context.xml to add the <Import> for the db.xml, dbusage.xml ), so once the context starts these beans are created and already loaded into the Context where the Spring XD runs. This would have also initialized the HibernateSession and the UsageSession and the variuos datasources required by the Business classes. So to the business modules just adding the Amaze-DB Dependencies would be sufficient with out starting the actual context.
 
 T5) Create the DB entries for these again and test their deployment.
 
-A1) Removing all the modules in it not necessary as in Spring XD auto deployment is not ther.. Unless we deploy it manually none of them gets deployed.
-	INFO Logging of the Context Booting, Module Deployment and launch is handled in the Rest call point were the loggs are written to the common logging of the Amaze Server.
+A1) Removing all the modules in it not necessary as in Spring XD auto deployment is not there.. Unless we deploy it manually none of them gets deployed.
+	INFO Logging of the Context Booting, Module Deployment and launch is handled in the Rest call point were the logs are written to the common logging of the Amaze Server.
 	Plugging in this module is internally handled when it is injected rest call point.
 	
 C1) Completed, Tested.

@@ -10,7 +10,8 @@
 	</parent>
 	<artifactId>AmazeHive</artifactId>
 	<name>AmazeHive</name>
-	<url>http://maven.apache.org</url>
+	<groupId>org.amaze</groupId>
+	<version>1.0.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -20,14 +21,15 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<descriptors>
-						<descriptor>${basedir}/src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
 					<finalName>AmazeHive</finalName>
-					<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/modules/job</outputDirectory>
+					<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/plugins/job</outputDirectory>
 				</configuration>
 				<executions>
 					<execution>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>

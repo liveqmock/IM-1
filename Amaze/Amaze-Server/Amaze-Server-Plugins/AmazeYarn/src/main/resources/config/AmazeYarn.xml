@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	xmlns:yarn="http://www.springframework.org/schema/yarn" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:yarn-batch="http://www.springframework.org/schema/yarn/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/yarn http://www.springframework.org/schema/yarn/spring-yarn-2.0.xsd
+		http://www.springframework.org/schema/yarn/batch http://www.springframework.org/schema/yarn/batch/spring-yarn-batch-2.0.xsd">
+
+	<context:property-placeholder properties-ref="amazeYarnProperties" system-properties-mode="ENVIRONMENT"/>
+	
+	<yarn:configuration>
+		fs.defaultFS=${fs.default.name}
+		yarn.resourcemanager.address=${yarn.resourcemanager.address}
+		fs.hdfs.impl=org.apache.hadoop.hdfs.DistributedFileSystem
+	</yarn:configuration>
+
+	<batch:job id="job">
+		<batch:step id="yarnJobStep">
+			<batch:tasklet ref="yarnTasklet"/>
+		</batch:step>
+	</batch:job>
+	
+	<bean id="yarnTasklet" class="org.springframework.yarn.examples.PrintTasklet" />
+	
+	<yarn-batch:master job-name="yarnAppMaster" jobs="job"/>
+	
+	<yarn:environment>
+		<yarn:classpath use-yarn-app-classpath="true"/>
+		jobName=${jobName}
+	</yarn:environment>
+
+	<yarn:client app-name="batch-amjob">
+		<yarn:master-runner/>
+	</yarn:client>
+	
+	<util:properties id="amazeYarnProperties" location="classpath:hadoop.properties" />
+
+</beans>

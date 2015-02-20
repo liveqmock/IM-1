@@ -1,0 +1,72 @@
+Amaze Data is the module whoch provides easy access to the data storing retrieving.
+Data can be Structred data or unstructured data.. Can be Data in the tables and that in the files. Files can be any type csv, blob, etc.
+
+Unstructured
+Data can be on RDBMS, NOSQL, S3, DataFS, HDFS, FTP, HTTP, WS etc.
+
+File system - Local Directory in the Server File System( Data Directory)
+S3 - Files stored on S3
+HDFS - Files Stored on HDFS cluster that is configured in hadoop.properties
+FTP - Files stored on a remote FTPServer
+HTTP - Files stored on a remote server accessed throught HTTP
+WS - Call to a WS that could push or pull the object
+
+It should have a utility to move the files from the local system to the Required storage...
+1) DataFS to HDFS
+2) DataFS to S3
+3) DataFS to DataFS
+4) DataFS to FTP
+5) HDFS to S3
+6) HDFS to DataFS
+7) HDFS to HDFS
+8) HDFS to FTP
+9) S3 to HDFS
+10) S3 to DataFS
+11) S3 to S3 ( Across Buckets )
+12) S3 to FTP
+13) FTP to FTP
+14) FTP to S3
+15) FTP to HDFS
+16) FTP to DataFS
+
+
+InChannel  --->  Adapter  ---> OutChannel
+InChannel Can be S3, HDFS, DataDir, FTP, HTTP, WS
+OutChannel Can be S3, HDFS, DataDir, FTP, HTTP, WS
+
+
+Structured Data
+1) Move data from File(CSV) to DB
+2) DB to CSV
+3) CSV to ARFF
+4) ARFF to CSV
+5) ARFF to DB
+6) DB to ARFF
+7) Create a data table if not exists using the DataSource.
+8) SQOOP Job to load data from hdfs to Cassandra.
+9) Load CSV data to RDBMS Report DB
+10) Load ARFF data to RDBMS Report DB
+
+
+All these transactions are to create a Task from the Amaze and create a job in the XD...
+Task table entry should be there and the status has to be updated for the same...
+The input and the output files are to be there in the input output table. And their references has to be there in the Task Table...
+
+1) FileTransferTask - For the File transfers.
+2) DataUploadTask - For moving the data into DB.
+3) 
+
+
+
+
+DB here is Cassandra DB...
+
+
+
+
+
+
+
+ 
+ 
+ There should be a static class always in the Server JVM that loads all the S3, HDFS, DataDir properties from the files and keeps ready whenever needed for the access..

@@ -20,6 +20,7 @@
 		
 		<PropertyGroup PgpName="FileJdbcPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 		<PropertyGroup PgpName="AmazeSimplePropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
+		<PropertyGroup PgpName="AmazeETLPropertyGroup" PgpCreatedDttm="now" PgpDeleteFl="N" PgpVersion="1" />
 	</PropertyGroups>
 	
 	<Propertys>
@@ -69,7 +70,11 @@
 		<Property PrtName="suspectTimeout" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		<Property PrtName="tableName" PrtDefault="test" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 		
-		<Property PrtName="class" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="className" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		
+		<Property PrtName="extract" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeETlPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="transform" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeETLPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
+		<Property PrtName="load" PrtDefault="null" PgpIdRef="PropertyGroup.pgpName=AmazeETLPropertyGroup" PrtCreatedDttm="now" PrtDeleteFl="N" PrtVersion="1" />
 	</Propertys>
 	
 	<PropertyValueGroups>
@@ -79,6 +84,8 @@
 		
 		<PropertyValueGroup PvgName="FileJdbcProperties" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
 		<PropertyValueGroup PvgName="FileSystemCopyProperties" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
+		
+		<PropertyValueGroup PvgName="DemoETLProperties" PgpIdRef="PropertyGroup.pgpName=AmazeETLPropertyGroup" PvgCreatedDttm="now" PvgDeleteFl="N" PvgVersion="1" />
 	</PropertyValueGroups>
 	
 	<PropertyValues>
@@ -129,7 +136,12 @@
 		<PropertyValue PrtName="suspectTimeout" PrtIdRef="CQ{from Property where prtName='suspectTimeout' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		<PropertyValue PrtName="tableName" PrtIdRef="CQ{from Property where prtName='tableName' and pgpIdPropertyGroup.pgpName='FileJdbcPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" PrvValue="null" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
 		
-		<PropertyValue PrtName="class" PrtIdRef="CQ{from Property where prtName='class' and pgpIdPropertyGroup.pgpName='AmazeSimplePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileSystemCopyProperties" PrvValue="org.amaze.data.file.task.FSToFSTask" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="className" PrtIdRef="CQ{from Property where prtName='className' and pgpIdPropertyGroup.pgpName='AmazeSimplePropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=FileSystemCopyProperties" PrvValue="org.amaze.data.file.task.FSToFSTask" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		
+		<PropertyValue PrtName="extract" PrtIdRef="CQ{from Property where prtName='extract' and pgpIdPropertyGroup.pgpName='AmazeETLPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=DemoETLProperties" PrvValue="org.amaze.server.plugins.etl.test.TestExtract" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="transform" PrtIdRef="CQ{from Property where prtName='transform' and pgpIdPropertyGroup.pgpName='AmazeETLPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=DemoETLProperties" PrvValue="org.amaze.server.plugins.etl.test.TestTransform" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		<PropertyValue PrtName="load" PrtIdRef="CQ{from Property where prtName='load' and pgpIdPropertyGroup.pgpName='AmazeETLPropertyGroup'}" PvgIdRef="PropertyValueGroup.pvgName=DemoETLProperties" PrvValue="org.amaze.server.plugins.etl.test.TestLoad" PrvCreatedDttm="now" PrvDeleteFl="N" PrvVersion="1" />
+		
 	</PropertyValues>
 	
 	<SourceTypes>
@@ -180,30 +192,43 @@
 	<Jobs>
 		<Job JobName="fileJdbc" JtyIdRef="JobType.jtyName=Default" PgpIdRef="PropertyGroup.pgpName=FileJdbcPropertyGroup" JobCreatedDttm="now" JobDeleteFl="N" JobVersion="1" />
 		<Job JobName="AmazeSimple" JtyIdRef="JobType.jtyName=Default" PgpIdRef="PropertyGroup.pgpName=AmazeSimplePropertyGroup" JobCreatedDttm="now" JobDeleteFl="N" JobVersion="1" />
+		<Job JobName="AmazeETL" JtyIdRef="JobType.jtyName=Default" PgpIdRef="PropertyGroup.pgpName=AmazeETLPropertyGroup" JobCreatedDttm="now" JobDeleteFl="N" JobVersion="1" />
 	</Jobs>
 	
 	<JobDefinitions>
 		<JobDefinition JbdName="SampleFileJdbc" JobIdRef="Job.jobName=fileJdbc" PvgIdRef="PropertyValueGroup.pvgName=FileJdbcProperties" JbdNeedStreamDeploy="false"  JbdCreateOnLoad="true" JbdDeployOnLoad="true" JbdLaunchOnLoad="true" JbdCron="null" JbdFixedDelayTrig="null" JbdPayloadPmt="null" JbdIsEventTriggered="null" JbdTriggeringEvent="null" JbdTriggeredEventPvgIdRef="null" JbdNotifSink="null" JbdNotifSinkPvgIdRef="null" JbdCompTrigger="null" JbdCompTriggeredPvgIdRef="null" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1"  />
 		<JobDefinition JbdName="FileSystemCopyTask" JobIdRef="Job.jobName=AmazeSimple" PvgIdRef="PropertyValueGroup.pvgName=FileSystemCopyProperties" JbdNeedStreamDeploy="false"  JbdCreateOnLoad="true" JbdDeployOnLoad="true" JbdLaunchOnLoad="true" JbdCron="null" JbdFixedDelayTrig="null" JbdPayloadPmt="null" JbdIsEventTriggered="null" JbdTriggeringEvent="null" JbdTriggeredEventPvgIdRef="null" JbdNotifSink="null" JbdNotifSinkPvgIdRef="null" JbdCompTrigger="null" JbdCompTriggeredPvgIdRef="null" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1"  />
+		<JobDefinition JbdName="DemoETL" JobIdRef="Job.jobName=AmazeETL" PvgIdRef="PropertyValueGroup.pvgName=DemoETLProperties" JbdNeedStreamDeploy="false"  JbdCreateOnLoad="true" JbdDeployOnLoad="true" JbdLaunchOnLoad="true" JbdCron="null" JbdFixedDelayTrig="null" JbdPayloadPmt="null" JbdIsEventTriggered="null" JbdTriggeringEvent="null" JbdTriggeredEventPvgIdRef="null" JbdNotifSink="null" JbdNotifSinkPvgIdRef="null" JbdCompTrigger="null" JbdCompTriggeredPvgIdRef="null" JbdCreatedDttm="now" JbdDeleteFl="N" JbdVersion="1"  />
 	</JobDefinitions>
 	
 	<JobInstances>
 		<JobInstance JitName="Jit001" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JitCreatedDttm="now" JitDeleteFl="N" JitVersion="1" />
+		<JobInstance JitName="Jit002" JbdIdRef="JobDefinition.jbdName=DemoETL" JitCreatedDttm="now" JitDeleteFl="N" JitVersion="1" />
 	</JobInstances>
 	
 	<JobTaskParams>
 		<JobTaskParam JtpName="srcPath" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
 		<JobTaskParam JtpName="destPath" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
 		<JobTaskParam JtpName="folder" JtpDefault="false" JbdIdRef="JobDefinition.jbdName=FileSystemCopyTask" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+		
+		<JobTaskParam JtpName="demoETLFile1" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=DemoETL" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+		<JobTaskParam JtpName="demoETLFile2" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=DemoETL" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
+		<JobTaskParam JtpName="transformScript" JtpDefault="null" JbdIdRef="JobDefinition.jbdName=DemoETL" JtpCreatedDttm="now" JtpDeleteFl="N" JtpVersion="1" />
 	</JobTaskParams>
 			
 	<JobTaskParamValues>
 		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='srcPath' and jbdIdJobDefinition.jbdName='FileSystemCopyTask'}" JitIdRef="JobInstance.jitName=Jit001" JpvValue="D:/Vids/SinglePageApplicationswithjQueryorAngularJS-YouTube[viatorchbrowser.com].mp4" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
 		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='destPath' and jbdIdJobDefinition.jbdName='FileSystemCopyTask'}" JitIdRef="JobInstance.jitName=Jit001" JpvValue="D:/Sample.mp4" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='folder' and jbdIdJobDefinition.jbdName='FileSystemCopyTask'}" JitIdRef="JobInstance.jitName=Jit001" JpvValue="null" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+		
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='demoETLFile1' and jbdIdJobDefinition.jbdName='DemoETL'}" JitIdRef="JobInstance.jitName=Jit002" JpvValue="D:/Log.txt" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='demoETLFile2' and jbdIdJobDefinition.jbdName='DemoETL'}" JitIdRef="JobInstance.jitName=Jit002" JpvValue="D:/Result.txt" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
+		<JobTaskParamValue JtpIdRef="CQ{from JobTaskParam where jtpName='transformScript' and jbdIdJobDefinition.jbdName='DemoETL'}" JitIdRef="JobInstance.jitName=Jit002" JpvValue="value.toUpperCase();" JpvCreatedDttm="now" JpvDeleteFl="N" JpvVersion="1" />
 	</JobTaskParamValues>
 	
 	<Tasks>
 		<Task TskName="Task001" JitIdRef="JobInstance.jitName=Jit001" TskStatus="Created" TskCreated="now" TskStarted="null" TskCompleted="null" TskCreatedDttm="now" TskDeleteFl="N" TskVersion="1" />
+		<Task TskName="Task002" JitIdRef="JobInstance.jitName=Jit002" TskStatus="Created" TskCreated="now" TskStarted="null" TskCompleted="null" TskCreatedDttm="now" TskDeleteFl="N" TskVersion="1" />
 	</Tasks>
 	
 </SeedData>

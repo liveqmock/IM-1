@@ -452,6 +452,20 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes />
 				<NestedCollections />
 			</Table>
+			<Table TableName="module_definition" TablePrefix="mdn" DisplayName="mdn_name">
+				<Columns>
+					<Column ColumnName="mdn_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="mdn_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="mdn_type" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="mdn_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="mdn_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="mdn_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+					<Index IndexName="mdn_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="mdn_name" Condition="" />
+				</Indexes>
+				<NestedCollections />
+			</Table>
 			<Table TableName="job_type" TablePrefix="jty" DisplayName="jty_name">
 				<Columns>
 					<Column ColumnName="jty_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
@@ -546,7 +560,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Column ColumnName="jpv_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
 					<Column ColumnName="jtp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobTaskParam" />
 					<Column ColumnName="jit_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="JobInstance" />
-					<Column ColumnName="jpv_value" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jpv_value" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject="" />
 					<Column ColumnName="jpv_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="jpv_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="jpv_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>

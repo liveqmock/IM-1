@@ -43,7 +43,14 @@ These batch jobs need to be parallelized. Running DIRT the Spring XD YARN distri
 
 	Spring XD newer releases support registration of modules commands to shell-xd.
 
-Analytical Processing
+
+	
+	
+	
+	
+	
+	
+	Analytical Processing
 	Processing to the analytics is always from 
 Weka Processing
 	Various Processors include PreProcessor, PostProcessor, Classifier, Regression etc.

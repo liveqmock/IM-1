@@ -59,7 +59,7 @@ public class FSToFTPTask extends AbstractTask
 
 	// http://www.codejava.net/java-se/networking/ftp/java-ftp-file-upload-tutorial-and-example
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		String server = "www.myserver.com";
         int port = 21;

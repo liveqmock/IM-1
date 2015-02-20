@@ -1,0 +1,32 @@
+job launch simple --params {"class":"org.amaze.data.file.task.FSToFSTask","srcPath":"D:/Vids/SinglePageApplicationswithjQueryorAngularJS-YouTube[viatorchbrowser.com].mp4","destPath":"D:/Sample.mp4","folder":"false"}
+
+job launch AmazeSimple --params {"srcPath":"D:/Vids/SinglePageApplicationswithjQueryorAngularJS-YouTube[viatorchbrowser.com].mp4","destPath":"D:/Sample.mp4","folder":"false"}
+
+module upload --name AmazeSimple --type job --file D:\SRP\AWS\Amaze\Amaze-Server\Amaze-Server-Dist\target\Amaze-Server-Dist-0.0.1-SNAPSHOT\Amaze-Server-Dist-0.0.1-SNAPSHOT\plugins\job\AmazeSimple-jar-with-dependencies.jar
+
+module upload --name AmazeSimple --type job --file D:\SRP\AWS\Amaze\Amaze-Server\Amaze-Server-Dist\target\Amaze-Server-Dist-0.0.1-SNAPSHOT\Amaze-Server-Dist-0.0.1-SNAPSHOT\plugins\job\AmazeSimple-jar-with-dependencies.jar
+
+
+============================================================================================================================================================
+MR
+=========================================================================================================================================================
+module upload --name AmazeMR --file C:\Users\310187426\Desktop\AmazeMR-1.0.0.jar --type job
+job create --definition "AmazeMR --mapper=org.amaze.server.plugins.mr.test.WordCount$TokenizerMapper --reducer=org.amaze.server.plugins.mr.test.WordCount$IntSumReducer" --name MR1 --deploy
+job launch MR1 --params {"input.path":"/tmp/input","output.path":"/tmp/output"}
+job destroy MR1
+module delete job:AmazeMR
+============================================================================================================================================================
+
+
+<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  <property name="locations">
+    <list>
+        <value>classpath:someprops.properties</value>
+    </list>
+  </property>
+  <property name="ignoreResourceNotFound" value="true" />
+  <property name="searchSystemEnvironment" value="true" />
+  <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+  
+  {definition=AmazeSimple --class='org.amaze.data.file.task.FSToFSTask', name=FileSystemCopyTask, deploy=true}
+job create --name FileSystemCopyTask --definition "AmazeSimple --class='org.amaze.data.file.task.FSToFSTask'" --deploy

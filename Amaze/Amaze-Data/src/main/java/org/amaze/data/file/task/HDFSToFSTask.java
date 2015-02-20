@@ -16,7 +16,7 @@ public class HDFSToFSTask extends AbstractTask
 	private String destPath;
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		try
 		{

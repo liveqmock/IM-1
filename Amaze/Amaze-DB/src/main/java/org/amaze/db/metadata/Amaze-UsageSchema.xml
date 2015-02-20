@@ -21,7 +21,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				</Indexes>
 			</Table>
 		</Tables>
-		<Tables>
+		<!-- <Tables>
 			<Table TableName="mailbox" TablePrefix="mbx" DisplayName="">
 				<Columns>
 					<Column ColumnName="mbx_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
@@ -37,7 +37,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Index IndexName="let_idx1" ColumnList="usr_id" />
 				</Indexes>
 			</Table>
-		</Tables>
+		</Tables> -->
 		
 	</Database>
 	<!-- <Extends>WorkBench-UsageSchema.xml</Extends> -->

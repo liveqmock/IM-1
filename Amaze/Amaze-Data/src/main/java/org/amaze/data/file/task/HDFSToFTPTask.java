@@ -23,7 +23,7 @@ public class HDFSToFTPTask extends AbstractTask
 {
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		try
 		{

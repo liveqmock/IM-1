@@ -113,5 +113,6 @@ public class StreamDeployer
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext( "stream.xml" );
 //		( ( StreamDeployer ) ctx.getBean( "streamDeployer" ) ).createAndDeployAll();
 		( ( JobDeployer ) ctx.getBean( "jobDeployer" )).createAndDeployAll();
+		System.exit( 0 );
 	}
 }

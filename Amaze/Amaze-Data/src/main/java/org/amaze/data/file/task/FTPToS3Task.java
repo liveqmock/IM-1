@@ -9,7 +9,7 @@ public class FTPToS3Task extends AbstractTask
 {
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		throw new NotImplementedException( "S3 Stcak not implemented" );
 	}

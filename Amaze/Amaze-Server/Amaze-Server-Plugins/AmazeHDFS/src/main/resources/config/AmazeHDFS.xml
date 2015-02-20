@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder properties-ref="amazeHDFSProperties" system-properties-mode="ENVIRONMENT"/>
+
+	<hdp:configuration>
+		fs.default.name=${fs.default.name}
+	</hdp:configuration>
+
+	<bean class="org.springframework.batch.core.scope.StepScope">
+		<property name="proxyTargetClass" value="true" />
+		<property name="autoProxy" value="true" />
+	</bean>
+
+	<batch:job id="job">
+		<batch:step id="hdfsJobStep">
+			<batch:tasklet ref="hdfsTasklet" />
+		</batch:step>
+	</batch:job>
+	
+	
+	<hdp:script-tasklet id="hdfsTasklet" script-ref="hdfsScript" scope="step"/>
+
+	<hdp:script id="hdfsScript" language="#{jobParameters['language']}" scope="step" location="#{jobParameters['script']}" evaluate="ALWAYS"  />
+		
+	<util:properties id="amazeHDFSProperties" location="classpath:hadoop.properties" />
+
+</beans>

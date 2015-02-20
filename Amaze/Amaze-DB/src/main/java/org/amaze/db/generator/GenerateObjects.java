@@ -274,6 +274,22 @@ public class GenerateObjects
 					out.newLine();
 					continue;
 				}
+				else if ( columnName.equals( prefix + "_version" ) )
+				{
+					out.write( "	private " + dataType + " " + colName + ";" );
+					out.newLine();
+					out.newLine();
+					out.write( "	@javax.persistence.Version" );
+					out.newLine();
+					out.write( "	@javax.persistence.Column( name = \"" + columnName + "\" )" );
+					out.newLine();
+					out.write( "	public Integer get" + camelCaseColName + "() { return this." + colName + "; }" );
+					out.newLine();
+					out.write( "	public void set" + camelCaseColName + "( Integer val ) {this." + colName + " = val; }" );
+					out.newLine();
+					out.newLine();
+					continue;
+				}
 				else
 				{
 					if( dataType.equals( "DateTime" ) )

@@ -46,7 +46,7 @@ public class FTPToFTPTask extends AbstractTask
 	}
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		String server = "www.myserver.com";
         int port = 21;

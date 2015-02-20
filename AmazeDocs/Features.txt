@@ -1,0 +1,16 @@
+Big data processing
+F1) 
+	1) User will move a big data file to the system.
+	2) MR, PIG, HIVE, SPARK RDD, MAHOUT can be triggered on this.
+	3) Result files will be in a directory, that will be the data files.
+
+F2) 
+	1) The data files from the Hadoop process and the user uploaded data files can be processed.
+	2) Processing process can be triggered for the same. Can be simple ETL, MAHOUT, WEKA, R, Simple Processor. Cache is available for this processing.
+	3) Can be written to the file or for Cassandra, Report database.
+	
+F3)
+	
+		
+	
+		

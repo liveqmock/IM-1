@@ -57,7 +57,7 @@ public class FTPToFSTask extends AbstractTask
 	// http://www.codejava.net/java-se/networking/ftp/java-ftp-file-download-tutorial-and-example
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		
 		String server = "www.myserver.com";

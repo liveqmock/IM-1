@@ -65,7 +65,7 @@ public class FTPToHDFSTask extends AbstractTask
 	
 	//http://hadoop101.blogspot.in/2011/12/ftp-to-hdfs.html
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		try
 		{

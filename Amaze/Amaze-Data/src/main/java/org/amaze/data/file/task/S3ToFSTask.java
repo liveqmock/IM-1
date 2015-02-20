@@ -8,7 +8,7 @@ import org.amaze.data.file.exception.NotImplementedException;
 public class S3ToFSTask extends AbstractTask
 {
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		throw new NotImplementedException( "S3 Stcak not implemented" );
 	}

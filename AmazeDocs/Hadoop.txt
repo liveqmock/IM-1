@@ -1,0 +1,213 @@
+Hadoop Cluster Configuration
+	Hadoop Cluster needs to be running for the following...
+	1) MR
+	2) PIG
+	3) HIVE
+	4) SPARK
+	5) MAHOUT
+	6) SQOOP
+	etc.
+	The hadoop HDFS is required for the storage of the data...
+	
+Should have a storage unit where the Adapter based framework should take care of the Storing the data and reading the data..
+Should be pluggable with the initial support to the S3, Local File System and the HDFS.
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:yarn="http://www.springframework.org/schema/yarn"
+	xmlns:yarn-int="http://www.springframework.org/schema/yarn/integration"
+	xmlns:yarn-batch="http://www.springframework.org/schema/yarn/batch"
+	xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/hadoop 
+           http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+           http://www.springframework.org/schema/yarn
+    	   http://www.springframework.org/schema/yarn/spring-yarn.xsd
+    	   http://www.springframework.org/schema/yarn/integration
+      	   http://www.springframework.org/schema/yarn/integration/spring-yarn-integration.xsd
+    	   http://www.springframework.org/schema/yarn/batch
+    	   http://www.springframework.org/schema/yarn/batch/spring-yarn-batch.xsd
+    	   http://www.springframework.org/schema/data/elasticsearch 
+    	   http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.0.xsd">
+
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="org.jai" />
+
+	<!-- To run job and hive etc. put hadoop cluster start and yarn startup 
+		as spring beans for setup like the elastic search client/node startup. -->
+
+	<!-- HADOOP configurations -->
+	<hdp:configuration id="hadoopConfiguration"
+		resources="core-site.xml">
+		fs.default.name=hdfs://localhost.localdomain:54321
+		signature.secret=blahblahASDA12313Aasdaadssa
+		hadoop.log.dir=./target/logs
+		mapred.job.tracker=localhost.localdomain:54310
+	</hdp:configuration>
+
+
+	<!-- HIVE Configurations -->
+
+	<!-- hive.aux.jars.path=file://./jaihivejsonserde-1.0.jar Keeping hive-site.xml 
+		not in class path. hive.exec.reducers.max=20 mapred.reduce.tasks=20 hive.exec.reducers.max=20 
+		datanucleus.autoStartMechanism=SchemaTable datanucleus.fixedDatastore=true 
+		hive.metastore.server.min.threads=10 -->
+	<hdp:hive-server auto-startup="true" port="10234"
+		min-threads="3" id="hiveServer" configuration-ref="hadoopConfiguration">
+		hive.exec.scratchdir=/tmp/hivetmp
+		hive.exec.local.scratchdir=/tmp/hiveusrtmp
+		hive.metastore.warehouse.dir=/tmp/hivewarehouse
+		datanucleus.autoCreateSchema=true
+		datanucleus.autoCreateTables=true
+		javax.jdo.option.ConnectionURL=jdbc:derby:;databaseName=./target/hive/metastore_db;create=true
+		javax.jdo.option.ConnectionDriverName=org.apache.derby.jdbc.EmbeddedDriver
+		hive.start.cleanup.scratchdir=true
+		hive.log.dir=./target/hive/logs
+		hive.log.file=hive.log
+		hive.querylog.location=./target/hive/logs
+		hive.querylog.enable.plan.progress=true
+	</hdp:hive-server>
+
+	<hdp:hive-client-factory id="hiveClientFactory"
+		host="localhost" port="10234">
+		<!-- <hdp:script> DROP DATABASE IF EXISTS search; CREATE DATABASE search; 
+			</hdp:script> <hdp:script location="classpath:org/jai/hive/script.q"> <hdp:arguments>ignore-case=true</hdp:arguments> 
+			</hdp:script> -->
+	</hdp:hive-client-factory>
+	<bean id="hive-driver" class="org.apache.hadoop.hive.jdbc.HiveDriver" />
+	<bean id="hive-ds"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource"
+		c:driver-ref="hive-driver" c:url="jdbc:hive://localhost:10234/default" />
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		c:data-source-ref="hive-ds" />
+
+	<hdp:hive-template id="hiveTemplate"
+		hive-client-factory-ref="hiveClientFactory" />
+
+	<hdp:hive-runner id="hiveRunner" run-at-startup="false"
+		hive-client-factory-ref="hiveClientFactory">
+		<!-- <hdp:script> DROP DATABASE IF EXISTS search CASCADE; CREATE DATABASE 
+			search; </hdp:script> <hdp:script location="hive/create-searchevents-externaltable.q" 
+			/> -->
+	</hdp:hive-runner>
+
+	<hdp:hive-tasklet id="hiveTasklet"
+		hive-client-factory-ref="hiveClientFactory"></hdp:hive-tasklet>
+
+	<!-- <hdp:job id="mr-job-example1" input-path="/searchevents" output-path="/ouput/" 
+		mapper="org.jai.hadoop.example.MaxTemperatureMapper" reducer="org.jai.hadoop.example.MaxTemperatureReducer" 
+		/> <hdp:job-runner id="myjob-runner-example" kill-job-at-shutdown="true" 
+		job-ref="mr-job-example1" run-at-startup="true" /> -->
+
+	<!-- <hdp:job-tasklet id="hadoop-tasklet" job-ref="mr-job-example1" wait-for-completion="true" 
+		/> -->
+
+	<!-- PIG configurations -->
+
+	<!-- properties-location="pig/pig.properties" Needs core-site.xml in the 
+		classpath. -->
+
+	<!-- -->
+	<hdp:pig-factory id="pigFactory" job-name="pigScript"
+		exec-type="MAPREDUCE" configuration-ref="hadoopConfiguration">
+	</hdp:pig-factory>
+
+	<hdp:pig-runner id="pigRunner" run-at-startup="false"
+		pig-factory-ref="pigFactory">
+
+	</hdp:pig-runner>
+
+	<hdp:pig-template id="pigTemplate" pig-factory-ref="pigFactory" />
+
+
+	<!-- YARN configurations -->
+
+	<!-- Currently only using MR1 -->
+
+	<!-- HBASE settings -->
+	<hdp:hbase-configuration id="hbaseConfiguration"
+		configuration-ref="hadoopConfiguration" stop-proxy="false"
+		delete-connection="false" zk-quorum="localhost" zk-port="10235">
+	</hdp:hbase-configuration>
+	<bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate"
+		p:configuration-ref="hbaseConfiguration" />
+
+
+	<!-- ElasticSearch Spring data -->
+	<elasticsearch:transport-client id="esClient"
+		cluster-nodes="localhost:9310" cluster-name="jai-testclusterName" />
+
+	<bean name="elasticsearchTemplate"
+		class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+		<constructor-arg name="client" ref="esClient" />
+	</bean>
+
+	<elasticsearch:repositories base-package="org.jai.elasticsearch"
+		elasticsearch-template-ref="elasticsearchTemplate" />
+
+</beans>
+
+
+
+
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:hdp="http://www.springframework.org/schema/hadoop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      	http://www.springframework.org/schema/batch	http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+      	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+      	http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+	<context:property-placeholder location="hadoop.properties" />
+
+	<hdp:configuration>
+		fs.default.name=${hd.fs}
+		mapred.job.tracker=${mapred.job.tracker}
+	</hdp:configuration>
+
+	<hdp:pig configuration-ref="hadoopConfiguration" exec-type="MAPREDUCE"/> 
+
+	<job id="pigJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="prepareData" next="loadData">
+			<tasklet ref="prepareDataTasklet" />
+		</step>
+		<step id="loadData">
+			<tasklet ref="loadDataTasklet" />
+		</step>		
+	</job>
+	
+	<hdp:script-tasklet id="prepareDataTasklet">
+		<hdp:script language="groovy">
+		<![CDATA[			
+			if (fsh.test("u.data")) {
+		  		fsh.rmr("u.data")
+			}
+			inStream = cl.getResourceAsStream("ml-100k/u.data")
+			org.apache.hadoop.io.IOUtils.copyBytes(inStream, fs.create("u.data"), cfg)
+		]]>	
+		</hdp:script>
+	</hdp:script-tasklet>
+	
+	<hdp:pig-tasklet id="loadDataTasklet">
+		<hdp:script location="classpath:script.pig" />
+	</hdp:pig-tasklet> 
+	
+
+</beans>

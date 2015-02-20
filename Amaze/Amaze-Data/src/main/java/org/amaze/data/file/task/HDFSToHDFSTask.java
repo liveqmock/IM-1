@@ -12,7 +12,7 @@ public class HDFSToHDFSTask extends AbstractTask
 {
 
 	@Override
-	public Future<TaskResult> execute()
+	public TaskResult execute()
 	{
 		try
 		{

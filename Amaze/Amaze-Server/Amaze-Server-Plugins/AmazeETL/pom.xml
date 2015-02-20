@@ -10,24 +10,26 @@
 	</parent>
 	<artifactId>AmazeETL</artifactId>
 	<name>AmazeETL</name>
-	<url>http://maven.apache.org</url>
+	<groupId>org.amaze</groupId>
+	<version>1.0.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-<build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<descriptors>
-						<descriptor>${basedir}/src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
-				<finalName>ETLJob</finalName>
-				<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/modules/job</outputDirectory>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>AmazeETL</finalName>
+					<outputDirectory>${basedir}/../../Amaze-Server-Dist/target/Amaze-Server-Dist-0.0.1-SNAPSHOT/Amaze-Server-Dist-0.0.1-SNAPSHOT/plugins/job</outputDirectory>
 				</configuration>
 				<executions>
 					<execution>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -65,4 +67,26 @@
 			<url>http://maven.springframework.org/release</url>
 		</pluginRepository>
 	</pluginRepositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.amaze</groupId>
+			<artifactId>Amaze-Commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j-api</artifactId>
+					<groupId>org.apache.logging.log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j-core</artifactId>
+					<groupId>org.apache.logging.log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+	</dependencies>
 </project>

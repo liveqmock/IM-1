@@ -381,8 +381,8 @@ public class GenerateUsageObjects
 
 	public static void main( String[] args ) throws ParserConfigurationException, IOException
 	{
-//		new GenerateUsageObjects().generateObjects( args[0], args[1] );
-				new GenerateUsageObjects().generateObjects( "/org/amaze/db/metadata/Amaze-UsageSchema.xml", "./src/main/java/" );
+		new GenerateUsageObjects().generateObjects( args[0], args[1] );
+//				new GenerateUsageObjects().generateObjects( "/org/amaze/db/metadata/Amaze-UsageSchema.xml", "./src/main/java/" );
 	}
 
 }
