@@ -18,7 +18,7 @@
 	
 	<hdp:pig-factory properties-location="classpath:hadoop.properties"/>
 	
-	<hdp:pig configuration-ref="hadoopConfiguration" exec-type="MAPREDUCE"/> 
+	<!-- <hdp:pig configuration-ref="hadoopConfiguration" exec-type="MAPREDUCE"/> --> 
 
 	<bean class="org.springframework.batch.core.scope.StepScope">
 		<property name="proxyTargetClass" value="true" />

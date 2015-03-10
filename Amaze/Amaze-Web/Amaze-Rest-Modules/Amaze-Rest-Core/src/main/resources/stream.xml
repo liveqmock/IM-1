@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<bean id="Stream" class="org.amaze.rest.framework.search.DefaultSearch">
+		<property name="moduleName" value="RealTime" />
+		<property name="screenName" value="Stream" />
+		<property name="searchEntity" value="Stream" />
+		<property name="screenButtons">
+			<list>
+				<ref bean="dataView"/>
+				<ref bean="chartView"/>
+			</list>
+		</property>
+		<property name="filterModel" ref="filterModel" />
+		<property name="actionModel" ref="actionModel" />
+		<property name="columnModel" ref="columnModel" />
+		<property name="basicDataQuery" value="stmDeleteFl = false" />
+		<property name="dataQueryFilters">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="columnModel" class="org.amaze.rest.framework.columns.DefaultColumnModel">
+		<property name="modelName" value="ColumnModel" />
+		<property name="columns">
+			<list>
+				<ref bean="stmId"/>
+				<ref bean="stmNameColumn"/>
+				<ref bean="stmTypeColumn"/>
+				<ref bean="stmCreateOnLoadColumn"/>
+				<ref bean="stmDeployOnLoadColumn" />
+			</list>
+		</property>
+	</bean>
+	<bean id="stmId" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="Stream" />
+		<property name="columnName" value="ID" />
+		<property name="dataProperty" value="stmId" />
+		<property name="dataType" value="Text" />
+	</bean>
+	<bean id="stmNameColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="Stream" />
+		<property name="columnName" value="Stream Name" />
+		<property name="dataProperty" value="stmName" />
+		<property name="dataType" value="Text" />
+	</bean>
+	<bean id="stmTypeColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="Stream" />
+		<property name="columnName" value="Stream Type Name" />
+		<property name="dataProperty" value="smtIdStreamType.smtName" />
+		<property name="dataType" value="Text" />
+	</bean>
+	<bean id="stmCreateOnLoadColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="Stream" />
+		<property name="columnName" value="Stream Create on Load" />
+		<property name="dataProperty" value="stmCreateOnLoad" />
+		<property name="dataType" value="Boolean" />
+	</bean>
+	<bean id="stmDeployOnLoadColumn" class="org.amaze.rest.framework.columns.Column">
+		<property name="entity" value="Stream" />
+		<property name="columnName" value="Stream Deploy on Load" />
+		<property name="dataProperty" value="stmDeployOnLoad" />
+		<property name="dataType" value="Boolean" />
+	</bean>
+	
+	<bean id="actionModel" class="org.amaze.rest.framework.actions.DefaultActionModel">
+		<property name="actionGroupModels">
+			<list>
+				<ref bean="commonActionGroupModel"/>
+				<ref bean="acceptActionGroupModel"/>
+			</list>
+		</property>
+		<property name="modelName" value="StreamActionModel" />
+	</bean>
+	
+	<bean id="newStream" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="New" />
+		<property name="relativeUrl" value="new" />
+		<property name="actionClass" value="org.amaze.rest.framework.actions.defaults.NewAction" />
+		<property name="detail" value="StreamDetail" />
+	</bean>
+	<bean id="editStream" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="Edit" />
+		<property name="relativeUrl" value="edit" />
+		<property name="actionClass" value="org.amaze.rest.framework.actions.defaults.NewAction" />
+		<property name="detail" value="StreamDetail" />
+	</bean>
+	<bean id="deleteStream" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="Delete" />
+		<property name="relativeUrl" value="delete" />
+		<property name="actionClass" value="org.amaze.rest.framework.actions.defaults.NewAction" />
+		<property name="detail" value="StreamDetail" />
+	</bean>
+	
+	<bean id="acceptStream" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
+		<property name="modelName" value="Accept Stream" />
+		<property name="relativeUrl" value="accept" />
+		<property name="actionClass" value="org.amaze.rest.framework.actions.defaults.NewAction" />
+		<property name="detail" value="StreamDetail" />
+	</bean>
+	
+	<bean id="commonActionGroupModel" class="org.amaze.rest.framework.actions.DefaultActionGroupModel">
+		<property name="modelName" value="CommonActions"/>
+		<property name="actionItemModels">
+			<list>
+				<ref bean="newStream"/>
+				<ref bean="editStream"/>
+				<ref bean="deleteStream" />				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="acceptActionGroupModel" class="org.amaze.rest.framework.actions.DefaultActionGroupModel">
+		<property name="modelName" value="AcceptActions"/>
+		<property name="actionItemModels">
+			<list>
+				<ref bean="acceptStream"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dataView" class="org.amaze.rest.framework.search.SearchButton">
+		<property name="buttonName" value="Data" />
+		<property name="relativeUrl" value="dataView" />
+		<property name="style" value="" />
+	</bean>
+	
+	<bean id="chartView" class="org.amaze.rest.framework.search.SearchButton">
+		<property name="buttonName" value="Chart" />
+		<property name="relativeUrl" value="chartView" />
+		<property name="style" value="" />
+	</bean>
+	
+	<bean id="filterModel" class="org.amaze.rest.framework.filters.DefaultFilterModel">
+		<property name="modelName" value="advancedFilters" />
+		<property name="filters">
+			<list>
+				<ref bean="streamNameFilter"/>
+				<ref bean="streamTypeFilter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="streamNameFilter" class="org.amaze.rest.framework.filters.Filter">
+		<property name="filterName" value="Stream Name" />
+		<property name="column" value="stmName" />
+		<property name="columnType" value="Text" />
+		<property name="condition" value="like" />
+		<property name="extra">
+			<list>
+				<value>filtQuery:MO~Stream:FO~stmDisabled != false</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="streamTypeFilter" class="org.amaze.rest.framework.filters.Filter">
+		<property name="filterName" value="Stream Type Name" />
+		<property name="column" value="smtIdStreamType.smtName" />
+		<property name="columnType" value="Text" />
+		<property name="condition" value="like" />
+		<property name="extra">
+			<list>
+				<value>filtQuery:MO~Stream:FO~stmDisabled != false</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="StreamDetail" class="org.amaze.rest.framework.detail.DefaultDetail">
+		<property name="screenName" value="New Stream Detail"/>
+		<property name="entityName" value="org.amaze.db.hibernate.objects.Stream"/>
+		<property name="detailButtons">
+			<list>
+				<ref bean="streamDetailSave"/>
+			</list>
+		</property>
+		<property name="widgets">
+			<list>
+				<ref bean="stmNameWidget"/>
+				<ref bean="stmTypeWidget"/>
+				<!-- <ref bean="stmCreateOnLoadWidget"/>
+				<ref bean="stmDeployOnLoadTypeWidget"/> -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="stmNameWidget" class="org.amaze.rest.framework.detail.widgets.TextBoxWidget">
+		<property name="widgetName" value="Stream Name" />
+		<property name="widgetType" value="TextBox" />
+		<property name="bindField" value="stmName" />
+	</bean>
+	
+	<bean id="stmTypeWidget" class="org.amaze.rest.framework.detail.widgets.TextBoxWidget">
+		<property name="widgetName" value="Stream Name" />
+		<property name="widgetType" value="TextBox" />
+		<property name="bindField" value="stmName" />
+	</bean>
+	
+	<bean id="streamDetailSave" class="org.amaze.rest.framework.detail.DetailButton">
+		<property name="buttonName" value="Save"/>
+		<property name="relativeUrl" value="save" />
+	</bean>
+	
+</beans>

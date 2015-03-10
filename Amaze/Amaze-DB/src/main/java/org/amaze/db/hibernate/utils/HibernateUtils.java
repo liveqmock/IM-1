@@ -522,6 +522,38 @@ public class HibernateUtils
 
 		return results;
 	}
+	
+	@SuppressWarnings( "rawtypes" )
+	public static List pageFind( SessionFactory sessionFactory, String query, final Integer limit, final Integer offset, final String sort, final String order, final String filterParams ) throws HibernateException
+	{
+		if( filterParams != null && filterParams.length() > 0 ){
+			if( query.contains( " where " ) )
+				query = query + " where " + filterParams;
+			else
+				query = query + " and " + filterParams;
+		}
+		if( sort != null && sort.length() > 0 )
+		{
+			query = query + " order by " + sort;
+			if( order != null && ( order.equals( "asc" ) || order.equals( "desc" ) ) )
+				query = query + " " + order;
+		}
+		final String queryF = query;
+		List results = ( List ) doSessionWork( sessionFactory, new SessionWorkListener()
+		{
+			public Object doSessionWork( Session session ) throws HibernateException
+			{
+				Query q = session.createQuery( queryF );
+				q.setMaxResults( limit );
+				q.setFirstResult( limit * offset );
+				List results = q.list();
+				session.clear();
+				return results;
+			}
+		} );
+		return results;
+	}
+
 
 	@SuppressWarnings( "rawtypes" )
 	public static Map<String, Integer> buildKeyIdMap( SessionFactory sessionFactory, String clazz, String keyProperty, String idProperty ) throws HibernateException

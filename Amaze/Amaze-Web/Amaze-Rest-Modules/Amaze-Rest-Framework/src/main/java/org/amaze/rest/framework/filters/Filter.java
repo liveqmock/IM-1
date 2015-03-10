@@ -3,9 +3,11 @@ package org.amaze.rest.framework.filters;
 import java.util.Arrays;
 import java.util.List;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class Filter
 {
-	private String entity;
+	private String filterName;
 	private String column;
 	private String columnType;
 	private String condition;
@@ -13,11 +15,16 @@ public class Filter
 
 	public Filter( String entity, String column, String columnType, String condition, String... values )
 	{
-		this.entity = entity;
+		this.filterName = entity;
 		this.column = column;
 		this.columnType = columnType;
 		this.condition = condition;
 		this.extra = Arrays.asList( values );
+	}
+
+	public Filter()
+	{
+
 	}
 
 	public String getColumn()
@@ -30,14 +37,14 @@ public class Filter
 		this.column = column;
 	}
 
-	public String getEntity()
+	public String getFilterName()
 	{
-		return entity;
+		return filterName;
 	}
 
-	public void setEntity( String entity )
+	public void setFilterName( String filterName )
 	{
-		this.entity = entity;
+		this.filterName = filterName;
 	}
 
 	public String getColumnType()
@@ -70,10 +77,10 @@ public class Filter
 		this.extra = extra;
 	}
 
-	public String getResponseJSString()
+	@Override
+	public String toString()
 	{
-		// TODO return the response 
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
 
 }

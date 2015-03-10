@@ -20,6 +20,19 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 					<Index IndexName="let_idx1" ColumnList="usr_id" />
 				</Indexes>
 			</Table>
+			<Table TableName="job_event" TablePrefix="jet" DisplayName="">
+				<Columns>
+					<Column ColumnName="jet_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="true" NestedObject="" />
+					<Column ColumnName="usr_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jit_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject="" />
+					<Column ColumnName="jet_event_dttm" DataType="DateTime" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="jet_logs" DataType="String" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="ptn_id" DataType="Integer" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>				
+           		</Columns>
+				<Indexes>
+					<Index IndexName="jet_idx1" ColumnList="usr_id" />
+				</Indexes>
+			</Table>
 		</Tables>
 		<!-- <Tables>
 			<Table TableName="mailbox" TablePrefix="mbx" DisplayName="">

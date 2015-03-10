@@ -1,14 +1,33 @@
 package org.amaze.rest.framework.search;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class SearchButton
 {
 	private String buttonName;
+	private String style;
 	private String relativeUrl;
 
-	public SearchButton( String buttonName, String relativeUrl )
+	public SearchButton( String buttonName, String relativeUrl, String style )
 	{
+		this.style = style;
 		this.buttonName = buttonName;
 		this.relativeUrl = relativeUrl;
+	}
+
+	public String getStyle()
+	{
+		return style;
+	}
+
+	public void setStyle( String style )
+	{
+		this.style = style;
+	}
+
+	public SearchButton()
+	{
+
 	}
 
 	public String getButtonName()
@@ -31,10 +50,10 @@ public class SearchButton
 		this.relativeUrl = relativeUrl;
 	}
 
-	public String getResponseJSString()
+	@Override
+	public String toString()
 	{
-		// TODO get the response String
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
 
 }

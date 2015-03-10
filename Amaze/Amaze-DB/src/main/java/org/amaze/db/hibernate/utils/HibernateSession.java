@@ -130,6 +130,12 @@ public class HibernateSession
 	{
 		return HibernateUtils.find( getSessionFactory(), query );
 	}
+	
+	@SuppressWarnings( "unchecked" )
+	public static <T> List<T> pageFind( String query, Integer limit, Integer offset, String sort, String order, String filterParams ) throws HibernateException
+	{
+		return HibernateUtils.pageFind( getSessionFactory(), query ,limit, offset, sort, order, filterParams );
+	}
 
 	@SuppressWarnings( "unchecked" )
 	public static <T> List<T> query( String query, String paramName, Object paramValue ) throws HibernateException

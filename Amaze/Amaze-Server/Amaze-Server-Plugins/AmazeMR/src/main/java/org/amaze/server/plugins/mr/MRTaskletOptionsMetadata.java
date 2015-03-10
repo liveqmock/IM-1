@@ -4,7 +4,6 @@ import org.springframework.xd.module.options.spi.ModuleOption;
 
 public class MRTaskletOptionsMetadata
 {
-	
 	private String mapper;
 	
 	private String reducer;

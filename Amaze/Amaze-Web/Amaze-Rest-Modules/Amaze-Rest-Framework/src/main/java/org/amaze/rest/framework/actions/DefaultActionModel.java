@@ -2,11 +2,11 @@ package org.amaze.rest.framework.actions;
 
 import java.util.List;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class DefaultActionModel implements ActionModel
 {
 	private String modelName;
-	private String width;
-	private String lenght;
 
 	private List<ActionGroupModel> actionGroupModels;
 
@@ -20,30 +20,6 @@ public class DefaultActionModel implements ActionModel
 	public void setModelName( String name )
 	{
 		this.modelName = name;
-	}
-
-	@Override
-	public String getModelWidth()
-	{
-		return width;
-	}
-
-	@Override
-	public void setModelWidth( String width )
-	{
-		this.width = width;
-	}
-
-	@Override
-	public String getModelLenght()
-	{
-		return lenght;
-	}
-
-	@Override
-	public void setModelLenght( String lenght )
-	{
-		this.lenght = lenght;
 	}
 
 	@Override
@@ -65,10 +41,9 @@ public class DefaultActionModel implements ActionModel
 	}
 
 	@Override
-	public String getResponseJSString()
+	public String toString()
 	{
-		// TODO generate the String for the response
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
-	
+
 }

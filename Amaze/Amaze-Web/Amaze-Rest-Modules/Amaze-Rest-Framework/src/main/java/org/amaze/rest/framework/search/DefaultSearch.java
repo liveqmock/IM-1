@@ -2,13 +2,20 @@ package org.amaze.rest.framework.search;
 
 import java.util.List;
 
+import org.amaze.commons.converters.JsonConverter;
+import org.amaze.db.hibernate.utils.HibernateSession;
 import org.amaze.rest.framework.actions.ActionModel;
+import org.amaze.rest.framework.columns.Column;
 import org.amaze.rest.framework.columns.ColumnModel;
 import org.amaze.rest.framework.filters.FilterModel;
 import org.amaze.rest.framework.query.QueryFilter;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
+@org.amaze.rest.framework.annotations.Search
 public class DefaultSearch implements Search
 {
+	
+	private String moduleName;
 	private String screenName;
 	private String searchEntity;
 
@@ -17,16 +24,26 @@ public class DefaultSearch implements Search
 	private ActionModel actionModel;
 	private ColumnModel columnModel;
 	private String basicDataQuery;
-	private List<QueryFilter> basicDataQueryFilters;
-	private List<QueryFilter> sessionDataQueryFilters;
-	private Boolean isPaggedResult;
+	private List<QueryFilter> dataQueryFilters;
+	
+	@Override
+	public String getModuleName()
+	{
+		return moduleName;
+	}
+
+	@Override
+	public void setModuleName( String moduleName )
+	{
+		this.moduleName = moduleName;
+	}
 
 	@Override
 	public String getScreenName()
 	{
 		return screenName;
 	}
-	
+
 	public List<SearchButton> getSearchButtons()
 	{
 		return searchButtons;
@@ -52,19 +69,19 @@ public class DefaultSearch implements Search
 		return basicDataQuery;
 	}
 
-	public List<QueryFilter> getBasicDataQueryFilters()
+	public List<QueryFilter> getDataQueryFilters()
 	{
-		return basicDataQueryFilters;
+		return dataQueryFilters;
 	}
 
-	public List<QueryFilter> getSessionDataQueryFilters()
+	public void setSearchButtons( List<SearchButton> searchButtons )
 	{
-		return sessionDataQueryFilters;
+		this.searchButtons = searchButtons;
 	}
 
-	public Boolean getIsPaggedResult()
+	public void setColumnModel( ColumnModel columnModel )
 	{
-		return isPaggedResult;
+		this.columnModel = columnModel;
 	}
 
 	@Override
@@ -110,39 +127,63 @@ public class DefaultSearch implements Search
 	}
 
 	@Override
-	public void setDataQueryColsNameMap( ColumnModel model )
-	{
-		this.columnModel = model;
-	}
-
-	@Override
+	@JsonIgnore
 	public void setBasicDataQuery( String basicDataQuery )
 	{
 		this.basicDataQuery = basicDataQuery;
 	}
 
 	@Override
-	public void setBasicDataQueryFilters( List<QueryFilter> basicDataQueryFilters )
+	@JsonIgnore
+	public void setDataQueryFilters( List<QueryFilter> dataQueryFilters )
 	{
-		this.basicDataQueryFilters = basicDataQueryFilters;
+		this.dataQueryFilters = dataQueryFilters;
 	}
 
 	@Override
-	public void setSessionDataQueryFilters( List<QueryFilter> sessionDataQueryFilters )
+	public String toString()
 	{
-		this.sessionDataQueryFilters = sessionDataQueryFilters;
-	}
-
-	@Override
-	public void setIsPagedResult( Boolean isPaggedResult )
-	{
-		this.isPaggedResult = isPaggedResult;
-	}
-
-	public String getResponseJSString()
-	{
-		// TODO return the response
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
 	
+	@Override
+	@JsonIgnore
+	public Object getData( String limit, String offset, String order )
+	{
+		return getData( limit, offset, order, null, null );
+	}
+	
+	
+	@Override
+	@JsonIgnore
+	public List<Object> getData( String limit, String offset, String sort, String order, String filterParams )
+	{
+		StringBuffer sb = new StringBuffer();
+		List<Column> cols = this.columnModel.getColumns();
+		for( Column eachCol : cols )
+		{
+			sb.append( eachCol.getDataProperty() + "," ); 
+		}
+		String hql = " SELECT " + sb.toString().substring( 0, sb.toString().length() - 1 ) + " FROM " + getSearchEntity();
+		if( basicDataQuery != null && basicDataQuery.length() > 0 )
+			hql = hql + " WHERE " + basicDataQuery;
+		Boolean containsFilter = false;
+		for( QueryFilter eachFilter : dataQueryFilters )
+		{
+			if( !eachFilter.getIsSessionValuedFilter() )
+			{
+				hql = eachFilter.getDataProperty() + " = '" + eachFilter.getDataPropertyValue() + "' and ";
+			}
+			else
+			{
+				hql = eachFilter.getDataProperty() + " = '" + eachFilter.getDataPropertyValue() + "' and ";
+//				hql = eachFilter.getDataProperty() + " = '" + AmazeSession.getPropertyValue(eachFilter.getDataPropertyValue() ) + "' and ";
+			}
+			containsFilter = true;
+		}
+		if( containsFilter )
+			hql = hql.substring( 0, hql.lastIndexOf( "and " ) );
+		return HibernateSession.pageFind( hql, limit != null ? Integer.valueOf( limit ) : 50, offset != null ? Integer.valueOf( offset ) : 0, sort, order, filterParams );
+	}
+
 }

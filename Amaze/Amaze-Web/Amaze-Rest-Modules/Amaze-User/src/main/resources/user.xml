@@ -6,9 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
-	<import resource="User.xml"/>
 
-	<bean id="accountScreen" class="org.amaze.rest.framework.search.DefaultSearch">
+	<bean id="user" class="org.amaze.rest.framework.search.DefaultSearch">
+		<property name="moduleName" value="Admin" />
 		<property name="screenName" value="User" />
 		<property name="searchEntity" value="User" />
 		<property name="screenButtons">
@@ -21,7 +21,7 @@
 		<property name="actionModel" ref="actionModel" />
 		<property name="columnModel" ref="columnModel" />
 		<property name="basicDataQuery" value="user.deleteFl = false" />
-		<property name="basicDataQueryFilters">
+		<property name="dataQueryFilters">
 			<list>
 			</list>
 		</property>
@@ -29,8 +29,6 @@
 	
 	<bean id="columnModel" class="org.amaze.rest.framework.columns.DefaultColumnModel">
 		<property name="modelName" value="ColumnModel" />
-		<property name="modelLenght" value="60%" />
-		<property name="modelWidth" value="100%" />
 		<property name="columns">
 			<list>
 				<ref bean="usrNameColumn"/>
@@ -69,30 +67,20 @@
 			</list>
 		</property>
 		<property name="modelName" value="UserActionModel" />
-		<property name="modelLenght" value="10%" />
-		<property name="modelWidth" value="100%" />
 	</bean>
 	
 	<bean id="newUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
 		<property name="modelName" value="new" />
-		<property name="modelLenght" value="10px" />
-		<property name="modelWidth" value="30px" />
 	</bean>
 	<bean id="editUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
 		<property name="modelName" value="edit" />
-		<property name="modelLenght" value="10px" />
-		<property name="modelWidth" value="30px" />
 	</bean>
 	<bean id="deleteUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
 		<property name="modelName" value="delete" />
-		<property name="modelLenght" value="10px" />
-		<property name="modelWidth" value="30px" />
 	</bean>
 	
 	<bean id="acceptUser" class="org.amaze.rest.framework.actions.DefaultActionItemModel">
 		<property name="modelName" value="accept" />
-		<property name="modelLenght" value="10px" />
-		<property name="modelWidth" value="30px" />
 	</bean>
 	
 	<bean id="commonActionGroupModel" class="org.amaze.rest.framework.actions.DefaultActionGroupModel">
@@ -125,8 +113,6 @@
 	</bean>
 	
 	<bean id="filterModel" class="org.amaze.rest.framework.filters.DefaultFilterModel">
-		<property name="modelLenght" value="15%" />
-		<property name="modelWidth" value="100%" />
 		<property name="modelName" value="advancedFilters" />
 		<property name="filters">
 			<list>
@@ -137,7 +123,7 @@
 	</bean>
 	
 	<bean id="nameFilter" class="org.amaze.rest.framework.filters.Filter">
-		<property name="entity" value="User" />
+		<property name="filterName" value="User Name" />
 		<property name="column" value="userName" />
 		<property name="columnType" value="Text" />
 		<property name="condition" value="like" />
@@ -149,7 +135,7 @@
 	</bean>
 	
 	<bean id="appFilter" class="org.amaze.rest.framework.filters.Filter">
-		<property name="entity" value="User" />
+		<property name="filterName" value="Application Name" />
 		<property name="column" value="application.appName" />
 		<property name="columnType" value="Text" />
 		<property name="condition" value="like" />
@@ -161,4 +147,3 @@
 	</bean>
 
 </beans>
-

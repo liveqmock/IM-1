@@ -3,7 +3,7 @@ package org.amaze.server.task.constants;
 public enum TaskStatus
 {
 
-	Created( "Created" ), Completed( "Completed" ), Failed( "Failed" ), ReScheduled ( "ReScheduled" );
+	Created( "Created" ), Started( "Started" ), Completed( "Completed" ), Failed( "Failed" ), ReScheduled ( "ReScheduled" );
 
 	private TaskStatus( String status )
 	{

@@ -1,28 +1,18 @@
 package org.amaze.rest.framework.query;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class QueryFilter
 {
-	private String entity;
 	private String dataProperty;
 	private String dataPropertyValue;
 	private Boolean isSessionValuedFilter;
 
-	public QueryFilter( String entity, String dataProperty, String dataPropertyValue, Boolean isSessionValuedFilter )
+	public QueryFilter( String dataProperty, String dataPropertyValue, Boolean isSessionValuedFilter )
 	{
-		this.entity = entity;
 		this.dataProperty = dataProperty;
 		this.dataPropertyValue = dataPropertyValue;
 		this.isSessionValuedFilter = isSessionValuedFilter;
-	}
-
-	public String getEntity()
-	{
-		return entity;
-	}
-
-	public void setEntity( String entity )
-	{
-		this.entity = entity;
 	}
 
 	public String getDataProperty()
@@ -55,9 +45,10 @@ public class QueryFilter
 		this.isSessionValuedFilter = isSessionValuedFilter;
 	}
 
-	public String getResponseJSString()
+	@Override
+	public String toString()
 	{
-		// TODO return the String response for the Query Filter
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
+
 }

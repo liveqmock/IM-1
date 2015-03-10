@@ -15,6 +15,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-framework.version>4.1.1.RELEASE</spring-framework.version>
 	</properties>
-	
-
+	<dependencies>
+		<dependency>
+			<groupId>org.amaze</groupId>
+			<artifactId>Amaze-Commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.amaze</groupId>
+			<artifactId>Amaze-DB</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

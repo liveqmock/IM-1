@@ -1,10 +1,49 @@
 package org.amaze.rest.framework.actions;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class DefaultActionItemModel implements ActionItemModel
 {
 	private String modelName;
-	private String width;
-	private String lenght;
+	private String relativeUrl;
+	private String actionClass;
+	private String detail;
+	
+	@Override
+	public String getDetail()
+	{
+		return detail;
+	}
+
+	@Override
+	public void setDetail( String detail )
+	{
+		this.detail = detail;
+	}
+
+	@Override
+	public String getActionClass()
+	{
+		return actionClass;
+	}
+
+	@Override
+	public void setActionClass( String actionClass )
+	{
+		this.actionClass = actionClass;
+	}
+
+	@Override
+	public String getRelativeUrl()
+	{
+		return relativeUrl;
+	}
+
+	@Override
+	public void setRelativeUrl( String relativeUrl )
+	{
+		this.relativeUrl = relativeUrl;
+	}
 
 	@Override
 	public String getModelName()
@@ -19,45 +58,9 @@ public class DefaultActionItemModel implements ActionItemModel
 	}
 
 	@Override
-	public String getModelWidth()
+	public String toString()
 	{
-		return this.width;
-	}
-
-	@Override
-	public void setModelWidth( String width )
-	{
-		this.width = width;
-	}
-
-	@Override
-	public String getModelLenght()
-	{
-		return lenght;
-	}
-
-	@Override
-	public void setModelLenght( String lenght )
-	{
-		this.lenght = lenght;
-	}
-
-	@Override
-	public Boolean isRendered( ActionContext context )
-	{
-		//TODO Check for the validation condition
-		return null;
-	}
-
-	@Override
-	public void execute( ActionContext context, String url )
-	{
-		
-	}
-	
-	public String getResponseJSString(){
-		// TODO Return the reponse for the model
-		return null;
+		return JsonConverter.fromJavaToJson( this );
 	}
 
 }

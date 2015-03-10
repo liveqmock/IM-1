@@ -68,7 +68,7 @@ for confirmation a new ConfirmationReponse is opened etc.
 Each Action has a URL
 	URL : localhost:8080/amaze/rest/search/action?actionName=ApproveUser&ids=1,3,54	
 	Then Resource.lookUpAction( String actionName )  returns action response Object which is child of the ActionResponse.
-	Then the action is injected through Resource and action to action() is called. The .
+	Then the action is injected through Resource and action to action() is called.
 	The ActionResponse which is sub class model class can be built inside the method.
 
 The detail model is built.
@@ -77,3 +77,12 @@ The detail model is built.
 The each Detail class as below would be a detail screen.
 @Detail( table="users" )
 DetailSearch
+
+================================================================================================================================================================
+
+1) Chart View Buttons.
+2) Action configure fire and get the detail and pop up modal.
+3) Filter three column approach.
+4) Disable id field in data table and remove from the column suppressor.
+5) Pages.
+6) Query filters applicable for the data query service.

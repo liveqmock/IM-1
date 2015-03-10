@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController
 {
 
+	/*
+	 *	For customized user session, like location details etc extends this bean and build a custom SessionBuilder and then wire it in here in the spring context file 
+	 */
 	@Autowired
 	SessionBuilder sessionBuilder;
 
@@ -74,6 +77,5 @@ public class LoginController
 		else
 			throw new LoginException( String.format( "Multiple Rows found for the UserName %1", name ) );
 	}
-
 	
 }

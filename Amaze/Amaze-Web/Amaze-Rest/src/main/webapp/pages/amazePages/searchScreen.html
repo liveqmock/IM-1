@@ -1,0 +1,144 @@
+<div>
+	<nav class="navbar" role="navigation">
+		<div id="navBar">
+			<ul class="nav navbar-nav">
+				<li class="dropdown" data-ng-repeat="(key, value) in modules"><a class="dropdown-toggle" data-toggle="dropdown"><span>{{ key }}</span><b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li class="navbar-default" data-ng-repeat="eachScreen in value"><a href="{{ screenNameBase + eachScreen.screenUrl }}" data-ng-click="doSearch( $event )">{{ eachScreen.screenName }}</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>
+<div id="screen">
+	<div id="action">
+		<div>
+			<div class="btn-group pull-right" data-ng-repeat="button in screen.searchButtons" align="right">
+				<button type="button" class="btn btn-default {{ button.style }}" data-url="{{ button.relativeUrl }}">{{ button.buttonName }}</button>
+			</div>
+		</div>
+		<div class="page-header">
+			<span class="glyphicon glyphicon-tasks"></span><span> {{ screen.name }} Search</span>
+		</div>
+		<div class="btn-group" data-ng-repeat="actionGroup in screen.actionModel">
+	  		<button type="button" class="btn btn-danger">{{ actionGroup.modelName }}</button>
+	  		<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	    		<span class="caret"></span>
+	    		<span class="sr-only"></span>
+	  		</button>
+	  		<ul class="dropdown-menu" role="menu">
+		    	<li class="navbar-default" data-ng-repeat="action in actionGroup.actionItemModels"><a href="{{ screenNameBase + eachScreen.screenUrl + screen.name + '/action/' + action.relativeUrl + '/' + action.detail }}" data-ng-click="doAction( $event )"><span>{{ action.modelName }}</span></a></li>
+	  		</ul>
+		</div>
+	</div>
+	<hr />
+	<div id="queryFilters">
+		<table class="table table-bordered " style="width: 50%; float: left;">
+			<!-- <tr data-ng-repeat="filter in screen.filterModel"> -->
+			<tr data-ng-repeat="n in [0, (screen.filterModel.length / 2) - 1 ] | range">
+				<td style="text-align: right; vertical-align: middle;"><label for="{{ screen.filterModel[n].column }}">{{ screen.filterModel[n].filterName }} :  </label></td>
+				<td><input style="width: 60%;  height: 28px; font-size: 15px; line-height: 14px;" type="text" class="form-control" name="x" id="{{ screen.filterModel[n].column }}" /></td>
+			</tr>
+		</table>
+		<table class="table table-bordered " style="width: 50%;">
+			<!-- <tr data-ng-repeat="filter in screen.filterModel"> -->
+			<tr data-ng-repeat="n in [(screen.filterModel.length / 2), screen.filterModel.length - 1 ] | range">
+				<td style="text-align: right; vertical-align: middle;"><label for="{{ screen.filterModel[n].column }}">{{ screen.filterModel[n].filterName }} :  </label></td>
+				<td><input style="width: 60%; height: 28px; font-size: 15px; line-height: 14px;" type="text" class="form-control" name="x" id="{{ screen.filterModel[n].column }}" /></td>
+			</tr>
+		</table>
+	</div>
+	<hr/>
+	<div class="columns columns-right btn-group pull-right" style="margin-right : 100px; margin-bottom: 10px;">
+		<button id="refresh" title="Refresh" name="refresh" type="button" class="btn btn-default">
+			<i class="glyphicon glyphicon-refresh icon-refresh"></i>
+		</button>
+		<div title="Columns" class="keep-open btn-group">
+			<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+				<i class="glyphicon glyphicon-th icon-th"></i>
+				<span class="caret"></span>
+			</button>
+			<ul id="colSuppresser" role="menu" class="dropdown-menu">
+				<li class="navbar-default" data-ng-repeat="eachColumn in screen.columnModel"><div style="margin-left: 10px; margin-right: 10px;"><input style="margin-right: 10px;" type="checkbox" checked="checked" value="{{ $index }}" name="{{ eachColumn.dataProperty }}"/>{{ eachColumn.columnName }}</div></li>
+			</ul>
+		</div>
+	</div>
+	<table id="dataTable1" class="table table-bordered table-hover">
+		<tr>
+			<th class="th-inner" style="width: 3%;"><input name="allSlctChck" type="checkbox"></th>
+			<th style="text-align: center;" data-ng-repeat="eachColumn in screen.columnModel" align="center" name="{{ eachColumn.dataProperty }}" id="" >{{ eachColumn.columnName }} <a id="headSort" name="{{ eachColumn.dataProperty }}" class="caret"></a></th>
+		</tr>
+		<tr data-ng-repeat="eachData in screen.data">
+			<td id="check" style="width: 3%;"><input name="slctChck" type="checkbox"></td>
+			<td id="dataTd" style="text-align: center;" data-ng-repeat="eachCol in eachData track by $index" value="{{$index}}">{{ eachCol }}</td>
+		</tr>
+		<tr>
+			<td style="text-align: center;" colspan="{{ screen.columnModel.length + 1 }}" data-ng-show="screen.data.empty"> No Records Found </td>
+		</tr>
+	</table>
+	<div class="fixed-table-pagination" data-ng-show="!screen.data.empty">
+		<div class="pull-left pagination-detail">
+			<span class="pagination-info"></span>
+			<span class="page-list">
+				<span class="btn-group dropup">
+					<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+						<span id="rppSpan" class="page-size">{{ screen.limit }}</span>
+						<span class="caret"></span>
+					</button>
+					<ul id="rppList" role="menu" class="dropdown-menu">
+						<li class="navbar-default" data-ng-repeat="n in [1,5,10,50,100] " value="{{$index + 1}}"><a>{{ n }}</a></li>
+					</ul>
+				</span>
+				Records Per Page
+			</span>
+		</div>
+		<div class="pull-right pagination" data-ng-show="!screen.data.empty">
+			<ul id="pagination" class="pagination">
+				<li id="firstPage"><a>&laquo;</a></li>
+				<li id="page{{ n  }}" data-ng-repeat="n in screen.data.pageList"><a>{{ n }}</a></li>
+				<li id="lastPage"><a>&raquo;</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div id="detailModalHeader" class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">{{ detail.detailName }}</h4>
+				</div>
+				<div id="detailModalContent">
+					<table class="table table-bordered " style="width: 50%; float: left;">
+						<tr data-ng-repeat="n in [0, (detail.widgetsLen / 2) - 1 ] | range">
+							<td style="text-align: right; vertical-align: middle;"><label for="{{ detail.widgets[n].bindField }}">{{ detail.widgets[n].widgetName  }} :  </label></td>
+							<td><input data-change="widgets" style="width: 60%;  height: 28px; font-size: 15px; line-height: 14px;" type="text" class="form-control" name="x" id="{{ detail.widgets[n].bindField }}" /></td>
+						</tr>
+					</table>
+					<table class="table table-bordered " style="width: 50%;">
+						<tr data-ng-repeat="n in [(detail.widgetsLen / 2), detail.widgetsLen - 1 ] | range">
+							<td style="text-align: right; vertical-align: middle;"><label for="{{ detail.widgets[n].bindField }}">{{ detail.widgets[n].widgetName }} :  </label></td>
+							<td><input data-change="widgets" style="width: 60%; height: 28px; font-size: 15px; line-height: 14px;" type="text" class="form-control" name="x" id="{{ detail.widgets[n].bindField }}" /></td>
+						</tr>
+					</table>
+				<!-- 
+				
+				
+					<table>
+						<tr>
+							<div data-ng-repat="widget in detail.widgets">
+							
+							</div>
+						</tr>
+					</table> -->
+				</div>
+				<div id="detailModalFooter" class="modal-footer">
+					<button type="button" class="btn btn-primary" data-ng-repeat="button in detail.detailButtons" data-url="{{ button.relativeUrl }}">{{ button.buttonName }}</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

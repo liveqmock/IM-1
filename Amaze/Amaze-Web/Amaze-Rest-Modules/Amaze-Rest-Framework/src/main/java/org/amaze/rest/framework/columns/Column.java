@@ -1,5 +1,7 @@
 package org.amaze.rest.framework.columns;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class Column
 {
 	private String entity;
@@ -13,6 +15,11 @@ public class Column
 		this.columnName = columnName;
 		this.dataProperty = dataProperty;
 		this.dataType = dataType;
+	}
+	
+	public Column()
+	{
+		
 	}
 
 	public String getEntity()
@@ -53,6 +60,12 @@ public class Column
 	public void setDataType( String dataType )
 	{
 		this.dataType = dataType;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return JsonConverter.fromJavaToJson( this );
 	}
 
 }

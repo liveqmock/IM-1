@@ -2,22 +2,25 @@ package org.amaze.rest.framework.columns;
 
 import java.util.List;
 
+import org.amaze.commons.converters.JsonConverter;
+
 public class DefaultColumnModel implements ColumnModel
 {
 	private String modelName;
-	private String width;
-	private String lenght;
-	
+
 	private List<Column> columns;
-	
-	public DefaultColumnModel( String modelName, String width, String lenght, List<Column> columns )
+
+	public DefaultColumnModel( String modelName, List<Column> columns )
 	{
 		this.modelName = modelName;
-		this.width = width;
-		this.lenght = lenght;
 		this.columns = columns;
 	}
 	
+	public DefaultColumnModel()
+	{
+		
+	}
+
 	@Override
 	public String getModelName()
 	{
@@ -28,37 +31,6 @@ public class DefaultColumnModel implements ColumnModel
 	public void setModelName( String name )
 	{
 		this.modelName = name;
-	}
-
-	@Override
-	public String getModelWidth()
-	{
-		return width;
-	}
-
-	@Override
-	public void setModelWidth( String width )
-	{
-		this.width = width;
-	}
-
-	@Override
-	public String getModelLenght()
-	{
-		return lenght;
-	}
-
-	@Override
-	public void setModelLenght( String lenght )
-	{
-		this.lenght = lenght;
-	}
-
-	@Override
-	public String getResponseJSString()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -77,6 +49,12 @@ public class DefaultColumnModel implements ColumnModel
 	public void addColumn( Column column )
 	{
 		this.columns.add( column );
+	}
+	
+	@Override
+	public String toString()
+	{
+		return JsonConverter.fromJavaToJson( this );
 	}
 
 }
