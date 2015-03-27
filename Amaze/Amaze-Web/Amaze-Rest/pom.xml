@@ -59,21 +59,10 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>3.2.6.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>3.2.6.RELEASE</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>1.1.10.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.amaze</groupId>
 			<artifactId>Amaze-User</artifactId>

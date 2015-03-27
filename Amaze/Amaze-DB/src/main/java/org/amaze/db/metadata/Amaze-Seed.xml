@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SeedData>
+
 	<Applications>
 		<Application AppName="Amaze" AppCreatedDttm="now" AppVersion="1"/>
+		<Application AppName="Demo" AppCreatedDttm="now" AppVersion="1"/>
 	</Applications>
+	
+	<Roles>
+		<Role RolName="admin@amaze.com" AppIdRef="Application.appName=Amaze"  RolCreatedDttm="now" RolDeleteFl="N" RolVersion="1" />
+		<Role RolName="admin@demo.com" AppIdRef="Application.appName=Demo" RolCreatedDttm="now" RolDeleteFl="N" RolVersion="1" />
+	</Roles>
+	
 	<Userss>
-		<Users UsrName="Admin" UsrDisabled="true" AppIdRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
+		<Users UsrName="root@amaze.com" UsrDisabled="false" AppIdRef="Application.appName=Amaze" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
+		<Users UsrName="admin@demo.com" UsrDisabled="false" AppIdRef="Application.appName=Demo" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
+		<Users UsrName="myuser@demo.com" UsrDisabled="false" AppIdRef="Application.appName=Demo" UsrCreatedDttm="now" UsrDeleteFl="N" UsrVersion="1" />
 	</Userss>
+	
+	<UserPasswords>
+		<UserPassword UsrIdRef="Users.usrName=root@amaze.com" UpwPassword="admin" UpwCreatedDttm="now" UpwDeleteFl="N" UpwVersion="1" />
+		<UserPassword UsrIdRef="Users.usrName=admin@demo.com" UpwPassword="admin" UpwCreatedDttm="now" UpwDeleteFl="N" UpwVersion="1" />
+		<UserPassword UsrIdRef="Users.usrName=myuser@demo.com" UpwPassword="admin" UpwCreatedDttm="now" UpwDeleteFl="N" UpwVersion="1" />
+	</UserPasswords>
+	
+	<Modules>
+		<Module ModName="configAdmin" ModDisplay="Config Admin" ModUrl="/configAdmin" ModCreatedDttm="now" ModDeleteFl="N" ModVersion="1" />
+		<Module ModName="config" ModDisplay="Config" ModUrl="/config" ModCreatedDttm="now" ModDeleteFl="N" ModVersion="1" />
+		<Module ModName="reportsAdmin" ModDisplay="Reports Admin" ModUrl="/reportsAdmin" ModCreatedDttm="now" ModDeleteFl="N" ModVersion="1" />
+		<Module ModName="reports" ModDisplay="Reports" ModUrl="/reports" ModCreatedDttm="now" ModDeleteFl="N" ModVersion="1" />
+		<Module ModName="applicationAdmin" ModDisplay="Config" ModUrl="/appAdmin" ModCreatedDttm="now" ModDeleteFl="N" ModVersion="1" />
+	</Modules>
+	
+	<ModuleRoleMaps>
+		<ModuleRoleMap ModIdRef="Module.modName=configAdmin" RolIdRef="Role.rolName=admin@demo.com" MrmCreatedDttm="now" MrmDeleteFl="N" MrmVersion="1" />
+		<ModuleRoleMap ModIdRef="Module.modName=config" RolIdRef="Role.rolName=admin@demo.com" MrmCreatedDttm="now" MrmDeleteFl="N" MrmVersion="1" />
+		<ModuleRoleMap ModIdRef="Module.modName=reportsAdmin" RolIdRef="Role.rolName=admin@demo.com" MrmCreatedDttm="now" MrmDeleteFl="N" MrmVersion="1" />
+		<ModuleRoleMap ModIdRef="Module.modName=reports" RolIdRef="Role.rolName=admin@demo.com" MrmCreatedDttm="now" MrmDeleteFl="N" MrmVersion="1" />
+	</ModuleRoleMaps>
+
+	<UserRoleMaps>
+		<UserRoleMap UsrIdRef="Users.usrName=admin@demo.com" RolIdRef="Role.rolName=admin@demo.com" UrmCreatedDttm="now" UrmDeleteFl="N" UrmVersion="1" />
+		<UserRoleMap UsrIdRef="Users.usrName=myuser@demo.com" RolIdRef="Role.rolName=admin@demo.com" UrmCreatedDttm="now" UrmDeleteFl="N" UrmVersion="1" />
+	</UserRoleMaps>
+	
 	<TableTypes>
 		<TableType TtpName="System" TtpCreatedDttm="now" TtpDeleteFl="N" TtpVersion="1" />
 	</TableTypes>

@@ -56,9 +56,9 @@ amazeApp.config(['$routeProvider',
                 templateUrl: 'pages/amazePages/profile.html',
                 controller: 'ProfileController'
             }).
-            when('/signout', {
-                templateUrl: '/signout',
-                controller: 'SignOutController'
+            when('/logout', {
+            	template: " ",
+            	controller: 'LogoutController'
             }).
             when('/search', {
                 templateUrl: 'pages/amazePages/search.html',
@@ -154,11 +154,18 @@ amazeApp.controller('TaskController', function($scope) {
 });
 
 amazeApp.controller('ProfileController', function($scope) {
-	alert("Profile");
+	
 });
 
-amazeApp.controller('SignOutController', function($scope) {
-	alert("Signout");
+amazeApp.controller('LogoutController', function($scope) {
+	data = { logout : true };
+	$.post("AmazeRest/logout", data, function(data, status) {
+		if( data.errorMessage == null ){
+			$(location).attr('href','amazelogin.html');
+		}else{
+			alert(data.errorMessage);
+		}
+	});
 });
 
 amazeApp.controller('SearchController', function($scope) {
@@ -365,34 +372,90 @@ httpPost.error(function(data, status, headers, config) {
 	$.fn.renderComponent = function( name, type, condition, index ) {
 		switch(type) {
 		    case "TextBox": {
-		    		this.append('<label>'+ name + ' : </label>' + 
-		    						'<input type="text" class="form-control" placeholder="' + condition.placeHolder + '" + name="' + condition.property + '" id="textbox" value="" >'
-		    					);
+		    		this.append('<div class="form-group"><label> ' + name + '</label><input type="text" class="form-control" id="inputText" placeholder="' + condition.placeHolder + '" +  name="' + condition.property + '" mandatory="' + condition.mandatory + '"></div>');
 		        }
 		        break;
 		    case "TextArea": {
-		    		
-		        }
+		    		this.append('<div class="form-group"><label>' + name + '</label><textarea class="form-control" id="textarea" placeholder="' + condition.placeHolder + '" + name="' + condition.property + '" rows="' + condition.rows + '" mandatory="' + condition.mandatory + '"></textarea></div>');
+		    	}
 		        break;
 		    case "Integer": {
-	    		
+		    		this.append('<div class="form-group"><label> ' + name + '</label><input type="text" class="form-control" id="inputInteger" placeholder="' + condition.placeHolder + '" +  name="' + condition.property + '"></div>');
 		        }
 		        break;
 		    case "Boolean": {
-	    		
+		    		this.append('<div class="checkbox-inline"><label><input type="checkbox" value="" name="' + condition.property + '">'+ name + ' : </label></div>');
 		        }
 		        break;
 		    case "DropDown": {
-	    		
+		    		var optionString = '';
+		    		if( condition.type == 'static' ) {
+		    			var options = condition.options;
+		    			for( var i = 0; i < options.length; i++ ) {
+		    				optionString = optionString + '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">' + options[i] + '</a></li>';
+		    			}
+		    		}
+		    		else if( condition.type == 'dynamic' ) {
+		    			var params = {};
+		    			params.query = condition.query;
+		    			$.get( dataUrl, params, function( data ) {
+		    				for( var i = 0;i < data.length; i++ ) {
+		    					optionString = optionString + '<li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="' + data[i].value + '">' + data[i].name + '</a></li>';
+		    				}
+		    			});
+		    		}
+		    		this.append('<div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown" aria-expanded="true">' + name + '<span class="caret"></span></button>'
+		    				+ '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">' + optionString + '</ul></div>');
 		        }
 			    break;
-		    case "EntitySearch": {
-	    		
+		    case "EntitySearch" : {
+		    		this.append('<div class="input-group"><input type="text" class="form-control" placeholder="' + condition.placeholder + '" aria-describedby="basic-addon2"><span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"/></span></div>');
 		        }
 		        break;
-		    default: {
-		    	throw new Error("Invalid Component Type. Unknown to the Render Component Plugin. ");
+		    default : {
+		    	throw new Error( "Invalid Component Type. Unknown to the Render Component Plugin... " );
 		    }
 		}
 	};
 }( jQuery ));
+
+
+$('#inputInteger').on('change',function(){
+	if(isNaN($(this).value())){
+		$(this).error = 'Only can take integer nos';
+		$(this).parent().addClass('warning');
+	}
+	else{
+		$(this).error = '';
+		$(this).parent().removeClass('warning');
+	}
+});
+
+$('#inputText').on('submit',function(){
+	if($(this).value() != true ) 
+		
+});
+
+$('#inputText').on('submit',function(){
+	if($(this).attr("mandatory") == true ) 
+		if( $(this).value().lenght == 0 ){
+			$(this).error = 'Value cannot be empty';
+			$(this).parent().addClass('warning');
+		}
+});
+
+$('#textarea').on('submit',function(){
+	if($(this).attr("mandatory") == true ) 
+		if( $(this).value().lenght == 0 ){
+			$(this).error = 'Value cannot be empty';
+			$(this).parent().addClass('warning');
+		}
+});
+
+$('#inputText').on('submit',function(){
+	if($(this).attr("mandatory") == true )
+		if( $(this).value().lenght == 0 ){
+			$(this).error = 'Value cannot be empty';
+			$(this).parent().addClass('warning');
+		}
+});

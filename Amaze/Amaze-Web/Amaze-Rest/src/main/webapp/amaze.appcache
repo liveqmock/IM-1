@@ -1,0 +1,26 @@
+CACHE MANIFEST
+ 
+/styles/bootstrap.min.css
+/styles/font-awesome.min.css
+/styles/ionicons.min.css
+/styles/bootstrap-dialog.min.css
+/styles/amazebasic.css
+
+/script/jquery.min.js
+/script/angular.js
+/script/angular-route.js
+/script/bootstrap.min.js
+/script/bootstrap-dialog.min.js
+/script/amazebasic.js
+
+/logo.gif
+
+
+NETWORK:
+*
+
+FALLBACK:
+/html/ /offline.html
+
+
+# In development mode change this comment so that server would recache the appcache   

@@ -11,12 +11,16 @@
 			classpath:rest.xml
 			classpath:db.xml
 			classpath:framework.xml
-			/WEB-INF/AmazeRest-servlet.xml
+			classpath:security.xml
 		</param-value>
 	</context-param>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
 	<servlet>
@@ -28,29 +32,36 @@
 		<servlet-name>AmazeRest</servlet-name>
 		<url-pattern>/AmazeRest/*</url-pattern>
 	</servlet-mapping>
+
+	<filter>
+		<filter-name>AmazeSessionFilter</filter-name>
+		<filter-class>org.amaze.web.security.filters.AmazeSessionFilter</filter-class>
+		<init-param>
+			<param-name>LoginUrl</param-name>
+			<param-value>amazelogin.html</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Exclusions</param-name>
+			<param-value>.*css,.*png,.*gif,.*js,.*/images/.*,.*/fonts/.*,.*/amazelogin.html,.*/AmazeRest/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>RestServiceBaseUrl</param-name>
+			<param-value>/AmazeRest/.*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>SessionTimeout</param-name>
+			<param-value>1800</param-value>
+		</init-param>
+		<init-param>
+			<param-name>HomePage</param-name>
+			<param-value>index.html</param-value>
+		</init-param>
+		
+	</filter>
 	
-	<!-- <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter> -->
-
-    <filter>
-        <filter-name>encoding-filter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>encoding-filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <!-- <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping> -->
-
+	<filter-mapping>
+		<filter-name>AmazeSessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 </web-app>

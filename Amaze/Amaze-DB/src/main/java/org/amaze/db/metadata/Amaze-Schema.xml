@@ -105,6 +105,7 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes/>
 				<NestedCollections />
 			</Table>
+
 			<Table TableName="application" TablePrefix="app" DisplayName="app_name" >
 				<Columns>
 					<Column ColumnName="app_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
@@ -160,10 +161,42 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 				<Indexes />
 				<NestedCollections />
 			</Table>
+			<Table TableName="users_profile" TablePrefix="usp" DisplayName="usp_name">
+				<Columns>
+					<Column ColumnName="usp_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
+					<Column ColumnName="usr_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Users"/>
+					<Column ColumnName="usp_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="usp_designation" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="usp_location" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="usp_webpage" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="usp_status" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="fil_id" DataType="Integer" Length="0" IsMandatory="false" IsPrimaryKey="false" NestedObject="File"/>
+					<Column ColumnName="usp_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="usp_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="usp_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes>
+           			<Index IndexName="users_profile_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="usr_id" Condition="" />
+         		</Indexes>
+         		<NestedCollections />
+			</Table>
+			<Table TableName="file" TablePrefix="fil" DisplayName="fil_name">
+				<Columns>
+					<Column ColumnName="fil_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
+					<Column ColumnName="fil_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="fil_path" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="fil_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="fil_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+           			<Column ColumnName="fil_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+				</Columns>
+				<Indexes />
+         		<NestedCollections />
+			</Table>
 			<Table TableName="role" TablePrefix="rol" DisplayName="rol_name">
 				<Columns>
 					<Column ColumnName="rol_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
 					<Column ColumnName="rol_name" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="app_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject="Application"/>
 					<Column ColumnName="rol_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="rol_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="rol_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
@@ -191,17 +224,15 @@ MajorVersion="1" MinorVersion="0" ServicePack="0" IsExtension="false" ParentName
 			<Table TableName="module" TablePrefix="mod" DisplayName="module_display">
 				<Columns>
 					<Column ColumnName="mod_id" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="true" NestedObject=""/>
-					<Column ColumnName="module_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="module_display" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="mod_name" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
+					<Column ColumnName="mod_display" DataType="String" Length="255" IsMandatory="false" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="mod_url" DataType="String" Length="255" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="is_admin_mod" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
-					<Column ColumnName="is_session_attached" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="mod_created_dttm" DataType="DateTime" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 					<Column ColumnName="mod_delete_fl" DataType="Boolean" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
            			<Column ColumnName="mod_version" DataType="Integer" Length="0" IsMandatory="true" IsPrimaryKey="false" NestedObject=""/>
 				</Columns>
 				<Indexes>
-					<Index IndexName="module_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="module_name,mod_url" Condition="" />
+					<Index IndexName="module_uq1" IsUnique="true" IsClustered="false" IsBusinessConstraint="false" ColumnList="mod_name,mod_url" Condition="" />
          		</Indexes>
 				<NestedCollections>
 					<NestedCollection PropertyName="moduleRoleMaps" ForeignObjectMappingName="ModuleRoleMap" ForeignPropertyName="modId" />

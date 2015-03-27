@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.amaze.web.rest.AmazeRestUrls;
 import org.amaze.web.rest.controllers.resource.ResourceManager;
 import org.amaze.web.utils.SearchScreenHolder;
@@ -23,8 +26,9 @@ public class SearchScreenController
 	private ResourceManager resourceManager;
 
 	@RequestMapping( value = AmazeRestUrls.SEARCHSCREEN_URL + "/search", method = RequestMethod.GET, headers = AmazeRestUrls.ACCEPT_JSON_HEADER )
-	public @ResponseBody Map<String, List<SearchScreenHolder>> search()
+	public @ResponseBody Map<String, List<SearchScreenHolder>> search( HttpServletRequest request, HttpSession httpSession )
 	{
+		httpSession.setAttribute( "time", "1TIme" );
 		Map<String, List<SearchScreenHolder>> allSearches = resourceManager.getAllSearches();
 		return allSearches;
 	}
